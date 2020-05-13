@@ -10,13 +10,13 @@ type Props = {
   icon?: Node,
   text: string,
   value: boolean,
-  onPress: () => void
+  onPress: () => void,
 }
 
 /**
  * A settings row with a switch component on the right side.
  */
-export function SettingsSwitchRow (props: Props): Node {
+export function SettingsSwitchRow(props: Props): Node {
   const { disabled = false, icon, text, value, onPress } = props
 
   const right = <Switch disabled={disabled} onChange={onPress} value={value} />

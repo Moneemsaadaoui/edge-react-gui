@@ -33,20 +33,20 @@ export type State = {
   rejectLoading: boolean,
   addressCachedUpdated: boolean,
   fioRequestsPending: FioRequest[],
-  fioRequestsSent: FioRequest[]
+  fioRequestsSent: FioRequest[],
 }
 
 export type StateProps = {
   account: EdgeAccount,
   wallets: { [walletId: string]: GuiWallet },
   fioWallets: EdgeCurrencyWallet[],
-  isConnected: boolean
+  isConnected: boolean,
 }
 
 export class FioRequestList extends Component<StateProps, State> {
   headerIconSize = THEME.rem(1.375)
 
-  constructor (props: StateProps) {
+  constructor(props: StateProps) {
     super(props)
     this.state = {
       loadingPending: true,
@@ -54,7 +54,7 @@ export class FioRequestList extends Component<StateProps, State> {
       addressCachedUpdated: false,
       rejectLoading: false,
       fioRequestsPending: [],
-      fioRequestsSent: []
+      fioRequestsSent: [],
     }
     slowlog(this, /.*/, global.slowlogOptions)
   }
@@ -96,10 +96,10 @@ export class FioRequestList extends Component<StateProps, State> {
               if (requests) {
                 fioRequestsPending = [
                   ...fioRequestsPending,
-                  ...requests.map(request => {
+                  ...requests.map((request) => {
                     request.fioWalletId = wallet.id
                     return request
-                  })
+                  }),
                 ]
               } else {
                 showError(s.strings.fio_get_requests_error)
@@ -148,7 +148,7 @@ export class FioRequestList extends Component<StateProps, State> {
 
   removeFioPendingRequest = (requestId: string): void => {
     const { fioRequestsPending } = this.state
-    this.setState({ fioRequestsPending: fioRequestsPending.filter(item => parseInt(item.fio_request_id) !== parseInt(requestId)) })
+    this.setState({ fioRequestsPending: fioRequestsPending.filter((item) => parseInt(item.fio_request_id) !== parseInt(requestId)) })
   }
 
   closeRow = (rowMap: { [string]: SwipeRow }, rowKey: string) => {
@@ -164,7 +164,7 @@ export class FioRequestList extends Component<StateProps, State> {
     }
     this.setState({ rejectLoading: true })
     const { fioWallets } = this.props
-    const fioWallet = fioWallets.find(wallet => wallet.id === request.fioWalletId)
+    const fioWallet = fioWallets.find((wallet) => wallet.id === request.fioWalletId)
 
     if (fioWallet) {
       try {
@@ -193,9 +193,9 @@ export class FioRequestList extends Component<StateProps, State> {
         {
           text: s.strings.string_cancel_cap,
           onPress: () => this.closeRow(rowMap, rowKey),
-          style: 'cancel'
+          style: 'cancel',
         },
-        { text: s.strings.fio_reject_request_yes, onPress: () => this.rejectFioRequest(rowMap, rowKey, request, payerFioAddress) }
+        { text: s.strings.fio_reject_request_yes, onPress: () => this.rejectFioRequest(rowMap, rowKey, request, payerFioAddress) },
       ],
       { cancelable: false }
     )
@@ -271,7 +271,7 @@ export class FioRequestList extends Component<StateProps, State> {
     return headers
   }
 
-  listKeyExtractor (item: FioRequest) {
+  listKeyExtractor(item: FioRequest) {
     return item.fio_request_id.toString()
   }
 
@@ -294,7 +294,7 @@ export class FioRequestList extends Component<StateProps, State> {
       index + 1 === this.state.fioRequestsSent.length ||
       (index > 0 &&
         intl.formatExpDate(new Date(this.state.fioRequestsSent[index + 1].time_stamp), true) !== intl.formatExpDate(new Date(fioRequest.time_stamp), true))
-    return <FioRequestRow fioRequest={fioRequest} onSelect={this.selectSentRequest} isSent={true} isHeaderRow={isHeaderRow} isLastOfDate={isLastOfDate} />
+    return <FioRequestRow fioRequest={fioRequest} onSelect={this.selectSentRequest} isSent isHeaderRow={isHeaderRow} isLastOfDate={isLastOfDate} />
   }
 
   renderHiddenItem = (rowObj: { item: FioRequest }, rowMap: { [string]: SwipeRow }) => {
@@ -302,7 +302,7 @@ export class FioRequestList extends Component<StateProps, State> {
       <View style={requestListStyles.rowBack}>
         <TouchableOpacity
           style={[requestListStyles.backRightBtn, requestListStyles.backRightBtnRight]}
-          onPress={_ => this.rejectRowConfirm(rowMap, rowObj.item.fio_request_id.toString(), rowObj.item, rowObj.item.payer_fio_address)}
+          onPress={(_) => this.rejectRowConfirm(rowMap, rowObj.item.fio_request_id.toString(), rowObj.item, rowObj.item.payer_fio_address)}
         >
           <T style={requestListStyles.backTextWhite}>{s.strings.swap_terms_reject_button}</T>
         </TouchableOpacity>
@@ -310,7 +310,7 @@ export class FioRequestList extends Component<StateProps, State> {
     )
   }
 
-  render () {
+  render() {
     const { loadingPending, loadingSent, rejectLoading, fioRequestsPending, fioRequestsSent } = this.state
 
     return (
@@ -325,7 +325,7 @@ export class FioRequestList extends Component<StateProps, State> {
               </View>
             ) : null}
             <View style={requestListStyles.container}>
-              {loadingPending && <ActivityIndicator style={requestListStyles.loading} size={'small'} />}
+              {loadingPending && <ActivityIndicator style={requestListStyles.loading} size="small" />}
               <SwipeListView
                 useSectionList
                 sections={this.pendingRequestHeaders()}
@@ -334,7 +334,7 @@ export class FioRequestList extends Component<StateProps, State> {
                 renderHiddenItem={this.renderHiddenItem}
                 renderSectionHeader={this.headerRowUsingTitle}
                 rightOpenValue={requestListStyles.swipeRow.right}
-                disableRightSwipe={true}
+                disableRightSwipe
               />
             </View>
           </View>
@@ -348,14 +348,14 @@ export class FioRequestList extends Component<StateProps, State> {
             <View style={requestListStyles.scrollView}>
               <View style={requestListStyles.container}>
                 <View style={requestListStyles.requestsWrap}>
-                  {loadingSent && <ActivityIndicator style={requestListStyles.loading} size={'small'} />}
+                  {loadingSent && <ActivityIndicator style={requestListStyles.loading} size="small" />}
                   <FlatList
                     style={styles.transactionsScrollWrap}
                     data={fioRequestsSent}
                     renderItem={this.renderSent}
                     initialNumToRender={fioRequestsSent ? fioRequestsSent.length : 0}
                     onEndReachedThreshold={SCROLL_THRESHOLD}
-                    keyExtractor={item => item.fio_request_id.toString()}
+                    keyExtractor={(item) => item.fio_request_id.toString()}
                   />
                 </View>
               </View>

@@ -8,45 +8,45 @@ import { scale } from '../../util/scaling.js'
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingHorizontal: scale(20)
+    paddingHorizontal: scale(20),
   },
   leftArea: {
-    flexDirection: 'row'
+    flexDirection: 'row',
   },
   icon: {
     backgroundColor: THEME.COLORS.TRANSPARENT,
     fontSize: scale(22),
-    color: THEME.COLORS.WHITE
+    color: THEME.COLORS.WHITE,
   },
 
   instructionalArea: {
     paddingVertical: scale(16),
-    paddingHorizontal: scale(20)
+    paddingHorizontal: scale(20),
   },
   instructionalText: {
     fontSize: scale(16),
-    textAlign: 'center'
+    textAlign: 'center',
   },
 
   nameArea: {
-    height: scale(70)
+    height: scale(70),
   },
   currencyCodeArea: {
-    height: scale(70)
+    height: scale(70),
   },
   contractAddressArea: {
-    height: scale(70)
+    height: scale(70),
   },
   decimalPlacesArea: {
-    height: scale(70)
+    height: scale(70),
   },
   errorMessageArea: {
     height: scale(16),
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   errorMessageText: {
-    color: THEME.COLORS.ACCENT_RED
+    color: THEME.COLORS.ACCENT_RED,
   },
   buttonsArea: {
     marginTop: scale(16),
@@ -55,25 +55,25 @@ export const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     alignSelf: 'flex-end',
-    paddingVertical: scale(4)
+    paddingVertical: scale(4),
   },
   addButton: {
     flex: 1,
     marginRight: scale(2),
     backgroundColor: THEME.COLORS.GRAY_2,
-    borderRadius: scale(3)
+    borderRadius: scale(3),
   },
   buttonText: {
     color: THEME.COLORS.WHITE,
-    fontSize: scale(18)
+    fontSize: scale(18),
   },
   saveButton: {
     flex: 1,
     marginLeft: scale(2),
     backgroundColor: THEME.COLORS.SECONDARY,
-    borderRadius: 3
+    borderRadius: 3,
   },
   bottomPaddingForKeyboard: {
-    height: scale(300)
-  }
+    height: scale(300),
+  },
 })

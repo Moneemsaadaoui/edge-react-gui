@@ -24,18 +24,18 @@ const DIVIDE_PRECISION = 18
 
 type OwnProps = {
   guiWallet: GuiWallet,
-  showBalance: boolean | ((state: ReduxState) => boolean)
+  showBalance: boolean | ((state: ReduxState) => boolean),
 }
 type StateProps = {
   exchangeRates: ExchangeRatesState,
   showBalance: boolean,
   settings: SettingsState,
-  walletFiatSymbol: string | void
+  walletFiatSymbol: string | void,
 }
 type Props = OwnProps & StateProps
 
 class WalletListSortableRowComponent extends Component<Props> {
-  render () {
+  render() {
     const { guiWallet, walletFiatSymbol, settings, exchangeRates, showBalance } = this.props
     // $FlowFixMe react-native-sortable-listview sneakily injects this prop:
     const { sortHandlers } = this.props
@@ -56,8 +56,8 @@ class WalletListSortableRowComponent extends Component<Props> {
 
     return (
       <TouchableHighlight style={[styles.rowContainer, styles.sortableWalletListRow]} underlayColor={THEME.COLORS.ROW_PRESSED} {...sortHandlers}>
-        <View style={[styles.rowContent]}>
-          <View style={[styles.rowDragArea]}>
+        <View style={styles.rowContent}>
+          <View style={styles.rowDragArea}>
             <Image source={sort} style={styles.rowDragIcon} />
           </View>
           <View style={styles.rowIconWrap}>
@@ -71,14 +71,14 @@ class WalletListSortableRowComponent extends Component<Props> {
           </View>
           <View style={styles.walletDetailsContainer}>
             <View style={styles.walletDetailsRow}>
-              <T style={[styles.walletDetailsRowCurrency]}>{currencyCode}</T>
-              <T style={[styles.walletDetailsRowValue]}>{finalCryptoAmountString}</T>
+              <T style={styles.walletDetailsRowCurrency}>{currencyCode}</T>
+              <T style={styles.walletDetailsRowValue}>{finalCryptoAmountString}</T>
             </View>
             <View style={styles.walletDetailsRow}>
-              <T style={[styles.walletDetailsRowName]}>{name}</T>
+              <T style={styles.walletDetailsRowName}>{name}</T>
               <View style={styles.walletDetailsFiatBalanceRow}>
-                <T style={[styles.walletDetailsRowFiat]}>{fiatBalanceSymbol}</T>
-                <T style={[styles.walletDetailsRowFiat]}>{fiatBalanceString}</T>
+                <T style={styles.walletDetailsRowFiat}>{fiatBalanceSymbol}</T>
+                <T style={styles.walletDetailsRowFiat}>{fiatBalanceString}</T>
               </View>
             </View>
           </View>
@@ -97,7 +97,7 @@ const rawStyles = {
     paddingHorizontal: scale(20),
     justifyContent: 'space-between',
     borderBottomWidth: scale(1),
-    borderColor: THEME.COLORS.WHITE
+    borderColor: THEME.COLORS.WHITE,
   },
   rowContainer: {
     padding: scale(6),
@@ -105,77 +105,75 @@ const rawStyles = {
     height: scale(106),
     backgroundColor: THEME.COLORS.WHITE,
     borderBottomWidth: scale(1),
-    borderBottomColor: THEME.COLORS.GRAY_3
+    borderBottomColor: THEME.COLORS.GRAY_3,
   },
   rowContent: {
     flex: 1,
-    flexDirection: 'row'
+    flexDirection: 'row',
   },
   rowIconWrap: {
     alignItems: 'center',
     justifyContent: 'center',
-    width: scale(36)
+    width: scale(36),
   },
   rowDragArea: {
     justifyContent: 'center',
     marginRight: scale(10),
-    marginLeft: scale(4)
+    marginLeft: scale(4),
   },
   rowDragCurrencyLogo: {
     height: scale(22),
     width: scale(22),
     marginRight: scale(5),
     resizeMode: 'contain',
-    alignSelf: 'center'
+    alignSelf: 'center',
   },
   rowDragIcon: {
     top: scale(2),
     height: scale(15),
-    width: scale(15)
+    width: scale(15),
   },
   symbol: {
-    fontFamily: THEME.FONTS.SYMBOLS
+    fontFamily: THEME.FONTS.SYMBOLS,
   },
   walletDetailsContainer: {
     flex: 1,
     flexDirection: 'column',
-    marginTop: scale(5)
+    marginTop: scale(5),
   },
   walletDetailsRow: {
     flexDirection: 'row',
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   walletDetailsRowCurrency: {
     flex: 1,
-    fontSize: scale(18)
+    fontSize: scale(18),
   },
   walletDetailsRowValue: {
     textAlign: 'right',
     fontSize: scale(18),
-    color: THEME.COLORS.GRAY_1
+    color: THEME.COLORS.GRAY_1,
   },
   walletDetailsRowName: {
     flex: 1,
     fontSize: scale(14),
-    color: THEME.COLORS.SECONDARY
+    color: THEME.COLORS.SECONDARY,
   },
   walletDetailsRowFiat: {
     fontSize: scale(14),
     textAlign: 'right',
-    color: THEME.COLORS.SECONDARY
+    color: THEME.COLORS.SECONDARY,
   },
   walletDetailsFiatBalanceRow: {
-    flexDirection: 'row'
-  }
+    flexDirection: 'row',
+  },
 }
 const styles: typeof rawStyles = StyleSheet.create(rawStyles)
 
-export const WalletListSortableRow = connect(
-  (state: ReduxState, ownProps: OwnProps): StateProps => ({
-    showBalance: typeof ownProps.showBalance === 'function' ? ownProps.showBalance(state) : ownProps.showBalance,
-    settings: state.ui.settings,
-    exchangeRates: state.exchangeRates,
-    walletFiatSymbol: getFiatSymbol(ownProps.guiWallet.isoFiatCurrencyCode)
-  })
-)(WalletListSortableRowComponent)
+export const WalletListSortableRow = connect((state: ReduxState, ownProps: OwnProps): StateProps => ({
+  showBalance: typeof ownProps.showBalance === 'function' ? ownProps.showBalance(state) : ownProps.showBalance,
+  settings: state.ui.settings,
+  exchangeRates: state.exchangeRates,
+  walletFiatSymbol: getFiatSymbol(ownProps.guiWallet.isoFiatCurrencyCode),
+}))(WalletListSortableRowComponent)

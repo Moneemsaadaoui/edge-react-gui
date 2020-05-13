@@ -24,28 +24,28 @@ type Props = {
   otpKey?: string,
   otpResetDate?: string,
   enableOtp(): void,
-  disableOtp(): void
+  disableOtp(): void,
 }
 
 type State = {
   showMessageModal: boolean,
   messageModalMessage: string | null,
-  messageModalComponent?: any
+  messageModalComponent?: any,
 }
 
 export default class OtpSettingsScene extends Component<Props, State> {
-  constructor (props: Props) {
+  constructor(props: Props) {
     super(props)
     this.state = {
       showMessageModal: false,
-      messageModalMessage: ''
+      messageModalMessage: '',
     }
   }
 
   cancelStatic = () => {
     this.setState({
       showMessageModal: false,
-      messageModalMessage: ''
+      messageModalMessage: '',
     })
   }
 
@@ -56,7 +56,7 @@ export default class OtpSettingsScene extends Component<Props, State> {
       message: s.strings.otp_modal_body,
       icon: <Image source={iconImage} />,
       yesButtonText: s.strings.otp_disable,
-      noButtonText: s.strings.string_cancel_cap
+      noButtonText: s.strings.string_cancel_cap,
     })
 
     const resolveValue = await launchModal(confirmDisableModal)
@@ -70,7 +70,7 @@ export default class OtpSettingsScene extends Component<Props, State> {
     const afterDisableModal = createStaticModal({
       message: s.strings.otp_disabled_modal,
       icon: <Icon style={styles.icon} name={Constants.CHECK_CIRCLE} size={styles.iconSize} type={Constants.SIMPLE_ICONS} />,
-      modalDismissTimerSeconds: 8
+      modalDismissTimerSeconds: 8,
     })
 
     await launchModal(afterDisableModal)
@@ -87,7 +87,7 @@ export default class OtpSettingsScene extends Component<Props, State> {
               {s.strings.otp_enabled_modal_part_one} <T isBold>{s.strings.otp_enabled_modal_part_two}</T>
             </T>
           </Text>
-        )
+        ),
       },
       this.props.enableOtp
     )
@@ -126,7 +126,7 @@ export default class OtpSettingsScene extends Component<Props, State> {
     return null
   }
 
-  renderMiddle (styles: Object) {
+  renderMiddle(styles: Object) {
     const message = this.props.isOtpEnabled ? s.strings.otp_enabled_description : s.strings.otp_description
     return (
       <View style={styles.middle}>
@@ -137,10 +137,10 @@ export default class OtpSettingsScene extends Component<Props, State> {
     )
   }
 
-  render () {
+  render() {
     console.log('this.state.showMessageModal: ', this.state.showMessageModal)
     return (
-      <Fragment>
+      <>
         <SceneWrapper hasTabs={false} background="body">
           <View style={styles.body}>
             <OtpHeroComponent style={styles.hero} enabled={this.props.isOtpEnabled} />
@@ -155,7 +155,7 @@ export default class OtpSettingsScene extends Component<Props, State> {
           isVisible={this.state.showMessageModal}
           modalDismissTimerSeconds={10}
         />
-      </Fragment>
+      </>
     )
   }
 }

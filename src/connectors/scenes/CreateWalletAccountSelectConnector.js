@@ -7,12 +7,12 @@ import {
   createAccountTransaction,
   createCurrencyWallet,
   fetchAccountActivationInfo,
-  fetchWalletAccountActivationPaymentInfo
+  fetchWalletAccountActivationPaymentInfo,
 } from '../../actions/CreateWalletActions.js'
 import {
   type AccountPaymentParams,
   type CreateWalletAccountSelectOwnProps,
-  CreateWalletAccountSelect
+  CreateWalletAccountSelect,
 } from '../../components/scenes/CreateWalletAccountSelectScene'
 import { getDefaultDenomination } from '../../modules/UI/selectors.js'
 import type { Dispatch, State } from '../../types/reduxTypes.js'
@@ -45,7 +45,7 @@ const mapStateToProps = (state: State, ownProps: CreateWalletAccountSelectOwnPro
     isCreatingWallet,
     paymentDenominationSymbol,
     existingCoreWallet,
-    walletAccountActivationQuoteError
+    walletAccountActivationQuoteError,
   }
 }
 
@@ -57,10 +57,7 @@ const mapDispatchToProps = (dispatch: Dispatch) => ({
     dispatch(fetchWalletAccountActivationPaymentInfo(paymentInfo, createdCoreWallet)),
   createAccountBasedWallet: (walletName: string, walletType: string, fiatCurrencyCode: string, popScene: boolean, selectWallet: boolean) =>
     dispatch(createCurrencyWallet(walletName, walletType, fiatCurrencyCode, popScene, selectWallet)),
-  setWalletAccountActivationQuoteError: message => dispatch({ type: 'WALLET_ACCOUNT_ACTIVATION_ESTIMATE_ERROR', data: message })
+  setWalletAccountActivationQuoteError: (message) => dispatch({ type: 'WALLET_ACCOUNT_ACTIVATION_ESTIMATE_ERROR', data: message }),
 })
 
-export const CreateWalletAccountSelectConnector = connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(CreateWalletAccountSelect)
+export const CreateWalletAccountSelectConnector = connect(mapStateToProps, mapDispatchToProps)(CreateWalletAccountSelect)

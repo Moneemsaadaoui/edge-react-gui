@@ -62,11 +62,11 @@ const paymentTypeLogosById = {
   newsagent: paymentTypeLogoNewsagent,
   payid: paymentTypeLogoPayid,
   poli: paymentTypeLogoPoli,
-  swish: paymentTypeLogoSwish
+  swish: paymentTypeLogoSwish,
 }
 
 type OwnProps = {
-  direction?: 'buy' | 'sell'
+  direction?: 'buy' | 'sell',
 }
 
 type StateProps = {
@@ -74,16 +74,16 @@ type StateProps = {
   accountPlugins: PluginTweak[],
   accountReferral: AccountReferral,
   countryCode: string,
-  developerModeOn: boolean
+  developerModeOn: boolean,
 }
 
 type DispatchProps = {
-  updateCountryCode(string): void
+  updateCountryCode(string): void,
 }
 
 type Props = OwnProps & StateProps & DispatchProps
 type State = {
-  developerUri: string
+  developerUri: string,
 }
 
 const MODAL_DATA_FILE = 'pluginModalTracker.json'
@@ -91,14 +91,14 @@ const DEVELOPER_PLUGIN_KEY = 'developerPlugin'
 const asDeveloperUri = asObject({ uri: asString })
 
 class GuiPluginList extends Component<Props, State> {
-  constructor (props: Props) {
+  constructor(props: Props) {
     super(props)
     this.state = {
-      developerUri: ''
+      developerUri: '',
     }
   }
 
-  async componentDidMount () {
+  async componentDidMount() {
     await this.checkDisclaimer()
     this.checkCountry()
 
@@ -112,7 +112,7 @@ class GuiPluginList extends Component<Props, State> {
   /**
    * Verify that we have shown the disclaimer
    */
-  async checkDisclaimer () {
+  async checkDisclaimer() {
     const { account } = this.props
     try {
       const text = await account.disklet.getText(MODAL_DATA_FILE)
@@ -121,29 +121,31 @@ class GuiPluginList extends Component<Props, State> {
       if (timesPluginWarningModalViewed < 3) {
         const newNumber = timesPluginWarningModalViewed + 1
         if (newNumber === 3) {
-          await Airship.show(bridge => (
+          await Airship.show((bridge) => (
             <SimpleConfirmationModal bridge={bridge} text={s.strings.plugin_provider_disclaimer} buttonText={s.strings.string_ok_cap} />
           ))
         }
         const newText = JSON.stringify({
-          viewed: newNumber
+          viewed: newNumber,
         })
         await account.disklet.setText(MODAL_DATA_FILE, newText)
       }
     } catch (e) {
       const json = {
-        viewed: 1
+        viewed: 1,
       }
       const text = JSON.stringify(json)
       await account.disklet.setText(MODAL_DATA_FILE, text)
-      await Airship.show(bridge => <SimpleConfirmationModal bridge={bridge} text={s.strings.plugin_provider_disclaimer} buttonText={s.strings.string_ok_cap} />)
+      await Airship.show((bridge) => (
+        <SimpleConfirmationModal bridge={bridge} text={s.strings.plugin_provider_disclaimer} buttonText={s.strings.string_ok_cap} />
+      ))
     }
   }
 
   /**
    * Verify that we have a country selected
    */
-  checkCountry () {
+  checkCountry() {
     const { countryCode } = this.props
     if (!countryCode) this.showCountrySelectionModal().catch(showError)
   }
@@ -151,7 +153,7 @@ class GuiPluginList extends Component<Props, State> {
   /**
    * Launch the provided plugin, including pre-flight checks.
    */
-  async openPlugin (listRow: GuiPluginRow) {
+  async openPlugin(listRow: GuiPluginRow) {
     const { pluginId, deepQuery } = listRow
     const plugin = guiPlugins[pluginId]
 
@@ -167,10 +169,10 @@ class GuiPluginList extends Component<Props, State> {
           autoCorrect: false,
           returnKeyType: 'go',
           initialValue: developerUri,
-          autoFocus: true
+          autoFocus: true,
         },
         yesButton: { title: s.strings.load_plugin },
-        noButton: { title: s.strings.string_cancel_cap }
+        noButton: { title: s.strings.string_cancel_cap },
       })
       deepPath = await launchModal(modal)
       if (deepPath == null) return
@@ -190,16 +192,16 @@ class GuiPluginList extends Component<Props, State> {
     return Actions[PLUGIN_VIEW]({ plugin, deepPath, deepQuery })
   }
 
-  async showCountrySelectionModal () {
+  async showCountrySelectionModal() {
     const { account, updateCountryCode, countryCode } = this.props
 
-    const selectedCountryCode: string = await Airship.show(bridge => <CountrySelectionModal bridge={bridge} countryCode={countryCode} />)
+    const selectedCountryCode: string = await Airship.show((bridge) => <CountrySelectionModal bridge={bridge} countryCode={countryCode} />)
     if (selectedCountryCode) {
       try {
         const syncedSettings = await getSyncedSettingsAsync(account)
         const updatedSettings = {
           ...syncedSettings,
-          countryCode: selectedCountryCode
+          countryCode: selectedCountryCode,
         }
         updateCountryCode(selectedCountryCode)
         await setSyncedSettingsAsync(account, updatedSettings)
@@ -240,16 +242,16 @@ class GuiPluginList extends Component<Props, State> {
     )
   }
 
-  render () {
+  render() {
     const { accountPlugins, accountReferral, countryCode, developerModeOn, direction } = this.props
-    const countryData = COUNTRY_CODES.find(country => country['alpha-2'] === countryCode)
+    const countryData = COUNTRY_CODES.find((country) => country['alpha-2'] === countryCode)
 
     // Pick a filter based on our direction:
     let plugins = filterGuiPluginJson(direction === 'buy' ? buyPluginJson : sellPluginJson, Platform.OS, countryCode)
 
     // Filter disabled plugins:
     const activePlugins = bestOfPlugins(accountPlugins, accountReferral, undefined)
-    plugins = plugins.filter(plugin => !activePlugins.disabled[plugin.pluginId])
+    plugins = plugins.filter((plugin) => !activePlugins.disabled[plugin.pluginId])
 
     // Add the dev mode plugin if enabled:
     if (developerModeOn) {
@@ -264,13 +266,13 @@ class GuiPluginList extends Component<Props, State> {
             <Text style={{ textAlign: 'center' }}>{s.strings.buy_sell_crypto_no_plugin_region}</Text>
           </View>
         ) : (
-          <FlatList data={plugins} renderItem={this._renderPlugin} keyExtractor={item => item.id} />
+          <FlatList data={plugins} renderItem={this._renderPlugin} keyExtractor={(item) => item.id} />
         )}
       </SceneWrapper>
     )
   }
 
-  renderCountryPicker (countryData: CountryData | void) {
+  renderCountryPicker(countryData: CountryData | void) {
     let flag = null
     let message = s.strings.buy_sell_crypto_select_country_button
     if (countryData != null) {
@@ -302,11 +304,11 @@ export const GuiPluginListScene = connect(
     accountPlugins: state.account.referralCache.accountPlugins,
     accountReferral: state.account.accountReferral,
     countryCode: state.ui.settings.countryCode,
-    developerModeOn: state.ui.settings.developerModeOn
+    developerModeOn: state.ui.settings.developerModeOn,
   }),
   (dispatch: Dispatch): DispatchProps => ({
-    updateCountryCode (countryCode: string) {
+    updateCountryCode(countryCode: string) {
       dispatch(updateOneSetting({ countryCode }))
-    }
+    },
   })
 )(GuiPluginList)

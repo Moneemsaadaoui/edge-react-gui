@@ -7,22 +7,22 @@ export const styles = {
   top: {
     flex: 1,
     alignItems: 'center',
-    justifyContent: 'space-around'
+    justifyContent: 'space-around',
   },
   bottom: {
-    flex: 1
+    flex: 1,
   },
   momentText: {
     color: THEME.COLORS.WHITE,
     width: '100%',
     textAlign: 'center',
     fontSize: scale(18),
-    marginBottom: scale(20)
+    marginBottom: scale(20),
   },
   findingText: {
     color: THEME.COLORS.WHITE,
     width: '100%',
     textAlign: 'center',
-    fontSize: scale(14)
-  }
+    fontSize: scale(14),
+  },
 }

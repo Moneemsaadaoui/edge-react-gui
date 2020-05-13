@@ -10,23 +10,23 @@ export const styles = StyleSheet.create({
     backgroundColor: THEME.COLORS.WHITE,
     height: 0,
     paddingLeft: scale(50),
-    paddingRight: scale(50)
+    paddingRight: scale(50),
   },
   memo: {
     paddingLeft: scale(50),
-    paddingRight: scale(50)
+    paddingRight: scale(50),
   },
   row: {
     height: scale(80),
     justifyContent: 'space-between',
-    paddingTop: scale(30)
+    paddingTop: scale(30),
   },
   lineRow: {
     display: 'flex',
     justifyContent: 'center',
     paddingLeft: scale(50),
     paddingRight: scale(50),
-    paddingTop: 0
+    paddingTop: 0,
   },
   buttonRow: {
     display: 'flex',
@@ -34,24 +34,24 @@ export const styles = StyleSheet.create({
     height: scale(44),
     paddingTop: 0,
     paddingLeft: scale(50),
-    paddingRight: scale(50)
+    paddingRight: scale(50),
   },
   title: {
     color: THEME.COLORS.WHITE,
     fontSize: scale(16),
     fontWeight: 'normal',
-    textAlign: 'center'
+    textAlign: 'center',
   },
   value: {
     color: THEME.COLORS.WHITE,
     fontSize: scale(18),
     fontWeight: 'bold',
-    textAlign: 'center'
+    textAlign: 'center',
   },
   selectWalletBtn: {
     height: '100%',
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: THEME.COLORS.OPACITY_WHITE
-  }
+    backgroundColor: THEME.COLORS.OPACITY_WHITE,
+  },
 })

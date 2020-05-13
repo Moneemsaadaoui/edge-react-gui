@@ -8,14 +8,14 @@ import styles from './styles'
 
 export type TextProps = {
   children: Node,
-  style?: StyleSheet.Styles
+  style?: StyleSheet.Styles,
 }
 export class Text extends Component<TextProps> {
-  render () {
+  render() {
     const { children, style, ...props } = this.props
 
     return (
-      <RNText ellipsizeMode={'middle'} numberOfLines={1} style={[styles.text, style]} {...props}>
+      <RNText ellipsizeMode="middle" numberOfLines={1} style={[styles.text, style]} {...props}>
         {children}
       </RNText>
     )
@@ -24,10 +24,10 @@ export class Text extends Component<TextProps> {
 
 export type RowProps = {
   children: Node,
-  style?: StyleSheet.Styles
+  style?: StyleSheet.Styles,
 }
 export class Row extends Component<RowProps> {
-  render () {
+  render() {
     const { children, style, ...props } = this.props
 
     return (
@@ -40,10 +40,10 @@ export class Row extends Component<RowProps> {
 
 export type ItemProps = {
   children: Node,
-  style?: StyleSheet.Styles
+  style?: StyleSheet.Styles,
 }
 export class Item extends Component<ItemProps> {
-  render () {
+  render() {
     const { children, style, ...props } = this.props
 
     return (
@@ -56,14 +56,14 @@ export class Item extends Component<ItemProps> {
 
 export type Props = {
   children: Node,
-  style?: StyleSheet.Styles
+  style?: StyleSheet.Styles,
 }
 export class Recipient extends Component<Props> {
   static Item = Item
   static Row = Row
   static Text = Text
 
-  render () {
+  render() {
     const { children, style, ...props } = this.props
 
     return (

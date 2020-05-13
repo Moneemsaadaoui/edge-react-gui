@@ -11,17 +11,17 @@ import { SceneWrapper } from '../common/SceneWrapper.js'
 export type ChangePasswordOwnProps = {
   account: EdgeAccount,
   context: EdgeContext,
-  showHeader: boolean
+  showHeader: boolean,
 }
 
 export type ChangePasswordDispatchProps = {
-  onComplete: () => void
+  onComplete: () => void,
 }
 
 export type ChangePasswordStateProps = {
   context: EdgeContext,
   account: EdgeAccount,
-  showHeader: boolean
+  showHeader: boolean,
 }
 
 type ChangePasswordComponent = ChangePasswordOwnProps & ChangePasswordDispatchProps & ChangePasswordStateProps
@@ -31,10 +31,10 @@ export class ChangePassword extends Component<ChangePasswordComponent> {
     this.props.onComplete()
   }
 
-  render () {
+  render() {
     return (
       <SceneWrapper hasTabs={false} background="body">
-        <ScrollView keyboardShouldPersistTaps={'always'}>
+        <ScrollView keyboardShouldPersistTaps="always">
           <ChangePasswordScreen
             account={this.props.account}
             context={this.props.context}

@@ -12,21 +12,21 @@ export const styles = StyleSheet.create({
     textAlign: 'center',
     justifyContent: 'center',
     backgroundColor: THEME.COLORS.TRANSPARENT,
-    fontSize: 40
+    fontSize: 40,
   },
   descriptionTop: {
-    paddingBottom: 15
+    paddingBottom: 15,
   },
   descriptionBottom: {
-    paddingTop: 15
+    paddingTop: 15,
   },
   passwordInput: {
-    color: THEME.COLORS.GRAY_2
+    color: THEME.COLORS.GRAY_2,
   },
   footer: {
-    paddingTop: 10
+    paddingTop: 10,
   },
   buttonContainer: {
-    paddingVertical: 3
-  }
+    paddingVertical: 3,
+  },
 })

@@ -236,7 +236,7 @@ export const COUNTRY_CODES: Array<CountryData> = [
   { name: 'Western Sahara', 'alpha-2': 'EH' },
   { name: 'Yemen', 'alpha-2': 'YE' },
   { name: 'Zambia', 'alpha-2': 'ZM' },
-  { name: 'Zimbabwe', 'alpha-2': 'ZW' }
+  { name: 'Zimbabwe', 'alpha-2': 'ZW' },
 ]
 
 // utility for recreating list from https://raw.githubusercontent.com/lukes/ISO-3166-Countries-with-Regional-Codes/master/all/all.json

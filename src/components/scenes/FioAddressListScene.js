@@ -22,16 +22,16 @@ export type StateProps = {
   fioWallets: EdgeCurrencyWallet[],
   fioPlugin: EdgeCurrencyConfig | null,
   loading: boolean,
-  isConnected: boolean
+  isConnected: boolean,
 }
 
 export type DispatchProps = {
   setFioAddress: (fioAddress: string, expiration: string) => void,
-  refreshAllFioAddresses: () => Promise<void>
+  refreshAllFioAddresses: () => Promise<void>,
 }
 
 export type NavigationProps = {
-  navigation: any
+  navigation: any,
 }
 
 type Props = StateProps & DispatchProps & NavigationProps
@@ -39,7 +39,7 @@ type Props = StateProps & DispatchProps & NavigationProps
 export class FioAddressListScene extends Component<Props> {
   willFocusSubscription: { remove: () => void } | null = null
 
-  fetchData () {
+  fetchData() {
     const { refreshAllFioAddresses, isConnected } = this.props
     if (!isConnected) {
       showError(s.strings.fio_network_alert_text)
@@ -47,13 +47,13 @@ export class FioAddressListScene extends Component<Props> {
     refreshAllFioAddresses()
   }
 
-  componentDidMount (): void {
+  componentDidMount(): void {
     this.willFocusSubscription = this.props.navigation.addListener('didFocus', () => {
       this.fetchData()
     })
   }
 
-  componentDidUpdate (prevProps: Props): void {
+  componentDidUpdate(prevProps: Props): void {
     const { fioAddresses, loading } = this.props
 
     if (!loading && prevProps.loading) {
@@ -63,7 +63,7 @@ export class FioAddressListScene extends Component<Props> {
     }
   }
 
-  componentWillUnmount (): void {
+  componentWillUnmount(): void {
     this.willFocusSubscription && this.willFocusSubscription.remove()
   }
 
@@ -72,7 +72,7 @@ export class FioAddressListScene extends Component<Props> {
     if (!fioPlugin) return
     const publicKey = fioWallets[0].publicWalletInfo.keys.publicKey
     const url = `${await fioPlugin.otherMethods.getRegDomainUrl()}${publicKey}`
-    Linking.canOpenURL(url).then(supported => {
+    Linking.canOpenURL(url).then((supported) => {
       if (supported) {
         Linking.openURL(url)
       } else {
@@ -87,14 +87,14 @@ export class FioAddressListScene extends Component<Props> {
     Actions[Constants.FIO_ADDRESS_DETAILS]({ fioAddress, expirationValue })
   }
 
-  render () {
+  render() {
     const { fioAddresses, loading } = this.props
 
     if (!fioAddresses.length) {
       return (
         <SceneWrapper>
           <Gradient style={styles.gradient} />
-          <ActivityIndicator style={styles.loading} size={'large'} />
+          <ActivityIndicator style={styles.loading} size="large" />
         </SceneWrapper>
       )
     }
@@ -103,10 +103,10 @@ export class FioAddressListScene extends Component<Props> {
       <SafeAreaView>
         <Gradient style={styles.gradient} />
         <ScrollView style={styles.list}>
-          {fioAddresses.map(address => (
+          {fioAddresses.map((address) => (
             <FioAddressItem key={`${address.name}`} address={address} onFioAddressPress={this.onPress} />
           ))}
-          {loading && <ActivityIndicator style={styles.loading} size={'large'} />}
+          {loading && <ActivityIndicator style={styles.loading} size="large" />}
         </ScrollView>
         <View style={styles.view}>
           <T>{s.strings.fio_address_first_screen_end}</T>

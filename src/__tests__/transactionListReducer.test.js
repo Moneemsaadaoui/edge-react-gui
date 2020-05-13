@@ -11,7 +11,7 @@ test('initialState', () => {
     currentCurrencyCode: '',
     currentEndIndex: 0,
     numTransactions: 0,
-    currentWalletId: ''
+    currentWalletId: '',
   }
   const actual = transactionListReducer(undefined, {})
 

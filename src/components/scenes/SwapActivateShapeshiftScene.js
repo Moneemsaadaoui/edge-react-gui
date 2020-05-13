@@ -12,7 +12,7 @@ import { SceneWrapper } from '../common/SceneWrapper.js'
 import { showActivity, showError } from '../services/AirshipInstance.js'
 
 type Props = {
-  activateShapeShift(oauthCode: string): Promise<mixed>
+  activateShapeShift(oauthCode: string): Promise<mixed>,
 }
 
 class SwapActivateShapeshiftComponent extends Component<Props> {
@@ -29,19 +29,17 @@ class SwapActivateShapeshiftComponent extends Component<Props> {
     }
   }
 
-  render () {
+  render() {
     return (
       <SceneWrapper background="body" hasTabs={false}>
         <WebView
           source={{
             uri:
-              'https://auth.shapeshift.io/oauth/authorize?response_type=code&scope=users%3Aread&client_id=3a49c306-8c52-42a2-b7cf-bda4e4aa6d7d&redirect_uri=https%3A%2F%2Fdeveloper.airbitz.co%2Fshapeshift-auth'
+              'https://auth.shapeshift.io/oauth/authorize?response_type=code&scope=users%3Aread&client_id=3a49c306-8c52-42a2-b7cf-bda4e4aa6d7d&redirect_uri=https%3A%2F%2Fdeveloper.airbitz.co%2Fshapeshift-auth',
           }}
           incognito
           onNavigationStateChange={this.onNavigate}
-          userAgent={
-            'Mozilla/5.0 (Linux; Android 6.0.1; SM-G532G Build/MMB29T) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.83 Mobile Safari/537.36'
-          }
+          userAgent="Mozilla/5.0 (Linux; Android 6.0.1; SM-G532G Build/MMB29T) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.83 Mobile Safari/537.36"
         />
       </SceneWrapper>
     )
@@ -51,8 +49,8 @@ class SwapActivateShapeshiftComponent extends Component<Props> {
 export const SwapActivateShapeshiftScene = connect(
   (state: ReduxState) => ({}),
   (dispatch: Dispatch) => ({
-    activateShapeShift (oauthCode: string) {
+    activateShapeShift(oauthCode: string) {
       return dispatch(activateShapeShift(oauthCode))
-    }
+    },
   })
 )(SwapActivateShapeshiftComponent)

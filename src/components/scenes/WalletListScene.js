@@ -58,7 +58,7 @@ type StateProps = {
   activeWalletIds: Array<string>,
   exchangeRates: Object,
   otpResetPending: boolean,
-  wallets: { [walletId: string]: GuiWallet }
+  wallets: { [walletId: string]: GuiWallet },
 }
 type DispatchProps = {
   hideMessageTweak(messageId: string, source: TweakSource): void,
@@ -67,30 +67,30 @@ type DispatchProps = {
   walletRowOption(walletId: string, option: WalletListMenuKey): void,
   disableOtp(): void,
   keepOtp(): void,
-  linkReferralWithCurrencies(string): void
+  linkReferralWithCurrencies(string): void,
 }
 type Props = StateProps & DispatchProps
 
 type State = {
-  sorting: boolean
+  sorting: boolean,
 }
 
 class WalletListComponent extends Component<Props, State> {
-  constructor (props: Props) {
+  constructor(props: Props) {
     super(props)
     slowlog(this, /.*/, global.slowlogOptions)
     this.state = {
-      sorting: false
+      sorting: false,
     }
   }
 
-  componentDidMount () {
+  componentDidMount() {
     this.checkOtpResetPendingModal()
   }
 
   checkOtpResetPendingModal = async () => {
     if (this.props.otpResetPending) {
-      const resolved = await Airship.show(bridge => (
+      const resolved = await Airship.show((bridge) => (
         <TwoButtonSimpleConfirmationModal
           bridge={bridge}
           icon={<Image source={otpIcon} />}
@@ -111,7 +111,7 @@ class WalletListComponent extends Component<Props, State> {
     return this.props.walletRowOption(walletId, option)
   }
 
-  render () {
+  render() {
     const { wallets, activeWalletIds } = this.props
     const { sorting } = this.state
     const loading = Object.keys(wallets).length <= 0
@@ -141,11 +141,11 @@ class WalletListComponent extends Component<Props, State> {
         </View>
         <View style={styles.listStack}>
           <CrossFade activeKey={loading ? 'spinner' : sorting ? 'sortList' : 'fullList'}>
-            <ActivityIndicator key="spinner" style={styles.listSpinner} size={'large'} />
+            <ActivityIndicator key="spinner" style={styles.listSpinner} size="large" />
             <FlatList
               key="fullList"
               style={StyleSheet.absoltueFill}
-              data={activeWalletIds.map(key => ({ key }))}
+              data={activeWalletIds.map((key) => ({ key }))}
               extraData={wallets}
               renderItem={this.renderRow}
               ListFooterComponent={this.renderFooter()}
@@ -214,13 +214,13 @@ class WalletListComponent extends Component<Props, State> {
         message: s.strings.wallet_list_add_token_modal_message,
         icon: <Icon type={Constants.ION_ICONS} name={Constants.WALLET_ICON} size={30} />,
         noButtonText: s.strings.string_cancel_cap,
-        yesButtonText: s.strings.title_create_wallet
+        yesButtonText: s.strings.title_create_wallet,
       })
     )
 
     if (answer) {
       Actions[Constants.CREATE_WALLET_SELECT_FIAT]({
-        selectedWalletType: makeGuiWalletType(ethereum.currencyInfo)
+        selectedWalletType: makeGuiWalletType(ethereum.currencyInfo),
       })
     }
   }
@@ -245,9 +245,9 @@ class WalletListComponent extends Component<Props, State> {
         <TouchableWithoutFeedback onPress={Actions[Constants.PLUGIN_BUY]} style={buyMultipleCryptoStyle.buyMultipleCryptoContainer}>
           <View style={buyMultipleCryptoStyle.buyMultipleCryptoBox}>
             <View style={buyMultipleCryptoStyle.buyMultipleCryptoContentWrap}>
-              <Image style={buyMultipleCryptoStyle.buyMultipleCryptoBoxImage} source={{ uri: Constants.CURRENCY_SYMBOL_IMAGES['BTC'] }} resizeMode={'cover'} />
-              <Image style={buyMultipleCryptoStyle.buyMultipleCryptoBoxImage} source={{ uri: Constants.CURRENCY_SYMBOL_IMAGES['ETH'] }} resizeMode={'cover'} />
-              <Image style={buyMultipleCryptoStyle.buyMultipleCryptoBoxImage} source={{ uri: Constants.CURRENCY_SYMBOL_IMAGES['BCH'] }} resizeMode={'cover'} />
+              <Image style={buyMultipleCryptoStyle.buyMultipleCryptoBoxImage} source={{ uri: Constants.CURRENCY_SYMBOL_IMAGES.BTC }} resizeMode="cover" />
+              <Image style={buyMultipleCryptoStyle.buyMultipleCryptoBoxImage} source={{ uri: Constants.CURRENCY_SYMBOL_IMAGES.ETH }} resizeMode="cover" />
+              <Image style={buyMultipleCryptoStyle.buyMultipleCryptoBoxImage} source={{ uri: Constants.CURRENCY_SYMBOL_IMAGES.BCH }} resizeMode="cover" />
             </View>
             <T style={buyMultipleCryptoStyle.buyMultipleCryptoBoxText}>{s.strings.title_plugin_buy}</T>
           </View>
@@ -258,7 +258,7 @@ class WalletListComponent extends Component<Props, State> {
         >
           <View style={buyMultipleCryptoStyle.buyMultipleCryptoBox}>
             <View style={buyMultipleCryptoStyle.buyMultipleCryptoContentWrap}>
-              <Image style={buyMultipleCryptoStyle.buyMultipleCryptoBoxImage} source={credLogo} resizeMode={'contain'} />
+              <Image style={buyMultipleCryptoStyle.buyMultipleCryptoBoxImage} source={credLogo} resizeMode="contain" />
             </View>
             <T style={buyMultipleCryptoStyle.buyMultipleCryptoBoxText}>{s.strings.earn_interest}</T>
           </View>
@@ -267,17 +267,17 @@ class WalletListComponent extends Component<Props, State> {
     )
   }
 
-  renderPromoCard () {
+  renderPromoCard() {
     const { accountMessages, accountReferral, hideMessageTweak, linkReferralWithCurrencies } = this.props
     const messageSummary = bestOfMessages(accountMessages, accountReferral)
     if (messageSummary == null) return null
 
     const { message, messageId, messageSource } = messageSummary
     const { uri, iconUri } = message
-    function handlePress () {
+    function handlePress() {
       if (uri != null) linkReferralWithCurrencies(uri)
     }
-    function handleClose () {
+    function handleClose() {
       hideMessageTweak(messageId, messageSource)
     }
 
@@ -303,46 +303,46 @@ const rawStyles = {
     alignSelf: 'flex-end',
     flexGrow: 1,
     justifyContent: 'center',
-    paddingHorizontal: THEME.rem(1)
+    paddingHorizontal: THEME.rem(1),
   },
   walletIcon: {
     width: THEME.rem(1.375),
-    height: THEME.rem(1.375)
+    height: THEME.rem(1.375),
   },
 
   // The two lists are stacked vertically on top of each other:
   listStack: {
-    flexGrow: 1
+    flexGrow: 1,
   },
   listSpinner: {
     flexGrow: 1,
-    alignSelf: 'center'
+    alignSelf: 'center',
   },
 
   // Promo area:
   promoArea: {
-    padding: THEME.rem(0.5)
+    padding: THEME.rem(0.5),
   },
   promoCard: {
     flexDirection: 'row',
     alignItems: 'center',
     backgroundColor: THEME.COLORS.WHITE,
     margin: THEME.rem(0.5),
-    padding: THEME.rem(0.5)
+    padding: THEME.rem(0.5),
   },
   promoIcon: {
     width: THEME.rem(2),
     height: THEME.rem(2),
-    margin: THEME.rem(0.5)
+    margin: THEME.rem(0.5),
   },
   promoText: {
     ...dayText('row-left'),
     flex: 1,
-    margin: THEME.rem(0.5)
+    margin: THEME.rem(0.5),
   },
   promoClose: {
-    padding: THEME.rem(0.5)
-  }
+    padding: THEME.rem(0.5),
+  },
 }
 const styles: typeof rawStyles = StyleSheet.create(rawStyles)
 
@@ -353,7 +353,7 @@ export const WalletListScene = connect(
     // FIO disable changes below
     if (global.isFioDisabled) {
       const { currencyWallets = {} } = state.core.account
-      activeWalletIds = activeWalletIds.filter(id => {
+      activeWalletIds = activeWalletIds.filter((id) => {
         const wallet = currencyWallets[id]
         return wallet == null || wallet.type !== 'wallet:fio'
       })
@@ -366,30 +366,30 @@ export const WalletListScene = connect(
       activeWalletIds,
       exchangeRates: state.exchangeRates,
       otpResetPending: getOtpResetPending(state),
-      wallets: state.ui.wallets.byId
+      wallets: state.ui.wallets.byId,
     }
   },
   (dispatch: Dispatch): DispatchProps => ({
-    hideMessageTweak (messageId: string, source: TweakSource) {
+    hideMessageTweak(messageId: string, source: TweakSource) {
       dispatch(hideMessageTweak(messageId, source))
     },
-    toggleAccountBalanceVisibility () {
+    toggleAccountBalanceVisibility() {
       dispatch(toggleAccountBalanceVisibility())
     },
-    updateActiveWalletsOrder (activeWalletIds) {
+    updateActiveWalletsOrder(activeWalletIds) {
       dispatch(updateActiveWalletsOrder(activeWalletIds))
     },
-    walletRowOption (walletId, option) {
+    walletRowOption(walletId, option) {
       dispatch(walletListMenuAction(walletId, option))
     },
-    disableOtp () {
+    disableOtp() {
       dispatch(disableOtp())
     },
-    keepOtp () {
+    keepOtp() {
       dispatch(keepOtp())
     },
-    linkReferralWithCurrencies (uri) {
+    linkReferralWithCurrencies(uri) {
       dispatch(linkReferralWithCurrencies(uri))
-    }
+    },
   })
 )(WalletListComponent)

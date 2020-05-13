@@ -16,11 +16,11 @@ type XPubModalOwnProps = {}
 type XPubModalStateProps = {
   xPubSyntax: string,
   xPubExplorer: string,
-  visibilityBoolean: boolean
+  visibilityBoolean: boolean,
 }
 
 type XPubModalDispatchProps = {
-  onExit: () => void
+  onExit: () => void,
 }
 
 type XPubModalState = {}
@@ -41,14 +41,14 @@ export default class XPubModal extends Component<XPubModalComponentProps, XPubMo
   _loadXpubExplorer = () => {
     this.props.onExit()
     const xPubExplorerLink = this.props.xPubExplorer
-    Linking.canOpenURL(xPubExplorerLink).then(supported => {
+    Linking.canOpenURL(xPubExplorerLink).then((supported) => {
       if (supported) {
         Linking.openURL(xPubExplorerLink)
       }
     })
   }
 
-  render () {
+  render() {
     const osPrefix = Platform.OS === 'ios' ? 'ios-' : 'md-'
     let hasXpubExplorerValue = false
     if (this.props.xPubExplorer) {

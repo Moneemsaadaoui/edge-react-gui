@@ -9,43 +9,43 @@ export const rawStyles = {
   totalBalanceBox: {
     // one
     height: scale(111),
-    justifyContent: 'center'
+    justifyContent: 'center',
   },
   totalBalanceWrap: {
     flex: 3,
     alignItems: 'center',
-    backgroundColor: THEME.COLORS.TRANSPARENT
+    backgroundColor: THEME.COLORS.TRANSPARENT,
   },
   totalBalanceHeader: {
     flex: 2,
     justifyContent: 'flex-end',
-    backgroundColor: THEME.COLORS.TRANSPARENT
+    backgroundColor: THEME.COLORS.TRANSPARENT,
   },
   totalBalanceText: {
     fontSize: scale(18),
-    color: THEME.COLORS.PRIMARY
+    color: THEME.COLORS.PRIMARY,
   },
   currentBalanceBoxDollarsWrap: {
     flex: 3,
     justifyContent: 'flex-start',
     alignItems: 'center',
-    backgroundColor: THEME.COLORS.TRANSPARENT
+    backgroundColor: THEME.COLORS.TRANSPARENT,
   },
   hiddenBalanceBoxDollarsWrap: {
     flex: 3,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: THEME.COLORS.TRANSPARENT
+    backgroundColor: THEME.COLORS.TRANSPARENT,
   },
   currentBalanceBoxDollars: {
     color: THEME.COLORS.PRIMARY,
-    fontSize: scale(44)
+    fontSize: scale(44),
   },
   currentBalanceBoxNoExchangeRates: {
     color: THEME.COLORS.PRIMARY,
     fontSize: scale(26),
-    textAlign: 'center'
-  }
+    textAlign: 'center',
+  },
 }
 
 export const styles = StyleSheet.create(rawStyles)

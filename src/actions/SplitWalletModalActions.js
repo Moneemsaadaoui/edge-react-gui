@@ -37,7 +37,7 @@ export const showSplitWalletModal = (walletId: string) => async (dispatch: Dispa
     ),
     icon: <OptionIcon iconName={SPLIT} />,
     noButtonText: s.strings.string_cancel_cap,
-    yesButtonText: s.strings.string_split
+    yesButtonText: s.strings.string_split,
   })
 
   const resolveValue = await launchModal(modal)

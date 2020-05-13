@@ -3,7 +3,7 @@
 import enUS from './en_US'
 
 const strings = {
-  enUS
+  enUS,
 }
 
 export default strings

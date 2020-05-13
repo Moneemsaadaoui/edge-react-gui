@@ -19,7 +19,7 @@ describe('CurrencySettings', () => {
       denominations: [
         { name: 'BTG', multiplier: '100000000', symbol: '₿' },
         { name: 'mBTG', multiplier: '100000', symbol: 'm₿' },
-        { name: 'bits', multiplier: '100', symbol: 'ƀ' }
+        { name: 'bits', multiplier: '100', symbol: 'ƀ' },
       ],
       selectedDenominationKey: '100',
       electrumServers: [],
@@ -30,7 +30,7 @@ describe('CurrencySettings', () => {
       disableCustomNodes: jest.fn(),
       enableCustomNodes: jest.fn(),
       saveCustomNodesList: jest.fn(),
-      selectDenomination: jest.fn()
+      selectDenomination: jest.fn(),
     }
     const actual = renderer.render(<CurrencySettingsComponent {...props} />)
 

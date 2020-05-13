@@ -11,7 +11,7 @@ const DEFAULTS = {
   secureTextEntry: true,
   tintColor: THEME.COLORS.GRAY_2,
   baseColor: THEME.COLORS.GRAY_2,
-  label: s.strings.password
+  label: s.strings.password,
 }
 
 export type Props = {
@@ -49,12 +49,12 @@ export type Props = {
   title?: string,
   titleFontSize?: number,
   titleTextStyle?: StyleSheet.Styles,
-  value?: string
+  value?: string,
 }
 export type State = {}
 
 export class PasswordInput extends Component<Props, State> {
-  render () {
+  render() {
     const props = { ...DEFAULTS, ...this.props }
     return <TextField {...props} />
   }

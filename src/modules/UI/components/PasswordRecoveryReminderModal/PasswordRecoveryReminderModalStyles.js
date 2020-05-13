@@ -12,15 +12,15 @@ export const styles = StyleSheet.create({
     textAlign: 'center',
     justifyContent: 'center',
     backgroundColor: THEME.COLORS.TRANSPARENT,
-    fontSize: 40
+    fontSize: 40,
   },
   passwordInput: {
-    color: THEME.COLORS.GRAY_2
+    color: THEME.COLORS.GRAY_2,
   },
   footer: {
-    paddingTop: 10
+    paddingTop: 10,
   },
   buttonContainer: {
-    paddingVertical: 3
-  }
+    paddingVertical: 3,
+  },
 })

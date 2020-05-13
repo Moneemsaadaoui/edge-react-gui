@@ -17,25 +17,25 @@ type Props = {
   message?: string,
   // If set, the toast will stay up for the lifetime of the promise,
   // and will include a spinner.
-  activity?: Promise<mixed>
+  activity?: Promise<mixed>,
 }
 
 export class AirshipFullScreenSpinner extends Component<Props> {
   opacity: Animated.Value
 
-  constructor (props: Props) {
+  constructor(props: Props) {
     super(props)
     this.opacity = new Animated.Value(0)
   }
 
-  componentDidMount () {
+  componentDidMount() {
     const { activity, bridge } = this.props
 
     // Animate in:
     Animated.timing(this.opacity, {
       toValue: 0.9,
       duration: fadeInTime,
-      useNativeDriver: true
+      useNativeDriver: true,
     }).start()
 
     // Animate out:
@@ -44,7 +44,7 @@ export class AirshipFullScreenSpinner extends Component<Props> {
       Animated.timing(this.opacity, {
         toValue: 0,
         duration: fadeOutTime,
-        useNativeDriver: true
+        useNativeDriver: true,
       }).start(() => bridge.remove())
     }
     if (activity != null) {
@@ -54,7 +54,7 @@ export class AirshipFullScreenSpinner extends Component<Props> {
     }
   }
 
-  render () {
+  render() {
     return (
       <Animated.View style={[styles.container, { opacity: this.opacity }]}>
         <View style={styles.darkness} />
@@ -63,15 +63,15 @@ export class AirshipFullScreenSpinner extends Component<Props> {
     )
   }
 
-  renderContent () {
+  renderContent() {
     const { activity, message } = this.props
     if (activity == null) return <Text style={styles.text}>{message}</Text>
 
     return (
-      <Fragment>
+      <>
         <Text style={[styles.text, { marginRight: unit }]}>{message}</Text>
         <ActivityIndicator />
-      </Fragment>
+      </>
     )
   }
 }
@@ -91,7 +91,7 @@ const styles = StyleSheet.create({
     // Children:
     alignItems: 'center',
     flexDirection: 'column',
-    justifyContent: 'center'
+    justifyContent: 'center',
   },
 
   darkness: {
@@ -104,7 +104,7 @@ const styles = StyleSheet.create({
 
     // Visuals:
     backgroundColor: THEME.COLORS.SHADOW,
-    opacity: THEME.OPACITY.MODAL_DARKNESS
+    opacity: THEME.OPACITY.MODAL_DARKNESS,
   },
 
   body: {
@@ -119,7 +119,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flexDirection: 'row',
     justifyContent: 'flex-start',
-    padding: unit
+    padding: unit,
   },
 
   text: {
@@ -127,6 +127,6 @@ const styles = StyleSheet.create({
     flexShrink: 1,
     fontFamily: THEME.FONTS.DEFAULT,
     fontSize: unit,
-    textAlign: 'center'
-  }
+    textAlign: 'center',
+  },
 })

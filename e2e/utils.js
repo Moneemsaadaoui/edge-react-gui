@@ -16,7 +16,7 @@ export const launchAppWithPermissions = async () => {
     permissions: {
       notifications: 'YES',
       camera: 'YES',
-      contacts: 'YES'
-    }
+      contacts: 'YES',
+    },
   })
 }

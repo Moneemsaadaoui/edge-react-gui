@@ -6,14 +6,11 @@ import { PasswordRecoveryReminderModalComponent } from './PasswordRecoveryRemind
 import { hidePasswordRecoveryReminderModal, onGoToPasswordRecoveryScene } from './PasswordRecoveryReminderModalActions.js'
 
 export const mapStateToProps = (state: State) => ({
-  isVisible: state.ui.scenes.passwordRecoveryReminderModal.isVisible
+  isVisible: state.ui.scenes.passwordRecoveryReminderModal.isVisible,
 })
 export const mapDispatchToProps = (dispatch: Dispatch) => ({
   hidePasswordRecoveryReminderModal: () => dispatch(hidePasswordRecoveryReminderModal()),
-  onGoToPasswordRecoveryScene: () => dispatch(onGoToPasswordRecoveryScene())
+  onGoToPasswordRecoveryScene: () => dispatch(onGoToPasswordRecoveryScene()),
 })
 
-export const PasswordRecoveryReminderModalConnector = connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(PasswordRecoveryReminderModalComponent)
+export const PasswordRecoveryReminderModalConnector = connect(mapStateToProps, mapDispatchToProps)(PasswordRecoveryReminderModalComponent)

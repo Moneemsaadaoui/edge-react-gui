@@ -13,12 +13,12 @@ import { styles } from './PasswordRecoveryReminderModalStyles.js'
 export type PasswordRecoveryReminderModalOwnProps = {}
 
 export type PasswordRecoveryReminderModalStateProps = {
-  isVisible: boolean
+  isVisible: boolean,
 }
 
 export type PasswordRecoveryReminderModalDispatchProps = {
   hidePasswordRecoveryReminderModal: () => void,
-  onGoToPasswordRecoveryScene: () => void
+  onGoToPasswordRecoveryScene: () => void,
 }
 
 export type PasswordRecoveryReminderModalProps = PasswordRecoveryReminderModalOwnProps &
@@ -26,7 +26,7 @@ export type PasswordRecoveryReminderModalProps = PasswordRecoveryReminderModalOw
   PasswordRecoveryReminderModalDispatchProps
 
 export class PasswordRecoveryReminderModalComponent extends Component<PasswordRecoveryReminderModalProps> {
-  render () {
+  render() {
     const { isVisible, hidePasswordRecoveryReminderModal, onGoToPasswordRecoveryScene } = this.props
     return (
       <InteractiveModal legacy isActive={isVisible} onModalHide={hidePasswordRecoveryReminderModal}>

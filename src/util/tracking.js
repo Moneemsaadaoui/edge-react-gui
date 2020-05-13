@@ -24,7 +24,7 @@ export type TrackingValues = {
   currencyCode?: string, // Wallet currency code
   dollarValue?: number, // Conversion amount, in USD
   installerId?: string, // Account installerId
-  pluginId?: string // Plugin that provided the conversion
+  pluginId?: string, // Plugin that provided the conversion
 }
 
 // Set up the global Firebase instance at boot:
@@ -36,14 +36,14 @@ if (ENV.USE_FIREBASE && !firebase.isMock) {
 /**
  * Send a raw event to all backends.
  */
-export async function logEvent (event: TrackingEvent, values: TrackingValues = {}) {
-  return Promise.all([logToFirebase(event, values), logToUtilServer(event, values)]).catch(error => console.warn(error))
+export async function logEvent(event: TrackingEvent, values: TrackingValues = {}) {
+  return Promise.all([logToFirebase(event, values), logToUtilServer(event, values)]).catch((error) => console.warn(error))
 }
 
 /**
  * Send a raw event to Firebase.
  */
-async function logToFirebase (event: TrackingEvent, values: TrackingValues) {
+async function logToFirebase(event: TrackingEvent, values: TrackingValues) {
   const { accountDate, currencyCode, dollarValue, installerId, pluginId } = values
 
   if (!global.firebase) return
@@ -61,7 +61,7 @@ async function logToFirebase (event: TrackingEvent, values: TrackingValues) {
     SwapSuccess: 'Exchange_Shift_Success',
     SignupWalletsCreated: 'Signup_Wallets_Created',
     AppStart: 'Start_App',
-    LoadDeviceReferralFail: 'Load_Install_Reason_Fail'
+    LoadDeviceReferralFail: 'Load_Install_Reason_Fail',
   }
   const name = names[event]
   if (!name) return
@@ -89,13 +89,13 @@ async function logToFirebase (event: TrackingEvent, values: TrackingValues) {
 /**
  * Send a tracking event to the util server.
  */
-async function logToUtilServer (event: TrackingEvent, values: TrackingValues) {
+async function logToUtilServer(event: TrackingEvent, values: TrackingValues) {
   fetch('https://util1.edge.app/api/v1/event', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      Accept: 'application/json'
+      Accept: 'application/json',
     },
-    body: JSON.stringify({ ...values, event })
+    body: JSON.stringify({ ...values, event }),
   })
 }

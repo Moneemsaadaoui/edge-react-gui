@@ -15,33 +15,33 @@ import { noOp } from '../../util/utils.js'
 
 export type SetCustomNodesModalOwnProps = {
   isActive: boolean,
-  onExit: Function => mixed,
+  onExit: (Function) => mixed,
   electrumServers?: Array<string>,
   saveCustomNodesList: (Array<string>) => void,
   defaultElectrumServer: string,
   disableCustomNodes: () => void,
-  activatedBy: string | null
+  activatedBy: string | null,
 }
 
 export type SetCustomNodesModalState = {
-  readableNodesList: string
+  readableNodesList: string,
 }
 
 export type SetCustomNodeModalProps = SetCustomNodesModalOwnProps
 
 export class SetCustomNodesModal extends Component<SetCustomNodeModalProps, SetCustomNodesModalState> {
-  constructor (props: SetCustomNodeModalProps) {
+  constructor(props: SetCustomNodeModalProps) {
     super(props)
     const { electrumServers } = this.props
     const readableNodesList = electrumServers ? electrumServers.join('\n') : ''
     this.state = {
-      readableNodesList
+      readableNodesList,
     }
   }
 
   onChangeText = (input: string) => {
     this.setState({
-      readableNodesList: input
+      readableNodesList: input,
     })
   }
 
@@ -49,7 +49,7 @@ export class SetCustomNodesModal extends Component<SetCustomNodeModalProps, SetC
     this.props.onExit(() => {
       if (this.state.readableNodesList) {
         const parsedNodesList = this.state.readableNodesList.split('\n')
-        const cleanedNodesList = parsedNodesList.map(item => {
+        const cleanedNodesList = parsedNodesList.map((item) => {
           // remove unwanted spaces
           return item.replace(' ', '')
         })
@@ -70,7 +70,7 @@ export class SetCustomNodesModal extends Component<SetCustomNodeModalProps, SetC
     }
   }
 
-  render () {
+  render() {
     return (
       <InteractiveModal legacy isActive={this.props.isActive}>
         <InteractiveModal.Icon>
@@ -86,7 +86,7 @@ export class SetCustomNodesModal extends Component<SetCustomNodeModalProps, SetC
               style={styles.customNodesInput}
               value={this.state.readableNodesList}
               onChangeText={this.onChangeText}
-              editable={true}
+              editable
               multiline
               placeholder={this.props.defaultElectrumServer}
               placeholderTextColor={rawStyle.placeholderText.color}
@@ -116,7 +116,7 @@ export const rawStyle = {
     borderColor: '#CCCCCC',
     borderRadius: 3,
     height: PLATFORM.deviceHeight * 0.13 - (Platform.OS === 'android' ? 23 : 0) + (isIphoneX ? 60 : 0),
-    padding: 3
+    padding: 3,
   },
   customNodesInput: {
     height: PLATFORM.deviceHeight * 0.13 - (Platform.OS === 'android' ? 23 : 0) + (isIphoneX ? 60 : 0) - 8,
@@ -124,26 +124,26 @@ export const rawStyle = {
     fontSize: 15,
     fontFamily: THEME.FONTS.DEFAULT,
     paddingVertical: 0,
-    textAlignVertical: 'top'
+    textAlignVertical: 'top',
   },
   buttonsWrap: {
-    flexDirection: 'column'
+    flexDirection: 'column',
   },
   primaryButton: {
-    marginBottom: 8
+    marginBottom: 8,
   },
   primaryButtonText: {
-    color: THEME.COLORS.WHITE
+    color: THEME.COLORS.WHITE,
   },
   secondaryButtonText: {
-    color: THEME.COLORS.WHITE
+    color: THEME.COLORS.WHITE,
   },
   placeholderText: {
-    color: THEME.COLORS.GRAY_2
+    color: THEME.COLORS.GRAY_2,
   },
   placeholderUnderline: {
-    color: THEME.COLORS.TRANSPARENT
-  }
+    color: THEME.COLORS.TRANSPARENT,
+  },
 }
 
 const styles = StyleSheet.create(rawStyle)

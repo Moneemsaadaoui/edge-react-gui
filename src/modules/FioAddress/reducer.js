@@ -15,16 +15,16 @@ export type FioAddressSceneState = {
   feeCollected: number,
   handleRegistrationInfo: {
     activationCost: number,
-    supportedCurrencies: { [currencyCode: string]: boolean }
+    supportedCurrencies: { [currencyCode: string]: boolean },
   },
   addressRegistrationPaymentInfo: {
     [currencyCode: string]: {
       amount: string,
       nativeAmount: string,
-      address: string
-    }
+      address: string,
+    },
   },
-  regInfoLoading: boolean
+  regInfoLoading: boolean,
 }
 
 export type BuyAddressResponse = {
@@ -34,14 +34,14 @@ export type BuyAddressResponse = {
       pricing: {
         [currencyCode: string]: {
           amount: string,
-          currency: string
-        }
+          currency: string,
+        },
       },
       addresses: {
-        [currencyCode: string]: string
-      }
-    }
-  }
+        [currencyCode: string]: string,
+      },
+    },
+  },
 }
 
 const initialState: FioAddressSceneState = {
@@ -53,10 +53,10 @@ const initialState: FioAddressSceneState = {
   feeCollected: 0,
   handleRegistrationInfo: {
     activationCost: 40,
-    supportedCurrencies: {}
+    supportedCurrencies: {},
   },
   addressRegistrationPaymentInfo: {},
-  regInfoLoading: false
+  regInfoLoading: false,
 }
 
 export const fioAddress: Reducer<FioAddressSceneState, Action> = (state = initialState, action: Action) => {
@@ -65,7 +65,7 @@ export const fioAddress: Reducer<FioAddressSceneState, Action> = (state = initia
       if (!action.data) throw new Error('Invalid action FIO_ADDRESS_UPDATE_FIO_ADDRESS_NAME')
       return {
         ...state,
-        fioAddressName: action.data.fioAddressName
+        fioAddressName: action.data.fioAddressName,
       }
     case 'FIO/FIO_ADDRESS_UPDATE_SELECTED_WALLET':
       if (!action.data) throw new Error('Invalid action FIO_ADDRESS_UPDATE_SELECTED_WALLET')
@@ -73,38 +73,38 @@ export const fioAddress: Reducer<FioAddressSceneState, Action> = (state = initia
         ...state,
         selectedWallet: action.data.selectedWallet,
         expiration: new Date(action.data.expiration),
-        feeCollected: action.data.feeCollected
+        feeCollected: action.data.feeCollected,
       }
     case 'FIO/FIO_ADDRESS_SET_FIO_ADDRESS':
       if (!action.data) throw new Error(`Invalid action FIO_ADDRESS_SET_FIO_ADDRESS`)
       return {
         ...state,
         fioAddressName: action.data.fioAddressName,
-        expiration: new Date(action.data.expiration)
+        expiration: new Date(action.data.expiration),
       }
     case 'FIO/SET_FIO_ADDRESSES_PROGRESS':
       return {
         ...state,
-        fioAddressesLoading: true
+        fioAddressesLoading: true,
       }
     case 'FIO/SET_FIO_ADDRESSES':
       if (!action.data) throw new Error(`Invalid action SET_FIO_ADDRESSES`)
       return {
         ...state,
         fioAddresses: action.data.fioAddresses,
-        fioAddressesLoading: false
+        fioAddressesLoading: false,
       }
     case 'FIO/SET_FIO_ADDRESS_REG_INFO':
       if (!action.data) throw new Error(`Invalid action addressRegistrationPaymentInfo`)
       return {
         ...state,
         addressRegistrationPaymentInfo: action.data.addressRegistrationPaymentInfo,
-        handleRegistrationInfo: action.data.handleRegistrationInfo
+        handleRegistrationInfo: action.data.handleRegistrationInfo,
       }
     case 'FIO/FIO_ADDRESS_REG_INFO_LOADING':
       return {
         ...state,
-        regInfoLoading: action.data
+        regInfoLoading: action.data,
       }
     default:
       return state

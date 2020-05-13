@@ -7,7 +7,7 @@ import {
   checkPasswordSuccess,
   postponePasswordReminder,
   requestChangePassword,
-  setPasswordReminder
+  setPasswordReminder,
 } from './actions.js'
 import { PasswordReminderModal } from './PasswordReminderModal.ui.js'
 import { passwordReminderModalConnector } from './passwordReminderModalConnector.js'
@@ -25,7 +25,7 @@ export {
   passwordReminderModalConnector,
   PasswordReminderModal,
   passwordReminderModalReducer as passwordReminderModal,
-  setPasswordReminder
+  setPasswordReminder,
 }
 
 export type { PasswordReminderModalState }

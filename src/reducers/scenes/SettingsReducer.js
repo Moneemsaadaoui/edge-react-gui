@@ -16,7 +16,7 @@ export const initialState = {
   changesLocked: true,
   plugins: {
     allCurrencyInfos: [],
-    supportedWalletTypes: []
+    supportedWalletTypes: [],
   },
   pinLoginEnabled: false,
   account: null,
@@ -34,15 +34,15 @@ export const initialState = {
   spendingLimits: {
     transaction: {
       isEnabled: false,
-      amount: 0
-    }
+      amount: 0,
+    },
   },
-  developerModeOn: false
+  developerModeOn: false,
 }
 
 export type CurrencySetting = {
   denomination: string,
-  denominations?: Array<EdgeDenomination>
+  denominations?: Array<EdgeDenomination>,
 }
 
 export type SettingsState = {
@@ -90,7 +90,7 @@ export type SettingsState = {
   plugins: {
     [pluginId: string]: EdgeCurrencyInfo,
     allCurrencyInfos: Array<EdgeCurrencyInfo>,
-    supportedWalletTypes: Array<string>
+    supportedWalletTypes: Array<string>,
   },
   confirmPasswordError: string,
   sendLogsStatus: string,
@@ -99,8 +99,8 @@ export type SettingsState = {
   spendingLimits: {
     transaction: {
       isEnabled: boolean,
-      amount: number
-    }
+      amount: number,
+    },
   },
   developerModeOn: boolean,
   passwordRecoveryRemindersShown: {
@@ -108,11 +108,11 @@ export type SettingsState = {
     '200': boolean,
     '2000': boolean,
     '20000': boolean,
-    '200000': boolean
-  }
+    '200000': boolean,
+  },
 }
 
-function currencyPLuginUtil (state: SettingsState, currencyInfo: EdgeCurrencyInfo): SettingsState {
+function currencyPLuginUtil(state: SettingsState, currencyInfo: EdgeCurrencyInfo): SettingsState {
   const { plugins } = state
   const { allCurrencyInfos, supportedWalletTypes } = plugins
   const { pluginId, walletType } = currencyInfo
@@ -126,8 +126,8 @@ function currencyPLuginUtil (state: SettingsState, currencyInfo: EdgeCurrencyInf
       currencyCode: currencyInfo.currencyCode,
       denominations: currencyInfo.denominations,
       symbolImage: currencyInfo.symbolImage,
-      symbolImageDarkMono: currencyInfo.symbolImageDarkMono
-    }
+      symbolImageDarkMono: currencyInfo.symbolImageDarkMono,
+    },
   }
 
   // Build up object with all the information for each metatoken, accessible by the token currencyCode
@@ -142,15 +142,15 @@ function currencyPLuginUtil (state: SettingsState, currencyInfo: EdgeCurrencyInf
         denominations: metatoken.denominations,
         symbolImage: metatoken.symbolImage,
         // $FlowFixMe
-        symbolImageDarkMono: metatoken.symbolImageDarkMono
-      }
+        symbolImageDarkMono: metatoken.symbolImageDarkMono,
+      },
     }
   }, {})
 
   // Build up object with all the currency information for each currency supported by the plugin, accessible by the currencyCode
   const currencyInfos = {
     ...parentCurrencyInfo,
-    ...metatokenCurrencyInfos
+    ...metatokenCurrencyInfos,
   }
 
   return {
@@ -160,8 +160,8 @@ function currencyPLuginUtil (state: SettingsState, currencyInfo: EdgeCurrencyInf
       ...plugins,
       [pluginId]: currencyInfo,
       allCurrencyInfos: [...allCurrencyInfos, currencyInfo],
-      supportedWalletTypes: [...supportedWalletTypes, walletType]
-    }
+      supportedWalletTypes: [...supportedWalletTypes, walletType],
+    },
   }
 }
 
@@ -186,7 +186,7 @@ export const settingsLegacy = (state: SettingsState = initialState, action: Acti
           const tokenCode = token.currencyCode
           newState[tokenCode] = {
             denomination: token.denominations[0].multiplier,
-            denominations: token.denominations
+            denominations: token.denominations,
           }
         }
       }
@@ -215,7 +215,7 @@ export const settingsLegacy = (state: SettingsState = initialState, action: Acti
         isAccountBalanceVisible,
         mostRecentWallets,
         passwordRecoveryRemindersShown,
-        developerModeOn
+        developerModeOn,
       } = action.data
       let newState = {
         ...state,
@@ -240,9 +240,9 @@ export const settingsLegacy = (state: SettingsState = initialState, action: Acti
         isAccountBalanceVisible,
         mostRecentWallets,
         passwordRecoveryRemindersShown,
-        developerModeOn
+        developerModeOn,
       }
-      denominationKeys.forEach(key => {
+      denominationKeys.forEach((key) => {
         const currencyCode = key.currencyCode
         const denomination = key.denominationKey
         const currencyState = newState[currencyCode]
@@ -250,19 +250,19 @@ export const settingsLegacy = (state: SettingsState = initialState, action: Acti
           ...newState,
           [currencyCode]: {
             ...currencyState,
-            denomination
-          }
+            denomination,
+          },
         }
       })
       for (const pluginId of Object.keys(account.currencyConfig)) {
         newState = currencyPLuginUtil(newState, account.currencyConfig[pluginId].currencyInfo)
       }
-      customTokensSettings.forEach(key => {
+      customTokensSettings.forEach((key) => {
         const { currencyCode } = key
         newState = {
           ...newState,
           [currencyCode]: key,
-          defaultIsoFiat: `iso:${defaultFiat}`
+          defaultIsoFiat: `iso:${defaultFiat}`,
         }
       })
       return newState
@@ -278,7 +278,7 @@ export const settingsLegacy = (state: SettingsState = initialState, action: Acti
       const { confirmPasswordError } = action.data
       return {
         ...state,
-        confirmPasswordError: confirmPasswordError
+        confirmPasswordError: confirmPasswordError,
       }
     }
 
@@ -287,14 +287,14 @@ export const settingsLegacy = (state: SettingsState = initialState, action: Acti
       const { pinLoginEnabled } = action.data
       return {
         ...state,
-        pinLoginEnabled
+        pinLoginEnabled,
       }
     }
 
     case 'UPDATE_EXISTING_TOKEN_SUCCESS': {
       const { tokenObj } = action.data
       const customTokenSettings = state.customTokens
-      const newCustomTokenSettings = customTokenSettings.map(item => {
+      const newCustomTokenSettings = customTokenSettings.map((item) => {
         if (item.currencyCode === tokenObj.currencyCode) return { ...item, ...tokenObj }
         return item
       })
@@ -302,9 +302,9 @@ export const settingsLegacy = (state: SettingsState = initialState, action: Acti
         ...state,
         [tokenObj.currencyCode]: {
           ...state[tokenObj.currencyCode],
-          ...tokenObj
+          ...tokenObj,
         },
-        customTokens: newCustomTokenSettings
+        customTokens: newCustomTokenSettings,
       }
       return updatedSettings
     }
@@ -317,12 +317,12 @@ export const settingsLegacy = (state: SettingsState = initialState, action: Acti
       const senderCode = action.data.oldCurrencyCode
       const { tokenObj } = action.data
       const customTokenSettings = state.customTokens
-      const tokenSettingsWithUpdatedToken = customTokenSettings.map(item => {
+      const tokenSettingsWithUpdatedToken = customTokenSettings.map((item) => {
         // overwrite receiver token
         if (item.currencyCode === receiverCode) return { ...item, ...tokenObj, isVisible: true }
         return item
       })
-      const tokenSettingsWithUpdatedAndDeleted = tokenSettingsWithUpdatedToken.map(item => {
+      const tokenSettingsWithUpdatedAndDeleted = tokenSettingsWithUpdatedToken.map((item) => {
         // make sender token invisible
         if (item.currencyCode === senderCode) return { ...item, isVisible: false }
         return item
@@ -332,13 +332,13 @@ export const settingsLegacy = (state: SettingsState = initialState, action: Acti
         [receiverCode]: {
           ...state[receiverCode],
           ...tokenObj,
-          isVisible: true
+          isVisible: true,
         },
         [senderCode]: {
           ...state[senderCode],
-          isVisible: false
+          isVisible: false,
         },
-        customTokens: tokenSettingsWithUpdatedAndDeleted
+        customTokens: tokenSettingsWithUpdatedAndDeleted,
       }
       return updatedSettings
     }
@@ -346,7 +346,7 @@ export const settingsLegacy = (state: SettingsState = initialState, action: Acti
     case 'DELETE_CUSTOM_TOKEN_SUCCESS': {
       const { currencyCode } = action.data
       const customTokenSettings = state.customTokens
-      const newCustomTokenSettings = customTokenSettings.map(item => {
+      const newCustomTokenSettings = customTokenSettings.map((item) => {
         if (item.currencyCode === currencyCode) return { ...item, isVisible: false }
         return item
       })
@@ -354,9 +354,9 @@ export const settingsLegacy = (state: SettingsState = initialState, action: Acti
         ...state,
         [currencyCode]: {
           ...state[currencyCode],
-          isVisible: false
+          isVisible: false,
         },
-        customTokens: newCustomTokenSettings
+        customTokens: newCustomTokenSettings,
       }
     }
 
@@ -368,26 +368,26 @@ export const settingsLegacy = (state: SettingsState = initialState, action: Acti
       return {
         ...state,
         [newCurrencyCode]: tokenObj,
-        customTokens
+        customTokens,
       }
     }
 
     case 'ADD_NEW_TOKEN_THEN_DELETE_OLD_SUCCESS': {
       const { tokenObj, code, setSettings, oldCurrencyCode } = action.data
       const customTokens = setSettings.customTokens
-      const oldCurrencyCodeIndex = _.findIndex(customTokens, item => item.currencyCode === oldCurrencyCode)
+      const oldCurrencyCodeIndex = _.findIndex(customTokens, (item) => item.currencyCode === oldCurrencyCode)
       customTokens[oldCurrencyCodeIndex] = {
         ...state.customTokens[oldCurrencyCodeIndex],
-        isVisible: false
+        isVisible: false,
       }
       return {
         ...state,
         [code]: tokenObj,
         [oldCurrencyCode]: {
           ...state[oldCurrencyCode],
-          isVisible: false
+          isVisible: false,
         },
-        customTokens
+        customTokens,
       }
     }
 
@@ -400,8 +400,8 @@ export const settingsLegacy = (state: SettingsState = initialState, action: Acti
         ...state,
         [currencyCode]: {
           ...currencyState,
-          denomination
-        }
+          denomination,
+        },
       }
     }
 
@@ -409,7 +409,7 @@ export const settingsLegacy = (state: SettingsState = initialState, action: Acti
       return {
         ...state,
         otpResetDate: null,
-        otpResetPending: false
+        otpResetPending: false,
       }
     }
 
@@ -430,7 +430,7 @@ export const settingsLegacy = (state: SettingsState = initialState, action: Acti
       const { pinMode } = action.data
       return {
         ...state,
-        pinMode
+        pinMode,
       }
     }
 
@@ -439,7 +439,7 @@ export const settingsLegacy = (state: SettingsState = initialState, action: Acti
       const { otpMode } = action.data
       return {
         ...state,
-        otpMode
+        otpMode,
       }
     }
 
@@ -447,35 +447,35 @@ export const settingsLegacy = (state: SettingsState = initialState, action: Acti
       const { autoLogoutTimeInSeconds } = action.data
       return {
         ...state,
-        autoLogoutTimeInSeconds
+        autoLogoutTimeInSeconds,
       }
     }
 
     case 'LOGS/SEND_LOGS_REQUEST': {
       return {
         ...state,
-        sendLogsStatus: Constants.REQUEST_STATUS.LOADING
+        sendLogsStatus: Constants.REQUEST_STATUS.LOADING,
       }
     }
 
     case 'LOGS/SEND_LOGS_FAILURE': {
       return {
         ...state,
-        sendLogsStatus: Constants.REQUEST_STATUS.FAILURE
+        sendLogsStatus: Constants.REQUEST_STATUS.FAILURE,
       }
     }
 
     case 'LOGS/SEND_LOGS_SUCCESS': {
       return {
         ...state,
-        sendLogsStatus: Constants.REQUEST_STATUS.SUCCESS
+        sendLogsStatus: Constants.REQUEST_STATUS.SUCCESS,
       }
     }
 
     case 'LOGS/SEND_LOGS_PENDING': {
       return {
         ...state,
-        sendLogsStatus: Constants.REQUEST_STATUS.PENDING
+        sendLogsStatus: Constants.REQUEST_STATUS.PENDING,
       }
     }
 
@@ -485,7 +485,7 @@ export const settingsLegacy = (state: SettingsState = initialState, action: Acti
       return {
         ...state,
         defaultFiat,
-        defaultIsoFiat: `iso:${defaultFiat}`
+        defaultIsoFiat: `iso:${defaultFiat}`,
       }
     }
 
@@ -494,7 +494,7 @@ export const settingsLegacy = (state: SettingsState = initialState, action: Acti
       const { merchantMode } = action.data
       return {
         ...state,
-        merchantMode
+        merchantMode,
       }
     }
 
@@ -508,14 +508,14 @@ export const settingsLegacy = (state: SettingsState = initialState, action: Acti
       const { bluetoothMode } = action.data
       return {
         ...state,
-        bluetoothMode
+        bluetoothMode,
       }
     }
 
     case 'UI/SETTINGS/SET_SETTINGS_LOCK': {
       return {
         ...state,
-        changesLocked: action.data
+        changesLocked: action.data,
       }
     }
 
@@ -525,7 +525,7 @@ export const settingsLegacy = (state: SettingsState = initialState, action: Acti
         ...state,
         isOtpEnabled: action.data.enabled,
         otpKey: action.data.otpKey,
-        otpResetPending: action.data.otpResetPending
+        otpResetPending: action.data.otpResetPending,
       }
     }
 
@@ -534,13 +534,13 @@ export const settingsLegacy = (state: SettingsState = initialState, action: Acti
         return {
           ...state,
           isTouchSupported: action.data.isTouchSupported,
-          isTouchEnabled: action.data.isTouchEnabled
+          isTouchEnabled: action.data.isTouchEnabled,
         }
       } else {
         return {
           ...state,
           isTouchSupported: false,
-          isTouchEnabled: false
+          isTouchEnabled: false,
         }
       }
     }
@@ -549,7 +549,7 @@ export const settingsLegacy = (state: SettingsState = initialState, action: Acti
       if (!action.data) throw new Error('Invalid action')
       return {
         ...state,
-        isTouchEnabled: action.data.isTouchEnabled
+        isTouchEnabled: action.data.isTouchEnabled,
       }
     }
 
@@ -557,7 +557,7 @@ export const settingsLegacy = (state: SettingsState = initialState, action: Acti
       if (!action.data) throw new Error('Invalid action')
       return {
         ...state,
-        mostRecentWallets: action.data.mostRecentWallets
+        mostRecentWallets: action.data.mostRecentWallets,
       }
     }
 
@@ -565,7 +565,7 @@ export const settingsLegacy = (state: SettingsState = initialState, action: Acti
       if (!action.data) throw new Error('Invalid action')
       return {
         ...state,
-        isAccountBalanceVisible: action.data.isAccountBalanceVisible
+        isAccountBalanceVisible: action.data.isAccountBalanceVisible,
       }
     }
 
@@ -576,8 +576,8 @@ export const settingsLegacy = (state: SettingsState = initialState, action: Acti
         ...state,
         passwordRecoveryRemindersShown: {
           ...state.passwordRecoveryRemindersShown,
-          [level]: wasShown
-        }
+          [level]: wasShown,
+        },
       }
     }
     default:
@@ -598,7 +598,7 @@ export const settings = (state: SettingsState = initialState, action: Action) =>
   if (spendingLimitsObj !== state.spendingLimits) {
     result = {
       ...result,
-      spendingLimits: spendingLimitsObj
+      spendingLimits: spendingLimitsObj,
     }
   }
 

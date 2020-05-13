@@ -12,7 +12,7 @@ const mapStateToProps = (state: State): StateProps => {
   const selectedWalletCurrencyCode = UI_SELECTORS.getSelectedCurrencyCode(state)
   return {
     selectedWalletName: selectedWallet ? selectedWallet.name : null,
-    selectedWalletCurrencyCode
+    selectedWalletCurrencyCode,
   }
 }
 const mapDispatchToProps = (dispatch: Dispatch, ownProps: DispatchProps): DispatchProps => {
@@ -21,10 +21,7 @@ const mapDispatchToProps = (dispatch: Dispatch, ownProps: DispatchProps): Dispat
     dispatch({ type: 'TOGGLE_SCAN_TO_WALLET_LIST_MODAL' })
   }
   return {
-    onPress: ownProps.onPress || onPress
+    onPress: ownProps.onPress || onPress,
   }
 }
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(WalletSelector)
+export default connect(mapStateToProps, mapDispatchToProps)(WalletSelector)

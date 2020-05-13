@@ -13,9 +13,9 @@ const styles = StyleSheet.create({
     borderColor: THEME.COLORS.GRAY_1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: THEME.COLORS.TRANSPARENT
+    backgroundColor: THEME.COLORS.TRANSPARENT,
   },
-  checkmark: {}
+  checkmark: {},
 })
 
 export default styles

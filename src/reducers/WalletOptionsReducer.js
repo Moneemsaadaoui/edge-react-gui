@@ -10,7 +10,7 @@ export type WalletListState = {
   +walletArchivesVisible: boolean,
   +walletId: string,
   +xPubSyntax: string,
-  +xPubExplorer: string
+  +xPubExplorer: string,
 }
 
 const walletId = (state = '', action: Action): string => {
@@ -60,5 +60,5 @@ export const walletList: Reducer<WalletListState, Action> = combineReducers({
   walletArchivesVisible,
   walletId,
   xPubSyntax,
-  xPubExplorer
+  xPubExplorer,
 })

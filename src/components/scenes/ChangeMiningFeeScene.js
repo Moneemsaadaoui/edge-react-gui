@@ -19,27 +19,27 @@ import { FormField } from '../common/FormField.js'
 import { SceneWrapper } from '../common/SceneWrapper.js'
 
 type OwnProps = {
-  wallet: EdgeCurrencyWallet
+  wallet: EdgeCurrencyWallet,
 }
 
 type StateProps = {
   networkFeeOption?: FeeOption,
-  customNetworkFee?: Object
+  customNetworkFee?: Object,
 }
 
 type DispatchProps = {
-  onSubmit(networkFeeOption: string, customNetworkFee: Object): mixed
+  onSubmit(networkFeeOption: string, customNetworkFee: Object): mixed,
 }
 
 type Props = OwnProps & StateProps & DispatchProps
 
 type State = {
   networkFeeOption: FeeOption,
-  customNetworkFee: Object
+  customNetworkFee: Object,
 }
 
 export class ChangeMiningFee extends Component<Props, State> {
-  constructor (props: Props) {
+  constructor(props: Props) {
     super(props)
     const { networkFeeOption = 'standard', customNetworkFee = {} } = props
     const customFormat = this.getCustomFormat()
@@ -55,7 +55,7 @@ export class ChangeMiningFee extends Component<Props, State> {
     }
   }
 
-  getCustomFormat (): Array<string> | void {
+  getCustomFormat(): Array<string> | void {
     const { wallet } = this.props
     if (wallet.currencyInfo.defaultSettings != null) {
       const { customFeeSettings } = wallet.currencyInfo.defaultSettings
@@ -63,12 +63,12 @@ export class ChangeMiningFee extends Component<Props, State> {
     }
   }
 
-  componentWillUnmount () {
+  componentWillUnmount() {
     const { networkFeeOption, customNetworkFee } = this.state
     this.props.onSubmit(networkFeeOption, customNetworkFee)
   }
 
-  render () {
+  render() {
     const customFormat = this.getCustomFormat()
 
     return (
@@ -85,7 +85,7 @@ export class ChangeMiningFee extends Component<Props, State> {
     )
   }
 
-  renderRadioRow (value: FeeOption, label: string) {
+  renderRadioRow(value: FeeOption, label: string) {
     const { networkFeeOption } = this.state
 
     return (
@@ -98,19 +98,19 @@ export class ChangeMiningFee extends Component<Props, State> {
     )
   }
 
-  renderCustomFee (customFormat: Array<string>): Node {
+  renderCustomFee(customFormat: Array<string>): Node {
     const { networkFeeOption, customNetworkFee } = this.state
     if (networkFeeOption !== 'custom') return null
 
     return (
       <View style={styles.customArea}>
-        {customFormat.map(key => (
+        {customFormat.map((key) => (
           <FormField
             key={key}
             keyboardType="numeric"
-            onChangeText={text =>
+            onChangeText={(text) =>
               this.setState({
-                customNetworkFee: { ...customNetworkFee, [key]: text }
+                customNetworkFee: { ...customNetworkFee, [key]: text },
               })
             }
             value={customNetworkFee[key]}
@@ -121,7 +121,7 @@ export class ChangeMiningFee extends Component<Props, State> {
     )
   }
 
-  renderFeeWarning () {
+  renderFeeWarning() {
     const { networkFeeOption } = this.state
     if (networkFeeOption !== 'custom' && networkFeeOption !== 'low') return null
 
@@ -137,11 +137,11 @@ export class ChangeMiningFee extends Component<Props, State> {
 export const ChangeMiningFeeScene = connect(
   (state: ReduxState): StateProps => ({
     networkFeeOption: getGuiMakeSpendInfo(state).networkFeeOption,
-    customNetworkFee: getGuiMakeSpendInfo(state).customNetworkFee
+    customNetworkFee: getGuiMakeSpendInfo(state).customNetworkFee,
   }),
   (dispatch: Dispatch): DispatchProps => ({
-    onSubmit (networkFeeOption: string, customNetworkFee: Object) {
+    onSubmit(networkFeeOption: string, customNetworkFee: Object) {
       dispatch(sendConfirmationUpdateTx({ networkFeeOption, customNetworkFee }))
-    }
+    },
   })
 )(ChangeMiningFee)

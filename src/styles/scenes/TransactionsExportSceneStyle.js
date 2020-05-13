@@ -7,9 +7,9 @@ export const styles = {
   actionButtonContainer: {
     alignSelf: 'center',
     width: '90%',
-    height: scale(THEME.BUTTONS.HEIGHT)
+    height: scale(THEME.BUTTONS.HEIGHT),
   },
   shim: {
-    height: scale(20)
-  }
+    height: scale(20),
+  },
 }

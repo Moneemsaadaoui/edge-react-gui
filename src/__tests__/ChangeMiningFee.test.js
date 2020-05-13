@@ -11,9 +11,9 @@ describe('Change Mining Fees', () => {
   const wallet: Object = {
     currencyInfo: {
       defaultSettings: {
-        customFeeSettings: ['satPerByte']
-      }
-    }
+        customFeeSettings: ['satPerByte'],
+      },
+    },
   }
   const commonProps = { onSubmit, wallet }
 

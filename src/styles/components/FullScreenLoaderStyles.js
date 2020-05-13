@@ -12,10 +12,10 @@ export const styles = StyleSheet.create({
     height: PLATFORM.deviceHeight,
     width: PLATFORM.deviceWidth,
     backgroundColor: THEME.COLORS.OPACITY_GRAY_1,
-    zIndex: 1000
+    zIndex: 1000,
   },
   indicator: {
     flex: 1,
-    alignSelf: 'center'
-  }
+    alignSelf: 'center',
+  },
 })

@@ -10,15 +10,12 @@ import type { Dispatch, State } from '../../types/reduxTypes.js'
 export const mapStateToProps = (state: State) => ({
   lobby: state.core.edgeLogin.lobby,
   error: state.core.edgeLogin.error,
-  isProcessing: state.core.edgeLogin.isProcessing
+  isProcessing: state.core.edgeLogin.isProcessing,
 })
 
 export const mapDispatchToProps = (dispatch: Dispatch) => ({
   accept: () => dispatch(lobbyLogin()),
-  decline: () => Actions.pop()
+  decline: () => Actions.pop(),
 })
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(LinkedComponent)
+export default connect(mapStateToProps, mapDispatchToProps)(LinkedComponent)

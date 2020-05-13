@@ -17,7 +17,7 @@ export type WalletsState = {
   addTokenPending: boolean,
   manageTokensPending: boolean,
   walletLoadingProgress: { [walletId: string]: number },
-  fioWallets: EdgeCurrencyWallet[]
+  fioWallets: EdgeCurrencyWallet[],
 }
 
 const byId = (state = {}, action: Action): $PropertyType<WalletsState, 'byId'> => {
@@ -31,13 +31,13 @@ const byId = (state = {}, action: Action): $PropertyType<WalletsState, 'byId'> =
         if (state[walletId]) {
           const enabledTokensOnWallet = state[walletId].enabledTokens
           tempWallet.enabledTokens = enabledTokensOnWallet
-          enabledTokensOnWallet.forEach(customToken => {
+          enabledTokensOnWallet.forEach((customToken) => {
             tempWallet.nativeBalances[customToken] = wallets[walletId].getBalance({ currencyCode: customToken })
           })
         }
         out[walletId] = {
           ...state[walletId],
-          ...tempWallet
+          ...tempWallet,
         }
       }
 
@@ -51,8 +51,8 @@ const byId = (state = {}, action: Action): $PropertyType<WalletsState, 'byId'> =
           ...state,
           [walletId]: {
             ...state[walletId],
-            enabledTokens: tokens
-          }
+            enabledTokens: tokens,
+          },
         }
       } else {
         return state
@@ -66,8 +66,8 @@ const byId = (state = {}, action: Action): $PropertyType<WalletsState, 'byId'> =
           ...state,
           [walletId]: {
             ...state[walletId],
-            enabledTokens
-          }
+            enabledTokens,
+          },
         }
       } else {
         return state
@@ -79,7 +79,7 @@ const byId = (state = {}, action: Action): $PropertyType<WalletsState, 'byId'> =
       // coreWalletsToUpdate are wallets with non-empty enabledTokens properties
       // receiving token will have to take on sending tokens enabledness
       // sending token will already be disabled because it was deleted
-      coreWalletsToUpdate.forEach(wallet => {
+      coreWalletsToUpdate.forEach((wallet) => {
         // just disable sending coin from relevant wallet
         const guiWallet = state[wallet.id]
         const enabledTokens = guiWallet.enabledTokens
@@ -93,8 +93,8 @@ const byId = (state = {}, action: Action): $PropertyType<WalletsState, 'byId'> =
           ...state,
           [wallet.id]: {
             ...state[wallet.id],
-            enabledTokens: newEnabledTokens
-          }
+            enabledTokens: newEnabledTokens,
+          },
         }
         return newState
       })
@@ -107,7 +107,7 @@ const byId = (state = {}, action: Action): $PropertyType<WalletsState, 'byId'> =
       // coreWalletsToUpdate are wallets with non-empty enabledTokens properties
       // receiving token will have to take on sending tokens enabledness
       // sending token will already be disabled because it was deleted
-      coreWalletsToUpdate.forEach(wallet => {
+      coreWalletsToUpdate.forEach((wallet) => {
         // just disable sending coin from relevant wallet
         const guiWallet = state[wallet.id]
         const enabledTokens = guiWallet.enabledTokens
@@ -116,8 +116,8 @@ const byId = (state = {}, action: Action): $PropertyType<WalletsState, 'byId'> =
           ...state,
           [wallet.id]: {
             ...state[wallet.id],
-            enabledTokens: newEnabledTokens
-          }
+            enabledTokens: newEnabledTokens,
+          },
         }
         return newState
       })
@@ -135,12 +135,12 @@ const byId = (state = {}, action: Action): $PropertyType<WalletsState, 'byId'> =
         const guiWallet = schema(wallet, state[wallet.id].receiveAddress)
         const enabledTokensOnWallet = state[wallet.id].enabledTokens
         guiWallet.enabledTokens = enabledTokensOnWallet
-        enabledTokensOnWallet.forEach(customToken => {
+        enabledTokensOnWallet.forEach((customToken) => {
           guiWallet.nativeBalances[customToken] = wallet.getBalance({ currencyCode: customToken })
         })
         out[wallet.id] = {
           ...state[wallet.id],
-          ...guiWallet
+          ...guiWallet,
         }
       }
       return out
@@ -153,8 +153,8 @@ const byId = (state = {}, action: Action): $PropertyType<WalletsState, 'byId'> =
         ...state,
         [walletId]: {
           ...state[walletId],
-          receiveAddress
-        }
+          receiveAddress,
+        },
       }
     }
 
@@ -169,7 +169,7 @@ const walletLoadingProgress = (state = {}, action: Action): $PropertyType<Wallet
       if (!action.data) throw new Error('Invalid action')
       const activeWalletIdList = action.data.activeWalletIds
       const activeWalletIdProgress = {}
-      activeWalletIdList.map(item => {
+      activeWalletIdList.map((item) => {
         activeWalletIdProgress[item] = 0
       })
       return activeWalletIdProgress
@@ -181,7 +181,7 @@ const walletLoadingProgress = (state = {}, action: Action): $PropertyType<Wallet
       if (action.data.addressLoadingProgress < state[action.data.walletId]) return state
       return {
         ...state,
-        [action.data.walletId]: action.data.addressLoadingProgress
+        [action.data.walletId]: action.data.addressLoadingProgress,
       }
     }
 
@@ -279,7 +279,7 @@ const manageTokensPending = (state = false, action: Action): boolean => {
   }
 }
 
-function schema (wallet: EdgeCurrencyWallet, receiveAddress: EdgeReceiveAddress): GuiWallet {
+function schema(wallet: EdgeCurrencyWallet, receiveAddress: EdgeReceiveAddress): GuiWallet {
   const id: string = wallet.id
   const type: string = wallet.type
   const name: string = wallet.name || 'no wallet name'
@@ -296,14 +296,14 @@ function schema (wallet: EdgeCurrencyWallet, receiveAddress: EdgeReceiveAddress)
   const enabledTokens: Array<string> = []
 
   const allDenominations: {
-    [currencyCode: string]: { [denomination: string]: EdgeDenomination }
+    [currencyCode: string]: { [denomination: string]: EdgeDenomination },
   } = {}
 
   // Add all parent currency denominations to allDenominations
   const parentDenominations = denominations.reduce(
     (denominations, denomination) => ({
       ...denominations,
-      [denomination.multiplier]: denomination
+      [denomination.multiplier]: denomination,
     }),
     {}
   )
@@ -318,7 +318,7 @@ function schema (wallet: EdgeCurrencyWallet, receiveAddress: EdgeReceiveAddress)
   const currencyNames: { [currencyCode: string]: string } = {}
   currencyNames[currencyCode] = wallet.currencyInfo.displayName
 
-  metaTokens.forEach(metaToken => {
+  metaTokens.forEach((metaToken) => {
     const currencyCode: string = metaToken.currencyCode
     const currencyName: string = metaToken.currencyName
     const balance: string = wallet.getBalance({ currencyCode })
@@ -330,7 +330,7 @@ function schema (wallet: EdgeCurrencyWallet, receiveAddress: EdgeReceiveAddress)
 
     // Add all token denominations to allDenominations
     const tokenDenominations: {
-      [denomination: string]: EdgeDenomination
+      [denomination: string]: EdgeDenomination,
     } = denominations.reduce((denominations, denomination) => ({ ...denominations, [denomination.multiplier]: denomination }), {})
     allDenominations[currencyCode] = tokenDenominations
   })
@@ -354,7 +354,7 @@ function schema (wallet: EdgeCurrencyWallet, receiveAddress: EdgeReceiveAddress)
     receiveAddress,
     blockHeight,
     symbolImage,
-    symbolImageDarkMono
+    symbolImageDarkMono,
   }
 
   return newWallet
@@ -389,5 +389,5 @@ export const wallets: Reducer<WalletsState, Action> = combineReducers({
   addTokenPending,
   manageTokensPending,
   walletLoadingProgress,
-  fioWallets
+  fioWallets,
 })

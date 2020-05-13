@@ -10,7 +10,7 @@ import Gradient from '../../components/Gradient/Gradient.ui'
 
 type props = {
   style: StyleSheet.Styles,
-  children: Node
+  children: Node,
 }
 
 // The Gradient Component is a hack to make the upper portion of the safe area view have the edge gradient
@@ -25,7 +25,7 @@ const SafeAreaViewComponent = ({ style, children }: props) => {
           right: 0,
           left: 0,
           height: THEME.HEADER,
-          zIndex: -1000
+          zIndex: -1000,
         }}
       />
     </SafeAreaView>

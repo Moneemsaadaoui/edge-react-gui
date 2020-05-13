@@ -22,14 +22,14 @@ import { Airship } from '../services/AirshipInstance.js'
 
 const logos = {
   eos: eosLogo,
-  steem: steemLogo
+  steem: steemLogo,
 }
 
 export type AccountPaymentParams = {
   requestedAccountName: string,
   currencyCode: string,
   ownerPublicKey: string,
-  activePublicKey: string
+  activePublicKey: string,
 }
 
 export type CreateWalletAccountSelectStateProps = {
@@ -43,7 +43,7 @@ export type CreateWalletAccountSelectStateProps = {
   isCreatingWallet: boolean,
   paymentDenominationSymbol: string,
   existingCoreWallet: EdgeCurrencyWallet,
-  walletAccountActivationQuoteError: string
+  walletAccountActivationQuoteError: string,
 }
 
 export type CreateWalletAccountSelectOwnProps = {
@@ -51,15 +51,15 @@ export type CreateWalletAccountSelectOwnProps = {
   selectedWalletType: GuiWalletType,
   accountName: string,
   isReactivation?: boolean,
-  existingWalletId?: string
+  existingWalletId?: string,
 }
 
 export type CreateWalletAccountSelectDispatchProps = {
   createAccountBasedWallet: (string, string, string, boolean, boolean) => any,
-  fetchAccountActivationInfo: string => void,
+  fetchAccountActivationInfo: (string) => void,
   createAccountTransaction: (string, string, string) => void,
   fetchWalletAccountActivationPaymentInfo: (AccountPaymentParams, EdgeCurrencyWallet) => void,
-  setWalletAccountActivationQuoteError: string => void
+  setWalletAccountActivationQuoteError: (string) => void,
 }
 
 type Props = CreateWalletAccountSelectOwnProps & CreateWalletAccountSelectDispatchProps & CreateWalletAccountSelectStateProps
@@ -68,11 +68,11 @@ type State = {
   walletName: string,
   walletId: string,
   error: string,
-  createdWallet: Promise<EdgeCurrencyWallet>
+  createdWallet: Promise<EdgeCurrencyWallet>,
 }
 
 export class CreateWalletAccountSelect extends Component<Props, State> {
-  constructor (props: Props) {
+  constructor(props: Props) {
     super(props)
     const { selectedFiat, selectedWalletType, createAccountBasedWallet, accountName } = props
     let createdWallet
@@ -85,7 +85,7 @@ export class CreateWalletAccountSelect extends Component<Props, State> {
       error: '',
       walletId: '',
       walletName: '',
-      createdWallet
+      createdWallet,
     }
     const currencyCode = props.selectedWalletType.currencyCode
     props.fetchAccountActivationInfo(currencyCode)
@@ -97,7 +97,7 @@ export class CreateWalletAccountSelect extends Component<Props, State> {
     return wallet
   }
 
-  componentDidMount () {
+  componentDidMount() {
     logEvent('ActivateWalletSelect')
   }
 
@@ -113,7 +113,7 @@ export class CreateWalletAccountSelect extends Component<Props, State> {
         allowedCurrencyCodes.push(currency)
       }
     }
-    Airship.show(bridge => <WalletListModal bridge={bridge} headerTitle={s.strings.select_wallet} allowedCurrencyCodes={allowedCurrencyCodes} />).then(
+    Airship.show((bridge) => <WalletListModal bridge={bridge} headerTitle={s.strings.select_wallet} allowedCurrencyCodes={allowedCurrencyCodes} />).then(
       (response: WalletListResult) => {
         if (response.walletToSelect) {
           this.onSelectWallet(response.walletToSelect.walletId, response.walletToSelect.currencyCode)
@@ -138,14 +138,14 @@ export class CreateWalletAccountSelect extends Component<Props, State> {
     const walletName = paymentWallet.name
     this.setState({
       walletId,
-      walletName
+      walletName,
     })
     const createdWallet = await this.state.createdWallet
     const paymentInfo: AccountPaymentParams = {
       requestedAccountName: accountName,
       currencyCode: paymentCurrencyCode,
       ownerPublicKey: createdWallet.publicWalletInfo.keys.ownerPublicKey,
-      activePublicKey: createdWallet.publicWalletInfo.keys.publicKey
+      activePublicKey: createdWallet.publicWalletInfo.keys.publicKey,
     }
 
     fetchWalletAccountActivationPaymentInfo(paymentInfo, createdWallet)
@@ -158,7 +158,7 @@ export class CreateWalletAccountSelect extends Component<Props, State> {
     return (
       <View style={styles.selectPaymentLower}>
         <View style={styles.buttons}>
-          <PrimaryButton disabled={isSelectWalletDisabled} style={[styles.next]} onPress={this.onPressSelect}>
+          <PrimaryButton disabled={isSelectWalletDisabled} style={styles.next} onPress={this.onPressSelect}>
             {isSelectWalletDisabled ? <ActivityIndicator /> : <PrimaryButton.Text>{s.strings.create_wallet_account_select_wallet}</PrimaryButton.Text>}
           </PrimaryButton>
         </View>
@@ -182,7 +182,7 @@ export class CreateWalletAccountSelect extends Component<Props, State> {
       selectedWalletType,
       selectedFiat,
       activationCost,
-      paymentDenominationSymbol
+      paymentDenominationSymbol,
     } = this.props
     const { walletId, createdWallet } = this.state
     const wallet = wallets[walletId]
@@ -228,7 +228,7 @@ export class CreateWalletAccountSelect extends Component<Props, State> {
           <Text style={styles.accountReviewConfirmText}>{s.strings.create_wallet_account_confirm}</Text>
         </View>
         <View style={styles.confirmButtonArea}>
-          <PrimaryButton disabled={isContinueButtonDisabled} style={[styles.confirmButton]} onPress={this.onPressSubmit}>
+          <PrimaryButton disabled={isContinueButtonDisabled} style={styles.confirmButton} onPress={this.onPressSubmit}>
             {/* we want it disabled with activity indicator if creating wallet, or wallet is created and pending quote */}
             {isContinueButtonDisabled ? <ActivityIndicator /> : <PrimaryButton.Text>{s.strings.legacy_address_modal_continue}</PrimaryButton.Text>}
           </PrimaryButton>
@@ -237,7 +237,7 @@ export class CreateWalletAccountSelect extends Component<Props, State> {
     )
   }
 
-  render () {
+  render() {
     const { supportedCurrencies, selectedWalletType, activationCost, wallets, walletAccountActivationQuoteError } = this.props
     const { walletId } = this.state
     const instructionSyntax = sprintf(
@@ -269,7 +269,7 @@ export class CreateWalletAccountSelect extends Component<Props, State> {
           <Gradient style={styles.scrollableGradient} />
           <ScrollView>
             <View style={styles.scrollableView}>
-              <Image source={logos['eos']} style={styles.currencyLogo} resizeMode={'cover'} />
+              <Image source={logos.eos} style={styles.currencyLogo} resizeMode="cover" />
               <View style={styles.createWalletPromptArea}>
                 <Text style={styles.instructionalText}>{!walletId || walletAccountActivationQuoteError ? instructionSyntax : confirmMessageSyntax}</Text>
               </View>

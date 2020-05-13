@@ -30,7 +30,7 @@ const mapStateToProps = (state: State): FioRequestConfirmationProps => {
       publicAddress: '',
       fioWallets,
       account,
-      isConnected
+      isConnected,
     }
   }
 
@@ -45,13 +45,13 @@ const mapStateToProps = (state: State): FioRequestConfirmationProps => {
     displayCurrencyCode: currencyCode,
     displayDenomination: primaryDisplayDenomination,
     exchangeCurrencyCode: primaryExchangeCurrencyCode,
-    exchangeDenomination: primaryExchangeDenomination
+    exchangeDenomination: primaryExchangeDenomination,
   }
   const secondaryCurrencyInfo: GuiCurrencyInfo = {
     displayCurrencyCode: guiWallet.fiatCurrencyCode,
     displayDenomination: secondaryDisplayDenomination,
     exchangeCurrencyCode: secondaryExchangeCurrencyCode,
-    exchangeDenomination: secondaryExchangeDenomination
+    exchangeDenomination: secondaryExchangeDenomination,
   }
   const isoFiatCurrencyCode: string = guiWallet.isoFiatCurrencyCode
   const exchangeSecondaryToPrimaryRatio = UI_SELECTORS.getExchangeRate(state, currencyCode, isoFiatCurrencyCode)
@@ -65,7 +65,7 @@ const mapStateToProps = (state: State): FioRequestConfirmationProps => {
     secondaryCurrencyInfo,
     fioWallets,
     account,
-    isConnected
+    isConnected,
   }
 }
 const mapDispatchToProps = (dispatch: Dispatch): FioRequestConfirmationDispatchProps => ({
@@ -74,10 +74,7 @@ const mapDispatchToProps = (dispatch: Dispatch): FioRequestConfirmationDispatchP
   },
   onSelectWallet: (walletId: string, currencyCode: string) => {
     dispatch(selectWalletFromModal(walletId, currencyCode))
-  }
+  },
 })
 
-export const FioRequestConfirmationConnector = connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(FioRequestConfirmationComponent)
+export const FioRequestConfirmationConnector = connect(mapStateToProps, mapDispatchToProps)(FioRequestConfirmationComponent)

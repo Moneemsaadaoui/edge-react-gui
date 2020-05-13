@@ -24,7 +24,7 @@ describe('Scan component', () => {
       toggleEnableTorch: jest.fn(),
       toggleScanToWalletListModal: jest.fn(),
       onSelectWallet: jest.fn(),
-      selectFromWalletForExchange: jest.fn()
+      selectFromWalletForExchange: jest.fn(),
     }
     const actual = renderer.render(<Scan {...props} />)
 
@@ -48,7 +48,7 @@ describe('Scan component', () => {
       toggleEnableTorch: jest.fn(),
       toggleScanToWalletListModal: jest.fn(),
       onSelectWallet: jest.fn(),
-      selectFromWalletForExchange: jest.fn()
+      selectFromWalletForExchange: jest.fn(),
     }
     const actual = renderer.render(<Scan {...props} />)
 

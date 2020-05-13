@@ -33,7 +33,7 @@ describe.skip('Edge', () => {
       tooShort: '12',
       invalidCharacters: "username'",
       taken: 'JS test 0',
-      valid: 'JS test 1'
+      valid: 'JS test 1',
     }
 
     const PASSWORD = {
@@ -42,7 +42,7 @@ describe.skip('Edge', () => {
       lacksUppercase: 'y768mv4plfupqjmu',
       lacksLowercase: 'Y768MV4PLFUPQjMU',
       mismatch: 'uMjQpuFLP4vM867y',
-      valid: 'y768Mv4PLFupQjMu'
+      valid: 'y768Mv4PLFupQjMu',
     }
 
     await expect(createAccountButton).toExist()

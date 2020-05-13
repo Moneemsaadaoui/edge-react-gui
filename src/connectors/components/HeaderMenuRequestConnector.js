@@ -12,7 +12,7 @@ import type { Dispatch, State } from '../../types/reduxTypes.js'
 
 export const dropDownStyle = {
   ...MenuDropDownStyle,
-  icon: { ...MenuDropDownStyle.icon, color: THEME.COLORS.WHITE }
+  icon: { ...MenuDropDownStyle.icon, color: THEME.COLORS.WHITE },
 }
 
 const help = {
@@ -20,8 +20,8 @@ const help = {
   key: s.strings.string_help,
   value: {
     title: Constants.HELP_VALUE,
-    value: Constants.HELP_VALUE
-  }
+    value: Constants.HELP_VALUE,
+  },
 }
 
 const helpArray = [help]
@@ -35,14 +35,14 @@ export const mapStateToProps = (state: State) => {
     key: useLegacyAddress ? s.strings.title_use_regular_address : s.strings.title_use_legacy_address,
     value: {
       title: useLegacyAddress ? s.strings.title_use_regular_address : s.strings.title_use_legacy_address,
-      value: useLegacyAddress ? 'useRegularRequestAddress' : 'useLegacyRequestAddress'
-    }
+      value: useLegacyAddress ? 'useRegularRequestAddress' : 'useLegacyRequestAddress',
+    },
   }
   const dropDownButtons = uniqueLegacyAddress ? [addressToggle, help] : helpArray
   return {
     style: dropDownStyle,
     data: dropDownButtons,
-    rightSide: true
+    rightSide: true,
   }
 }
 
@@ -63,11 +63,8 @@ export const mapDispatchToProps = (dispatch: Dispatch) => ({
         showHelpModal()
         break
     }
-  }
+  },
   // nextScreen: () => dispatch(actions.nextScreen())
 })
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(MenuDropDown)
+export default connect(mapStateToProps, mapDispatchToProps)(MenuDropDown)

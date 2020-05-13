@@ -8,20 +8,20 @@ import Gradient from '../../modules/UI/components/Gradient/Gradient.ui'
 import styles from '../../styles/scenes/CreateWalletStyle.js'
 
 type FullScreenTransitionState = {
-  opacity: number
+  opacity: number,
 }
 
 type FullScreenTransitionProps = {
   image: Node,
   text: Node,
-  onDone: Function
+  onDone: Function,
 }
 
 export class FullScreenTransitionComponent extends Component<FullScreenTransitionProps, FullScreenTransitionState> {
-  constructor (props: FullScreenTransitionProps) {
+  constructor(props: FullScreenTransitionProps) {
     super(props)
     this.state = {
-      opacity: new Animated.Value(0)
+      opacity: new Animated.Value(0),
     }
   }
 
@@ -31,23 +31,23 @@ export class FullScreenTransitionComponent extends Component<FullScreenTransitio
       Animated.sequence([
         Animated.timing(this.state.opacity, {
           toValue: 1,
-          duration: 1500
+          duration: 1500,
         }),
         Animated.timing(this.state.opacity, {
           toValue: 1,
-          duration: 1400
+          duration: 1400,
         }),
         Animated.timing(this.state.opacity, {
           toValue: 0,
-          duration: 1500
-        })
+          duration: 1500,
+        }),
       ]).start(() => {
         onDone()
       })
     }, 400)
   }
 
-  render () {
+  render() {
     const { opacity } = this.state
     const { image, text } = this.props
     return (
@@ -59,8 +59,8 @@ export class FullScreenTransitionComponent extends Component<FullScreenTransitio
             {
               flexDirection: 'column',
               justifyContent: 'center',
-              opacity: opacity
-            }
+              opacity: opacity,
+            },
           ]}
         >
           {image}

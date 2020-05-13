@@ -17,7 +17,7 @@ const mapStateToProps = (state: State) => {
       account,
       wallets: {},
       fioWallets: [],
-      isConnected: state.network.isConnected
+      isConnected: state.network.isConnected,
     }
     return out
   }
@@ -26,12 +26,9 @@ const mapStateToProps = (state: State) => {
     account,
     wallets,
     fioWallets,
-    isConnected: state.network.isConnected
+    isConnected: state.network.isConnected,
   }
   return out
 }
 
-export const FioRequestListConnector = connect(
-  mapStateToProps,
-  {}
-)(FioRequestList)
+export const FioRequestListConnector = connect(mapStateToProps, {})(FioRequestList)

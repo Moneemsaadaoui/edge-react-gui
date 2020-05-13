@@ -18,7 +18,7 @@ const mapStateToProps = (state: State) => {
   const wallet = getSelectedWallet(state)
   if (!wallet) {
     return {
-      loading: true
+      loading: true,
     }
   }
   const { currencyWallets = {} } = state.core.account
@@ -45,11 +45,11 @@ const mapStateToProps = (state: State) => {
   } else {
     // if it is a token
     const customTokens = getCustomTokens(state)
-    const customTokenIndex = _.findIndex(customTokens, item => item.currencyCode === currencyCode)
+    const customTokenIndex = _.findIndex(customTokens, (item) => item.currencyCode === currencyCode)
     denomination = {
       ...customTokens[customTokenIndex].denominations[0],
       name: currencyCode,
-      symbol: ''
+      symbol: '',
     }
   }
   const multiplier = denomination.multiplier
@@ -80,7 +80,7 @@ const mapStateToProps = (state: State) => {
     fiatSymbol,
     requiredConfirmations,
     numTransactions,
-    isBalanceVisible
+    isBalanceVisible,
   }
   return out
 }
@@ -89,10 +89,7 @@ const mapDispatchToProps = (dispatch: Dispatch): DispatchProps => ({
   fetchMoreTransactions: (walletId: string, currencyCode: string, reset: boolean) => dispatch(fetchMoreTransactions(walletId, currencyCode, reset)),
   toggleBalanceVisibility: () => {
     dispatch(toggleAccountBalanceVisibility())
-  }
+  },
 })
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(TransactionList)
+export default connect(mapStateToProps, mapDispatchToProps)(TransactionList)

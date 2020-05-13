@@ -13,16 +13,16 @@ const SHARE_TEXT = s.strings.string_share
 export type Props = {
   fioAddressModal: Function,
   copyToClipboard: Function,
-  shareViaShare: Function
+  shareViaShare: Function,
 }
 export class ShareButtons extends PureComponent<Props> {
-  render () {
+  render() {
     const {
       copyToClipboard,
       // shareViaEmail,
       // shareViaSMS,
       shareViaShare,
-      fioAddressModal
+      fioAddressModal,
     } = this.props
 
     return (

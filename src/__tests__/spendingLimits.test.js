@@ -18,10 +18,10 @@ describe('spendingLimits', () => {
           spendingLimits: {
             transaction: {
               isEnabled: false,
-              amount: 150
-            }
-          }
-        }
+              amount: 150,
+            },
+          },
+        },
       }
       const actual = spendingLimits(initialState, loginAction)
 
@@ -34,14 +34,14 @@ describe('spendingLimits', () => {
       const initialState = {
         transaction: {
           isEnabled: true,
-          amount: 0
-        }
+          amount: 0,
+        },
       }
       const updateAction = newSpendingLimits({
         transaction: {
           isEnabled: false,
-          amount: 234
-        }
+          amount: 234,
+        },
       })
       const actual = spendingLimits(initialState, updateAction)
 
@@ -52,14 +52,14 @@ describe('spendingLimits', () => {
       const initialState = {
         transaction: {
           isEnabled: false,
-          amount: 0
-        }
+          amount: 0,
+        },
       }
       const updateAction = newSpendingLimits({
         transaction: {
           isEnabled: true,
-          amount: 234
-        }
+          amount: 234,
+        },
       })
       const actual = spendingLimits(initialState, updateAction)
 

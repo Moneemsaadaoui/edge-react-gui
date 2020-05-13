@@ -30,7 +30,7 @@ export const updateOneSetting = (setting: Object) => (dispatch: Dispatch, getSta
   const settings = state.ui.settings
   const updatedSettings = {
     ...settings,
-    ...setting
+    ...setting,
   }
   dispatch(SETTINGS_ACTIONS.updateSettings(updatedSettings))
 }
@@ -50,7 +50,7 @@ export const setAutoLogoutTimeInSecondsRequest = (autoLogoutTimeInSeconds: numbe
     .then(() =>
       dispatch({
         type: 'UI/SETTINGS/SET_AUTO_LOGOUT_TIME',
-        data: { autoLogoutTimeInSeconds }
+        data: { autoLogoutTimeInSeconds },
       })
     )
     .catch(showError)
@@ -78,12 +78,12 @@ export const setDefaultFiatRequest = (defaultFiat: string) => (dispatch: Dispatc
       // convert from previous fiat to next fiat
       return convertCurrency(state, previousDefaultIsoFiat, nextDefaultIsoFiat, transaction.amount)
     })
-    .then(transactionAmount => {
+    .then((transactionAmount) => {
       const nextSpendingLimits = {
         transaction: {
           ...transaction,
-          amount: parseFloat(transactionAmount.toFixed(2))
-        }
+          amount: parseFloat(transactionAmount.toFixed(2)),
+        },
       }
 
       // update spending limits in account settings
@@ -158,13 +158,13 @@ export const updateTouchIdEnabled = (arg: boolean, account: EdgeAccount) => asyn
   }
 }
 
-export function togglePinLoginEnabled (pinLoginEnabled: boolean) {
+export function togglePinLoginEnabled(pinLoginEnabled: boolean) {
   return (dispatch: Dispatch, getState: GetState) => {
     const state = getState()
     const { context, account } = state.core
 
     dispatch(SETTINGS_ACTIONS.togglePinLoginEnabled(pinLoginEnabled))
-    return account.changePin({ enableLogin: pinLoginEnabled }).catch(async error => {
+    return account.changePin({ enableLogin: pinLoginEnabled }).catch(async (error) => {
       showError(error)
 
       const pinLoginEnabled = await context.pinLoginEnabled(account.username)
@@ -184,7 +184,7 @@ export const showReEnableOtpModal = () => async (dispatch: Dispatch, getState: G
     message: s.strings.otp_modal_reset_description,
     icon: <Image source={iconImage} />,
     yesButtonText: s.strings.otp_keep,
-    noButtonText: s.strings.otp_disable
+    noButtonText: s.strings.otp_disable,
   })
   const resolveValue = await launchModal(modal)
   if (resolveValue === true) {
@@ -239,13 +239,13 @@ export const showUnlockSettingsModal = () => async (dispatch: Dispatch, getState
       autoCorrect: false,
       returnKeyType: 'go',
       initialValue: '',
-      autoFocus: true
+      autoFocus: true,
     }
     const yesButton = {
-      title: s.strings.string_done_cap
+      title: s.strings.string_done_cap,
     }
     const noButton = {
-      title: s.strings.string_cancel_cap
+      title: s.strings.string_cancel_cap,
     }
     const validateInput = async (input): Promise<{ success: boolean, message: string }> => {
       const state = getState()
@@ -255,12 +255,12 @@ export const showUnlockSettingsModal = () => async (dispatch: Dispatch, getState
         dispatch({ type: 'PASSWORD_USED' })
         return {
           success: true,
-          message: ''
+          message: '',
         }
       } else {
         return {
           success: false,
-          message: s.strings.password_reminder_invalid
+          message: s.strings.password_reminder_invalid,
         }
       }
     }
@@ -270,7 +270,7 @@ export const showUnlockSettingsModal = () => async (dispatch: Dispatch, getState
       input,
       yesButton,
       noButton,
-      validateInput
+      validateInput,
     })
     const resolveValue = await launchModal(unlockSettingsModal)
     if (resolveValue) {
@@ -288,13 +288,13 @@ export const showSendLogsModal = () => async (dispatch: Dispatch, getState: GetS
       autoCorrect: false,
       returnKeyType: 'go',
       initialValue: '',
-      autoFocus: true
+      autoFocus: true,
     }
     const yesButton = {
-      title: s.strings.string_done_cap
+      title: s.strings.string_done_cap,
     }
     const noButton = {
-      title: s.strings.string_cancel_cap
+      title: s.strings.string_cancel_cap,
     }
     // use standard icon instead?
     const unlockSettingsModal = createInputModal({
@@ -303,19 +303,17 @@ export const showSendLogsModal = () => async (dispatch: Dispatch, getState: GetS
           name="ios-paper-plane"
           size={24}
           color={THEME.COLORS.SECONDARY}
-          style={[
-            {
-              backgroundColor: THEME.COLORS.TRANSPARENT,
-              zIndex: 1015,
-              elevation: 1015
-            }
-          ]}
+          style={{
+            backgroundColor: THEME.COLORS.TRANSPARENT,
+            zIndex: 1015,
+            elevation: 1015,
+          }}
         />
       ),
       title: s.strings.settings_button_send_logs,
       input,
       yesButton,
-      noButton
+      noButton,
     })
     const notes = await launchModal(unlockSettingsModal)
     if (notes || notes === '') {
@@ -332,20 +330,20 @@ export const showRestoreWalletsModal = () => async (dispatch: Dispatch, getState
   const { account } = state.core
   const restoreWalletsModal = createYesNoModal({
     title: s.strings.restore_wallets_modal_title,
-    icon: <Icon type={'entypo'} name="wallet" size={30} />,
+    icon: <Icon type="entypo" name="wallet" size={30} />,
     message: s.strings.restore_wallets_modal_description,
     noButtonText: s.strings.restore_wallets_modal_cancel,
-    yesButtonText: s.strings.restore_wallets_modal_confirm
+    yesButtonText: s.strings.restore_wallets_modal_confirm,
   })
   const response = await launchModal(restoreWalletsModal)
   if (response) {
-    const restoreKeys = account.allKeys.filter(key => key.archived || key.deleted)
+    const restoreKeys = account.allKeys.filter((key) => key.archived || key.deleted)
     await Promise.all(
       restoreKeys
-        .map(key => key.id)
-        .map(walletId =>
+        .map((key) => key.id)
+        .map((walletId) =>
           account.changeWalletStates({
-            [walletId]: { archived: false, deleted: false }
+            [walletId]: { archived: false, deleted: false },
           })
         )
     )

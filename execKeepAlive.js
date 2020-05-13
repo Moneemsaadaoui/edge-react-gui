@@ -6,7 +6,7 @@ const argv = process.argv
 
 main()
 
-function pad (num, size) {
+function pad(num, size) {
   let s = num + ''
   while (s.length < size) {
     s = '0' + s
@@ -14,7 +14,7 @@ function pad (num, size) {
   return s
 }
 
-async function main () {
+async function main() {
   let code = 0
   try {
     if (argv.length === 4) {
@@ -28,7 +28,7 @@ async function main () {
   process.exit(code)
 }
 
-async function callAsync (cmdString, pipeCmd = '') {
+async function callAsync(cmdString, pipeCmd = '') {
   return new Promise((resolve, reject) => {
     const cmdArray = cmdString.split(' ')
     const pipeArray = pipeCmd.split(' ')
@@ -60,13 +60,13 @@ async function callAsync (cmdString, pipeCmd = '') {
     }
 
     if (inCmd) {
-      inCmd.stdout.on('data', data => {
+      inCmd.stdout.on('data', (data) => {
         outCmd && outCmd.stdin.write(data)
       })
-      inCmd.stderr.on('data', data => {
+      inCmd.stderr.on('data', (data) => {
         console.log(data.toString())
       })
-      inCmd.on('close', code => {
+      inCmd.on('close', (code) => {
         if (code === 0) {
           console.log(`process exited with code ${code}`)
           outCmd && outCmd.stdin.end()
@@ -76,17 +76,17 @@ async function callAsync (cmdString, pipeCmd = '') {
       })
     }
 
-    outCmd.stdout.on('data', data => {
+    outCmd.stdout.on('data', (data) => {
       console.log(data.toString())
       resetT()
     })
 
-    outCmd.stderr.on('data', data => {
+    outCmd.stderr.on('data', (data) => {
       console.log(data.toString())
       resetT()
     })
 
-    outCmd.on('close', code => {
+    outCmd.on('close', (code) => {
       if (code === 0) {
         console.log(`process exited with code ${code}`)
         if (timeoutId) {

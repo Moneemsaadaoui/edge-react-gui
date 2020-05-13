@@ -36,7 +36,7 @@ export type CryptoExchangeState = {
   forceUpdateGuiCounter: number,
   shiftPendingTransaction: boolean,
   calculatingMax: boolean,
-  creatingWallet: boolean
+  creatingWallet: boolean,
 }
 
 const dummyCurrencyInfo: GuiCurrencyInfo = {
@@ -44,12 +44,12 @@ const dummyCurrencyInfo: GuiCurrencyInfo = {
   exchangeCurrencyCode: '',
   displayDenomination: {
     name: '',
-    multiplier: '1'
+    multiplier: '1',
   },
   exchangeDenomination: {
     name: '',
-    multiplier: '1'
-  }
+    multiplier: '1',
+  },
 }
 
 const initialState: CryptoExchangeState = {
@@ -78,10 +78,10 @@ const initialState: CryptoExchangeState = {
   forceUpdateGuiCounter: 0,
   shiftPendingTransaction: false,
   calculatingMax: false,
-  creatingWallet: false
+  creatingWallet: false,
 }
 
-function cryptoExchangeInner (state = initialState, action: Action): CryptoExchangeState {
+function cryptoExchangeInner(state = initialState, action: Action): CryptoExchangeState {
   let forceUpdateGuiCounter
   switch (action.type) {
     case 'UI/WALLETS/CREATE_WALLET_START': {
@@ -110,7 +110,7 @@ function cryptoExchangeInner (state = initialState, action: Action): CryptoExcha
         fromDisplayAmount: '0',
         toDisplayAmount: '0',
         minerFee: '0',
-        genericShapeShiftError: null
+        genericShapeShiftError: null,
       }
     }
 
@@ -130,14 +130,14 @@ function cryptoExchangeInner (state = initialState, action: Action): CryptoExcha
         fromDisplayAmount: '0',
         toDisplayAmount: '0',
         minerFee: '0',
-        genericShapeShiftError: null
+        genericShapeShiftError: null,
       }
     }
     case 'OPEN_WALLET_SELECTOR_MODAL': {
       return {
         ...state,
         walletListModalVisible: true,
-        changeWallet: action.data
+        changeWallet: action.data,
       }
     }
 
@@ -149,7 +149,7 @@ function cryptoExchangeInner (state = initialState, action: Action): CryptoExcha
         fromNativeAmount: action.data.quote.fromNativeAmount,
         fromDisplayAmount: action.data.fromDisplayAmount,
         insufficientError: false,
-        genericShapeShiftError: null
+        genericShapeShiftError: null,
       }
     }
 
@@ -157,35 +157,35 @@ function cryptoExchangeInner (state = initialState, action: Action): CryptoExcha
       return {
         ...state,
         insufficientError: true,
-        genericShapeShiftError: null
+        genericShapeShiftError: null,
       }
     }
 
     case 'GENERIC_SHAPE_SHIFT_ERROR': {
       return {
         ...state,
-        genericShapeShiftError: action.data
+        genericShapeShiftError: action.data,
       }
     }
 
     case 'START_SHIFT_TRANSACTION': {
       return {
         ...state,
-        shiftPendingTransaction: true
+        shiftPendingTransaction: true,
       }
     }
 
     case 'DONE_SHIFT_TRANSACTION': {
       return {
         ...state,
-        shiftPendingTransaction: false
+        shiftPendingTransaction: false,
       }
     }
 
     case 'START_CALC_MAX': {
       return {
         ...state,
-        calculatingMax: true
+        calculatingMax: true,
       }
     }
 
@@ -196,7 +196,7 @@ function cryptoExchangeInner (state = initialState, action: Action): CryptoExcha
         ...state,
         fromNativeAmount: action.data,
         calculatingMax: false,
-        forceUpdateGuiCounter
+        forceUpdateGuiCounter,
       }
     }
 
@@ -209,7 +209,7 @@ function cryptoExchangeInner (state = initialState, action: Action): CryptoExcha
   }
 }
 
-function getLogo (wallet, currencyCode) {
+function getLogo(wallet, currencyCode) {
   if (currencyCode === wallet.currencyCode) return wallet.symbolImage
   for (let i = 0; i < wallet.metaTokens.length; i++) {
     const obj = wallet.metaTokens[i]
@@ -220,7 +220,7 @@ function getLogo (wallet, currencyCode) {
   return null
 }
 
-function getLogoDark (wallet, currencyCode) {
+function getLogoDark(wallet, currencyCode) {
   if (currencyCode === wallet.currencyCode) return wallet.symbolImageDarkMono
   for (let i = 0; i < wallet.metaTokens.length; i++) {
     const obj = wallet.metaTokens[i]

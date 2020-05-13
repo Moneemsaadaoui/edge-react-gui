@@ -11,12 +11,12 @@ import type { Dispatch } from '../../types/reduxTypes.js'
 import { Airship } from '../services/AirshipInstance.js'
 
 type DispatchProps = {
-  onSelectWallet(string, string): void
+  onSelectWallet(string, string): void,
 }
 
 class HeaderWalletSelectorConnected extends Component<DispatchProps> {
   onPress = () => {
-    Airship.show(bridge => <WalletListModal bridge={bridge} headerTitle={s.strings.select_wallet} />).then((response: WalletListResult) => {
+    Airship.show((bridge) => <WalletListModal bridge={bridge} headerTitle={s.strings.select_wallet} />).then((response: WalletListResult) => {
       if (response.walletToSelect) {
         this.props.onSelectWallet(response.walletToSelect.walletId, response.walletToSelect.currencyCode)
       }
@@ -24,15 +24,12 @@ class HeaderWalletSelectorConnected extends Component<DispatchProps> {
     return null
   }
 
-  render () {
+  render() {
     return <WalletSelector onPress={this.onPress} />
   }
 }
 
-const HeaderWalletSelector = connect(
-  null,
-  (dispatch: Dispatch): DispatchProps => ({
-    onSelectWallet: (walletId: string, currencyCode: string) => dispatch(selectWalletFromModal(walletId, currencyCode))
-  })
-)(HeaderWalletSelectorConnected)
+const HeaderWalletSelector = connect(null, (dispatch: Dispatch): DispatchProps => ({
+  onSelectWallet: (walletId: string, currencyCode: string) => dispatch(selectWalletFromModal(walletId, currencyCode)),
+}))(HeaderWalletSelectorConnected)
 export { HeaderWalletSelector }

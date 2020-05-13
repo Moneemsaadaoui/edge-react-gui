@@ -20,7 +20,7 @@ import shapeshiftLogo from './settingsExchangeShapeshift.png'
 import switchainLogo from './settingsExchangeSwitchain.png'
 import totleLogo from './settingsExchangeTotle.png'
 
-export function getSwapPluginIcon (pluginId: string) {
+export function getSwapPluginIcon(pluginId: string) {
   const icon = swapPluginIcons[pluginId]
   return icon == null ? defaultLogo : icon
 }
@@ -35,7 +35,7 @@ export const swapPluginIcons = {
   godex: godexLogo,
   shapeshift: shapeshiftLogo,
   switchain: switchainLogo,
-  totle: totleLogo
+  totle: totleLogo,
 }
 
 // Big logos for the quote scene:
@@ -48,5 +48,5 @@ export const swapPluginLogos = {
   godex: godexFullLogo,
   shapeshift: shapeshiftFullLogo,
   switchain: switchainFullLogo,
-  totle: totleFullLogo
+  totle: totleFullLogo,
 }

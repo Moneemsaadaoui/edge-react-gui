@@ -12,15 +12,15 @@ export const updateWalletsRequest = () => async (dispatch: Dispatch, getState: G
   const { account } = state.core
   const { activeWalletIds, archivedWalletIds, currencyWallets } = account
 
-  return getReceiveAddresses(currencyWallets).then(receiveAddresses => {
+  return getReceiveAddresses(currencyWallets).then((receiveAddresses) => {
     dispatch({
       type: 'CORE/WALLETS/UPDATE_WALLETS',
       data: {
         activeWalletIds,
         archivedWalletIds,
         currencyWallets,
-        receiveAddresses
-      }
+        receiveAddresses,
+      },
     })
     refreshConnectedWallets(dispatch, currencyWallets)
     return updateWalletsEnabledTokens(getState)
@@ -37,9 +37,9 @@ export const updateWalletsEnabledTokens = (getState: GetState) => {
       if (state.ui.wallets && state.ui.wallets.byId && state.ui.wallets.byId[walletId]) {
         const enabledTokens = state.ui.wallets.byId[walletId].enabledTokens
         const customTokens = state.ui.settings.customTokens
-        const enabledNotHiddenTokens = enabledTokens.filter(token => {
+        const enabledNotHiddenTokens = enabledTokens.filter((token) => {
           let isVisible = true // assume we will enable token
-          const tokenIndex = _.findIndex(customTokens, item => item.currencyCode === token)
+          const tokenIndex = _.findIndex(customTokens, (item) => item.currencyCode === token)
           // if token is not supposed to be visible, not point in enabling it
           if (tokenIndex > -1 && customTokens[tokenIndex].isVisible === false) isVisible = false
           return isVisible

@@ -23,7 +23,7 @@ import {
   PLUGIN_BUY,
   SEND_CONFIRMATION,
   SHOPPING_CART,
-  WARNING
+  WARNING,
 } from '../constants/indexConstants.js'
 import s from '../locales/strings.js'
 import { checkPubAddress } from '../modules/FioAddress/util'
@@ -55,8 +55,8 @@ export const doRequestAddress = (dispatch: Dispatch, edgeWallet: EdgeCurrencyWal
         Alert.alert(s.strings.currency_mismatch_popup_title, body, [
           {
             text: s.strings.string_ok,
-            onPress: () => dispatch({ type: 'ENABLE_SCAN' })
-          }
+            onPress: () => dispatch({ type: 'ENABLE_SCAN' }),
+          },
         ]),
       500
     )
@@ -75,12 +75,12 @@ export const doRequestAddress = (dispatch: Dispatch, edgeWallet: EdgeCurrencyWal
       ),
       icon: <OptionIcon iconName={FA_MONEY_ICON} />,
       noButtonText: s.strings.string_cancel_cap,
-      yesButtonText: s.strings.request_crypto_address_modal_send_address_button
+      yesButtonText: s.strings.request_crypto_address_modal_send_address_button,
     })
 
     setTimeout(() => {
       launchModal(modal)
-        .then(resolveValue => {
+        .then((resolveValue) => {
           dispatch({ type: 'ENABLE_SCAN' })
           if (resolveValue) {
             // Build the URL
@@ -90,7 +90,7 @@ export const doRequestAddress = (dispatch: Dispatch, edgeWallet: EdgeCurrencyWal
             Linking.openURL(finalUrl)
           }
         })
-        .catch(e => {
+        .catch((e) => {
           dispatch({ type: 'ENABLE_SCAN' })
         })
     }, 1000)
@@ -164,7 +164,7 @@ export const parseScannedUri = (data: string) => async (dispatch: Dispatch, getS
           decimalPlaces,
           walletId: selectedWalletId,
           wallet: guiWallet,
-          onAddToken: noOp
+          onAddToken: noOp,
         }
         return Actions[ADD_TOKEN](parameters)
       }
@@ -190,8 +190,8 @@ export const parseScannedUri = (data: string) => async (dispatch: Dispatch, getS
       const spendTargets: Array<EdgeSpendTarget> = [
         {
           publicAddress: parsedUri.publicAddress,
-          nativeAmount
-        }
+          nativeAmount,
+        },
       ]
 
       const guiMakeSpendInfo: GuiMakeSpendInfo = {
@@ -199,7 +199,7 @@ export const parseScannedUri = (data: string) => async (dispatch: Dispatch, getS
         lockInputs: false,
         metadata: parsedUri.metadata,
         uniqueIdentifier: parsedUri.uniqueIdentifier,
-        nativeAmount
+        nativeAmount,
       }
 
       if (fioAddress) {
@@ -216,8 +216,8 @@ export const parseScannedUri = (data: string) => async (dispatch: Dispatch, getS
           Alert.alert(s.strings.scan_invalid_address_error_title, s.strings.scan_invalid_address_error_description, [
             {
               text: s.strings.string_ok,
-              onPress: () => dispatch({ type: 'ENABLE_SCAN' })
-            }
+              onPress: () => dispatch({ type: 'ENABLE_SCAN' }),
+            },
           ]),
         500
       )
@@ -271,7 +271,7 @@ export const showLegacyAddressModal = () => async (dispatch: Dispatch, getState:
     message: s.strings.legacy_address_modal_warning,
     textAlign: 'left',
     noButtonText: s.strings.legacy_address_modal_cancel,
-    yesButtonText: s.strings.legacy_address_modal_continue
+    yesButtonText: s.strings.legacy_address_modal_continue,
   })
   const response = await launchModal(legacyAddressModal)
   if (response) {
@@ -286,7 +286,7 @@ export const privateKeyModalActivated = () => async (dispatch: Dispatch, getStat
     title: s.strings.private_key_modal_sweep_from_private_address,
     icon: <Icon style={{ transform: [{ rotate: '270deg' }] }} type={ION_ICONS} name={KEY_ICON} size={30} />,
     noButtonText: s.strings.private_key_modal_cancel,
-    yesButtonText: s.strings.private_key_modal_import
+    yesButtonText: s.strings.private_key_modal_import,
   })
 
   const firstResponse = await launchModal(privateKeyModal)
@@ -308,14 +308,14 @@ export const privateKeyModalActivated = () => async (dispatch: Dispatch, getStat
 
     const spendInfo: EdgeSpendInfo = {
       privateKeys: parsedUri.privateKeys,
-      spendTargets: []
+      spendTargets: [],
     }
 
     edgeWallet.sweepPrivateKeys(spendInfo).then(
       (unsignedTx: EdgeTransaction) => {
         edgeWallet
           .signTx(unsignedTx)
-          .then(signedTx => edgeWallet.broadcastTx(signedTx))
+          .then((signedTx) => edgeWallet.broadcastTx(signedTx))
           .then(() => dispatch(sweepPrivateKeySuccess()))
       },
       (error: Error) => {
@@ -346,16 +346,16 @@ export const checkAndShowGetCryptoModal = () => async (dispatch: Dispatch, getSt
         icon: <Icon name={SHOPPING_CART} type={MATERIAL_ICONS} size={32} color={THEME.COLORS.SECONDARY} />,
         primaryButton: {
           text: sprintf(s.strings.buy_crypto_modal_buy_action, currencyCode),
-          returnValue: 'buy'
+          returnValue: 'buy',
         },
         secondaryButton: {
           text: s.strings.buy_crypto_modal_exchange,
-          returnValue: 'exchange'
+          returnValue: 'exchange',
         },
         tertiaryButton: {
           text: s.strings.buy_crypto_decline,
-          returnValue: 'decline'
-        }
+          returnValue: 'decline',
+        },
       })
     } else {
       // if we're not targetting for buying, but rather exchange
@@ -366,12 +366,12 @@ export const checkAndShowGetCryptoModal = () => async (dispatch: Dispatch, getSt
         icon: <Icon name={SHOPPING_CART} type={MATERIAL_ICONS} size={32} color={THEME.COLORS.SECONDARY} />,
         primaryButton: {
           text: sprintf(s.strings.buy_crypto_modal_exchange),
-          returnValue: 'exchange'
+          returnValue: 'exchange',
         },
         secondaryButton: {
           text: s.strings.buy_crypto_decline,
-          returnValue: 'decline'
-        }
+          returnValue: 'decline',
+        },
       })
     }
     const value = await launchModal(threeButtonModal)

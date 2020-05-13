@@ -11,7 +11,7 @@ export type TransactionListState = {
   +currentWalletId: string,
   +numTransactions: number,
   +transactionIdMap: { [txid: string]: TransactionListTx },
-  +transactions: Array<TransactionListTx>
+  +transactions: Array<TransactionListTx>,
 }
 
 const transactions = (state = [], action: Action): Array<TransactionListTx> => {
@@ -106,5 +106,5 @@ export const transactionList: Reducer<TransactionListState, Action> = combineRed
   currentWalletId,
   numTransactions,
   transactionIdMap,
-  transactions
+  transactions,
 })

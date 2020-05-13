@@ -8,8 +8,8 @@ import { THEME } from '../../../../theme/variables/airbitz.js'
 
 const rawStyles = {
   pinInput: {
-    justifyContent: 'center'
-  }
+    justifyContent: 'center',
+  },
 }
 const styles = StyleSheet.create(rawStyles)
 
@@ -23,19 +23,19 @@ const DEFAULTS = {
   label: '',
   keyboardType: 'numeric',
   inputContainerStyle: { paddingTop: 14, width: 45, alignItems: 'center', justifyContent: 'center' },
-  inputContainerPadding: -10
+  inputContainerPadding: -10,
 }
 
 export type Props = {
   style?: StyleSheet.Styles,
-  onChangePin: (pin: string) => mixed
+  onChangePin: (pin: string) => mixed,
 }
 export class PinInput extends Component<Props> {
   textField: any
 
-  render () {
+  render() {
     const { onChangePin, style, ...props } = this.props
-    return <TextField ref={ref => (this.textField = ref)} onChangeText={onChangePin} style={[styles.pinInput, style]} {...DEFAULTS} {...props} />
+    return <TextField ref={(ref) => (this.textField = ref)} onChangeText={onChangePin} style={[styles.pinInput, style]} {...DEFAULTS} {...props} />
   }
 
   blur = () => {

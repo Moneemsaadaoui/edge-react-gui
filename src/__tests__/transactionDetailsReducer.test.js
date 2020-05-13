@@ -6,7 +6,7 @@ import { transactionDetails as transactionDetailsReducer } from '../reducers/sce
 
 test('initialState', () => {
   const expected = {
-    subcategories: []
+    subcategories: [],
   }
   const actual = transactionDetailsReducer(undefined, {})
 

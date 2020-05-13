@@ -28,21 +28,21 @@ export type Props = {
   openSelectUser: () => void,
   closeSelectUser: () => void,
   usersView: boolean,
-  exchangeRate: number
+  exchangeRate: number,
 }
 
 export default class ControlPanel extends Component<Props> {
-  shouldComponentUpdate (nextProps: Props) {
+  shouldComponentUpdate(nextProps: Props) {
     const diffElement = getObjectDiff(this.props, nextProps, {
       primaryDisplayDenomination: true,
       primaryExchangeDenomination: true,
-      styles: true
+      styles: true,
     })
 
     return !!diffElement
   }
 
-  render () {
+  render() {
     const {
       exchangeRate,
       currencyLogo,
@@ -50,7 +50,7 @@ export default class ControlPanel extends Component<Props> {
       primaryDisplayDenomination,
       primaryExchangeDenomination,
       secondaryDisplayCurrencyCode,
-      secondaryToPrimaryRatio
+      secondaryToPrimaryRatio,
     } = this.props
 
     const secondaryExchangeDenomination = secondaryDisplayCurrencyCode ? getDenomFromIsoCode(secondaryDisplayCurrencyCode) : ''
@@ -59,13 +59,13 @@ export default class ControlPanel extends Component<Props> {
       displayCurrencyCode: primaryDisplayCurrencyCode,
       displayDenomination: primaryDisplayDenomination || emptyGuiDenomination,
       exchangeDenomination: primaryExchangeDenomination || emptyGuiDenomination,
-      exchangeCurrencyCode: primaryDisplayCurrencyCode
+      exchangeCurrencyCode: primaryDisplayCurrencyCode,
     }
     const secondaryCurrencyInfo = {
       displayCurrencyCode: secondaryDisplayCurrencyCode,
       displayDenomination: secondaryExchangeDenomination || emptyGuiDenomination,
       exchangeDenomination: secondaryExchangeDenomination || emptyGuiDenomination,
-      exchangeCurrencyCode: secondaryDisplayCurrencyCode
+      exchangeCurrencyCode: secondaryDisplayCurrencyCode,
     }
 
     const arrowIcon = this.props.usersView ? 'keyboard-arrow-up' : 'keyboard-arrow-down'
@@ -87,7 +87,7 @@ export default class ControlPanel extends Component<Props> {
         <Button onPress={this.toggleUserList} style={styles.toggleButton} underlayColor={styles.underlay.color}>
           <Button.Row>
             <Button.Left>
-              <Image style={styles.iconImage} resizeMode={'contain'} source={accountIcon} />
+              <Image style={styles.iconImage} resizeMode="contain" source={accountIcon} />
             </Button.Left>
 
             <Button.Center>

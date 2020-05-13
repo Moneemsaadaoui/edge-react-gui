@@ -58,13 +58,13 @@ type StateProps = {
   forceUpdateGuiCounter: number,
   calculatingMax: boolean,
   creatingWallet: boolean,
-  defaultIsoFiat: string
+  defaultIsoFiat: string,
 }
 type DispatchProps = {
   onSelectWallet(string, string): void,
   openModal(data: 'from' | 'to'): mixed,
   getQuoteForTransaction(SetNativeAmountInfo): void,
-  createCurrencyWallet(string, string, string): void
+  createCurrencyWallet(string, string, string): void,
 }
 type Props = StateProps & DispatchProps
 
@@ -73,7 +73,7 @@ type State = {
   whichWalletFocus: 'from' | 'to', // Which wallet FlipInput was last focused and edited
   fromExchangeAmount: string,
   forceUpdateGuiCounter: number,
-  toExchangeAmount: string
+  toExchangeAmount: string,
 }
 
 class CryptoExchangeComponent extends Component<Props, State> {
@@ -81,25 +81,25 @@ class CryptoExchangeComponent extends Component<Props, State> {
   fromAmountDisplay: string
   toAmountNative: string
   toAmountDisplay: string
-  constructor (props: Props) {
+  constructor(props: Props) {
     super(props)
     const newState: State = {
       whichWallet: 'from',
       whichWalletFocus: 'from',
       forceUpdateGuiCounter: 0,
       fromExchangeAmount: '',
-      toExchangeAmount: ''
+      toExchangeAmount: '',
     }
     this.state = newState
     slowlog(this, /.*/, global.slowlogOptions)
   }
 
-  UNSAFE_componentWillReceiveProps (nextProps: Props) {
+  UNSAFE_componentWillReceiveProps(nextProps: Props) {
     if (this.state.forceUpdateGuiCounter !== nextProps.forceUpdateGuiCounter) {
       this.setState({
         fromExchangeAmount: nextProps.fromExchangeAmount,
         toExchangeAmount: nextProps.toExchangeAmount,
-        forceUpdateGuiCounter: nextProps.forceUpdateGuiCounter
+        forceUpdateGuiCounter: nextProps.forceUpdateGuiCounter,
       })
       this.fromAmountNative = bns.mul(nextProps.fromExchangeAmount, nextProps.fromPrimaryInfo.exchangeDenomination.multiplier)
       this.fromAmountDisplay = nextProps.fromExchangeAmount
@@ -114,14 +114,14 @@ class CryptoExchangeComponent extends Component<Props, State> {
     }
   }
 
-  render () {
+  render() {
     let fromSecondaryInfo: GuiCurrencyInfo
     if (this.props.fromWallet) {
       fromSecondaryInfo = {
         displayCurrencyCode: this.props.fromWallet.fiatCurrencyCode,
         exchangeCurrencyCode: this.props.fromWallet.isoFiatCurrencyCode,
         displayDenomination: getDenomFromIsoCode(this.props.fromWallet.fiatCurrencyCode),
-        exchangeDenomination: getDenomFromIsoCode(this.props.fromWallet.fiatCurrencyCode)
+        exchangeDenomination: getDenomFromIsoCode(this.props.fromWallet.fiatCurrencyCode),
       }
     } else {
       fromSecondaryInfo = emptyCurrencyInfo
@@ -133,7 +133,7 @@ class CryptoExchangeComponent extends Component<Props, State> {
         displayCurrencyCode: this.props.toWallet.fiatCurrencyCode,
         exchangeCurrencyCode: this.props.toWallet.isoFiatCurrencyCode,
         displayDenomination: getDenomFromIsoCode(this.props.toWallet.fiatCurrencyCode),
-        exchangeDenomination: getDenomFromIsoCode(this.props.toWallet.fiatCurrencyCode)
+        exchangeDenomination: getDenomFromIsoCode(this.props.toWallet.fiatCurrencyCode),
       }
     } else {
       toSecondaryInfo = emptyCurrencyInfo
@@ -192,10 +192,11 @@ class CryptoExchangeComponent extends Component<Props, State> {
       </SceneWrapper>
     )
   }
+
   getQuote = () => {
     const data: SetNativeAmountInfo = {
       whichWallet: this.state.whichWalletFocus,
-      primaryNativeAmount: this.state.whichWalletFocus === 'from' ? this.fromAmountNative : this.toAmountNative
+      primaryNativeAmount: this.state.whichWalletFocus === 'from' ? this.fromAmountNative : this.toAmountNative,
     }
     if (data.primaryNativeAmount && data.primaryNativeAmount !== '0') {
       this.props.getQuoteForTransaction(data)
@@ -204,6 +205,7 @@ class CryptoExchangeComponent extends Component<Props, State> {
     }
     Alert.alert(s.strings.no_exchange_amount, s.strings.select_exchange_amount)
   }
+
   renderButton = () => {
     if (this.props.calculatingMax) {
       return (
@@ -225,7 +227,7 @@ class CryptoExchangeComponent extends Component<Props, State> {
     this.props.openModal('from')
     this.renderDropUp('from')
     this.setState({
-      whichWallet: 'from'
+      whichWallet: 'from',
     })
   }
 
@@ -233,19 +235,21 @@ class CryptoExchangeComponent extends Component<Props, State> {
     this.props.openModal('to')
     this.renderDropUp('to')
     this.setState({
-      whichWallet: 'to'
+      whichWallet: 'to',
     })
   }
+
   focusFromWallet = () => {
     this.setState({
       whichWallet: 'from',
-      whichWalletFocus: 'from'
+      whichWalletFocus: 'from',
     })
   }
+
   focusToWallet = () => {
     this.setState({
       whichWallet: 'to',
-      whichWalletFocus: 'to'
+      whichWalletFocus: 'to',
     })
   }
 
@@ -260,7 +264,7 @@ class CryptoExchangeComponent extends Component<Props, State> {
   }
 
   renderDropUp = (whichWallet: string) => {
-    Airship.show(bridge => (
+    Airship.show((bridge) => (
       <WalletListModal
         bridge={bridge}
         headerTitle={whichWallet === 'to' ? s.strings.select_recv_wallet : s.strings.select_src_wallet}
@@ -347,23 +351,23 @@ export const CryptoExchangeScene = connect(
       forceUpdateGuiCounter: state.cryptoExchange.forceUpdateGuiCounter,
       calculatingMax: state.cryptoExchange.calculatingMax,
       creatingWallet,
-      defaultIsoFiat
+      defaultIsoFiat,
     }
   },
   (dispatch: Dispatch): DispatchProps => ({
-    getQuoteForTransaction (fromWalletNativeAmount: SetNativeAmountInfo) {
+    getQuoteForTransaction(fromWalletNativeAmount: SetNativeAmountInfo) {
       dispatch(getQuoteForTransaction(fromWalletNativeAmount))
     },
-    onSelectWallet (walletId: string, currencyCode: string) {
+    onSelectWallet(walletId: string, currencyCode: string) {
       dispatch(selectWalletForExchange(walletId, currencyCode))
       dispatch(updateMostRecentWalletsSelected(walletId, currencyCode))
     },
-    openModal (data: 'from' | 'to') {
+    openModal(data: 'from' | 'to') {
       dispatch({ type: 'OPEN_WALLET_SELECTOR_MODAL', data })
     },
-    createCurrencyWallet (walletType: string, currencyCode: string, fiat: string) {
+    createCurrencyWallet(walletType: string, currencyCode: string, fiat: string) {
       const walletName = DEFAULT_STARTER_WALLET_NAMES[currencyCode]
       dispatch(createCurrencyWalletAndAddToSwap(walletName, walletType, fiat))
-    }
+    },
   })
 )(CryptoExchangeComponent)

@@ -11,12 +11,9 @@ const mapStateToProps = (state: State) => {
 
   const out: StateProps = {
     fioAddressName,
-    expiration
+    expiration,
   }
   return out
 }
 
-export const FioAddressDetailsConnector = connect(
-  mapStateToProps,
-  {}
-)(FioAddressDetailsScene)
+export const FioAddressDetailsConnector = connect(mapStateToProps, {})(FioAddressDetailsScene)

@@ -8,73 +8,73 @@ import { scale } from '../../../../util/scaling.js'
 
 export const stylesRaw = {
   rowWrapper: {
-    width: '100%'
+    width: '100%',
   },
   rowContainer: {
     justifyContent: 'space-between',
     paddingVertical: scale(8),
     paddingHorizontal: scale(20),
     borderBottomWidth: scale(1),
-    borderBottomColor: THEME.COLORS.GRAY_3
+    borderBottomColor: THEME.COLORS.GRAY_3,
   },
   rowInfo: {
     flexDirection: 'row',
-    justifyContent: 'space-between'
+    justifyContent: 'space-between',
   },
   rowLeft: {
     justifyContent: 'center',
-    alignItems: 'flex-start'
+    alignItems: 'flex-start',
   },
   rowRight: {
-    alignSelf: 'flex-end'
+    alignSelf: 'flex-end',
   },
   topLevel: {
     zIndex: 10,
     width: '100%',
     backgroundColor: THEME.COLORS.WHITE,
-    alignSelf: 'stretch'
+    alignSelf: 'stretch',
   },
   modalRoot: {
-    paddingTop: scale(50)
+    paddingTop: scale(50),
   },
   modalBody: {
     width: PLATFORM.deviceWidth,
-    zIndex: 4
+    zIndex: 4,
   },
 
   rowNameText: {
     fontSize: scale(18),
     fontFamily: THEME.FONTS.DEFAULT,
-    color: THEME.COLORS.GRAY_1
+    color: THEME.COLORS.GRAY_1,
   },
   rowRightCryptoText: {
     textAlign: 'right',
     color: THEME.COLORS.GRAY_1,
     fontSize: scale(14),
-    lineHeight: scale(18)
+    lineHeight: scale(18),
   },
   rowRightFiatText: {
     textAlign: 'right',
     color: THEME.COLORS.GRAY_1,
     fontSize: scale(14),
-    lineHeight: scale(18)
+    lineHeight: scale(18),
   },
   headerContent: {
     justifyContent: 'space-between',
-    flexDirection: 'row'
+    flexDirection: 'row',
   },
   headerCloseWrap: {
-    alignSelf: 'flex-end'
+    alignSelf: 'flex-end',
   },
   modalCloseWrap: {
     height: scale(34),
     width: scale(34),
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   doneButton: {
     position: 'relative',
-    top: scale(6)
+    top: scale(6),
   },
 
   // beginning of token rows //
@@ -85,26 +85,26 @@ export const stylesRaw = {
     paddingRight: scale(20),
     backgroundColor: THEME.COLORS.GRAY_4,
     borderBottomWidth: scale(1),
-    borderColor: THEME.COLORS.GRAY_3
+    borderColor: THEME.COLORS.GRAY_3,
   },
   currencyRowContent: {
     justifyContent: 'space-between',
-    flexDirection: 'row'
+    flexDirection: 'row',
   },
   currencyRowNameTextWrap: {
-    justifyContent: 'center'
+    justifyContent: 'center',
   },
   currencyRowText: {
     color: THEME.COLORS.GRAY_1,
     fontSize: scale(14),
-    fontFamily: THEME.FONTS.DEFAULT
+    fontFamily: THEME.FONTS.DEFAULT,
   },
   underlay: {
-    color: THEME.COLORS.ROW_PRESSED
+    color: THEME.COLORS.ROW_PRESSED,
   },
   symbol: {
-    fontFamily: THEME.FONTS.SYMBOLS
-  }
+    fontFamily: THEME.FONTS.SYMBOLS,
+  },
   // end of token rows //
 }
 

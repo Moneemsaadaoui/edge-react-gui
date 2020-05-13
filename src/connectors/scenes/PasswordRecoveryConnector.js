@@ -9,14 +9,11 @@ import type { State } from '../../types/reduxTypes.js'
 export const mapStateToProps = (state: State) => ({
   context: state.core.context,
   account: state.core.account,
-  showHeader: false
+  showHeader: false,
 })
 
 export const mapDispatchToProps = () => ({
-  onComplete: Actions.pop
+  onComplete: Actions.pop,
 })
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(PasswordRecoveryComponent)
+export default connect(mapStateToProps, mapDispatchToProps)(PasswordRecoveryComponent)

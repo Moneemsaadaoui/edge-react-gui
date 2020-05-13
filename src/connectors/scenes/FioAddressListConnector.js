@@ -23,7 +23,7 @@ const mapStateToProps = (state: State) => {
     fioWallets,
     fioPlugin,
     loading,
-    isConnected: state.network.isConnected
+    isConnected: state.network.isConnected,
   }
   return out
 }
@@ -32,12 +32,9 @@ const mapDispatchToProps = (dispatch: Dispatch): DispatchProps => ({
   setFioAddress: (fioAddressName: string, expiration: string) =>
     dispatch({
       type: 'FIO/FIO_ADDRESS_SET_FIO_ADDRESS',
-      data: { fioAddressName, expiration }
+      data: { fioAddressName, expiration },
     }),
-  refreshAllFioAddresses: () => dispatch(refreshAllFioAddresses())
+  refreshAllFioAddresses: () => dispatch(refreshAllFioAddresses()),
 })
 
-export const FioAddressListConnector = connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(FioAddressListScene)
+export const FioAddressListConnector = connect(mapStateToProps, mapDispatchToProps)(FioAddressListScene)

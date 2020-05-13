@@ -10,10 +10,10 @@ import { styles } from './styles.js'
 // CONTAINER /////////////////////////////////////////////////////////////////////////////
 export type ContainerProps = {
   children: Node,
-  style?: StyleSheet.Styles
+  style?: StyleSheet.Styles,
 }
 export class Container extends Component<ContainerProps> {
-  render () {
+  render() {
     const { children, style, ...props } = this.props
     return (
       <View style={[styles.container, style]} {...props}>
@@ -26,14 +26,14 @@ export class Container extends Component<ContainerProps> {
 // HEADER /////////////////////////////////////////////////////////////////////////////
 export type HeaderProps = {
   children: Node,
-  style?: StyleSheet.Styles
+  style?: StyleSheet.Styles,
 }
 export class Header extends Component<HeaderProps> {
-  render () {
+  render() {
     const { children, style, ...props } = this.props
     return (
       <View style={[styles.header, style]} {...props}>
-        <Gradient reverse style={[styles.gradient]}>
+        <Gradient reverse style={styles.gradient}>
           {children}
         </Gradient>
       </View>
@@ -44,10 +44,10 @@ export class Header extends Component<HeaderProps> {
 // FOOTER /////////////////////////////////////////////////////////////////////////////
 export type FooterProps = {
   children: Node,
-  style?: StyleSheet.Styles
+  style?: StyleSheet.Styles,
 }
 export class Footer extends Component<FooterProps> {
-  render () {
+  render() {
     const { children, style, ...props } = this.props
     return (
       <View style={[styles.footer, style]} {...props}>
@@ -60,10 +60,10 @@ export class Footer extends Component<FooterProps> {
 // ICON /////////////////////////////////////////////////////////////////////////////
 export type IconProps = {
   children: Node,
-  style?: StyleSheet.Styles
+  style?: StyleSheet.Styles,
 }
 export class Icon extends Component<IconProps> {
-  render () {
+  render() {
     const { children, style, ...props } = this.props
     return (
       <View style={[styles.icon, style]} {...props}>
@@ -76,10 +76,10 @@ export class Icon extends Component<IconProps> {
 // MESSAGE /////////////////////////////////////////////////////////////////////////////
 export type MessageProps = {
   children: Node,
-  style?: StyleSheet.Styles
+  style?: StyleSheet.Styles,
 }
 export class Message extends Component<MessageProps> {
-  render () {
+  render() {
     const { children, style, ...props } = this.props
     return (
       <Text style={[styles.message, style]} {...props}>
@@ -92,10 +92,10 @@ export class Message extends Component<MessageProps> {
 // ITEM /////////////////////////////////////////////////////////////////////////////
 type ItemProps = {
   children: Node,
-  style?: StyleSheet.Styles
+  style?: StyleSheet.Styles,
 }
 export class Item extends Component<ItemProps> {
-  render () {
+  render() {
     const { children, style, ...props } = this.props
 
     return (
@@ -109,10 +109,10 @@ export class Item extends Component<ItemProps> {
 // ROW /////////////////////////////////////////////////////////////////////////////
 type RowProps = {
   children: Node,
-  style?: StyleSheet.Styles
+  style?: StyleSheet.Styles,
 }
 export class Row extends Component<RowProps> {
-  render () {
+  render() {
     const { children, style, ...props } = this.props
 
     return (
@@ -133,7 +133,7 @@ export type Props = {
   onBackdropPress?: () => void,
   onExpire?: () => void,
   onModalHide: () => void,
-  onModalShow: () => void
+  onModalShow: () => void,
 }
 export class NonInteractiveModal extends Component<Props> {
   static Header = Header
@@ -149,16 +149,16 @@ export class NonInteractiveModal extends Component<Props> {
     onBackdropPress: () => {},
     onExpire: () => {},
     onModalHide: () => {},
-    onModalShow: () => {}
+    onModalShow: () => {},
   }
 
   timer: TimeoutID
 
-  render () {
+  render() {
     const { isActive, style, ...props } = this.props
     const children = React.Children.toArray(this.props.children)
-    const icon = children.find(child => child.type === NonInteractiveModal.Icon)
-    const footer = children.find(child => child.type === NonInteractiveModal.Footer)
+    const icon = children.find((child) => child.type === NonInteractiveModal.Icon)
+    const footer = children.find((child) => child.type === NonInteractiveModal.Footer)
 
     const deviceWidth = Dimensions.get('window').width
     const deviceHeight = Platform.OS === 'ios' ? Dimensions.get('window').height : require('react-native-extra-dimensions-android').get('REAL_WINDOW_HEIGHT')

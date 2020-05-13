@@ -14,18 +14,18 @@ const buildNumber = DeviceInfo.getBuildNumber()
 const versionNumber = DeviceInfo.getVersion()
 const CONTENT_URI = 'https://edgesecure.co/info.html'
 
-export function showHelpModal (): Promise<mixed> {
-  return Airship.show(bridge => <HelpModal bridge={bridge} />)
+export function showHelpModal(): Promise<mixed> {
+  return Airship.show((bridge) => <HelpModal bridge={bridge} />)
 }
 
 type Props = {
-  bridge: AirshipBridge<mixed>
+  bridge: AirshipBridge<mixed>,
 }
 
 class HelpModal extends Component<Props> {
   webview: WebView | void
 
-  render () {
+  render() {
     const { bridge } = this.props
 
     return (
@@ -37,14 +37,14 @@ class HelpModal extends Component<Props> {
         <ContentArea grow>
           <Text style={dayText('title')}>{s.strings.help_modal_title}</Text>
           <WebView
-            onNavigationStateChange={event => {
+            onNavigationStateChange={(event) => {
               if (!event.url.includes('info.html')) {
                 if (this.webview) this.webview.stopLoading()
                 Linking.openURL(event.url)
                 bridge.resolve()
               }
             }}
-            ref={element => (this.webview = element)}
+            ref={(element) => (this.webview = element)}
             source={{ uri: CONTENT_URI }}
           />
           <Text style={[dayText('center', 'small'), { lineHeight: textSize.large }]}>

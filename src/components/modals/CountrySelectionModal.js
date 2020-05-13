@@ -15,31 +15,31 @@ import { type AirshipBridge, AirshipModal, IconCircle } from './modalParts.js'
 
 type CountrySelectionModalProps = {
   countryCode: string,
-  bridge: AirshipBridge<string>
+  bridge: AirshipBridge<string>,
 }
 
 type CountrySelectionModalState = {
   input: string,
-  countryCode: string
+  countryCode: string,
 }
 
 export class CountrySelectionModal extends Component<CountrySelectionModalProps, CountrySelectionModalState> {
-  constructor (props: CountrySelectionModalProps) {
+  constructor(props: CountrySelectionModalProps) {
     super(props)
     const deviceCountry = DeviceInfo.getDeviceCountry() // "US"
     this.state = {
       input: '',
-      countryCode: props.countryCode || deviceCountry || 'US'
+      countryCode: props.countryCode || deviceCountry || 'US',
     }
   }
 
   updateCountryInput = (input: string) => {
     this.setState({
-      input
+      input,
     })
   }
 
-  _renderItem = data => {
+  _renderItem = (data) => {
     const { bridge } = this.props
     const { countryCode } = this.state
     const filename = data.item.filename ? data.item.filename : data.item.name.toLowerCase().replace(' ', '-')
@@ -47,14 +47,14 @@ export class CountrySelectionModal extends Component<CountrySelectionModalProps,
 
     return (
       <View style={[styles.singleCountryWrap, data.item['alpha-2'] === countryCode && styles.selectedItem]}>
-        <TouchableHighlight style={[styles.singleCountry]} onPress={() => bridge.resolve(data.item['alpha-2'])} underlayColor={styles.underlayColor.color}>
-          <View style={[styles.countryInfoWrap]}>
+        <TouchableHighlight style={styles.singleCountry} onPress={() => bridge.resolve(data.item['alpha-2'])} underlayColor={styles.underlayColor.color}>
+          <View style={styles.countryInfoWrap}>
             <View style={styles.countryLeft}>
-              <View style={[styles.countryLogo]}>
+              <View style={styles.countryLogo}>
                 <Image source={{ uri: logoUrl }} style={{ height: scale(40), width: scale(40), borderRadius: 20 }} />
               </View>
-              <View style={[styles.countryLeftTextWrap]}>
-                <FormattedText style={[styles.countryName]}>{data.item.name}</FormattedText>
+              <View style={styles.countryLeftTextWrap}>
+                <FormattedText style={styles.countryName}>{data.item.name}</FormattedText>
               </View>
             </View>
           </View>
@@ -63,29 +63,29 @@ export class CountrySelectionModal extends Component<CountrySelectionModalProps,
     )
   }
 
-  render () {
+  render() {
     const { bridge } = this.props
     const { input, countryCode } = this.state
     const lowerCaseInput = input.toLowerCase()
-    const filteredCountryCodes = COUNTRY_CODES.filter(country => {
+    const filteredCountryCodes = COUNTRY_CODES.filter((country) => {
       return country.name.toLowerCase().includes(lowerCaseInput) || (country.filename && country.filename.includes(lowerCaseInput))
     })
-    const currentCountryCodeIndex = filteredCountryCodes.findIndex(country => country['alpha-2'] === countryCode)
+    const currentCountryCodeIndex = filteredCountryCodes.findIndex((country) => country['alpha-2'] === countryCode)
     const currentCountryData = filteredCountryCodes.splice(currentCountryCodeIndex, 1)
     const finalCountryCodes = [...currentCountryData, ...filteredCountryCodes]
 
     return (
       <AirshipModal bridge={bridge} onCancel={() => bridge.resolve(this.state.countryCode)}>
-        {gap => (
-          <Fragment>
+        {(gap) => (
+          <>
             <IconCircle>
               <Icon type={FONT_AWESOME} name={FLAG} size={36} />
             </IconCircle>
             <View style={{ flex: 1, paddingLeft: scale(12), paddingRight: scale(12) }}>
               <FormField
                 autoFocus
-                error={''}
-                keyboardType={'default'}
+                error=""
+                keyboardType="default"
                 label={s.strings.buy_sell_crypto_select_country_button}
                 onChangeText={this.updateCountryInput}
                 style={MaterialInputStyle}
@@ -101,7 +101,7 @@ export class CountrySelectionModal extends Component<CountrySelectionModalProps,
                 renderItem={this._renderItem}
               />
             </View>
-          </Fragment>
+          </>
         )}
       </AirshipModal>
     )

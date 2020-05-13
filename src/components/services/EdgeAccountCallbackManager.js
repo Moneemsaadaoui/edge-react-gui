@@ -9,22 +9,22 @@ import { updateExchangeRates } from '../../modules/ExchangeRates/action.js'
 import type { Dispatch, State } from '../../types/reduxTypes.js'
 
 type EdgeAccountCallbackManagerStateProps = {
-  account: EdgeAccount
+  account: EdgeAccount,
 }
 
 type EdgeAccountCallbackManagerDispatchProps = {
   updateWalletsRequest: () => any,
-  updateExchangeRates: () => any
+  updateExchangeRates: () => any,
 }
 
 type Props = EdgeAccountCallbackManagerStateProps & EdgeAccountCallbackManagerDispatchProps
 
 class EdgeAccountCallbackManager extends React.Component<Props> {
-  render () {
+  render() {
     return null
   }
 
-  componentDidUpdate () {
+  componentDidUpdate() {
     if (this.props.account.id) this.subscribeToAccount()
   }
 
@@ -67,18 +67,15 @@ class EdgeAccountCallbackManager extends React.Component<Props> {
 
 const mapStateToProps = (state: State): EdgeAccountCallbackManagerStateProps => {
   return {
-    account: state.core.account
+    account: state.core.account,
   }
 }
 
 const mapDispatchToProps = (dispatch: Dispatch): EdgeAccountCallbackManagerDispatchProps => {
   return {
     updateWalletsRequest: () => dispatch(updateWalletsRequest()),
-    updateExchangeRates: () => dispatch(updateExchangeRates())
+    updateExchangeRates: () => dispatch(updateExchangeRates()),
   }
 }
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(EdgeAccountCallbackManager)
+export default connect(mapStateToProps, mapDispatchToProps)(EdgeAccountCallbackManager)

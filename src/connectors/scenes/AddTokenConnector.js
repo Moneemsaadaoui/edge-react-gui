@@ -10,15 +10,12 @@ import type { Dispatch, State } from '../../types/reduxTypes.js'
 
 const mapStateToProps = (state: State, ownProps: AddTokenOwnProps): AddTokenStateProps => ({
   addTokenPending: state.ui.wallets.addTokenPending,
-  wallet: getWallet(state, ownProps.walletId)
+  wallet: getWallet(state, ownProps.walletId),
 })
 const mapDispatchToProps = (dispatch: Dispatch): AddTokenDispatchProps => ({
   addNewToken: (walletId: string, currencyName: string, currencyCode: string, contractAddress: string, denomination: string, walletType: string) => {
     dispatch(ADD_TOKEN_ACTIONS.addNewToken(walletId, currencyName, currencyCode, contractAddress, denomination, walletType))
-  }
+  },
 })
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(AddToken)
+export default connect(mapStateToProps, mapDispatchToProps)(AddToken)

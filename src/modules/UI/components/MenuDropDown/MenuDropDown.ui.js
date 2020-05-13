@@ -9,31 +9,31 @@ import { getObjectDiff } from '../../../../util/utils'
 
 export type StateProps = {
   style: StyleSheet.Styles,
-  data: Array<Object>
+  data: Array<Object>,
 }
 
 export type DispatchProps = {
-  onSelect: Function
+  onSelect: Function,
 }
 
 type Props = StateProps & DispatchProps
 
 type State = {
   height: number,
-  pageY: number
+  pageY: number,
 }
 
 class MenuDropDown extends Component<Props, State> {
-  constructor (props: Props) {
+  constructor(props: Props) {
     super(props)
     this.state = {
       height: 0,
-      pageY: 0
+      pageY: 0,
     }
     slowlog(this, /.*/, global.slowlogOptions)
   }
 
-  shouldComponentUpdate (nextProps: Props, nextState: State) {
+  shouldComponentUpdate(nextProps: Props, nextState: State) {
     let diffElement2: string = ''
     const diffElement = getObjectDiff(this.props, nextProps, {
       data: true,
@@ -46,7 +46,7 @@ class MenuDropDown extends Component<Props, State> {
       '5': true,
       '6': true,
       '7': true,
-      '8': true
+      '8': true,
     })
     if (!diffElement) {
       diffElement2 = getObjectDiff(this.state, nextState)
@@ -54,8 +54,8 @@ class MenuDropDown extends Component<Props, State> {
     return !!diffElement || !!diffElement2
   }
 
-  renderMenuOptions (style: StyleSheet.Styles) {
-    const items = this.props.data.map(item => (
+  renderMenuOptions(style: StyleSheet.Styles) {
+    const items = this.props.data.map((item) => (
       <MenuOption style={style.menuOption} value={item.value} key={'ld' + (item.key || item.value)}>
         <View style={style.menuOptionItem}>
           <Text style={style.optionText}>{item.label}</Text>
@@ -65,7 +65,7 @@ class MenuDropDown extends Component<Props, State> {
     return items
   }
 
-  render () {
+  render() {
     const style = this.props.style
     return (
       <View style={style.container}>

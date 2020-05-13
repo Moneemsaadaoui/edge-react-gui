@@ -3,9 +3,9 @@
 import THEME from '../../../../theme/variables/airbitz'
 export default {
   defaultStyle: {
-    fontFamily: THEME.FONTS.DEFAULT
+    fontFamily: THEME.FONTS.DEFAULT,
   },
   boldStyle: {
-    fontFamily: THEME.FONTS.BOLD
-  }
+    fontFamily: THEME.FONTS.BOLD,
+  },
 }

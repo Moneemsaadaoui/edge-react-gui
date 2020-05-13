@@ -8,7 +8,7 @@ test('initialState', () => {
   const expected = {
     deleteCustomTokenProcessing: false,
     deleteTokenModalVisible: false,
-    editCustomTokenProcessing: false
+    editCustomTokenProcessing: false,
   }
   const actual = editTokenReducer(undefined, {})
 

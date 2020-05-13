@@ -8,13 +8,13 @@ export const secondaryModal = (state: State = initialState, action: Action) => {
   switch (action.type) {
     case 'PRIVATE_KEY_MODAL/SECONDARY_MODAL/ACTIVATED': {
       return {
-        isActive: true
+        isActive: true,
       }
     }
 
     case 'PRIVATE_KEY_MODAL/SECONDARY_MODAL/DEACTIVATED': {
       return {
-        isActive: false
+        isActive: false,
       }
     }
 

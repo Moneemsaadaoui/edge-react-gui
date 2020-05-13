@@ -28,25 +28,25 @@ export type StateProps = {
   fioWallets: EdgeCurrencyWallet[],
   defaultFiatCode: string,
   loading: boolean,
-  isConnected: boolean
+  isConnected: boolean,
 }
 
 export type NavigationProps = {
-  selectedWallet: { wallet: EdgeCurrencyWallet }
+  selectedWallet: { wallet: EdgeCurrencyWallet },
 }
 
 export type DispatchProps = {
   getRegInfo: (fioAddress: string, selectedWallet: EdgeCurrencyWallet) => Promise<void>,
-  onSelectWallet: (walletId: string, currencyCode: string) => void
+  onSelectWallet: (walletId: string, currencyCode: string) => void,
 }
 
 type Props = NavigationProps & StateProps & DispatchProps
 
 export class FioAddressRegisterSelectWalletScene extends Component<Props> {
-  componentDidMount (): void {
+  componentDidMount(): void {
     const {
       fioAddress,
-      selectedWallet: { wallet }
+      selectedWallet: { wallet },
     } = this.props
     this.props.getRegInfo(fioAddress, wallet)
   }
@@ -59,7 +59,7 @@ export class FioAddressRegisterSelectWalletScene extends Component<Props> {
         allowedCurrencyCodes.push(currency)
       }
     }
-    Airship.show(bridge => <WalletListModal bridge={bridge} headerTitle={s.strings.select_wallet} allowedCurrencyCodes={allowedCurrencyCodes} />).then(
+    Airship.show((bridge) => <WalletListModal bridge={bridge} headerTitle={s.strings.select_wallet} allowedCurrencyCodes={allowedCurrencyCodes} />).then(
       (response: WalletListResult) => {
         if (response.walletToSelect) {
           this.onSelectWallet(response.walletToSelect.walletId, response.walletToSelect.currencyCode)
@@ -73,13 +73,13 @@ export class FioAddressRegisterSelectWalletScene extends Component<Props> {
       activationCost,
       isConnected,
       paymentInfo: allPaymentInfo,
-      selectedWallet: { wallet }
+      selectedWallet: { wallet },
     } = this.props
 
     if (isConnected) {
       if (paymentCurrencyCode === Constants.FIO_STR) {
         const { fioWallets } = this.props
-        const paymentWallet = fioWallets.find(fioWallet => fioWallet.id === walletId)
+        const paymentWallet = fioWallets.find((fioWallet) => fioWallet.id === walletId)
         Actions[Constants.FIO_ADDRESS_CONFIRM]({ paymentWallet, fee: activationCost, ownerPublicKey: wallet.publicWalletInfo.keys.publicKey })
       } else {
         this.props.onSelectWallet(walletId, paymentCurrencyCode)
@@ -102,7 +102,7 @@ export class FioAddressRegisterSelectWalletScene extends Component<Props> {
               )
               Actions[Constants.WALLET_LIST]()
             }
-          }
+          },
         }
 
         Actions[Constants.SEND_CONFIRMATION]({ guiMakeSpendInfo })
@@ -118,7 +118,7 @@ export class FioAddressRegisterSelectWalletScene extends Component<Props> {
     return (
       <View style={styles.selectPaymentLower}>
         <View style={styles.buttons}>
-          <PrimaryButton disabled={isSelectWalletDisabled} style={[styles.next]} onPress={this.onPressSelect}>
+          <PrimaryButton disabled={isSelectWalletDisabled} style={styles.next} onPress={this.onPressSelect}>
             {isSelectWalletDisabled || loading ? (
               <ActivityIndicator />
             ) : (
@@ -140,7 +140,7 @@ export class FioAddressRegisterSelectWalletScene extends Component<Props> {
     )
   }
 
-  render () {
+  render() {
     const { activationCost, loading } = this.props
     const detailsText = sprintf(s.strings.fio_address_wallet_selection_text, loading ? '-' : activationCost)
     return (
@@ -149,7 +149,7 @@ export class FioAddressRegisterSelectWalletScene extends Component<Props> {
           <Gradient style={styles.scrollableGradient} />
           <ScrollView>
             <View style={styles.scrollableView}>
-              <Image source={fioAddressIcon} style={fioAddressStyles.image} resizeMode={'cover'} />
+              <Image source={fioAddressIcon} style={fioAddressStyles.image} resizeMode="cover" />
               <View style={styles.createWalletPromptArea}>
                 <T style={styles.instructionalText}>{detailsText}</T>
               </View>

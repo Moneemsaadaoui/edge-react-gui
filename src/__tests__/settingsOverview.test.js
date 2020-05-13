@@ -33,7 +33,7 @@ describe('MyComponent', () => {
       resetConfirmPasswordError: jest.fn,
       resetSendLogsStatus: jest.fn,
       onTogglePinLoginEnabled: jest.fn,
-      showRestoreWalletsModal: jest.fn
+      showRestoreWalletsModal: jest.fn,
     }
     const actual = renderer.render(<SettingsOverview {...props} />)
 
@@ -65,7 +65,7 @@ describe('MyComponent', () => {
       resetConfirmPasswordError: jest.fn,
       resetSendLogsStatus: jest.fn,
       onTogglePinLoginEnabled: jest.fn,
-      showRestoreWalletsModal: jest.fn
+      showRestoreWalletsModal: jest.fn,
     }
     const actual = renderer.render(<SettingsOverview {...props} />)
 

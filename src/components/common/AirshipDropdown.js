@@ -22,7 +22,7 @@ type Props = {
 
   // Called when the user taps anywhere in the dropdown.
   // Defaults to hiding the dropdown.
-  onPress?: () => mixed
+  onPress?: () => mixed,
 }
 
 /**
@@ -32,23 +32,23 @@ export class AirshipDropdown extends Component<Props> {
   offset: Animated.Value
   timeout: TimeoutID | void
 
-  constructor (props: Props) {
+  constructor(props: Props) {
     super(props)
     this.offset = new Animated.Value(this.hiddenOffset())
   }
 
-  hiddenOffset () {
+  hiddenOffset() {
     return -Dimensions.get('window').height / 4
   }
 
-  componentDidMount () {
+  componentDidMount() {
     const { bridge, autoHideMs = 5000 } = this.props
 
     // Animate in:
     Animated.timing(this.offset, {
       toValue: 0,
       duration: slideInTime,
-      useNativeDriver: true
+      useNativeDriver: true,
     }).start(() => {
       // Start the auto-hide timer:
       if (autoHideMs) {
@@ -65,29 +65,29 @@ export class AirshipDropdown extends Component<Props> {
       Animated.timing(this.offset, {
         toValue: this.hiddenOffset(),
         duration: slideOutTime,
-        useNativeDriver: true
+        useNativeDriver: true,
       }).start(() => bridge.remove())
     })
   }
 
-  render () {
+  render() {
     const { bridge, children, backgroundColor, onPress = () => bridge.resolve() } = this.props
 
     return (
       <LayoutContext>
-        {metrics => {
+        {(metrics) => {
           const { safeAreaInsets } = metrics
 
           const screenStyle = {
             bottom: safeAreaInsets.bottom,
             left: safeAreaInsets.left,
             right: safeAreaInsets.right,
-            top: 0
+            top: 0,
           }
           const bodyStyle = {
             backgroundColor,
             paddingTop: safeAreaInsets.top,
-            transform: [{ translateY: this.offset }]
+            transform: [{ translateY: this.offset }],
           }
 
           return (
@@ -116,14 +116,14 @@ const styles = StyleSheet.create({
     borderBottomRightRadius: borderRadius,
     shadowOpacity: 1,
     shadowOffset: {
-      width: 0
+      width: 0,
     },
     shadowRadius: THEME.rem(1 / 4),
 
     // Children:
     alignItems: 'stretch',
     flexDirection: 'column',
-    justifyContent: 'flex-start'
+    justifyContent: 'flex-start',
   },
 
   screen: {
@@ -133,6 +133,6 @@ const styles = StyleSheet.create({
     // Children:
     alignItems: 'flex-start',
     flexDirection: 'row',
-    justifyContent: 'center'
-  }
+    justifyContent: 'center',
+  },
 })

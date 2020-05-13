@@ -15,17 +15,14 @@ const mapStateToProps = (state: State) => ({
   currentWalletId: state.ui.scenes.transactionList.currentWalletId,
   currentCurrencyCode: state.ui.scenes.transactionList.currentCurrencyCode,
   walletId: getSelectedWalletId(state),
-  currencyCode: getSelectedCurrencyCode(state)
+  currencyCode: getSelectedCurrencyCode(state),
 })
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
-  qrCodeScanned: data => dispatch(qrCodeScanned(data)),
-  parseScannedUri: data => dispatch(parseScannedUri(data)),
+  qrCodeScanned: (data) => dispatch(qrCodeScanned(data)),
+  parseScannedUri: (data) => dispatch(parseScannedUri(data)),
   toggleEnableTorch: () => dispatch({ type: 'TOGGLE_ENABLE_TORCH' }),
-  selectFromWalletForExchange: (walletId, currencyCode) => dispatch(selectWalletForExchange(walletId, currencyCode, 'from'))
+  selectFromWalletForExchange: (walletId, currencyCode) => dispatch(selectWalletForExchange(walletId, currencyCode, 'from')),
 })
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Scan)
+export default connect(mapStateToProps, mapDispatchToProps)(Scan)

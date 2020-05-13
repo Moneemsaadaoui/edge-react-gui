@@ -16,7 +16,7 @@ const mapStateToProps = (state: State) => {
     return {
       fioWallets: [],
       fioPlugin: {},
-      isConnected: state.network.isConnected
+      isConnected: state.network.isConnected,
     }
   }
   const fioWallets: EdgeCurrencyWallet[] = getFioWallets(state)
@@ -25,7 +25,7 @@ const mapStateToProps = (state: State) => {
   const out: StateProps = {
     fioWallets,
     fioPlugin,
-    isConnected: state.network.isConnected
+    isConnected: state.network.isConnected,
   }
   return out
 }
@@ -34,12 +34,9 @@ const mapDispatchToProps = (dispatch: Dispatch): DispatchProps => ({
   changeFioAddressName: (fioAddressName: string) =>
     dispatch({
       type: 'FIO/FIO_ADDRESS_UPDATE_FIO_ADDRESS_NAME',
-      data: { fioAddressName }
+      data: { fioAddressName },
     }),
-  createFioWallet: () => dispatch(createFioWallet())
+  createFioWallet: () => dispatch(createFioWallet()),
 })
 
-export const FioAddressRegisterConnector = connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(FioAddressRegisterScene)
+export const FioAddressRegisterConnector = connect(mapStateToProps, mapDispatchToProps)(FioAddressRegisterScene)

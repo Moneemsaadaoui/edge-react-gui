@@ -17,27 +17,27 @@ import { Services } from './Services.js'
 
 type Props = {
   onLoad: (context: EdgeContext) => mixed,
-  onError: (error: any) => mixed
+  onError: (error: any) => mixed,
 }
 
 type State = {
   context: EdgeContext | null,
-  counter: number
+  counter: number,
 }
 
 const contextOptions = {
   apiKey: ENV.AIRBITZ_API_KEY,
   appId: '',
-  plugins: allPlugins
+  plugins: allPlugins,
 }
 
 const isReactNative = detectBundler.isReactNative
 const nativeIo = isReactNative
   ? {
-    'edge-currency-accountbased': makeAccountbasedIo(),
-    'edge-currency-bitcoin': makeBitcoinIo(),
-    'edge-currency-monero': makeMoneroIo()
-  }
+      'edge-currency-accountbased': makeAccountbasedIo(),
+      'edge-currency-bitcoin': makeBitcoinIo(),
+      'edge-currency-monero': makeMoneroIo(),
+    }
   : {}
 
 /**
@@ -48,16 +48,16 @@ export class EdgeCoreManager extends PureComponent<Props, State> {
   splashHidden: boolean = false
   paused: boolean = false
 
-  constructor (props: Props) {
+  constructor(props: Props) {
     super(props)
     this.state = { context: null, counter: 0 }
   }
 
-  componentDidMount () {
+  componentDidMount() {
     AppState.addEventListener('change', this.onAppStateChange)
   }
 
-  componentWillUnmount () {
+  componentWillUnmount() {
     AppState.removeEventListener('change', this.onAppStateChange)
   }
 
@@ -69,18 +69,18 @@ export class EdgeCoreManager extends PureComponent<Props, State> {
       const { context } = this.state
       if (context != null) {
         // TODO: Display a popdown error alert once we get that redux-free:
-        context.changePaused(paused, { secondsDelay: paused ? 20 : 0 }).catch(e => console.log(e))
+        context.changePaused(paused, { secondsDelay: paused ? 20 : 0 }).catch((e) => console.log(e))
       }
     }
   }
 
-  hideSplash () {
+  hideSplash() {
     if (!this.splashHidden) {
       this.splashHidden = true
       SplashScreen.close({
         animationType: SplashScreen.animationType.fade,
         duration: 850,
-        delay: 500
+        delay: 500,
       })
     }
   }
@@ -91,7 +91,10 @@ export class EdgeCoreManager extends PureComponent<Props, State> {
       console.log('EdgeContext closed')
       this.setState({ context: null })
     })
-    this.setState(state => ({ context, counter: state.counter + 1 }), () => this.hideSplash())
+    this.setState(
+      (state) => ({ context, counter: state.counter + 1 }),
+      () => this.hideSplash()
+    )
   }
 
   onError = (error: Error) => {
@@ -104,7 +107,7 @@ export class EdgeCoreManager extends PureComponent<Props, State> {
     world.makeEdgeContext(contextOptions).then(this.onContext, this.onError)
   }
 
-  renderCore () {
+  renderCore() {
     return ENV.USE_FAKE_CORE ? (
       <MakeFakeEdgeWorld debug={ENV.DEBUG_CORE_BRIDGE} users={[fakeUser]} onLoad={this.onFakeEdgeWorld} onError={this.onError} nativeIo={nativeIo} />
     ) : (
@@ -112,15 +115,15 @@ export class EdgeCoreManager extends PureComponent<Props, State> {
     )
   }
 
-  render () {
+  render() {
     const { context, counter } = this.state
     const key = `redux${counter}`
 
     return (
-      <Fragment>
+      <>
         {context == null ? <LoadingScene /> : <Services key={key} context={context} />}
         {this.renderCore()}
-      </Fragment>
+      </>
     )
   }
 }

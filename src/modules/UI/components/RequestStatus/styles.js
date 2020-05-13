@@ -11,21 +11,21 @@ const styles = StyleSheet.create({
     borderColor: THEME.COLORS.SECONDARY,
     alignItems: 'center',
     backgroundColor: THEME.COLORS.GRAY_4,
-    paddingTop: 10
+    paddingTop: 10,
   },
   view: {
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: THEME.COLORS.TRANSPARENT
+    backgroundColor: THEME.COLORS.TRANSPARENT,
   },
   text: {
     color: THEME.COLORS.WHITE,
-    margin: 10
+    margin: 10,
   },
   alert: {
-    color: THEME.COLORS.ACCENT_RED
-  }
+    color: THEME.COLORS.ACCENT_RED,
+  },
 })
 
 export default styles

@@ -6,7 +6,7 @@ import { type KeyboardEvent, Animated, Keyboard, Platform } from 'react-native'
 type Props = {
   children: (animation: Animated.Value, layout: number) => ChildrenArray<Node>,
   downValue?: number,
-  upValue?: number | ((keyboardHeight: number) => number)
+  upValue?: number | ((keyboardHeight: number) => number),
 }
 
 /**
@@ -33,7 +33,7 @@ export class KeyboardTracker extends Component<Props> {
   nextDuration: number
   sub: KeyboardSubscriber
 
-  constructor (props: Props) {
+  constructor(props: Props) {
     super(props)
 
     if (globalKeyboardSubscriber == null) {
@@ -45,25 +45,25 @@ export class KeyboardTracker extends Component<Props> {
     this.nextDuration = 0
   }
 
-  calculateGoal () {
-    const { downValue = 0, upValue = height => height } = this.props
+  calculateGoal() {
+    const { downValue = 0, upValue = (height) => height } = this.props
     const { keyboardHeight, keyboardHiding } = this.sub
 
     if (keyboardHiding) return downValue
     return typeof upValue === 'function' ? upValue(keyboardHeight) : upValue
   }
 
-  setNextDuration (duration: number) {
+  setNextDuration(duration: number) {
     this.nextDuration = duration
   }
 
-  triggerAnimation () {
+  triggerAnimation() {
     const nextGoal = this.calculateGoal()
     if (nextGoal !== this.animationGoal) {
       if (this.nextDuration !== 0) {
         Animated.timing(this.animation, {
           toValue: nextGoal,
-          duration: this.nextDuration
+          duration: this.nextDuration,
         }).start()
       } else {
         this.animation.setValue(nextGoal)
@@ -73,20 +73,20 @@ export class KeyboardTracker extends Component<Props> {
     }
   }
 
-  updateLayout () {
+  updateLayout() {
     if (this.props.children.length > 1) this.forceUpdate()
     else this.triggerAnimation()
   }
 
-  componentWillUnmount () {
+  componentWillUnmount() {
     this.sub.unregister(this)
   }
 
-  componentDidUpdate () {
+  componentDidUpdate() {
     this.triggerAnimation()
   }
 
-  render () {
+  render() {
     const { children } = this.props
     return children(this.animation, this.calculateGoal())
   }
@@ -102,7 +102,7 @@ class KeyboardSubscriber {
   keyboardHiding: boolean
   keyboardHeight: number
 
-  constructor () {
+  constructor() {
     this.trackers = []
     this.keyboardHeight = 0
     this.keyboardHiding = true
@@ -138,27 +138,27 @@ class KeyboardSubscriber {
     }
   }
 
-  register (tracker: KeyboardTracker) {
+  register(tracker: KeyboardTracker) {
     this.trackers.push(tracker)
   }
 
-  unregister (tracker: KeyboardTracker) {
-    this.trackers = this.trackers.filter(item => item !== tracker)
+  unregister(tracker: KeyboardTracker) {
+    this.trackers = this.trackers.filter((item) => item !== tracker)
   }
 
-  _setDurations (duration: number) {
+  _setDurations(duration: number) {
     for (const tracker of this.trackers) {
       tracker.setNextDuration(duration)
     }
   }
 
-  _triggerAnimations () {
+  _triggerAnimations() {
     for (const tracker of this.trackers) {
       tracker.triggerAnimation()
     }
   }
 
-  _updateLayouts () {
+  _updateLayouts() {
     for (const tracker of this.trackers) {
       tracker.updateLayout()
     }

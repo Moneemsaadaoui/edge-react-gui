@@ -25,7 +25,7 @@ export type FlipInputFieldInfo = {
   // Maximum number of decimals to convert from the opposite field to this field.
   // ie If the user is typing into the fiat field, and this FlipInputFieldInfo refers to a BTC field, then this is the number of
   // decimals to use when converting the fiat value into this crypto field.
-  maxConversionDecimals: number
+  maxConversionDecimals: number,
 }
 
 type State = {
@@ -35,7 +35,7 @@ type State = {
   overridePrimaryDecimalAmount: string,
   forceUpdateGuiCounter: number,
   primaryDisplayAmount: string, // Actual display amount including 1000s separator and localized for region
-  secondaryDisplayAmount: string // Actual display amount including 1000s separator and localized for region
+  secondaryDisplayAmount: string, // Actual display amount including 1000s separator and localized for region
 }
 
 export type FlipInputOwnProps = {
@@ -64,13 +64,13 @@ export type FlipInputOwnProps = {
   headerText: string,
   headerLogo: string | void,
   headerCallback?: () => void,
-  keyboardVisible: boolean
+  keyboardVisible: boolean,
 }
 
 type Props = FlipInputOwnProps
 
 // Assumes a US locale decimal input
-function setPrimaryToSecondary (props: Props, primaryDecimalAmount: string) {
+function setPrimaryToSecondary(props: Props, primaryDecimalAmount: string) {
   // Formats into locale specific format. Add currency symbol
   const primaryDisplayAmount = addCurrencySymbol(props.primaryInfo.currencySymbol, intl.formatNumberInput(primaryDecimalAmount))
 
@@ -88,7 +88,7 @@ function setPrimaryToSecondary (props: Props, primaryDecimalAmount: string) {
 }
 
 // Pretty much the same as setPrimaryToSecondary
-function setSecondaryToPrimary (props: Props, secondaryDecimalAmount: string) {
+function setSecondaryToPrimary(props: Props, secondaryDecimalAmount: string) {
   const secondaryDisplayAmount = addCurrencySymbol(props.secondaryInfo.currencySymbol, intl.formatNumberInput(secondaryDecimalAmount))
   let primaryDecimalAmount = props.exchangeSecondaryToPrimaryRatio === '0' ? '0' : bns.div(secondaryDecimalAmount, props.exchangeSecondaryToPrimaryRatio, 18)
   primaryDecimalAmount = UTILS.truncateDecimals(primaryDecimalAmount, props.primaryInfo.maxConversionDecimals)
@@ -108,7 +108,7 @@ const getInitialState = (props: Props) => {
     overridePrimaryDecimalAmount: '',
     primaryDisplayAmount: '',
     forceUpdateGuiCounter: 0,
-    secondaryDisplayAmount: ''
+    secondaryDisplayAmount: '',
   }
 
   let stateAmounts = {}
@@ -129,7 +129,7 @@ export class FlipInput extends Component<Props, State> {
   textInputFront: TextInput | null
   textInputBack: TextInput | null
 
-  constructor (props: Props) {
+  constructor(props: Props) {
     super(props)
     this.state = getInitialState(props)
     slowlog(this, /.*/, global.slowlogOptions)
@@ -138,24 +138,24 @@ export class FlipInput extends Component<Props, State> {
     this.animatedValue = new Animated.Value(0)
     this.frontInterpolate = this.animatedValue.interpolate({
       inputRange: [0, 1],
-      outputRange: ['0deg', '180deg']
+      outputRange: ['0deg', '180deg'],
     })
 
     this.backInterpolate = this.animatedValue.interpolate({
       inputRange: [0, 1],
-      outputRange: ['180deg', '360deg']
+      outputRange: ['180deg', '360deg'],
     })
     this.androidFrontOpacityInterpolate = this.animatedValue.interpolate({
       inputRange: [0, 0.5, 0.5],
-      outputRange: [1, 1, 0]
+      outputRange: [1, 1, 0],
     })
     this.androidBackOpacityInterpolate = this.animatedValue.interpolate({
       inputRange: [0.5, 0.5, 1],
-      outputRange: [0, 1, 1]
+      outputRange: [0, 1, 1],
     })
   }
 
-  componentDidMount () {
+  componentDidMount() {
     setTimeout(() => {
       if (this.props.keyboardVisible && this.props.overridePrimaryDecimalAmount === '0' && this.textInputFront) {
         this.textInputFront.focus()
@@ -164,15 +164,15 @@ export class FlipInput extends Component<Props, State> {
 
     if (this.props.isFiatOnTop) {
       this.setState({
-        isToggled: !this.state.isToggled
+        isToggled: !this.state.isToggled,
       })
       Animated.timing(this.animatedValue, {
         toValue: 1,
-        duration: 0
+        duration: 0,
       }).start()
       setTimeout(() => {
         this.setState({
-          secondaryDisplayAmount: ''
+          secondaryDisplayAmount: '',
         })
       }, 10)
     }
@@ -184,7 +184,7 @@ export class FlipInput extends Component<Props, State> {
     }
   }
 
-  UNSAFE_componentWillReceiveProps (nextProps: Props) {
+  UNSAFE_componentWillReceiveProps(nextProps: Props) {
     // Check if primary changed first. Don't bother to check secondary if parent passed in a primary
     if (
       nextProps.overridePrimaryDecimalAmount !== this.state.overridePrimaryDecimalAmount ||
@@ -194,7 +194,7 @@ export class FlipInput extends Component<Props, State> {
       this.setState(setPrimaryToSecondary(nextProps, primaryDecimalAmount))
       this.setState({
         overridePrimaryDecimalAmount: nextProps.overridePrimaryDecimalAmount,
-        forceUpdateGuiCounter: nextProps.forceUpdateGuiCounter
+        forceUpdateGuiCounter: nextProps.forceUpdateGuiCounter,
       })
     } else {
       if (!this.state.isToggled) {
@@ -205,7 +205,7 @@ export class FlipInput extends Component<Props, State> {
         const newState = setSecondaryToPrimary(nextProps, decimalAmount)
         this.setState({
           primaryDisplayAmount: newState.primaryDisplayAmount,
-          secondaryDisplayAmount: newState.secondaryDisplayAmount
+          secondaryDisplayAmount: newState.secondaryDisplayAmount,
         })
       }
     }
@@ -222,7 +222,7 @@ export class FlipInput extends Component<Props, State> {
 
   onToggleFlipInput = () => {
     this.setState({
-      isToggled: !this.state.isToggled
+      isToggled: !this.state.isToggled,
     })
     if (this.state.isToggled) {
       if (this.textInputFront) {
@@ -231,7 +231,7 @@ export class FlipInput extends Component<Props, State> {
       Animated.spring(this.animatedValue, {
         toValue: 0,
         friction: 8,
-        tension: 10
+        tension: 10,
       }).start()
     }
     if (!this.state.isToggled) {
@@ -241,7 +241,7 @@ export class FlipInput extends Component<Props, State> {
       Animated.spring(this.animatedValue, {
         toValue: 1,
         friction: 8,
-        tension: 10
+        tension: 10,
       }).start()
     }
   }
@@ -276,7 +276,7 @@ export class FlipInput extends Component<Props, State> {
     this.setState(
       {
         primaryDisplayAmount: result.primaryDisplayAmount,
-        secondaryDisplayAmount: result.secondaryDisplayAmount
+        secondaryDisplayAmount: result.secondaryDisplayAmount,
       },
       () => {
         this.props.onAmountChanged(result.primaryDecimalAmount)
@@ -326,15 +326,15 @@ export class FlipInput extends Component<Props, State> {
     }
   }
 
-  topRowFront = (fieldInfo: FlipInputFieldInfo, onChangeText: string => void, amount: string) => {
+  topRowFront = (fieldInfo: FlipInputFieldInfo, onChangeText: (string) => void, amount: string) => {
     return (
       <TouchableWithoutFeedback onPress={this.textInputFrontFocus}>
-        <View style={top.row} key={'top'}>
-          <Text style={[top.currencyCode]}>{fieldInfo.currencyCode}</Text>
-          <View style={[top.amountContainer]}>
+        <View style={top.row} key="top">
+          <Text style={top.currencyCode}>{fieldInfo.currencyCode}</Text>
+          <View style={top.amountContainer}>
             <TextInput
-              style={[top.amount]}
-              placeholder={'0'}
+              style={top.amount}
+              placeholder="0"
               placeholderTextColor={THEME.COLORS.OPAQUE_WHITE_3}
               value={amount}
               onChangeText={onChangeText}
@@ -374,14 +374,14 @@ export class FlipInput extends Component<Props, State> {
     }
   }
 
-  topRowBack = (fieldInfo: FlipInputFieldInfo, onChangeText: string => void, amount: string) => {
+  topRowBack = (fieldInfo: FlipInputFieldInfo, onChangeText: (string) => void, amount: string) => {
     return (
       <TouchableWithoutFeedback onPress={this.textInputBackFocus}>
-        <View style={top.row} key={'top'}>
-          <Text style={[top.currencyCode]}>{fieldInfo.currencyName}</Text>
-          <View style={[top.amountContainer]}>
+        <View style={top.row} key="top">
+          <Text style={top.currencyCode}>{fieldInfo.currencyName}</Text>
+          <View style={top.amountContainer}>
             <TextInput
-              style={[top.amount]}
+              style={top.amount}
               placeholder={this.props.isFiatOnTop ? 'Amount' : '0'}
               placeholderTextColor={THEME.COLORS.OPAQUE_WHITE_3}
               value={amount}
@@ -406,10 +406,10 @@ export class FlipInput extends Component<Props, State> {
 
   bottomRow = (fieldInfo: FlipInputFieldInfo, amount: string) => {
     return (
-      <TouchableWithoutFeedback onPress={this.onToggleFlipInput} key={'bottom'}>
+      <TouchableWithoutFeedback onPress={this.onToggleFlipInput} key="bottom">
         <View style={bottom.row}>
-          <Text style={[bottom.currencyCode]}>{fieldInfo.currencyCode}</Text>
-          <View style={[top.amountContainer]}>
+          <Text style={bottom.currencyCode}>{fieldInfo.currencyCode}</Text>
+          <View style={top.amountContainer}>
             <Text style={[bottom.amount, !amount && bottom.alert]} numberOfLines={1} ellipsizeMode="tail">
               {amount || '0'}
             </Text>
@@ -419,23 +419,23 @@ export class FlipInput extends Component<Props, State> {
     )
   }
 
-  render () {
+  render() {
     const { primaryInfo, secondaryInfo, headerText, headerLogo, headerCallback } = this.props
     const { isToggled } = this.state
     const frontAnimatedStyle = {
-      transform: [{ rotateX: this.frontInterpolate }]
+      transform: [{ rotateX: this.frontInterpolate }],
     }
     const backAnimatedStyle = {
-      transform: [{ rotateX: this.backInterpolate }]
+      transform: [{ rotateX: this.backInterpolate }],
     }
     return (
-      <View style={[styles.container]}>
+      <View style={styles.container}>
         <TouchableWithoutFeedback onPress={headerCallback}>
           <View style={styles.flipContainerHeader}>
             <Image style={styles.flipContainerHeaderIcon} source={{ uri: headerLogo || '' }} />
             <View style={styles.flipContainerHeaderTextContainer}>
               <Text style={styles.flipContainerHeaderText}>{headerText}</Text>
-              {headerCallback && <FAIcon style={[styles.flipContainerHeaderTextDropDown]} name={Constants.KEYBOARD_ARROW_DOWN} size={scale(20)} />}
+              {headerCallback && <FAIcon style={styles.flipContainerHeaderTextDropDown} name={Constants.KEYBOARD_ARROW_DOWN} size={scale(20)} />}
             </View>
           </View>
         </TouchableWithoutFeedback>
@@ -445,9 +445,9 @@ export class FlipInput extends Component<Props, State> {
             pointerEvents={isToggled ? 'none' : 'auto'}
           >
             <View style={styles.flipButton}>
-              <FAIcon style={[styles.flipIcon]} onPress={this.onToggleFlipInput} name={Constants.SWAP_VERT} size={scale(26)} />
+              <FAIcon style={styles.flipIcon} onPress={this.onToggleFlipInput} name={Constants.SWAP_VERT} size={scale(26)} />
             </View>
-            <View style={[styles.rows]}>
+            <View style={styles.rows}>
               {this.topRowFront(primaryInfo, this.onPrimaryAmountChange, this.state.primaryDisplayAmount)}
               {this.bottomRow(secondaryInfo, this.state.secondaryDisplayAmount)}
             </View>
@@ -457,9 +457,9 @@ export class FlipInput extends Component<Props, State> {
             pointerEvents={isToggled ? 'auto' : 'none'}
           >
             <View style={styles.flipButton}>
-              <FAIcon style={[styles.flipIcon]} onPress={this.onToggleFlipInput} name={Constants.SWAP_VERT} size={scale(26)} />
+              <FAIcon style={styles.flipIcon} onPress={this.onToggleFlipInput} name={Constants.SWAP_VERT} size={scale(26)} />
             </View>
-            <View style={[styles.rows]}>
+            <View style={styles.rows}>
               {this.topRowBack(secondaryInfo, this.onSecondaryAmountChange, this.state.secondaryDisplayAmount)}
               {this.bottomRow(primaryInfo, this.state.primaryDisplayAmount)}
             </View>

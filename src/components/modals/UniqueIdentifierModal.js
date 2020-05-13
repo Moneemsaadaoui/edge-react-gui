@@ -20,10 +20,10 @@ export type Props = {
   currencyCode: string,
   uniqueIdentifier: string,
   uniqueIdentifierChanged: (uniqueIdentifier: string) => void,
-  keyboardType: ?string
+  keyboardType: ?string,
 }
 export class UniqueIdentifierModal extends Component<Props> {
-  render () {
+  render() {
     const {
       currencyCode,
       isActive,
@@ -33,7 +33,7 @@ export class UniqueIdentifierModal extends Component<Props> {
       onModalHide,
       uniqueIdentifier,
       uniqueIdentifierChanged,
-      keyboardType
+      keyboardType,
     } = this.props
     let type = ''
     if (getSpecialCurrencyInfo(currencyCode).uniqueIdentifier) {
@@ -101,7 +101,7 @@ export class UniqueIdentifierModal extends Component<Props> {
     )
   }
 
-  onConfirm () {
+  onConfirm() {
     const { uniqueIdentifier } = this.props
     this.props.onConfirm(uniqueIdentifier)
   }

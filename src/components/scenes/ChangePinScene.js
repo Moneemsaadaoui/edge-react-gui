@@ -9,17 +9,17 @@ import { SceneWrapper } from '../common/SceneWrapper.js'
 export type ChangePinOwnProps = {
   account: EdgeAccount,
   context: EdgeContext,
-  showHeader: boolean
+  showHeader: boolean,
 }
 
 export type ChangePinDispatchProps = {
-  onComplete: () => void
+  onComplete: () => void,
 }
 
 export type ChangePinStateProps = {
   context: EdgeContext,
   account: EdgeAccount,
-  showHeader: boolean
+  showHeader: boolean,
 }
 
 type ChangePinComponentProps = ChangePinOwnProps & ChangePinDispatchProps & ChangePinStateProps
@@ -29,7 +29,7 @@ export default class ChangePassword extends Component<ChangePinComponentProps> {
     this.props.onComplete()
   }
 
-  render () {
+  render() {
     return (
       <SceneWrapper hasTabs={false} background="body">
         <ChangePinScreen account={this.props.account} context={this.props.context} onComplete={this.onComplete} onCancel={this.onComplete} showHeader={false} />

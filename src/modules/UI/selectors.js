@@ -91,7 +91,7 @@ export const getDefaultDenomination = (state: State, currencyCode: string): Edge
   const settings = state.ui.settings
   const currencySettings = settings[currencyCode]
   const defaultMultiplier = currencySettings.denomination
-  const denomination = _.find(currencySettings.denominations, denom => denom.multiplier === defaultMultiplier)
+  const denomination = _.find(currencySettings.denominations, (denom) => denom.multiplier === defaultMultiplier)
   if (!denomination) throw new Error('Edge: Denomination not found. Possible invalid currencyCode.')
   return denomination
 }
@@ -108,7 +108,7 @@ export const getExchangeDenomination = (state: State, currencyCode: string, spec
       if (denomination.name === currencyCode) return denomination
     }
   } else {
-    const customToken = _.find(customTokens, item => item.currencyCode === currencyCode)
+    const customToken = _.find(customTokens, (item) => item.currencyCode === currencyCode)
     if (customToken && customToken.denomination && customToken.denomination[0]) {
       const denomination = customToken.denominations[0]
       return denomination
@@ -166,7 +166,7 @@ export const calculateWalletFiatBalanceWithoutState = (wallet: GuiWallet, curren
   const nativeBalance = wallet.nativeBalances[currencyCode]
   if (!nativeBalance || nativeBalance === '0') return '0'
   const denominations = settings[currencyCode].denominations
-  const exchangeDenomination = denominations.find(denomination => denomination.name === currencyCode)
+  const exchangeDenomination = denominations.find((denomination) => denomination.name === currencyCode)
   if (!exchangeDenomination) return '0'
   const nativeToExchangeRatio: string = exchangeDenomination.multiplier
   const cryptoAmount: number = parseFloat(convertNativeToExchange(nativeToExchangeRatio)(nativeBalance))
@@ -176,7 +176,7 @@ export const calculateWalletFiatBalanceWithoutState = (wallet: GuiWallet, curren
 
 export const convertNativeToExchangeRateDenomination = (settings: Object, currencyCode: string, nativeAmount: string): string => {
   const denominations = settings[currencyCode].denominations
-  const exchangeDenomination = denominations.find(denomination => denomination.name === currencyCode)
+  const exchangeDenomination = denominations.find((denomination) => denomination.name === currencyCode)
   if (!exchangeDenomination || !nativeAmount || nativeAmount === '0') return '0'
   const nativeToExchangeRatio: string = exchangeDenomination.multiplier
   return convertNativeToExchange(nativeToExchangeRatio)(nativeAmount)

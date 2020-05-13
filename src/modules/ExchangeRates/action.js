@@ -9,11 +9,11 @@ export const updateExchangeRates = () => async (dispatch: Dispatch, getState: Ge
   const exchangeRates = await buildExchangeRates(state)
   dispatch({
     type: 'EXCHANGE_RATES/UPDATE_EXCHANGE_RATES',
-    data: { exchangeRates }
+    data: { exchangeRates },
   })
 }
 
-async function buildExchangeRates (state: State) {
+async function buildExchangeRates(state: State) {
   const { account } = state.core
   const { currencyWallets = {}, exchangeCache } = account
   const accountIsoFiat = getDefaultIsoFiat(state)
@@ -70,8 +70,8 @@ async function buildExchangeRates (state: State) {
   return finalExchangeRates
 }
 
-async function fetchExchangeRateHistory (currency: string, date: string): Promise<number> {
-  const currencyHistory = await fetch(`https://info1.edgesecure.co:8444/v1/exchangeRate?currency_pair=${currency}_USD&date=${date}`).catch(e => {
+async function fetchExchangeRateHistory(currency: string, date: string): Promise<number> {
+  const currencyHistory = await fetch(`https://info1.edgesecure.co:8444/v1/exchangeRate?currency_pair=${currency}_USD&date=${date}`).catch((e) => {
     console.log('Error fetching fetchExchangeRateHistory', e)
   })
   if (currencyHistory != null) {

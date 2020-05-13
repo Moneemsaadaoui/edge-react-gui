@@ -10,14 +10,11 @@ import type { State } from '../../types/reduxTypes.js'
 export const mapStateToProps = (state: State, ownProps: ChangePinOwnProps): ChangePinStateProps => ({
   context: state.core.context,
   account: state.core.account,
-  showHeader: false
+  showHeader: false,
 })
 
 export const mapDispatchToProps = (dispatch: Dispatch): ChangePinDispatchProps => ({
-  onComplete: Actions.pop
+  onComplete: Actions.pop,
 })
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(ChangePinComponent)
+export default connect(mapStateToProps, mapDispatchToProps)(ChangePinComponent)

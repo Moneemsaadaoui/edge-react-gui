@@ -48,22 +48,22 @@ type Props = {
   showUnlockSettingsModal: () => void,
   showSendLogsModal: () => void,
   showRestoreWalletsModal: () => void,
-  toggleDeveloperMode(boolean): void
+  toggleDeveloperMode(boolean): void,
 }
 
 type State = {
-  touchIdText: string
+  touchIdText: string,
 }
 
 export default class SettingsOverview extends Component<Props, State> {
-  constructor (props: Props) {
+  constructor(props: Props) {
     super(props)
     this.state = {
-      touchIdText: s.strings.settings_button_use_touchID
+      touchIdText: s.strings.settings_button_use_touchID,
     }
   }
 
-  async componentDidMount () {
+  async componentDidMount() {
     if (!this.props.supportsTouchId) {
       return null
     }
@@ -87,18 +87,22 @@ export default class SettingsOverview extends Component<Props, State> {
     }
   }
 
-  unlockSettingsAlert () {
+  unlockSettingsAlert() {
     showToast(s.strings.settings_alert_unlock)
   }
+
   _onPressChangePasswordRouting = () => {
     return this.props.isLocked ? this.unlockSettingsAlert() : Actions[Constants.CHANGE_PASSWORD]()
   }
+
   _onPressChangePinRouting = () => {
     return this.props.isLocked ? this.unlockSettingsAlert() : Actions[Constants.CHANGE_PIN]()
   }
+
   _onPressOtp = () => {
     return this.props.isLocked ? this.unlockSettingsAlert() : Actions[Constants.OTP_SETUP]()
   }
+
   _onPressRecoverPasswordRouting = () => {
     return this.props.isLocked ? this.unlockSettingsAlert() : Actions[Constants.RECOVER_PASSWORD]()
   }
@@ -134,14 +138,14 @@ export default class SettingsOverview extends Component<Props, State> {
   }
 
   showAutoLogoutModal = async () => {
-    const result = await Airship.show(bridge => <AutoLogoutModal autoLogoutTimeInSeconds={this.props.autoLogoutTimeInSeconds} bridge={bridge} />)
+    const result = await Airship.show((bridge) => <AutoLogoutModal autoLogoutTimeInSeconds={this.props.autoLogoutTimeInSeconds} bridge={bridge} />)
 
     if (typeof result === 'number') {
       this.props.setAutoLogoutTimeInSeconds(result)
     }
   }
 
-  render () {
+  render() {
     const { account } = this.props
 
     const autoLogout = secondsToDisplay(this.props.autoLogoutTimeInSeconds)
@@ -149,7 +153,7 @@ export default class SettingsOverview extends Component<Props, State> {
       seconds: s.strings.settings_seconds,
       minutes: s.strings.settings_minutes,
       hours: s.strings.settings_hours,
-      days: s.strings.settings_days
+      days: s.strings.settings_days,
     }
     const autoLogoutRightText = autoLogout.value === 0 ? s.strings.string_disable : `${autoLogout.value} ${timeStrings[autoLogout.measurement]}`
 
@@ -196,10 +200,10 @@ export default class SettingsOverview extends Component<Props, State> {
 
           <SettingsSwitchRow key="pinRelogin" text={s.strings.settings_title_pin_login} value={this.props.pinLoginEnabled} onPress={this._onTogglePinLogin} />
           {this.props.supportsTouchId && (
-            <SettingsSwitchRow key={'useTouchID'} text={this.state.touchIdText} value={this.props.touchIdEnabled} onPress={this._onToggleTouchIdOption} />
+            <SettingsSwitchRow key="useTouchID" text={this.state.touchIdText} value={this.props.touchIdEnabled} onPress={this._onToggleTouchIdOption} />
           )}
 
-          {CURRENCY_SETTINGS_KEYS.map(pluginId => {
+          {CURRENCY_SETTINGS_KEYS.map((pluginId) => {
             if (account.currencyConfig[pluginId] == null) return null
             const { currencyInfo } = account.currencyConfig[pluginId]
             const { displayName, symbolImage } = currencyInfo
@@ -247,11 +251,11 @@ const styles = {
   currencyLogo: {
     height: iconSize,
     width: iconSize,
-    resizeMode: 'contain'
+    resizeMode: 'contain',
   },
 
   bottomArea: {
     padding: THEME.rem(1.414),
-    marginBottom: THEME.rem(4)
-  }
+    marginBottom: THEME.rem(4),
+  },
 }

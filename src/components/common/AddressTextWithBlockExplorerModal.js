@@ -14,7 +14,7 @@ import { launchModal } from './ModalProvider.js'
 type AddressTextWithBlockExplorerModalProps = {
   address: string,
   addressExplorer: string | null,
-  children: Node
+  children: Node,
 }
 
 const AddressTextWithBlockExplorerModal = (props: AddressTextWithBlockExplorerModalProps) => {
@@ -26,7 +26,7 @@ const AddressTextWithBlockExplorerModal = (props: AddressTextWithBlockExplorerMo
         message: address,
         icon: <Icon type={Constants.ION_ICONS} name={Constants.WALLET_ICON} size={30} />,
         noButtonText: s.strings.string_cancel_cap,
-        yesButtonText: s.strings.string_ok_cap
+        yesButtonText: s.strings.string_ok_cap,
       })
       return (await launchModal(modal)) ? Linking.openURL(sprintf(addressExplorer, address)) : null
     }

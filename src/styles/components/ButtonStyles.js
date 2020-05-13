@@ -6,16 +6,16 @@ const IconButtonStyle = {
     width: 40,
     height: 40,
     justifyContent: 'space-around',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   icon: {
-    color: THEME.COLORS.WHITE
+    color: THEME.COLORS.WHITE,
   },
   iconPressed: {
-    color: THEME.COLORS.GRAY_2
+    color: THEME.COLORS.GRAY_2,
   },
   iconSize: 36,
-  underlayColor: THEME.COLORS.TRANSPARENT
+  underlayColor: THEME.COLORS.TRANSPARENT,
 }
 
 const TextAndIconButtonStyle = {
@@ -23,42 +23,42 @@ const TextAndIconButtonStyle = {
     width: '100%',
     height: '100%',
     justifyContent: 'space-around',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   centeredContent: {
     width: '100%',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   inner: {
     position: 'relative',
-    flexDirection: 'row'
+    flexDirection: 'row',
   },
   textContainer: {
     flexDirection: 'column',
     alignItems: 'center',
-    justifyContent: 'space-around'
+    justifyContent: 'space-around',
   },
   iconContainer: {
     height: '100%',
     flexDirection: 'column',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   text: {
     color: THEME.COLORS.WHITE,
-    fontSize: 20
+    fontSize: 20,
   },
   textPressed: {
     color: THEME.COLORS.GRAY_2,
-    fontSize: 20
+    fontSize: 20,
   },
   icon: {
-    color: THEME.COLORS.WHITE
+    color: THEME.COLORS.WHITE,
   },
   iconPressed: {
-    color: THEME.COLORS.GRAY_2
+    color: THEME.COLORS.GRAY_2,
   },
   iconSize: 25,
-  underlayColor: THEME.COLORS.TRANSPARENT
+  underlayColor: THEME.COLORS.TRANSPARENT,
 }
 
 export { IconButtonStyle }

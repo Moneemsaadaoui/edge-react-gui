@@ -13,7 +13,7 @@ export const mapStateToProps = (state: State) => {
   }
   return {
     isActive: state.ui.scenes.uniqueIdentifierModal.isActive,
-    uniqueIdentifier
+    uniqueIdentifier,
   }
 }
 
@@ -26,11 +26,8 @@ export const mapDispatchToProps = (dispatch: Dispatch, ownProps: Object) => ({
   onCancel: () => dispatch(deactivated()),
   onBackdropPress: () => dispatch(deactivated()),
   onBackbuttonPress: () => dispatch(deactivated()),
-  onModalHide: () => dispatch(reset())
+  onModalHide: () => dispatch(reset()),
 })
 
-export const UniqueIdentifierModalConnect = connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(UniqueIdentifierModal)
+export const UniqueIdentifierModalConnect = connect(mapStateToProps, mapDispatchToProps)(UniqueIdentifierModal)
 export default UniqueIdentifierModalConnect

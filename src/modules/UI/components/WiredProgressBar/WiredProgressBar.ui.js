@@ -8,48 +8,48 @@ import type { State } from '../../../../types/reduxTypes.js'
 import style from './WiredProgressBarStyle.js'
 
 type WiredProgressBarOwnProps = {
-  progress: number | Function
+  progress: number | Function,
 }
 
 type ProgressBarProps = {
-  progress: number
+  progress: number,
 }
 
 type ProgressBarState = {
-  isWalletProgressVisible: boolean
+  isWalletProgressVisible: boolean,
 }
 
 export class ProgressBar extends PureComponent<ProgressBarProps, ProgressBarState> {
   animation: Animated.Value
 
-  constructor (props: ProgressBarProps) {
+  constructor(props: ProgressBarProps) {
     super(props)
     this.animation = new Animated.Value(props.progress)
     this.state = {
-      isWalletProgressVisible: props.progress !== 100
+      isWalletProgressVisible: props.progress !== 100,
     }
   }
 
-  componentDidUpdate (prevProps: ProgressBarProps) {
+  componentDidUpdate(prevProps: ProgressBarProps) {
     if (prevProps.progress !== this.props.progress) {
       Animated.timing(this.animation, {
         toValue: this.props.progress,
         easing: Easing.ease,
-        duration: 1500
+        duration: 1500,
       }).start()
     }
   }
 
-  render () {
+  render() {
     const widthInterpolated = this.animation.interpolate({
       inputRange: [0, 100],
       outputRange: ['10%', '100%'],
-      extrapolate: 'clamp'
+      extrapolate: 'clamp',
     })
     if (this.props.progress === 100) {
       setTimeout(() => {
         this.setState({
-          isWalletProgressVisible: false
+          isWalletProgressVisible: false,
         })
       }, 2000)
     }
@@ -64,7 +64,7 @@ export class ProgressBar extends PureComponent<ProgressBarProps, ProgressBarStat
 
 export const WiredProgressBar = connect(
   (state: State, ownProps: WiredProgressBarOwnProps): ProgressBarProps => ({
-    progress: typeof ownProps.progress === 'function' ? ownProps.progress(state) : ownProps.progress
+    progress: typeof ownProps.progress === 'function' ? ownProps.progress(state) : ownProps.progress,
   }),
   null
 )(ProgressBar)

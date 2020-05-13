@@ -10,10 +10,10 @@ import T from '../../modules/UI/components/FormattedText/index'
 import { styles } from '../../styles/MainStyle.js'
 
 type Props = {
-  currencyInfo: EdgeCurrencyInfo
+  currencyInfo: EdgeCurrencyInfo,
 }
 
-export function CurrencySettingsTitle (props: Props) {
+export function CurrencySettingsTitle(props: Props) {
   const { currencyInfo } = props
   const { displayName, symbolImage = '' } = currencyInfo
 

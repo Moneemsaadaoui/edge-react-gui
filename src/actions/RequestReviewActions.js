@@ -18,7 +18,7 @@ const requestReview = async () => {
     StoreReview.requestReview()
   } else if (Platform.OS === 'android') {
     const title = sprintf(s.strings.request_review_question_title, s.strings.app_name_short)
-    const doRequest = await Airship.show(bridge => (
+    const doRequest = await Airship.show((bridge) => (
       <TwoButtonSimpleConfirmationModal
         bridge={bridge}
         title={title}
@@ -45,7 +45,7 @@ export const updateSwapCount = async (state: State) => {
     // File needs init
     swapCountData = {
       swapCount: 0,
-      hasReviewBeenRequested: false
+      hasReviewBeenRequested: false,
     }
   }
 
@@ -59,7 +59,7 @@ export const updateSwapCount = async (state: State) => {
       swapCountData.hasReviewBeenRequested = true
     }
     const swapCountDataStr = JSON.stringify(swapCountData)
-    await account.disklet.setText(SWAP_COUNT_DATA_FILE, swapCountDataStr).catch(e => {
+    await account.disklet.setText(SWAP_COUNT_DATA_FILE, swapCountDataStr).catch((e) => {
       // Failure to write the swapCount file is tolerable since it just means the user won't be
       //  asked to make a review
       console.log(`RequestReviewActions.updateSwapCount: Error writing file ${SWAP_COUNT_DATA_FILE}:`, e)

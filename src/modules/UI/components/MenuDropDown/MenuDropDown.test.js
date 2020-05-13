@@ -15,12 +15,12 @@ describe('MenuDropDown component', () => {
         {
           key: 'Key1',
           value: 'Value1',
-          label: 'Label1'
-        }
+          label: 'Label1',
+        },
       ],
       style: {
-        ...MenuDropDownStyle
-      }
+        ...MenuDropDownStyle,
+      },
     }
     const actual = renderer.render(<MenuDropDown {...props} />)
 

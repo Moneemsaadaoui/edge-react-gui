@@ -16,7 +16,7 @@ const mapStateToProps = (state: State) => {
   const out: StateProps = {
     fioAddressName: fioAddress.fioAddressName,
     denominationMultiplier: displayDenomination.multiplier,
-    isConnected: state.network.isConnected
+    isConnected: state.network.isConnected,
   }
   return out
 }
@@ -25,11 +25,8 @@ const mapDispatchToProps = (dispatch: Dispatch): DispatchProps => ({
   changeConfirmSelectedWallet: (selectedWallet: EdgeCurrencyWallet | null, expiration: string, feeCollected: number) =>
     dispatch({
       type: 'FIO/FIO_ADDRESS_UPDATE_SELECTED_WALLET',
-      data: { selectedWallet, expiration, feeCollected }
-    })
+      data: { selectedWallet, expiration, feeCollected },
+    }),
 })
 
-export const FioAddressConfirmConnector = connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(FioAddressConfirmScene)
+export const FioAddressConfirmConnector = connect(mapStateToProps, mapDispatchToProps)(FioAddressConfirmScene)

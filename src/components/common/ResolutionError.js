@@ -4,7 +4,7 @@ type ResolutionErrorOptions = {
   domain: string,
   method?: string,
   currencyTicker?: string,
-  recordName?: string
+  recordName?: string,
 }
 
 /** Alias for Resolution error handler function */
@@ -18,7 +18,7 @@ export const ResolutionErrorCode = {
   NamingServiceDown: 'NamingServiceDown',
   UnsupportedCurrency: 'UnsupportedCurrency',
   IncorrectResolverInterface: 'IncorrectResolverInterface',
-  RecordNotFound: 'RecordNotFound'
+  RecordNotFound: 'RecordNotFound',
 }
 
 /**
@@ -33,7 +33,7 @@ const HandlersByCode = {
     `Domain ${params.domain} has no ${params.currencyTicker} attached to it`,
   [ResolutionErrorCode.NamingServiceDown]: (params: { method: string }) => `${params.method} naming service is down at the moment`,
   [ResolutionErrorCode.UnsupportedCurrency]: (params: { currencyTicker: string }) => `${params.currencyTicker} is not supported`,
-  [ResolutionErrorCode.RecordNotFound]: (params: { recordName: string, domain: string }) => `No ${params.recordName} record found for ${params.domain}`
+  [ResolutionErrorCode.RecordNotFound]: (params: { recordName: string, domain: string }) => `No ${params.recordName} record found for ${params.domain}`,
 }
 
 /**
@@ -57,7 +57,7 @@ export class ResolutionError extends Error {
   method: string
   currencyTicker: string
 
-  constructor (code: string, options: ResolutionErrorOptions = { domain: '' }) {
+  constructor(code: string, options: ResolutionErrorOptions = { domain: '' }) {
     const resolutionErrorHandler: ResolutionErrorHandler = HandlersByCode[code]
     const { domain, method, currencyTicker, recordName } = options
     super(resolutionErrorHandler({ domain, method, currencyTicker, recordName }))

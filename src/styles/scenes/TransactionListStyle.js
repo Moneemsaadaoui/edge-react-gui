@@ -15,7 +15,7 @@ export const styles = {
     paddingBottom: scale(8),
     paddingRight: scale(10),
     paddingLeft: scale(10),
-    flexDirection: 'row'
+    flexDirection: 'row',
   },
   innerSearch: {
     backgroundColor: THEME.COLORS.WHITE,
@@ -26,124 +26,124 @@ export const styles = {
     justifyContent: 'center',
     alignItems: 'center',
     paddingLeft: scale(8),
-    paddingRight: scale(8)
+    paddingRight: scale(8),
   },
   searchIcon: {
-    color: THEME.COLORS.GRAY_2
+    color: THEME.COLORS.GRAY_2,
   },
   searchInput: {
     height: scale(18),
     flex: 1,
     alignSelf: 'center',
-    textAlign: 'center'
+    textAlign: 'center',
   },
   cancelButton: {
     justifyContent: 'space-around',
     alignItems: 'center',
     paddingLeft: scale(6),
     paddingRight: scale(6),
-    height: scale(28)
+    height: scale(28),
   },
   cancelButtonText: {
     color: THEME.COLORS.WHITE,
-    backgroundColor: THEME.COLORS.TRANSPARENT
+    backgroundColor: THEME.COLORS.TRANSPARENT,
   },
 
   // end of searchbar stuff
   touchableBalanceBox: {
-    height: scale(200)
+    height: scale(200),
   },
   currentBalanceBox: {
     flex: 1,
-    justifyContent: 'center'
+    justifyContent: 'center',
   },
   totalBalanceWrap: {
     flex: 3,
     alignItems: 'center',
-    backgroundColor: THEME.COLORS.TRANSPARENT
+    backgroundColor: THEME.COLORS.TRANSPARENT,
   },
   hiddenBalanceBoxDollarsWrap: {
     flex: 3,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: THEME.COLORS.TRANSPARENT
+    backgroundColor: THEME.COLORS.TRANSPARENT,
   },
   currentBalanceBoxHiddenText: {
     color: THEME.COLORS.WHITE,
-    fontSize: scale(44)
+    fontSize: scale(44),
   },
   balanceBoxContents: {
     flex: 1,
     paddingTop: scale(10),
     paddingBottom: scale(20),
-    justifyContent: 'space-between'
+    justifyContent: 'space-between',
   },
   updatingBalanceWrap: {
     alignItems: 'center',
     justifyContent: 'center',
     flexDirection: 'column',
-    flex: 1
+    flex: 1,
   },
   updatingBalance: {
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   currentBalanceWrap: {
     // one
     flex: 3,
     alignItems: 'center',
-    backgroundColor: THEME.COLORS.TRANSPARENT
+    backgroundColor: THEME.COLORS.TRANSPARENT,
   },
   balanceShownContainer: {
     justifyContent: 'center',
     alignItems: 'center',
-    flexDirection: 'column'
+    flexDirection: 'column',
   },
   iconWrap: {
     // two
     height: scale(28),
     width: scale(28),
     justifyContent: 'flex-start',
-    backgroundColor: THEME.COLORS.TRANSPARENT
+    backgroundColor: THEME.COLORS.TRANSPARENT,
   },
   currentBalanceBoxBitsWrap: {
     // two
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: THEME.COLORS.TRANSPARENT
+    backgroundColor: THEME.COLORS.TRANSPARENT,
   },
   currentBalanceBoxBits: {
     color: THEME.COLORS.WHITE,
-    fontSize: scale(40)
+    fontSize: scale(40),
   },
   currentBalanceBoxDollarsWrap: {
     justifyContent: 'flex-start',
     height: scale(26),
     paddingTop: scale(4),
-    backgroundColor: THEME.COLORS.TRANSPARENT
+    backgroundColor: THEME.COLORS.TRANSPARENT,
   },
   currentBalanceBoxDollars: {
     // two
     color: THEME.COLORS.WHITE,
-    fontSize: scale(20)
+    fontSize: scale(20),
   },
   balanceHiddenContainer: {
     justifyContent: 'center',
     alignItems: 'center',
-    flex: 1
+    flex: 1,
   },
   balanceHiddenText: {
     alignSelf: 'center',
     color: THEME.COLORS.WHITE,
-    fontSize: scale(36)
+    fontSize: scale(36),
   },
   requestSendRow: {
     // two
     height: scale(50),
-    flexDirection: 'row'
+    flexDirection: 'row',
   },
   button: {
-    borderRadius: scale(3)
+    borderRadius: scale(3),
   },
   requestBox: {
     backgroundColor: `${THEME.COLORS.WHITE}${THEME.ALPHA.LOW}`,
@@ -153,18 +153,18 @@ export const styles = {
     marginLeft: scale(8),
     marginRight: scale(2),
     flexDirection: 'row',
-    borderColor: THEME.COLORS.GRAY_4
+    borderColor: THEME.COLORS.GRAY_4,
     // borderWidth: 0.1,
   },
   requestWrap: {
     flexDirection: 'row',
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   requestIcon: {
     textAlignVertical: 'center',
     alignSelf: 'center',
-    marginRight: scale(10)
+    marginRight: scale(10),
   },
   sendBox: {
     backgroundColor: `${THEME.COLORS.WHITE}${THEME.ALPHA.LOW}`,
@@ -175,28 +175,28 @@ export const styles = {
     marginLeft: scale(2),
     marginRight: scale(8),
     flexDirection: 'row',
-    borderColor: THEME.COLORS.GRAY_4
+    borderColor: THEME.COLORS.GRAY_4,
     // borderWidth: 0.1,
   },
   sendWrap: {
     flexDirection: 'row',
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   sendIcon: {
     textAlignVertical: 'center',
     alignSelf: 'center',
-    marginRight: scale(10)
+    marginRight: scale(10),
   },
   request: {
     fontSize: scale(18),
     color: THEME.COLORS.WHITE,
-    marginHorizontal: scale(12)
+    marginHorizontal: scale(12),
   },
   send: {
     fontSize: scale(18),
     color: THEME.COLORS.WHITE,
-    marginHorizontal: scale(12)
+    marginHorizontal: scale(12),
   },
 
   // beginning of second half
@@ -204,10 +204,10 @@ export const styles = {
     paddingLeft: scale(12),
     paddingRight: scale(24),
     flexDirection: 'row',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   transactionsScrollWrap: {
-    flex: 1
+    flex: 1,
   },
   singleTransaction: {
     height: scale(80),
@@ -215,12 +215,12 @@ export const styles = {
     borderBottomColor: THEME.COLORS.GRAY_3,
     padding: scale(15),
     paddingRight: scale(15),
-    paddingLeft: scale(15)
+    paddingLeft: scale(15),
   },
   singleTransactionWrap: {
     backgroundColor: THEME.COLORS.WHITE,
     flexDirection: 'column',
-    flex: 1
+    flex: 1,
   },
   singleDateArea: {
     backgroundColor: THEME.COLORS.GRAY_4,
@@ -228,97 +228,97 @@ export const styles = {
     padding: scale(3),
     paddingLeft: scale(15),
     flexDirection: 'row',
-    paddingRight: scale(24)
+    paddingRight: scale(24),
   },
   leftDateArea: {
-    flex: 1
+    flex: 1,
   },
   formattedDate: {
     color: THEME.COLORS.GRAY_2,
-    fontSize: scale(14)
+    fontSize: scale(14),
   },
   rightDateSearch: {
     flex: 1,
-    alignItems: 'flex-end'
+    alignItems: 'flex-end',
   },
   transactionInfoWrap: {
     flex: 1,
     flexDirection: 'row',
-    height: scale(40)
+    height: scale(40),
   },
   transactionLeft: {
-    flexDirection: 'row'
+    flexDirection: 'row',
   },
   transactionLogo: {
     width: scale(40),
     height: scale(40),
     borderRadius: scale(20),
-    marginRight: scale(10)
+    marginRight: scale(10),
   },
   transactionLeftLogoWrap: {
-    justifyContent: 'center'
+    justifyContent: 'center',
   },
   transactionLeftTextWrap: {
     flex: 10,
-    justifyContent: 'center'
+    justifyContent: 'center',
   },
   transactionPartner: {
-    flex: 1
+    flex: 1,
   },
   transactionBitAmount: {
     fontSize: scale(16),
-    textAlignVertical: 'center'
+    textAlignVertical: 'center',
   },
   transactionRight: {
     flex: 1,
     width: '100%',
     height: '100%',
     flexDirection: 'column',
-    justifyContent: 'center'
+    justifyContent: 'center',
   },
   transactionTimePendingArea: {
     fontSize: scale(12),
     textAlignVertical: 'bottom',
     position: 'relative',
-    top: scale(4)
+    top: scale(4),
   },
   transactionTime: {
-    color: THEME.COLORS.SECONDARY
+    color: THEME.COLORS.SECONDARY,
   },
   transactionPending: {
-    color: THEME.COLORS.ACCENT_RED
+    color: THEME.COLORS.ACCENT_RED,
   },
   transactionPartialConfirmation: {
-    color: THEME.COLORS.ACCENT_ORANGE
+    color: THEME.COLORS.ACCENT_ORANGE,
   },
   transactionDollarAmount: {
     fontSize: scale(12),
     color: THEME.COLORS.GRAY_2,
     textAlignVertical: 'center',
     position: 'relative',
-    top: scale(4)
+    top: scale(4),
   },
   accentGreen: {
-    color: THEME.COLORS.ACCENT_BLUE
+    color: THEME.COLORS.ACCENT_BLUE,
   },
   accentRed: {
-    color: THEME.COLORS.ACCENT_RED
+    color: THEME.COLORS.ACCENT_RED,
   },
   underlay: {
-    color: THEME.COLORS.SECONDARY
+    color: THEME.COLORS.SECONDARY,
   },
   transactionUnderlay: {
-    color: THEME.COLORS.ROW_PRESSED
+    color: THEME.COLORS.ROW_PRESSED,
   },
   symbol: {
-    fontFamily: THEME.FONTS.SYMBOLS
+    fontFamily: THEME.FONTS.SYMBOLS,
   },
   emptyListLoader: {
     backgroundColor: THEME.COLORS.GRAY_4,
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    height: scale(230)
+    height: scale(230),
   },
   buyCryptoContainer: {
     backgroundColor: THEME.COLORS.GRAY_4,
@@ -327,7 +327,7 @@ export const styles = {
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'center',
-    padding: scale(15)
+    padding: scale(15),
   },
   buyCryptoBox: {
     flex: 2,
@@ -335,52 +335,52 @@ export const styles = {
     alignItems: 'center',
     justifyContent: 'center',
     width: '100%',
-    backgroundColor: THEME.COLORS.WHITE
+    backgroundColor: THEME.COLORS.WHITE,
   },
   buyCryptoBoxImage: {
     width: scale(40),
-    height: scale(40)
+    height: scale(40),
   },
   buyCryptoBoxText: {
     marginTop: scale(10),
     fontSize: scale(17),
-    color: THEME.COLORS.GRAY_1
+    color: THEME.COLORS.GRAY_1,
   },
   buyCryptoNoTransactionBox: {
     flex: 1,
     flexDirection: 'column',
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
   },
   buyCryptoNoTransactionText: {
     fontSize: scale(17),
-    color: THEME.COLORS.ACCENT_BLUE
+    color: THEME.COLORS.ACCENT_BLUE,
   },
   transactionDetailsRow: {
     flexDirection: 'row',
-    width: '100%'
+    width: '100%',
   },
   transactionDetailsRowMargin: {
-    marginBottom: scale(2)
+    marginBottom: scale(2),
   },
   transactionDetailsReceivedTx: {
-    color: THEME.COLORS.TRANSACTION_LIST_RECEIVED_TX
+    color: THEME.COLORS.TRANSACTION_LIST_RECEIVED_TX,
   },
   transactionDetailsSentTx: {
-    color: THEME.COLORS.TRANSACTION_LIST_SENT_TX
+    color: THEME.COLORS.TRANSACTION_LIST_SENT_TX,
   },
   transactionCategory: {
     flex: 1,
     fontSize: 12,
-    color: THEME.COLORS.SECONDARY
+    color: THEME.COLORS.SECONDARY,
   },
   transactionFiat: {
     fontSize: 12,
-    color: THEME.COLORS.SECONDARY
+    color: THEME.COLORS.SECONDARY,
   },
   transactionPendingTime: {
     flex: 1,
-    fontSize: 12
+    fontSize: 12,
   },
   earnInterestContainer: {
     backgroundColor: THEME.COLORS.GRAY_4,
@@ -388,7 +388,7 @@ export const styles = {
     alignItems: 'center',
     justifyContent: 'center',
     padding: scale(15),
-    marginBottom: 0
+    marginBottom: 0,
   },
   earnInterestBox: {
     flexDirection: 'column',
@@ -396,18 +396,18 @@ export const styles = {
     justifyContent: 'center',
     width: '100%',
     backgroundColor: THEME.COLORS.WHITE,
-    padding: scale(15)
+    padding: scale(15),
   },
   earnInterestImage: {
     width: scale(32),
     height: scale(32),
-    marginHorizontal: scale(4)
+    marginHorizontal: scale(4),
   },
   earnInterestText: {
     marginTop: scale(10),
     fontSize: scale(17),
-    color: THEME.COLORS.GRAY_1
-  }
+    color: THEME.COLORS.GRAY_1,
+  },
 }
 
 export default StyleSheet.create(styles)

@@ -14,7 +14,7 @@ export const mapStateToProps = (state: State) => ({
   loginStatus: state.ui.settings.loginStatus,
   status: state.ui.scenes.passwordReminderModal.status,
   isVisible: state.ui.passwordReminder.needsPasswordCheck,
-  passwordReminder: state.ui.passwordReminder
+  passwordReminder: state.ui.passwordReminder,
 })
 export const mapDispatchToProps = (dispatch: Dispatch) => ({
   onSubmit: (password: string) => dispatch(checkPassword(password)),
@@ -23,10 +23,7 @@ export const mapDispatchToProps = (dispatch: Dispatch) => ({
     dispatch(requestChangePassword())
   },
   onPostpone: () => dispatch(postponePasswordReminder()),
-  setPasswordReminder: (passwordReminder: PasswordReminder) => dispatch(setPasswordReminder(passwordReminder))
+  setPasswordReminder: (passwordReminder: PasswordReminder) => dispatch(setPasswordReminder(passwordReminder)),
 })
 
-export const passwordReminderModalConnector = connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(PasswordReminderModal)
+export const passwordReminderModalConnector = connect(mapStateToProps, mapDispatchToProps)(PasswordReminderModal)

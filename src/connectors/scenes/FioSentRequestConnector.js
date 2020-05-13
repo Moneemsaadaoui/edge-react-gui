@@ -17,12 +17,9 @@ const mapStateToProps = (state: State) => {
   const out: StateProps = {
     exchangeRates,
     fiatSymbol,
-    isoFiatCurrencyCode
+    isoFiatCurrencyCode,
   }
   return out
 }
 
-export const FioSentRequestConnector = connect(
-  mapStateToProps,
-  {}
-)(FioSentRequestDetailsComponent)
+export const FioSentRequestConnector = connect(mapStateToProps, {})(FioSentRequestDetailsComponent)

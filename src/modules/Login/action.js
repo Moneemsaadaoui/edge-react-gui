@@ -25,16 +25,16 @@ import {
   setLocalSettings,
   setSyncedSettings,
   SYNCED_ACCOUNT_DEFAULTS,
-  SYNCED_ACCOUNT_TYPES
+  SYNCED_ACCOUNT_TYPES,
 } from '../Core/Account/settings.js'
 import { updateWalletsEnabledTokens, updateWalletsRequest } from '../Core/Wallets/action.js'
 
 const localeInfo = Locale.constants() // should likely be moved to login system and inserted into Redux
 
-function getFirstActiveWalletInfo (account: EdgeAccount): { walletId: string, currencyCode: string } {
+function getFirstActiveWalletInfo(account: EdgeAccount): { walletId: string, currencyCode: string } {
   // Find the first wallet:
   const walletId = account.activeWalletIds[0]
-  const walletKey = account.allKeys.find(key => key.id === walletId)
+  const walletKey = account.allKeys.find((key) => key.id === walletId)
   if (!walletKey) {
     throw new Error('Cannot find a walletInfo for the active wallet')
   }
@@ -84,7 +84,7 @@ export const initializeAccount = (account: EdgeAccount, touchIdInfo: Object) => 
     isAccountBalanceVisible: false,
     isWalletFiatBalanceVisible: false,
     spendingLimits: {},
-    passwordRecoveryRemindersShown: PASSWORD_RECOVERY_REMINDERS_SHOWN
+    passwordRecoveryRemindersShown: PASSWORD_RECOVERY_REMINDERS_SHOWN,
   }
   try {
     let newAccount = false
@@ -104,7 +104,7 @@ export const initializeAccount = (account: EdgeAccount, touchIdInfo: Object) => 
     const activeWalletIds = account.activeWalletIds
     dispatch({
       type: 'INSERT_WALLET_IDS_FOR_PROGRESS',
-      data: { activeWalletIds }
+      data: { activeWalletIds },
     })
     const archivedWalletIds = account.archivedWalletIds
 
@@ -120,7 +120,7 @@ export const initializeAccount = (account: EdgeAccount, touchIdInfo: Object) => 
     accountInitObject = { ...accountInitObject, ...mergedSyncedSettings.finalSettings }
 
     if (accountInitObject.customTokens) {
-      accountInitObject.customTokens.forEach(token => {
+      accountInitObject.customTokens.forEach((token) => {
         accountInitObject.customTokensSettings.push(token)
         // this second dispatch will be redundant if we set 'denomination' property upon customToken creation
         accountInitObject.denominationKeys.push({ currencyCode: token.currencyCode, denominationKey: token.multiplier })
@@ -158,7 +158,7 @@ export const initializeAccount = (account: EdgeAccount, touchIdInfo: Object) => 
 
     dispatch({
       type: 'ACCOUNT_INIT_COMPLETE',
-      data: { ...accountInitObject }
+      data: { ...accountInitObject },
     })
 
     if (newAccount) {
@@ -235,7 +235,7 @@ export const mergeSettings = (
       if (loadedSettings && loadedSettings[key] && (doesHaveDenominations || doesHavePlugin) && currencyName) {
         // for each currency info (each native currency)
         const pluginDenominations = account.currencyConfig[currencyName].currencyInfo.denominations // get denominations for that plugin
-        const settingDenominationIndex = pluginDenominations.findIndex(pluginDenom => pluginDenom.multiplier === loadedSettings[key].denomination) // find settings denom in plugin denoms
+        const settingDenominationIndex = pluginDenominations.findIndex((pluginDenom) => pluginDenom.multiplier === loadedSettings[key].denomination) // find settings denom in plugin denoms
         if (settingDenominationIndex === -1) {
           // setting denomination is not present in plugin (and on wallet)
           finalSettings[key].denomination = pluginDenominations[0].multiplier // grab the first denom multiplier from plugin
@@ -261,7 +261,7 @@ export const mergeSettings = (
   return {
     finalSettings,
     isOverwriteNeeded,
-    isDefaultTypeIncorrect
+    isDefaultTypeIncorrect,
   }
 }
 
@@ -276,7 +276,7 @@ export const logoutRequest = (username?: string) => (dispatch: Dispatch, getStat
 /**
  * Finds the currency info for a currency code.
  */
-function findCurrencyInfo (account: EdgeAccount, currencyCode: string): EdgeCurrencyInfo | void {
+function findCurrencyInfo(account: EdgeAccount, currencyCode: string): EdgeCurrencyInfo | void {
   for (const pluginId in account.currencyConfig) {
     const { currencyInfo } = account.currencyConfig[pluginId]
     if (currencyInfo.currencyCode.toUpperCase() === currencyCode) {
@@ -288,11 +288,11 @@ function findCurrencyInfo (account: EdgeAccount, currencyCode: string): EdgeCurr
 /**
  * Creates a wallet, with timeout, and maybe also activates it.
  */
-async function safeCreateWallet (account: EdgeAccount, walletType: string, walletName: string, fiatCurrencyCode: string, dispatch: Dispatch) {
+async function safeCreateWallet(account: EdgeAccount, walletType: string, walletName: string, fiatCurrencyCode: string, dispatch: Dispatch) {
   const wallet = await runWithTimeout(
     account.createCurrencyWallet(walletType, {
       name: walletName,
-      fiatCurrencyCode
+      fiatCurrencyCode,
     }),
     20000,
     new Error(s.strings.error_creating_wallets)
@@ -300,7 +300,7 @@ async function safeCreateWallet (account: EdgeAccount, walletType: string, walle
   if (account.activeWalletIds.length <= 1) {
     dispatch({
       type: 'UI/WALLETS/SELECT_WALLET',
-      data: { currencyCode: wallet.currencyInfo.currencyCode, walletId: wallet.id }
+      data: { currencyCode: wallet.currencyInfo.currencyCode, walletId: wallet.id },
     })
   }
   return wallet
@@ -309,11 +309,11 @@ async function safeCreateWallet (account: EdgeAccount, walletType: string, walle
 /**
  * Creates the custom default wallets inside a new account.
  */
-async function createCustomWallets (account: EdgeAccount, fiatCurrencyCode: string, currencyCodes: string[], dispatch: Dispatch) {
+async function createCustomWallets(account: EdgeAccount, fiatCurrencyCode: string, currencyCodes: string[], dispatch: Dispatch) {
   const currencyInfos = []
   for (const code of currencyCodes) {
     const [parent] = code.split(':')
-    if (currencyInfos.find(info => info.currencyCode === parent)) continue
+    if (currencyInfos.find((info) => info.currencyCode === parent)) continue
     const currencyInfo = findCurrencyInfo(account, parent)
     if (currencyInfo != null) currencyInfos.push(currencyInfo)
   }
@@ -341,7 +341,7 @@ async function createCustomWallets (account: EdgeAccount, fiatCurrencyCode: stri
 /**
  * Creates the default wallets inside a new account.
  */
-async function createDefaultWallets (account: EdgeAccount, fiatCurrencyCode: string, dispatch: Dispatch) {
+async function createDefaultWallets(account: EdgeAccount, fiatCurrencyCode: string, dispatch: Dispatch) {
   // TODO: Run these in parallel once the Core has safer locking:
   await safeCreateWallet(account, 'wallet:bitcoin', s.strings.string_first_bitcoin_wallet_name, fiatCurrencyCode, dispatch)
   await safeCreateWallet(account, 'wallet:bitcoincash', s.strings.string_first_bitcoincash_wallet_name, fiatCurrencyCode, dispatch)

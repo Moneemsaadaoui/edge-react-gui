@@ -10,7 +10,7 @@ import { type Permission } from '../reducers/PermissionsReducer.js'
 export type GuiPluginQuery = {
   // Use a string for key/value queries, like `?foo=bar`
   // Use null for key-only queries, like `?baz`
-  [key: string]: string | null
+  [key: string]: string | null,
 }
 
 /**
@@ -52,7 +52,7 @@ export type GuiPlugin = {
   originWhitelist?: string[],
 
   // Device permissions to acquire before launching the plugin:
-  permissions?: Permission[]
+  permissions?: Permission[],
 }
 
 /**
@@ -68,7 +68,7 @@ export type GuiPluginRow = {
   partnerIconPath?: string,
   paymentTypeLogoKey?: string,
   paymentTypes: string[],
-  cryptoCodes: string[]
+  cryptoCodes: string[],
 }
 
 /**
@@ -97,7 +97,7 @@ const asGuiPluginJsonRow = asObject({
   // Filtering & sorting:
   forCountries: asOptional(asArray(asString)),
   forPlatform: asOptional(asString),
-  sortIndex: asOptional(asNumber)
+  sortIndex: asOptional(asNumber),
 })
 export const asGuiPluginJson = asArray(asEither(asString, asGuiPluginJsonRow))
 export type GuiPluginJson = $Call<typeof asGuiPluginJson, any>
@@ -106,7 +106,7 @@ export type GuiPluginJson = $Call<typeof asGuiPluginJson, any>
  * Helper function to turn a GuiPluginJson into a cooked list.
  * Call `asGuiPluginJson` to clean & validate the input file first.
  */
-export function filterGuiPluginJson (cleanJson: GuiPluginJson, platform: string, countryCode: string): GuiPluginRow[] {
+export function filterGuiPluginJson(cleanJson: GuiPluginJson, platform: string, countryCode: string): GuiPluginRow[] {
   // Filter and merge related rows:
   const mergedRows: { [id: string]: GuiPluginRow } = {}
   const sortIndexes: { [id: string]: number } = {}
@@ -129,7 +129,7 @@ export function filterGuiPluginJson (cleanJson: GuiPluginJson, platform: string,
         title: '',
         description: '',
         paymentTypes: [],
-        cryptoCodes: []
+        cryptoCodes: [],
       }
     }
 
@@ -148,20 +148,20 @@ export function filterGuiPluginJson (cleanJson: GuiPluginJson, platform: string,
 
   // Build the sorted output list, removing rows without pluginIds:
   return Object.keys(mergedRows)
-    .filter(id => mergedRows[id].pluginId !== '')
+    .filter((id) => mergedRows[id].pluginId !== '')
     .sort((a, b) => sortIndexes[a] - sortIndexes[b])
-    .map(id => mergedRows[id])
+    .map((id) => mergedRows[id])
 }
 
 /**
  * Prepares a plugin's URI.
  */
-export function makePluginUri (
+export function makePluginUri(
   plugin: GuiPlugin,
   opts: {
     deepPath?: string,
     deepQuery?: GuiPluginQuery,
-    promoCode?: string
+    promoCode?: string,
   }
 ): string {
   const { baseUri, baseQuery = {}, lockUriPath = false, queryPromoCode } = plugin
@@ -175,7 +175,7 @@ export function makePluginUri (
 
   // Assemble the query part:
   const queryString = Object.keys(query)
-    .map(key => {
+    .map((key) => {
       let out = encodeURIComponent(key)
       if (query[key] != null) out += `=${encodeURIComponent(query[key])}`
       return out

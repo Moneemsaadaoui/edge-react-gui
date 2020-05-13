@@ -8,7 +8,7 @@ import { type Props, CryptoExchangeMessageBoxComponent } from '../../modules/UI/
 import type { State } from '../../types/reduxTypes.js'
 
 type OwnProps = {
-  style: StyleSheet.Styles
+  style: StyleSheet.Styles,
 }
 
 const mapStateToProps = (state: State, ownProps: OwnProps): Props => {
@@ -33,11 +33,8 @@ const mapStateToProps = (state: State, ownProps: OwnProps): Props => {
   return {
     style: ownProps.style,
     message,
-    useErrorStyle
+    useErrorStyle,
   }
 }
 
-export default connect(
-  mapStateToProps,
-  null
-)(CryptoExchangeMessageBoxComponent)
+export default connect(mapStateToProps, null)(CryptoExchangeMessageBoxComponent)

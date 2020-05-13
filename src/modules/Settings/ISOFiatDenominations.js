@@ -8,8 +8,8 @@ export default {
         name: 'USD',
         symbol: '$',
         multiplier: '100',
-        precision: 2
-      }
-    ]
-  }
+        precision: 2,
+      },
+    ],
+  },
 }

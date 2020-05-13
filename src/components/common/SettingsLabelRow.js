@@ -13,13 +13,13 @@ type Props = {
   icon?: Node,
   text: string,
   right: string,
-  onPress: () => void
+  onPress: () => void,
 }
 
 /**
  * A settings row with a smaller text on the right side.
  */
-export function SettingsLabelRow (props: Props): Node {
+export function SettingsLabelRow(props: Props): Node {
   const { disabled, icon, text, right, onPress } = props
 
   return <SettingsRow disabled={disabled} icon={icon} text={text} right={<Text style={styles.labelText}>{right}</Text>} onPress={onPress} />
@@ -28,6 +28,6 @@ export function SettingsLabelRow (props: Props): Node {
 const styles = {
   labelText: {
     ...dayText('bold', 'small'),
-    color: THEME.COLORS.SECONDARY
-  }
+    color: THEME.COLORS.SECONDARY,
+  },
 }

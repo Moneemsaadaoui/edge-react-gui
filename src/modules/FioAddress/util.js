@@ -13,14 +13,14 @@ const FIO_ADDRESS_CACHE = 'FioAddressCache.json'
 type DiskletConnectedWallets = {
   [fullCurrencyCode: string]: {
     walletId: string,
-    publicAddress: string
-  }
+    publicAddress: string,
+  },
 }
 
 export type FioAddresses = {
   addresses: {
-    [address: string]: boolean
-  }
+    [address: string]: boolean,
+  },
 }
 
 /**
@@ -91,7 +91,7 @@ const isWalletConnected = async (
     const { public_address: publicAddress } = await fioWallet.otherMethods.fioAction('getPublicAddress', {
       fioAddress,
       tokenCode,
-      chainCode
+      chainCode,
     })
 
     if (publicAddress === '0') return false
@@ -166,7 +166,7 @@ export const updatePubAddressesForFioAddress = async (
     publicAddressesToConnect.push({
       token_code: tokenCode,
       chain_code: chainCode,
-      public_address: publicAddress
+      public_address: publicAddress,
     })
     if (publicAddressesToConnect.length === limitPerCall) {
       await addPublicAddresses(fioWallet, fioAddress, publicAddressesToConnect)
@@ -197,7 +197,7 @@ export const addPublicAddresses = async (
   let maxFee: number
   try {
     const { fee } = await fioWallet.otherMethods.fioAction('getFeeForAddPublicAddress', {
-      fioAddress
+      fioAddress,
     })
     maxFee = fee
   } catch (e) {
@@ -207,7 +207,7 @@ export const addPublicAddresses = async (
     await fioWallet.otherMethods.fioAction('addPublicAddresses', {
       fioAddress,
       publicAddresses,
-      maxFee
+      maxFee,
     })
   } catch (e) {
     throw new Error(s.strings.fio_connect_wallets_err)
@@ -251,16 +251,16 @@ export const makeNotConnectedWallets = (wallets: { [walletId: string]: GuiWallet
         name: wallets[walletKey].name,
         currencyCode: wallets[walletKey].currencyCode,
         chainCode: wallets[walletKey].currencyCode,
-        fullCurrencyCode
+        fullCurrencyCode,
       }
     }
     if (wallets[walletKey].enabledTokens && wallets[walletKey].enabledTokens.length) {
       for (const enabledToken: string of wallets[walletKey].enabledTokens) {
-        let tokenData = wallets[walletKey].metaTokens.find(metaToken => metaToken.currencyCode === enabledToken)
+        let tokenData = wallets[walletKey].metaTokens.find((metaToken) => metaToken.currencyCode === enabledToken)
         if (!tokenData) {
           tokenData = {
             currencyCode: enabledToken,
-            symbolImage: ''
+            symbolImage: '',
           }
         }
         const fullCurrencyCode = `${wallets[walletKey].currencyCode}:${tokenData.currencyCode}`
@@ -273,7 +273,7 @@ export const makeNotConnectedWallets = (wallets: { [walletId: string]: GuiWallet
             name: wallets[walletKey].name,
             currencyCode: tokenData.currencyCode,
             chainCode: wallets[walletKey].currencyCode,
-            fullCurrencyCode
+            fullCurrencyCode,
           }
         }
       }
@@ -298,16 +298,16 @@ export const makeConnectedWallets = (wallets: { [walletId: string]: GuiWallet },
         name: wallets[walletKey].name,
         currencyCode: wallets[walletKey].currencyCode,
         chainCode: wallets[walletKey].currencyCode,
-        fullCurrencyCode
+        fullCurrencyCode,
       }
     }
     if (wallets[walletKey].enabledTokens && wallets[walletKey].enabledTokens.length) {
       for (const enabledToken: string of wallets[walletKey].enabledTokens) {
-        let tokenData = wallets[walletKey].metaTokens.find(metaToken => metaToken.currencyCode === enabledToken)
+        let tokenData = wallets[walletKey].metaTokens.find((metaToken) => metaToken.currencyCode === enabledToken)
         if (!tokenData) {
           tokenData = {
             currencyCode: enabledToken,
-            symbolImage: ''
+            symbolImage: '',
           }
         }
         const fullCurrencyCode = `${wallets[walletKey].currencyCode}:${tokenData.currencyCode}`
@@ -320,7 +320,7 @@ export const makeConnectedWallets = (wallets: { [walletId: string]: GuiWallet },
             name: wallets[walletKey].name,
             currencyCode: tokenData.currencyCode,
             chainCode: wallets[walletKey].currencyCode,
-            fullCurrencyCode
+            fullCurrencyCode,
           }
         }
       }
@@ -352,7 +352,7 @@ export const addToFioAddressCache = async (account: EdgeAccount, fioAddressesToA
 
   for (const fioAddressToAdd of fioAddressesToAdd) {
     if (!fioAddressesObject.addresses[fioAddressToAdd]) {
-      fioAddressesObject['addresses'][fioAddressToAdd] = true
+      fioAddressesObject.addresses[fioAddressToAdd] = true
       writeToDisklet = true
     }
   }

@@ -42,7 +42,7 @@ export class Services extends PureComponent<Props> {
   store: Store<State, Action>
   dispatch: Dispatch
 
-  constructor (props: Props) {
+  constructor(props: Props) {
     super(props)
 
     const middleware: Array<Object> = [errorAlert, loginStatusChecker, thunk]
@@ -63,17 +63,17 @@ export class Services extends PureComponent<Props> {
     const disklet = makeReactNativeDisklet()
     this.store.dispatch({
       type: 'CORE/CONTEXT/ADD_CONTEXT',
-      data: { context, disklet }
+      data: { context, disklet },
     })
   }
 
-  componentDidMount () {
+  componentDidMount() {
     this.dispatch(loadDeviceReferral())
     setIntlLocale(Locale.constants())
     selectLocale(DeviceInfo.getDeviceLocale())
   }
 
-  renderGui () {
+  renderGui() {
     return (
       <MenuProvider>
         <Main />
@@ -81,10 +81,10 @@ export class Services extends PureComponent<Props> {
     )
   }
 
-  render () {
+  render() {
     return (
       <Provider store={this.store}>
-        <React.Fragment>
+        <>
           {this.renderGui()}
           <Airship />
           <AutoLogout />
@@ -95,7 +95,7 @@ export class Services extends PureComponent<Props> {
           <EdgeWalletsCallbackManager />
           <ModalProvider />
           <PermissionsManager />
-        </React.Fragment>
+        </>
       </Provider>
     )
   }

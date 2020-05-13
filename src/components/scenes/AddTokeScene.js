@@ -26,16 +26,16 @@ export type AddTokenOwnProps = {
   currencyName: string,
   currencyCode: string,
   contractAddress: string,
-  decimalPlaces: string
+  decimalPlaces: string,
 }
 
 export type AddTokenDispatchProps = {
-  addNewToken: (walletId: string, currencyName: string, currencyCode: string, contractAddress: string, denomination: string, type: string) => void
+  addNewToken: (walletId: string, currencyName: string, currencyCode: string, contractAddress: string, denomination: string, type: string) => void,
 }
 
 export type AddTokenStateProps = {
   addTokenPending: boolean,
-  wallet: GuiWallet
+  wallet: GuiWallet,
 }
 
 type State = {
@@ -44,13 +44,13 @@ type State = {
   contractAddress: string,
   decimalPlaces: string,
   multiplier: string,
-  enabled?: boolean
+  enabled?: boolean,
 }
 
 export type AddTokenProps = AddTokenOwnProps & AddTokenStateProps & AddTokenDispatchProps
 
 export class AddToken extends Component<AddTokenProps, State> {
-  constructor (props: AddTokenProps) {
+  constructor(props: AddTokenProps) {
     super(props)
     const { currencyName, currencyCode, contractAddress, decimalPlaces } = props
     this.state = {
@@ -58,12 +58,12 @@ export class AddToken extends Component<AddTokenProps, State> {
       currencyCode: currencyCode || '',
       contractAddress: contractAddress || '',
       decimalPlaces: decimalPlaces || '',
-      multiplier: ''
+      multiplier: '',
     }
     slowlog(this, /.*/, global.slowlogOptions)
   }
 
-  render () {
+  render() {
     const { addTokenPending } = this.props
     return (
       <SceneWrapper background="body">
@@ -72,53 +72,53 @@ export class AddToken extends Component<AddTokenProps, State> {
             <Text style={styles.instructionalText}>{s.strings.addtoken_top_instructions}</Text>
           </View>
           <View style={styles.formArea}>
-            <View style={[styles.nameArea]}>
+            <View style={styles.nameArea}>
               <FormField
-                style={[styles.currencyName]}
+                style={styles.currencyName}
                 value={this.state.currencyName}
                 onChangeText={this.onChangeName}
                 autoCapitalize="words"
                 autoFocus
                 label={s.strings.addtoken_name_input_text}
-                returnKeyType={'done'}
+                returnKeyType="done"
                 autoCorrect={false}
               />
             </View>
-            <View style={[styles.currencyCodeArea]}>
+            <View style={styles.currencyCodeArea}>
               <FormField
-                style={[styles.currencyCodeInput]}
+                style={styles.currencyCodeInput}
                 value={this.state.currencyCode}
                 onChangeText={this.onChangeCurrencyCode}
-                autoCapitalize={'characters'}
+                autoCapitalize="characters"
                 label={s.strings.addtoken_currency_code_input_text}
-                returnKeyType={'done'}
+                returnKeyType="done"
                 autoCorrect={false}
                 maxLength={MAX_TOKEN_CODE_CHARACTERS}
               />
             </View>
-            <View style={[styles.contractAddressArea]}>
+            <View style={styles.contractAddressArea}>
               <FormField
-                style={[styles.contractAddressInput]}
+                style={styles.contractAddressInput}
                 value={this.state.contractAddress}
                 onChangeText={this.onChangeContractAddress}
                 label={s.strings.addtoken_contract_address_input_text}
-                returnKeyType={'done'}
+                returnKeyType="done"
                 autoCorrect={false}
               />
             </View>
-            <View style={[styles.decimalPlacesArea]}>
+            <View style={styles.decimalPlacesArea}>
               <FormField
-                style={[styles.decimalPlacesInput]}
+                style={styles.decimalPlacesInput}
                 value={this.state.decimalPlaces}
                 onChangeText={this.onChangeDecimalPlaces}
                 label={s.strings.addtoken_denomination_input_text}
-                returnKeyType={'done'}
+                returnKeyType="done"
                 autoCorrect={false}
-                keyboardType={'numeric'}
+                keyboardType="numeric"
               />
             </View>
           </View>
-          <View style={[styles.buttonsArea]}>
+          <View style={styles.buttonsArea}>
             <PrimaryButton style={styles.saveButton} onPress={this._onSave}>
               {addTokenPending ? <ActivityIndicator /> : <PrimaryButton.Text>{s.strings.string_save}</PrimaryButton.Text>}
             </PrimaryButton>
@@ -131,25 +131,25 @@ export class AddToken extends Component<AddTokenProps, State> {
 
   onChangeName = (input: string) => {
     this.setState({
-      currencyName: input
+      currencyName: input,
     })
   }
 
   onChangeCurrencyCode = (input: string) => {
     this.setState({
-      currencyCode: input
+      currencyCode: input,
     })
   }
 
   onChangeDecimalPlaces = (input: string) => {
     this.setState({
-      decimalPlaces: input
+      decimalPlaces: input,
     })
   }
 
   onChangeContractAddress = (input: string) => {
     this.setState({
-      contractAddress: input.trim()
+      contractAddress: input.trim(),
     })
   }
 
@@ -157,13 +157,13 @@ export class AddToken extends Component<AddTokenProps, State> {
     const currencyCode = this.state.currencyCode.toUpperCase()
     this.setState(
       {
-        currencyCode
+        currencyCode,
       },
       () => {
         const { currencyName, decimalPlaces, contractAddress } = this.state
         const { currentCustomTokens, wallet, walletId, addNewToken, onAddToken } = this.props
-        const currentCustomTokenIndex = _.findIndex(currentCustomTokens, item => item.currencyCode === currencyCode)
-        const metaTokensIndex = _.findIndex(wallet.metaTokens, item => item.currencyCode === currencyCode)
+        const currentCustomTokenIndex = _.findIndex(currentCustomTokens, (item) => item.currencyCode === currencyCode)
+        const metaTokensIndex = _.findIndex(wallet.metaTokens, (item) => item.currencyCode === currencyCode)
         // if token is hard-coded into wallets of this type
         if (metaTokensIndex >= 0) Alert.alert(s.strings.manage_tokens_duplicate_currency_code)
         // if that token already exists and is visible (ie not deleted)

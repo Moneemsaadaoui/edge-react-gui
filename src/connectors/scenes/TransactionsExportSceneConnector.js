@@ -12,14 +12,11 @@ const mapStateToProps = (state: State, ownProps: PassedProps) => {
   const denominationObject = getDisplayDenomination(state, currencyCode)
   const denomination = denominationObject.multiplier
   return {
-    denomination
+    denomination,
   }
 }
 const mapDispatchToProps = (dispatch: Dispatch) => ({
   //
 })
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(TransactionsExportSceneComponent)
+export default connect(mapStateToProps, mapDispatchToProps)(TransactionsExportSceneComponent)

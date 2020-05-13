@@ -8,21 +8,21 @@ import type { Action } from '../types/reduxTypes.js'
 export type SpendingLimits = {
   transaction: {
     isEnabled: boolean,
-    amount: number
-  }
+    amount: number,
+  },
 }
 
 export const newSpendingLimits = (spendingLimits: SpendingLimits) => ({
   type: 'SPENDING_LIMITS/NEW_SPENDING_LIMITS',
-  data: { spendingLimits }
+  data: { spendingLimits },
 })
 
 // REDUCERS
 export const initialState = {
   transaction: {
     isEnabled: false,
-    amount: 0
-  }
+    amount: 0,
+  },
 }
 
 export const isEnabled = (state: boolean = initialState.transaction.isEnabled, action: Action) => {
@@ -53,9 +53,9 @@ export const amount = (state: number = initialState.transaction.amount, action: 
 
 export const transaction = combineReducers({
   isEnabled,
-  amount
+  amount,
 })
 
 export const spendingLimits = combineReducers({
-  transaction
+  transaction,
 })

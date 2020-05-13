@@ -9,7 +9,7 @@ export const LoadingScene = () => {
   return (
     <SceneWrapper hasHeader={false} hasTabs={false}>
       <View style={styles.container}>
-        <ActivityIndicator size={'large'} />
+        <ActivityIndicator size="large" />
       </View>
     </SceneWrapper>
   )
@@ -19,6 +19,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
-    justifyContent: 'center'
-  }
+    justifyContent: 'center',
+  },
 })

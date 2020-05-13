@@ -16,7 +16,7 @@ type Props = {
   walletId: string,
   executeWalletRowOption: (walletId: string, option: WalletListMenuKey) => void,
   currencyCode: string,
-  customStyles: StyleSheet.Styles
+  customStyles: StyleSheet.Styles,
 }
 
 const modifiedMenuDropDownStyle = {
@@ -26,14 +26,14 @@ const modifiedMenuDropDownStyle = {
     ...MenuDropDownStyle.icon,
     fontSize: scale(30),
     position: 'relative',
-    top: 2
-  }
+    top: 2,
+  },
 }
 
 export class WalletListMenu extends Component<Props> {
   options: Array<{ value: string, label: string }>
 
-  constructor (props: Props) {
+  constructor(props: Props) {
     super(props)
     const { currencyCode } = props
 
@@ -58,7 +58,7 @@ export class WalletListMenu extends Component<Props> {
     executeWalletRowOption(walletId, optionKey)
   }
 
-  render () {
+  render() {
     const { customStyles } = this.props
     return <MenuDropDown style={{ ...modifiedMenuDropDownStyle, ...customStyles }} onSelect={this.optionAction} data={this.options} />
   }

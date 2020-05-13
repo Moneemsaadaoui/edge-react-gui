@@ -12,7 +12,7 @@ test('initialState', () => {
     passwordReminder: passwordReminder(undefined, dummyAction),
     scenes: scenes(undefined, dummyAction),
     wallets: wallets(undefined, dummyAction),
-    settings: settings(undefined, dummyAction)
+    settings: settings(undefined, dummyAction),
   }
   const expected = initialState
   const actual = ui(undefined, dummyAction)

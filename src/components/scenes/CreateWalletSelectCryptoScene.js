@@ -18,27 +18,27 @@ import { FormField } from '../common/FormField.js'
 import { SceneWrapper } from '../common/SceneWrapper.js'
 
 type StateProps = {
-  account: EdgeAccount
+  account: EdgeAccount,
 }
 type Props = StateProps
 
 type State = {
   selectedWalletType: string,
-  searchTerm: string
+  searchTerm: string,
 }
 
 class CreateWalletSelectCryptoComponent extends Component<Props, State> {
-  constructor (props: Props) {
+  constructor(props: Props) {
     super(props)
     this.state = {
       selectedWalletType: '',
-      searchTerm: ''
+      searchTerm: '',
     }
   }
 
-  getWalletType (walletType: string): GuiWalletType | void {
+  getWalletType(walletType: string): GuiWalletType | void {
     const { account } = this.props
-    return getGuiWalletTypes(account).find(type => type.value === walletType)
+    return getGuiWalletTypes(account).find((type) => type.value === walletType)
   }
 
   onNext = () => {
@@ -58,11 +58,11 @@ class CreateWalletSelectCryptoComponent extends Component<Props, State> {
     // Go to the next screen:
     if (isImportKeySupported) {
       Actions[CREATE_WALLET_CHOICE]({
-        selectedWalletType: guiWalletType
+        selectedWalletType: guiWalletType,
       })
     } else {
       Actions[CREATE_WALLET_SELECT_FIAT]({
-        selectedWalletType: guiWalletType
+        selectedWalletType: guiWalletType,
       })
     }
   }
@@ -74,7 +74,7 @@ class CreateWalletSelectCryptoComponent extends Component<Props, State> {
 
   handleSearchTermChange = (searchTerm: string): void => {
     this.setState({
-      searchTerm
+      searchTerm,
     })
   }
 
@@ -86,7 +86,7 @@ class CreateWalletSelectCryptoComponent extends Component<Props, State> {
 
   handleOnBlur = () => {}
 
-  render () {
+  render() {
     const { account } = this.props
     const { searchTerm } = this.state
     const lowerSearch = searchTerm.toLowerCase()
@@ -94,28 +94,28 @@ class CreateWalletSelectCryptoComponent extends Component<Props, State> {
     // Sort and filter the available types:
     const sortedArray = getGuiWalletTypes(account)
     const filteredArray = sortedArray.filter(
-      entry => entry.label.toLowerCase().indexOf(lowerSearch) >= 0 || entry.currencyCode.toLowerCase().indexOf(lowerSearch) >= 0
+      (entry) => entry.label.toLowerCase().indexOf(lowerSearch) >= 0 || entry.currencyCode.toLowerCase().indexOf(lowerSearch) >= 0
     )
 
     const formFieldHeight = scale(50)
 
     return (
       <SceneWrapper avoidKeyboard background="body">
-        {gap => (
+        {(gap) => (
           <View style={[styles.content, { marginBottom: -gap.bottom }]}>
             <FormField
               autoFocus
               containerStyle={{ height: formFieldHeight }}
               style={styles.picker}
-              clearButtonMode={'while-editing'}
+              clearButtonMode="while-editing"
               onFocus={this.handleOnFocus}
               onBlur={this.handleOnBlur}
               autoCorrect={false}
-              autoCapitalize={'words'}
+              autoCapitalize="words"
               onChangeText={this.handleSearchTermChange}
               value={this.state.searchTerm}
               label={s.strings.create_wallet_choose_crypto}
-              returnKeyType={'search'}
+              returnKeyType="search"
               autpCorrect={false}
             />
             <FlatList
@@ -144,21 +144,21 @@ class CreateWalletSelectCryptoComponent extends Component<Props, State> {
     return (
       <View style={[styles.singleCryptoTypeWrap, value === this.state.selectedWalletType && styles.selectedItem]}>
         <TouchableHighlight
-          style={[styles.singleCryptoType]}
+          style={styles.singleCryptoType}
           onPress={() => this.handleSelectWalletType(data.item)}
           underlayColor={stylesRaw.underlayColor.color}
         >
-          <View style={[styles.cryptoTypeInfoWrap]}>
+          <View style={styles.cryptoTypeInfoWrap}>
             <View style={styles.cryptoTypeLeft}>
-              <View style={[styles.cryptoTypeLogo]}>
+              <View style={styles.cryptoTypeLogo}>
                 {symbolImageDarkMono ? (
                   <Image source={{ uri: symbolImageDarkMono }} style={[styles.cryptoTypeLogo, { borderRadius: 20 }]} />
                 ) : (
                   <View style={styles.cryptoTypeLogo} />
                 )}
               </View>
-              <View style={[styles.cryptoTypeLeftTextWrap]}>
-                <Text style={[styles.cryptoTypeName]}>
+              <View style={styles.cryptoTypeLeftTextWrap}>
+                <Text style={styles.cryptoTypeName}>
                   {label} - {currencyCode}
                 </Text>
               </View>
@@ -176,7 +176,7 @@ class CreateWalletSelectCryptoComponent extends Component<Props, State> {
 
 export const CreateWalletSelectCryptoScene = connect(
   (state: ReduxState): StateProps => ({
-    account: state.core.account
+    account: state.core.account,
   }),
   (dispatch: Dispatch) => ({})
 )(CreateWalletSelectCryptoComponent)

@@ -16,10 +16,10 @@ type Props = {
   message: string,
 
   // True for orange warning, false for red alert:
-  warning?: boolean
+  warning?: boolean,
 }
 
-export function AlertDropdown (props: Props) {
+export function AlertDropdown(props: Props) {
   const { bridge, message, warning } = props
 
   return (
@@ -45,17 +45,17 @@ const styles = StyleSheet.create({
 
     alignItems: 'center',
     flexDirection: 'row',
-    justifyContent: 'space-between'
+    justifyContent: 'space-between',
   },
 
   icon: {
     color: THEME.COLORS.WHITE,
     textAlign: 'center',
-    minWidth: THEME.rem(1.4)
+    minWidth: THEME.rem(1.4),
   },
 
   text: {
     ...nightText('row-left', 'small'),
-    marginHorizontal: padding
-  }
+    marginHorizontal: padding,
+  },
 })

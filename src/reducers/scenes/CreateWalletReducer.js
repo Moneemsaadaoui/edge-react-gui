@@ -6,7 +6,7 @@ import type { Action } from '../../types/reduxActions.js'
 
 export type HandleActivationInfo = {
   supportedCurrencies: { [string]: boolean },
-  activationCost: string
+  activationCost: string,
 }
 
 export type HandleAvailableStatus = 'AVAILABLE' | 'INVALID' | 'UNAVAILABLE' | 'UNKNOWN_ERROR' | ''
@@ -16,7 +16,7 @@ export type AccountActivationPaymentInfo = {
   amount: string,
   currencyCode: string,
   exchangeAmount: string,
-  expireTime: number
+  expireTime: number,
 }
 
 export type CreateWalletState = {
@@ -25,7 +25,7 @@ export type CreateWalletState = {
   handleAvailableStatus: HandleAvailableStatus,
   handleActivationInfo: HandleActivationInfo,
   walletAccountActivationPaymentInfo: AccountActivationPaymentInfo,
-  walletAccountActivationQuoteError: string
+  walletAccountActivationQuoteError: string,
 }
 
 const isCreatingWallet = (state = false, action: Action): boolean => {
@@ -73,7 +73,7 @@ const handleAvailableStatus: Reducer<HandleAvailableStatus, Action> = (state = '
 
 const initialHandleActivationInfo = {
   supportedCurrencies: {},
-  activationCost: ''
+  activationCost: '',
 }
 
 const handleActivationInfo = (state = initialHandleActivationInfo, action: Action): HandleActivationInfo => {
@@ -90,7 +90,7 @@ const initialActivationPaymentState = {
   amount: '',
   currencyCode: '',
   exchangeAmount: '',
-  expireTime: 0
+  expireTime: 0,
 }
 
 const walletAccountActivationPaymentInfo = (state = initialActivationPaymentState, action: Action): AccountActivationPaymentInfo => {
@@ -117,5 +117,5 @@ export const createWallet: Reducer<CreateWalletState, Action> = combineReducers(
   handleAvailableStatus,
   handleActivationInfo,
   walletAccountActivationPaymentInfo,
-  walletAccountActivationQuoteError
+  walletAccountActivationQuoteError,
 })

@@ -6,11 +6,11 @@ import { styles } from '../../styles/components/FullScreenLoaderStyles'
 
 type Props = {
   indicatorStyles?: ViewPropTypes.style,
-  size?: 'large' | 'small'
+  size?: 'large' | 'small',
 }
 
 class FullScreenLoader extends Component<Props> {
-  render () {
+  render() {
     const { size, indicatorStyles } = this.props
     return (
       <View style={styles.loadingContainer}>

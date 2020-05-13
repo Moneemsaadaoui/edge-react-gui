@@ -8,10 +8,10 @@ import styles, { rawStyles } from './styles.js'
 
 export type TextProps = {
   children: Node,
-  style?: StyleSheet.style
+  style?: StyleSheet.style,
 }
 export class Text extends Component<TextProps> {
-  render () {
+  render() {
     const { children, style, ...props } = this.props
 
     return (
@@ -24,10 +24,10 @@ export class Text extends Component<TextProps> {
 
 export type RowProps = {
   children: Node,
-  style?: StyleSheet.style
+  style?: StyleSheet.style,
 }
 export class Row extends Component<RowProps> {
-  render () {
+  render() {
     const { children, style, ...props } = this.props
 
     return (
@@ -40,10 +40,10 @@ export class Row extends Component<RowProps> {
 
 export type ItemProps = {
   children: Node,
-  style?: StyleSheet.style
+  style?: StyleSheet.style,
 }
 export class Item extends Component<ItemProps> {
-  render () {
+  render() {
     const { children, style, ...props } = this.props
 
     return (
@@ -56,10 +56,10 @@ export class Item extends Component<ItemProps> {
 
 export type LeftProps = {
   children: Node,
-  style?: StyleSheet.style
+  style?: StyleSheet.style,
 }
 export class Left extends Component<LeftProps> {
-  render () {
+  render() {
     const { children, style, ...props } = this.props
 
     return (
@@ -72,10 +72,10 @@ export class Left extends Component<LeftProps> {
 
 export type CenterProps = {
   children: Node,
-  style?: StyleSheet.style
+  style?: StyleSheet.style,
 }
 export class Center extends Component<CenterProps> {
-  render () {
+  render() {
     const { children, style, ...props } = this.props
 
     return (
@@ -88,10 +88,10 @@ export class Center extends Component<CenterProps> {
 
 export type RightProps = {
   children: Node,
-  style?: StyleSheet.style
+  style?: StyleSheet.style,
 }
 export class Right extends Component<RightProps> {
-  render () {
+  render() {
     const { children, style, ...props } = this.props
 
     return (
@@ -106,7 +106,7 @@ export type ButtonProps = {
   children: Node,
   onPress: Function,
   underlayColor?: string,
-  style?: StyleSheet.style
+  style?: StyleSheet.style,
 }
 export class Button extends Component<ButtonProps> {
   static Row = Row
@@ -116,7 +116,7 @@ export class Button extends Component<ButtonProps> {
   static Right = Right
   static Text = Text
 
-  render () {
+  render() {
     const { children, style, onPress, underlayColor = rawStyles.underlay.color, ...props } = this.props
 
     return (

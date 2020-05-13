@@ -18,15 +18,15 @@ import { FormField } from '../common/FormField.js'
 export type CreateWalletNameOwnProps = {
   selectedFiat: GuiFiatType,
   selectedWalletType: GuiWalletType,
-  cleanedPrivateKey?: string
+  cleanedPrivateKey?: string,
 }
 type Props = CreateWalletNameOwnProps
 type State = {
-  walletName: string
+  walletName: string,
 }
 
 export class CreateWalletName extends Component<Props, State> {
-  constructor (props: Props) {
+  constructor(props: Props) {
     super(props)
     let walletName = ''
     // XXX Hack for Ripple
@@ -52,7 +52,7 @@ export class CreateWalletName extends Component<Props, State> {
         walletName: this.state.walletName,
         selectedFiat: selectedFiat,
         selectedWalletType: selectedWalletType,
-        cleanedPrivateKey
+        cleanedPrivateKey,
       })
     } else {
       Alert.alert(s.strings.create_wallet_invalid_name, s.strings.create_wallet_enter_valid_name)
@@ -67,7 +67,7 @@ export class CreateWalletName extends Component<Props, State> {
     this.setState({ walletName })
   }
 
-  render () {
+  render() {
     return (
       <SafeAreaView>
         <View style={styles.scene}>
@@ -80,11 +80,11 @@ export class CreateWalletName extends Component<Props, State> {
               onNext={this.onNext}
             />
             <View style={styles.buttons}>
-              <SecondaryButton style={[styles.back]} onPress={this.onBack}>
+              <SecondaryButton style={styles.back} onPress={this.onBack}>
                 <SecondaryButton.Text>{s.strings.title_back}</SecondaryButton.Text>
               </SecondaryButton>
 
-              <PrimaryButton style={[styles.next]} onPress={this.onNext}>
+              <PrimaryButton style={styles.next} onPress={this.onNext}>
                 <PrimaryButton.Text>{s.strings.string_next_capitalized}</PrimaryButton.Text>
               </PrimaryButton>
             </View>
@@ -101,30 +101,30 @@ export type WalletNameInputProps = {
   value: string,
   placeholder: string,
   onChangeText: (walletName: string) => void,
-  onNext: () => void
+  onNext: () => void,
 }
 
 class WalletNameInput extends Component<WalletNameInputProps> {
-  render () {
+  render() {
     const MaterialInputOnWhiteStyle = {
       ...MaterialInputOnWhite,
       container: {
         ...MaterialInputOnWhite.container,
-        width: '100%'
-      }
+        width: '100%',
+      },
     }
     return (
       <View style={styles.pickerView}>
         <FormField
           style={MaterialInputOnWhiteStyle}
           autoFocus
-          clearButtonMode={'while-editing'}
+          clearButtonMode="while-editing"
           autoCorrect={false}
           placeholder={this.props.placeholder}
           onChangeText={this.props.onChangeText}
           label={s.strings.fragment_wallets_addwallet_name_hint}
           value={this.props.value}
-          returnKeyType={'next'}
+          returnKeyType="next"
           onSubmitEditing={this.props.onNext}
         />
       </View>

@@ -8,32 +8,32 @@ import { THEME } from '../../theme/variables/airbitz.js'
 /**
  * Use this component just like its HTML equivalent.
  */
-export function B (props: { children: Node }) {
+export function B(props: { children: Node }) {
   return <Text style={tweakRules.bold}>{props.children}</Text>
 }
 
 /**
  * Use this function to build a text style for use on a light background.
  */
-export function dayText (...rules: Array<$Keys<typeof dayRules>>): Object {
+export function dayText(...rules: Array<$Keys<typeof dayRules>>): Object {
   const base: Object = {
     color: THEME.COLORS.BLACK,
     fontFamily: THEME.FONTS.DEFAULT,
-    fontSize: textSize.normal
+    fontSize: textSize.normal,
   }
-  return Object.assign(base, ...rules.map(rule => dayRules[rule]))
+  return Object.assign(base, ...rules.map((rule) => dayRules[rule]))
 }
 
 /**
  * Use this function to build a text style for use on a dark background.
  */
-export function nightText (...rules: Array<$Keys<typeof nightRules>>): Object {
+export function nightText(...rules: Array<$Keys<typeof nightRules>>): Object {
   const base: Object = {
     color: THEME.COLORS.WHITE,
     fontFamily: THEME.FONTS.DEFAULT,
-    fontSize: textSize.normal
+    fontSize: textSize.normal,
   }
-  return Object.assign(base, ...rules.map(rule => nightRules[rule]))
+  return Object.assign(base, ...rules.map((rule) => nightRules[rule]))
 }
 
 // Common text sizes:
@@ -42,14 +42,14 @@ export const textSize = {
   large: THEME.rem(1.189), // 2 ^ 0.25
   normal: THEME.rem(1),
   small: THEME.rem(0.84), // 2 ^ -0.25
-  smallest: THEME.rem(0.707) // 2 ^ -0.5
+  smallest: THEME.rem(0.707), // 2 ^ -0.5
 }
 
 // Font modifiers:
 const tweakRules = {
   bold: { fontFamily: THEME.FONTS.BOLD },
   small: { fontSize: textSize.small },
-  large: { fontSize: textSize.large }
+  large: { fontSize: textSize.large },
 }
 
 // Alignment schemes:
@@ -66,7 +66,7 @@ const alignmentRules = {
   // These work within a `flex-direction: 'row'` container:
   'row-center': { textAlign: 'center', flexShrink: 1 },
   'row-left': { textAlign: 'left', flexShrink: 1 },
-  'row-right': { textAlign: 'right', flexShrink: 1 }
+  'row-right': { textAlign: 'right', flexShrink: 1 },
 }
 
 // Color rules for light backgrounds:
@@ -75,13 +75,13 @@ const dayRules = {
   ...alignmentRules,
 
   link: {
-    color: THEME.COLORS.ACCENT_BLUE
+    color: THEME.COLORS.ACCENT_BLUE,
   },
   title: {
     color: THEME.COLORS.PRIMARY,
     ...alignmentRules.center,
-    ...tweakRules.large
-  }
+    ...tweakRules.large,
+  },
 }
 
 // Color rules for dark backgrounds:
@@ -90,10 +90,10 @@ const nightRules = {
   ...alignmentRules,
 
   link: {
-    textDecoration: 'underline'
+    textDecoration: 'underline',
   },
   title: {
     ...alignmentRules.center,
-    ...tweakRules.large
-  }
+    ...tweakRules.large,
+  },
 }

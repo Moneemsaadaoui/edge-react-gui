@@ -8,14 +8,14 @@ export const styles = StyleSheet.create({
   content: {
     flexGrow: 1,
     backgroundColor: THEME.COLORS.WHITE,
-    padding: THEME.rem(1.4)
+    padding: THEME.rem(1.4),
   },
 
   // Radio input:
   radioRow: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginBottom: THEME.rem(1)
+    marginBottom: THEME.rem(1),
   },
   radio: {
     borderRadius: THEME.rem(0.5),
@@ -23,16 +23,16 @@ export const styles = StyleSheet.create({
     width: THEME.rem(1),
     height: THEME.rem(1),
     borderWidth: THEME.rem(1 / 16),
-    borderColor: THEME.COLORS.GRAY_2
+    borderColor: THEME.COLORS.GRAY_2,
   },
   selected: {
     borderColor: THEME.COLORS.ACCENT_BLUE,
-    backgroundColor: THEME.COLORS.ACCENT_BLUE
+    backgroundColor: THEME.COLORS.ACCENT_BLUE,
   },
 
   // Custom fee area:
   customArea: {
-    marginBottom: THEME.rem(1)
+    marginBottom: THEME.rem(1),
   },
 
   // Warning box:
@@ -44,6 +44,6 @@ export const styles = StyleSheet.create({
 
     alignItems: 'center',
     flexDirection: 'column',
-    justifyContent: 'space-between'
-  }
+    justifyContent: 'space-between',
+  },
 })

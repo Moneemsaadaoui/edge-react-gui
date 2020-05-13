@@ -18,12 +18,12 @@ type Props = {
   data: any[],
   valueExtractor?: any,
   labelExtractor?: any,
-  onChangeText(string, number, any): void
+  onChangeText(string, number, any): void,
 }
 
 type State = {
   inputText: string,
-  autoFocus: boolean
+  autoFocus: boolean,
 }
 
 class Select extends Component<Props, State> {
@@ -31,10 +31,10 @@ class Select extends Component<Props, State> {
   defaultLabelFontSize = 12
 
   static defaultProps = {
-    onFocus: null
+    onFocus: null,
   }
 
-  render () {
+  render() {
     const value = this.props.value ? this.props.value : ''
     const error = this.props.error ? this.props.error : ''
     const { containerStyle, fontSize, labelFontSize, baseColor, textColor, onChangeText, data, valueExtractor, labelExtractor } = this.props

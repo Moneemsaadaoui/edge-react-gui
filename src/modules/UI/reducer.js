@@ -16,7 +16,7 @@ export type UiState = {
   +passwordReminder: PasswordReminderState,
   +scenes: ScenesState,
   +settings: SettingsState,
-  +wallets: WalletsState
+  +wallets: WalletsState,
 }
 
 const uiInner: Reducer<UiState, Action> = combineReducers({
@@ -24,7 +24,7 @@ const uiInner: Reducer<UiState, Action> = combineReducers({
   passwordReminder,
   scenes,
   settings,
-  wallets
+  wallets,
 })
 
 export const ui: Reducer<UiState, Action> = (state, action: Action) => {

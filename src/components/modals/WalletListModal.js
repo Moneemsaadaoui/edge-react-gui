@@ -20,19 +20,19 @@ import { type AirshipBridge, AirshipModal } from './modalParts.js'
 export type WalletListResult = {
   walletToSelect?: {
     walletId: string,
-    currencyCode: string
+    currencyCode: string,
   },
   walletToCreate?: {
     walletType: string,
-    currencyCode: string
-  }
+    currencyCode: string,
+  },
 }
 
 type StateProps = {
   wallets: { [string]: GuiWallet },
   activeWalletIds: Array<string>,
   mostRecentWallets: Array<MostRecentWallet>,
-  account: EdgeAccount
+  account: EdgeAccount,
 }
 
 type OwnProps = {
@@ -41,7 +41,7 @@ type OwnProps = {
   showCreateWallet?: boolean,
   excludeWalletIds?: Array<string>,
   allowedCurrencyCodes?: Array<string>,
-  excludeCurrencyCodes?: Array<string>
+  excludeCurrencyCodes?: Array<string>,
 }
 
 type Record = {
@@ -49,37 +49,37 @@ type Record = {
   createWalletCurrency: GuiWalletType | null,
   mostRecentUsed?: boolean,
   currencyCode?: string | null,
-  headerLabel?: string
+  headerLabel?: string,
 }
 
 type State = {
   input: string,
   records: Array<Record>,
   allowedCurrencyCodes?: Array<string>,
-  excludeCurrencyCodes?: Array<string>
+  excludeCurrencyCodes?: Array<string>,
 }
 
 type Props = StateProps & OwnProps
 
 class WalletListModalConnected extends Component<Props, State> {
-  constructor (props: Props) {
+  constructor(props: Props) {
     super(props)
     this.state = {
       input: '',
-      records: []
+      records: [],
     }
   }
 
-  static getDerivedStateFromProps (props: Props) {
+  static getDerivedStateFromProps(props: Props) {
     const { activeWalletIds, wallets, excludeWalletIds, showCreateWallet, account } = props
 
     // Uppercase currency codes
     let { allowedCurrencyCodes, excludeCurrencyCodes } = props
     if (allowedCurrencyCodes != null) {
-      allowedCurrencyCodes = allowedCurrencyCodes.map(code => code.toUpperCase())
+      allowedCurrencyCodes = allowedCurrencyCodes.map((code) => code.toUpperCase())
     }
     if (excludeCurrencyCodes != null) {
-      excludeCurrencyCodes = excludeCurrencyCodes.map(code => code.toUpperCase())
+      excludeCurrencyCodes = excludeCurrencyCodes.map((code) => code.toUpperCase())
     }
 
     const records = []
@@ -87,11 +87,11 @@ class WalletListModalConnected extends Component<Props, State> {
     // Initialize Wallets
     for (const walletId of activeWalletIds) {
       const wallet = wallets[walletId]
-      const excludeWallet = wallet && excludeWalletIds ? excludeWalletIds.find(id => id === wallet.id) : false
+      const excludeWallet = wallet && excludeWalletIds ? excludeWalletIds.find((id) => id === wallet.id) : false
       if (wallet && !excludeWallet) {
         records.push({
           walletItem: wallet,
-          createWalletCurrency: null
+          createWalletCurrency: null,
         })
       }
     }
@@ -102,13 +102,13 @@ class WalletListModalConnected extends Component<Props, State> {
       const walletsArray = Object.values(wallets)
       for (const createWalletCurrency of createWalletCurrencies) {
         const { currencyCode } = createWalletCurrency
-        const checkAllowedCurrencyCodes = allowedCurrencyCodes ? allowedCurrencyCodes.find(code => code === currencyCode) : true
-        const checkExcludeCurrencyCodes = excludeCurrencyCodes ? excludeCurrencyCodes.find(code => code === currencyCode) : false
-        const checkExistingWallet = walletsArray.find(wallet => (wallet && wallet.currencyCode ? wallet.currencyCode === currencyCode : false))
+        const checkAllowedCurrencyCodes = allowedCurrencyCodes ? allowedCurrencyCodes.find((code) => code === currencyCode) : true
+        const checkExcludeCurrencyCodes = excludeCurrencyCodes ? excludeCurrencyCodes.find((code) => code === currencyCode) : false
+        const checkExistingWallet = walletsArray.find((wallet) => (wallet && wallet.currencyCode ? wallet.currencyCode === currencyCode : false))
         if (checkAllowedCurrencyCodes && !checkExcludeCurrencyCodes && !checkExistingWallet) {
           records.push({
             walletItem: null,
-            createWalletCurrency
+            createWalletCurrency,
           })
         }
       }
@@ -116,7 +116,7 @@ class WalletListModalConnected extends Component<Props, State> {
     return {
       records,
       allowedCurrencyCodes,
-      excludeCurrencyCodes
+      excludeCurrencyCodes,
     }
   }
 
@@ -125,7 +125,7 @@ class WalletListModalConnected extends Component<Props, State> {
       if (i === 0) {
         return {
           ...record,
-          headerLabel: header
+          headerLabel: header,
         }
       }
       return record
@@ -141,12 +141,12 @@ class WalletListModalConnected extends Component<Props, State> {
       if (!mostRecentWallets[i]) {
         break
       }
-      const mostRecentWalletRecord = records.find(record => record.walletItem && record.walletItem.id === mostRecentWallets[i].id)
+      const mostRecentWalletRecord = records.find((record) => record.walletItem && record.walletItem.id === mostRecentWallets[i].id)
       if (mostRecentWalletRecord) {
         mostRecentWalletRecords.push({
           ...mostRecentWalletRecord,
           currencyCode: mostRecentWallets[i].currencyCode,
-          mostRecentUsed: true
+          mostRecentUsed: true,
         })
       }
       i++
@@ -191,7 +191,7 @@ class WalletListModalConnected extends Component<Props, State> {
         const currencyCodeString = currencyCode.toLowerCase()
         const tokenCodesString = enabledTokens.toString().toLowerCase()
         const tokenNamesObject = {}
-        enabledTokens.forEach(token => {
+        enabledTokens.forEach((token) => {
           tokenNamesObject[token] = currencyNames[token]
         })
         const tokenNameString = JSON.stringify(tokenNamesObject).toLowerCase()
@@ -216,8 +216,10 @@ class WalletListModalConnected extends Component<Props, State> {
   selectWallet = (wallet: GuiWallet) => this.props.bridge.resolve({ walletToSelect: { walletId: wallet.id, currencyCode: wallet.currencyCode } })
   selectTokenWallet = (tokenSelectObject: TokenSelectObject) =>
     this.props.bridge.resolve({ walletToSelect: { walletId: tokenSelectObject.id, currencyCode: tokenSelectObject.currencyCode } })
+
   createWallet = (createWalletCurrency: GuiWalletType) =>
     this.props.bridge.resolve({ walletToCreate: { walletType: createWalletCurrency.value, currencyCode: createWalletCurrency.currencyCode } })
+
   renderWalletItem = ({ item }: FlatListItem<Record>) => {
     const { showCreateWallet } = this.props
     const { allowedCurrencyCodes, excludeCurrencyCodes } = this.state
@@ -249,18 +251,18 @@ class WalletListModalConnected extends Component<Props, State> {
 
   keyExtractor = (item: Record, index: number) => index.toString()
   onSearchFilterChange = (input: string) => this.setState({ input })
-  render () {
+  render() {
     const { bridge, headerTitle } = this.props
     const { input } = this.state
     return (
       <AirshipModal bridge={bridge} onCancel={() => bridge.resolve({})}>
-        {gap => (
-          <Fragment>
+        {(gap) => (
+          <>
             <View style={{ flex: 1 }}>
               <View style={{ marginHorizontal: scale(15), marginBottom: scale(13) }}>
                 <FormField
                   autoFocus
-                  keyboardType={'default'}
+                  keyboardType="default"
                   label={headerTitle}
                   onChangeText={this.onSearchFilterChange}
                   style={MaterialInputStyle}
@@ -277,24 +279,22 @@ class WalletListModalConnected extends Component<Props, State> {
                 renderItem={this.renderWalletItem}
               />
             </View>
-          </Fragment>
+          </>
         )}
       </AirshipModal>
     )
   }
 }
 
-const WalletListModal = connect(
-  (state: StateType): StateProps => {
-    const wallets = state.ui.wallets.byId
-    return {
-      wallets,
-      activeWalletIds: global.isFioDisabled
-        ? getActiveWalletIds(state).filter(id => !(wallets[id] != null && wallets[id].type === 'wallet:fio'))
-        : getActiveWalletIds(state),
-      mostRecentWallets: state.ui.settings.mostRecentWallets,
-      account: state.core.account
-    }
+const WalletListModal = connect((state: StateType): StateProps => {
+  const wallets = state.ui.wallets.byId
+  return {
+    wallets,
+    activeWalletIds: global.isFioDisabled
+      ? getActiveWalletIds(state).filter((id) => !(wallets[id] != null && wallets[id].type === 'wallet:fio'))
+      : getActiveWalletIds(state),
+    mostRecentWallets: state.ui.settings.mostRecentWallets,
+    account: state.core.account,
   }
-)(WalletListModalConnected)
+})(WalletListModalConnected)
 export { WalletListModal }

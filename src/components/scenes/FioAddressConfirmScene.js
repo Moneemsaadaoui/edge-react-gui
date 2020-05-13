@@ -19,23 +19,23 @@ import { showError } from '../services/AirshipInstance'
 export type State = {
   balance: number | null,
   sliderDisabled: boolean | false,
-  loading: boolean | false
+  loading: boolean | false,
 }
 
 export type StateProps = {
   fioAddressName: string,
   denominationMultiplier: string,
-  isConnected: boolean
+  isConnected: boolean,
 }
 
 export type NavigationProps = {
   paymentWallet: EdgeCurrencyWallet,
   fee: number,
-  ownerPublicKey: string
+  ownerPublicKey: string,
 }
 
 export type DispatchProps = {
-  changeConfirmSelectedWallet: (selectedWallet: EdgeCurrencyWallet | null, expiration: string, feeCollected: number) => any
+  changeConfirmSelectedWallet: (selectedWallet: EdgeCurrencyWallet | null, expiration: string, feeCollected: number) => any,
 }
 
 type Props = NavigationProps & StateProps & DispatchProps
@@ -44,14 +44,14 @@ export class FioAddressConfirmScene extends Component<Props, State> {
   state: State = {
     balance: null,
     sliderDisabled: false,
-    loading: false
+    loading: false,
   }
 
-  componentDidMount () {
+  componentDidMount() {
     this.setBalance()
   }
 
-  toggleLoading (loading: boolean = false) {
+  toggleLoading(loading: boolean = false) {
     this.setState({ loading })
   }
 
@@ -61,7 +61,7 @@ export class FioAddressConfirmScene extends Component<Props, State> {
     if (fee !== null && balance !== null) {
       if (fee > balance) {
         this.setState({
-          sliderDisabled: true
+          sliderDisabled: true,
         })
       }
     }
@@ -75,14 +75,14 @@ export class FioAddressConfirmScene extends Component<Props, State> {
       if (balance || balance === 0) {
         const newBalance = parseFloat(truncateDecimals(bns.div(balance, this.props.denominationMultiplier, 18), 6))
         this.setState({
-          balance: newBalance
+          balance: newBalance,
         })
       }
 
       this.toggleButton()
     } catch (e) {
       this.setState({
-        balance: 0
+        balance: 0,
       })
     }
   }
@@ -115,7 +115,7 @@ export class FioAddressConfirmScene extends Component<Props, State> {
     window.requestAnimationFrame(() => Actions[Constants.FIO_ADDRESS_REGISTER_SUCCESS]({ registerSuccess: true }))
   }
 
-  render () {
+  render() {
     const { fioAddressName, fee } = this.props
     const { balance, loading } = this.state
 

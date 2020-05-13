@@ -28,7 +28,7 @@ describe('MenuDropDown component', () => {
       blockHeight: 1688551,
       symbolImage: 'https://developer.airbitz.co/content/monero-symbol-orange-64.png',
       symbolImageDarkMono: 'https://developer.airbitz.co/content/monero-symbol-64-87939D.png',
-      key: 'SXq1f3x21H2e/h5A4ANvrMoK5xs+sQcDoFWHtCG25BA='
+      key: 'SXq1f3x21H2e/h5A4ANvrMoK5xs+sQcDoFWHtCG25BA=',
     }
     const transaction = {
       blockHeight: 1683022,
@@ -45,7 +45,7 @@ describe('MenuDropDown component', () => {
       SVGMetadataElement: { name: 'ShapeShift', category: '', notes: 'Exchanged …' },
       dateString: 'Oct 14, 2018',
       time: '3:16 PM',
-      key: 0
+      key: 0,
     }
     const props = {
       style,
@@ -59,14 +59,14 @@ describe('MenuDropDown component', () => {
       requiredConfirmations: 1,
       transaction: {
         item: {
-          ...transaction
-        }
+          ...transaction,
+        },
       },
       displayDenomination: {
         multiplier: '1000000000000',
         name: 'XMR',
-        symbol: '‎ɱ'
-      }
+        symbol: '‎ɱ',
+      },
     }
     const actual = renderer.render(<TransactionRowComponent {...props} />)
 

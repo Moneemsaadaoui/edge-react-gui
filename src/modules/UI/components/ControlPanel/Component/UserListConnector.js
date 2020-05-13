@@ -12,30 +12,27 @@ import UserList from './UserList'
 type StateProps = {
   context: EdgeContext,
   disklet: Disklet,
-  currentUsername: string
+  currentUsername: string,
 }
 type DispatchProps = {
   logout: (username?: string) => void,
-  deleteLocalAccount: string => void
+  deleteLocalAccount: (string) => void,
 }
 
 const mapStateToProps = (state: State): StateProps => {
   return {
     context: state.core.context,
     disklet: state.core.disklet,
-    currentUsername: state.core.account.username
+    currentUsername: state.core.account.username,
   }
 }
 const mapDispatchToProps = (dispatch: Dispatch): DispatchProps => ({
-  logout: username => {
+  logout: (username) => {
     dispatch(logoutRequest(username))
   },
-  deleteLocalAccount: username => {
+  deleteLocalAccount: (username) => {
     dispatch(deleteLocalAccount(username))
-  }
+  },
 })
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(UserList)
+export default connect(mapStateToProps, mapDispatchToProps)(UserList)

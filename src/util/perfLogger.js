@@ -6,8 +6,8 @@ import type { Action, Next, Store } from '../types/reduxTypes.js'
 
 const perfLoggerCSV = RNFS.DocumentDirectoryPath + '/perfLogger.csv'
 RNFS.writeFile(perfLoggerCSV, 'action type,start,end\n', 'utf8')
-  .then(success => console.log(`PERF: PerfLogger initialized @ ${perfLoggerCSV}`))
-  .catch(error => console.log(error.message))
+  .then((success) => console.log(`PERF: PerfLogger initialized @ ${perfLoggerCSV}`))
+  .catch((error) => console.log(error.message))
 
 export const perfLogger = (store: Store) => (next: Next) => (action: Action) => {
   const start = Date.now()

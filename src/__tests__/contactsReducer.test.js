@@ -24,12 +24,12 @@ test('contacts loaded', () => {
     familyName: 'Smith',
     thumbnailPath: 'path/to/thumbnail',
     recordID: '',
-    givenName: 'John'
+    givenName: 'John',
   }
   const expected = [contact]
   const actual = contacts(undefined, {
     type: 'CONTACTS/LOAD_CONTACTS_SUCCESS',
-    data: { contacts: [contact] }
+    data: { contacts: [contact] },
   })
 
   expect(actual).toEqual(expected)

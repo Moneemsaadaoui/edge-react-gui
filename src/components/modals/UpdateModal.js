@@ -15,11 +15,11 @@ type Props = {
   newVersion: string,
   released: string,
   onUpdate(): void,
-  onSkip(): void
+  onSkip(): void,
 }
 
 export class UpdateModal extends Component<Props> {
-  render () {
+  render() {
     const { bridge } = this.props
 
     return (
@@ -31,7 +31,7 @@ export class UpdateModal extends Component<Props> {
               height: '100%',
               alignItems: 'center',
               justifyContent: 'center',
-              backgroundColor: THEME.COLORS.PRIMARY
+              backgroundColor: THEME.COLORS.PRIMARY,
             }}
           >
             <Image source={edgeLogo} />
@@ -43,7 +43,7 @@ export class UpdateModal extends Component<Props> {
             padding: THEME.rem(1),
             flex: 1,
             justifyContent: 'center',
-            alignItems: 'center'
+            alignItems: 'center',
           }}
         >
           <LadderLayout padding={THEME.rem(1)}>

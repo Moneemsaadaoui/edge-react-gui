@@ -19,22 +19,22 @@ import { showError, showToast } from '../services/AirshipInstance'
 
 export type State = {
   acknowledge: boolean,
-  connectWalletsLoading: boolean
+  connectWalletsLoading: boolean,
 }
 
 export type FioConnectWalletConfirmStateProps = {
   ccWalletMap: CcWalletMap,
-  isConnected: boolean
+  isConnected: boolean,
 }
 
 export type FioConnectWalletConfirmRouteProps = {
   fioWallet: EdgeCurrencyWallet,
   fioAddressName: string,
-  selectedWallets: FioConnectionWalletItem[]
+  selectedWallets: FioConnectionWalletItem[],
 }
 
 export type FioConnectWalletConfirmDispatchProps = {
-  updateConnectedWallets: (fioAddress: string, ccWalletMap: CcWalletMap) => void
+  updateConnectedWallets: (fioAddress: string, ccWalletMap: CcWalletMap) => void,
 }
 
 type Props = FioConnectWalletConfirmStateProps & FioConnectWalletConfirmDispatchProps & FioConnectWalletConfirmRouteProps
@@ -42,7 +42,7 @@ type Props = FioConnectWalletConfirmStateProps & FioConnectWalletConfirmDispatch
 export class FioConnectWalletConfirmScene extends Component<Props, State> {
   state = {
     acknowledge: false,
-    connectWalletsLoading: false
+    connectWalletsLoading: false,
   }
 
   confirm = async (): Promise<void> => {
@@ -60,7 +60,7 @@ export class FioConnectWalletConfirmScene extends Component<Props, State> {
               walletId: wallet.id,
               tokenCode: wallet.currencyCode,
               chainCode: wallet.chainCode,
-              publicAddress: wallet.publicAddress
+              publicAddress: wallet.publicAddress,
             }
           })
         )
@@ -82,7 +82,7 @@ export class FioConnectWalletConfirmScene extends Component<Props, State> {
     this.setState({ acknowledge: !acknowledge })
   }
 
-  render () {
+  render() {
     const { fioAddressName, selectedWallets } = this.props
     const { acknowledge, connectWalletsLoading } = this.state
 
@@ -96,7 +96,7 @@ export class FioConnectWalletConfirmScene extends Component<Props, State> {
             <View style={styles.spacer} />
             <T style={styles.title}>{s.strings.title_fio_connect_to_wallet}</T>
             <View style={styles.spacer} />
-            {selectedWallets.map(wallet => (
+            {selectedWallets.map((wallet) => (
               <T key={`${wallet.id}-${wallet.currencyCode}`} style={styles.walletName}>
                 {wallet.name} ({wallet.currencyCode})
               </T>
@@ -124,7 +124,7 @@ export class FioConnectWalletConfirmScene extends Component<Props, State> {
             <View style={styles.spacer} />
             <ABSlider
               forceUpdateGuiCounter={false}
-              resetSlider={true}
+              resetSlider
               onSlidingComplete={this.confirm}
               sliderDisabled={!acknowledge}
               disabledText={s.strings.send_confirmation_slide_to_confirm}

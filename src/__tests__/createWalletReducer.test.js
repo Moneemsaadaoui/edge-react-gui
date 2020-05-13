@@ -14,15 +14,15 @@ test('initialState', () => {
       amount: '',
       currencyCode: '',
       exchangeAmount: '',
-      expireTime: 0
+      expireTime: 0,
     },
     isCheckingHandleAvailability: false,
     handleAvailableStatus: '',
     handleActivationInfo: {
       supportedCurrencies: {},
-      activationCost: ''
+      activationCost: '',
     },
-    walletAccountActivationQuoteError: ''
+    walletAccountActivationQuoteError: '',
   }
   const actual = createWalletReducer(undefined, dummyAction)
 

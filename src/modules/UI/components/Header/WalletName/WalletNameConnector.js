@@ -11,7 +11,7 @@ const mapStateToProps = (state: State): Props => {
   const wallet = UI_SELECTORS.getSelectedWallet(state) || {}
   return {
     name: wallet.name,
-    denomination: UI_SELECTORS.getSelectedCurrencyCode(state)
+    denomination: UI_SELECTORS.getSelectedCurrencyCode(state),
   }
 }
 

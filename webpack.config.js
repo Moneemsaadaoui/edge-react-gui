@@ -11,7 +11,7 @@ const babelOptions = {
   babelrc: false,
   presets: ['@babel/preset-env'],
   plugins: [['@babel/plugin-transform-for-of', { assumeArray: true }]],
-  cacheDirectory: true
+  cacheDirectory: true,
 }
 
 module.exports = {
@@ -21,23 +21,23 @@ module.exports = {
   module: {
     rules: production
       ? [
-        {
-          test: /\.js$/,
-          exclude: /(@babel\/runtime|babel-runtime)/,
-          use: { loader: 'babel-loader', options: babelOptions }
-        }
-      ]
-      : []
+          {
+            test: /\.js$/,
+            exclude: /(@babel\/runtime|babel-runtime)/,
+            use: { loader: 'babel-loader', options: babelOptions },
+          },
+        ]
+      : [],
   },
   output: {
     filename: 'plugin-bundle.js',
-    path: path.join(path.resolve(__dirname), 'android/app/src/main/assets/edge-core')
+    path: path.join(path.resolve(__dirname), 'android/app/src/main/assets/edge-core'),
   },
   performance: { hints: false },
   node: { fs: 'empty' },
   plugins: [new webpack.IgnorePlugin(/^(https-proxy-agent)$/)],
   resolve: {
     aliasFields: ['browser'],
-    mainFields: ['browser', 'module', 'main']
-  }
+    mainFields: ['browser', 'module', 'main'],
+  },
 }

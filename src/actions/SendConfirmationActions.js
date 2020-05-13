@@ -28,31 +28,31 @@ import { playSendSound } from './SoundActions.js'
 
 export const newSpendInfo = (spendInfo: EdgeSpendInfo, authRequired: AuthType) => ({
   type: 'UI/SEND_CONFIMATION/NEW_SPEND_INFO',
-  data: { spendInfo, authRequired }
+  data: { spendInfo, authRequired },
 })
 
 export const reset = () => ({
-  type: 'UI/SEND_CONFIMATION/RESET'
+  type: 'UI/SEND_CONFIMATION/RESET',
 })
 
 export const updateTransaction = (transaction: ?EdgeTransaction, guiMakeSpendInfo: ?GuiMakeSpendInfo, forceUpdateGui: ?boolean, error: ?Error) => ({
   type: 'UI/SEND_CONFIMATION/UPDATE_TRANSACTION',
-  data: { transaction, guiMakeSpendInfo, forceUpdateGui, error }
+  data: { transaction, guiMakeSpendInfo, forceUpdateGui, error },
 })
 
 export const updateSpendPending = (pending: boolean) => ({
   type: 'UI/SEND_CONFIMATION/UPDATE_SPEND_PENDING',
-  data: { pending }
+  data: { pending },
 })
 
 export const newPin = (pin: string) => ({
   type: 'UI/SEND_CONFIMATION/NEW_PIN',
-  data: { pin }
+  data: { pin },
 })
 
 export const toggleCryptoOnTop = () => ({
   type: 'UI/SEND_CONFIMATION/TOGGLE_CRYPTO_ON_TOP',
-  data: null
+  data: null,
 })
 
 export const updateAmount = (nativeAmount: string, exchangeAmount: string, fiatPerCrypto: string, forceUpdateGui?: boolean = false) => (
@@ -75,7 +75,7 @@ const BITPAY = {
     // eslint-disable-next-line no-unused-vars
     const [_, merchantName] = memo.split(' for merchant ')
     return merchantName
-  }
+  },
 }
 
 export const paymentProtocolUriReceived = ({ paymentProtocolURL }: EdgePaymentProtocolUri) => (dispatch: Dispatch, getState: GetState) => {
@@ -86,8 +86,8 @@ export const paymentProtocolUriReceived = ({ paymentProtocolURL }: EdgePaymentPr
   const edgeWallet = currencyWallets[walletId]
 
   Promise.resolve(paymentProtocolURL)
-    .then(paymentProtocolURL => edgeWallet.getPaymentProtocolInfo(paymentProtocolURL))
-    .then(paymentProtocolInfo => {
+    .then((paymentProtocolURL) => edgeWallet.getPaymentProtocolInfo(paymentProtocolURL))
+    .then((paymentProtocolInfo) => {
       const { domain, memo, nativeAmount, spendTargets } = paymentProtocolInfo
 
       const name = domain === BITPAY.domain ? BITPAY.merchantName(memo) : domain
@@ -97,11 +97,11 @@ export const paymentProtocolUriReceived = ({ paymentProtocolURL }: EdgePaymentPr
         networkFeeOption: 'standard',
         metadata: {
           name,
-          notes
+          notes,
         },
         nativeAmount,
         spendTargets,
-        otherParams: { paymentProtocolInfo }
+        otherParams: { paymentProtocolInfo },
       }
       guiMakeSpendInfo.lockInputs = true
       Actions[SEND_CONFIRMATION]({ guiMakeSpendInfo })
@@ -132,10 +132,10 @@ export const sendConfirmationUpdateTx = (guiMakeSpendInfo: GuiMakeSpendInfo | Ed
 
   await edgeWallet
     .makeSpend(spendInfo)
-    .then(edgeTransaction => {
+    .then((edgeTransaction) => {
       return dispatch(updateTransaction(edgeTransaction, guiMakeSpendInfoClone, forceUpdateGui, null))
     })
-    .catch(e => {
+    .catch((e) => {
       console.log(e)
       return dispatch(updateTransaction(null, guiMakeSpendInfoClone, forceUpdateGui, e))
     })
@@ -151,7 +151,7 @@ export const updateMaxSpend = () => (dispatch: Dispatch, getState: GetState) => 
 
   edgeWallet
     .getMaxSpendable(spendInfo)
-    .then(nativeAmount => {
+    .then((nativeAmount) => {
       const state = getState()
       const spendInfo = getSpendInfo(state, { nativeAmount })
       const authRequired = getAuthRequired(state, spendInfo)
@@ -272,14 +272,14 @@ export const signBroadcastAndSave = () => async (dispatch: Dispatch, getState: G
     edgeSignedTransaction.metadata = edgeMetadata
     edgeSignedTransaction.wallet = wallet
 
-    playSendSound().catch(error => console.log(error)) // Fail quietly
+    playSendSound().catch((error) => console.log(error)) // Fail quietly
     if (!guiMakeSpendInfo.dismissAlert) {
       Alert.alert(s.strings.transaction_success, s.strings.transaction_success_message, [
         {
-          onPress () {},
+          onPress() {},
           style: 'default',
-          text: s.strings.string_ok
-        }
+          text: s.strings.string_ok,
+        },
       ])
     }
 
@@ -306,18 +306,18 @@ export const signBroadcastAndSave = () => async (dispatch: Dispatch, getState: G
 
     Alert.alert(s.strings.transaction_failure, message, [
       {
-        onPress () {},
+        onPress() {},
         style: 'default',
-        text: s.strings.string_ok
-      }
+        text: s.strings.string_ok,
+      },
     ])
   }
 }
 
 const errorNames = {
-  IncorrectPinError: 'IncorrectPinError'
+  IncorrectPinError: 'IncorrectPinError',
 }
-export function IncorrectPinError (message: ?string = s.strings.incorrect_pin) {
+export function IncorrectPinError(message: ?string = s.strings.incorrect_pin) {
   const error = new Error(message)
   error.name = errorNames.IncorrectPinError
   return error
@@ -335,7 +335,7 @@ export const displayFeeAlert = async (feeAmountInFiatSyntax: string) => {
     ),
     icon: <Icon type={MATERIAL_COMMUNITY} name={EXCLAMATION} size={38} />,
     noButtonText: s.strings.string_cancel_cap,
-    yesButtonText: s.strings.title_send
+    yesButtonText: s.strings.title_send,
   })
   const resolveValue = await launchModal(modal)
   console.log('resolveValue is: ', resolveValue)

@@ -12,5 +12,5 @@ export const PLATFORM = {
   // device - toolbar - footer
   usableHeight: deviceHeight - (Platform.OS === 'ios' ? 44 : 62) - 69 - (isIphoneX ? 57 : 0),
   deviceWidth,
-  deviceHeight
+  deviceHeight,
 }

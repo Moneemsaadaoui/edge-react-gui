@@ -23,8 +23,8 @@ export const initialState = {
       notes: '',
       amountFiat: 0,
       bizId: 0,
-      miscJson: ''
-    }
+      miscJson: '',
+    },
   },
   spendInfo: null,
   transactionMetadata: null,
@@ -43,7 +43,7 @@ export const initialState = {
     ourReceiveAddresses: [],
     signedTx: '',
     metadata: {},
-    otherParams: {}
+    otherParams: {},
   },
   pending: false,
   error: null,
@@ -52,7 +52,7 @@ export const initialState = {
   authRequired: 'none',
   address: '',
 
-  toggleCryptoOnTop: 0
+  toggleCryptoOnTop: 0,
 }
 
 export const getScene = (state: State): any => getSceneState(state, 'sendConfirmation')
@@ -102,9 +102,9 @@ export const getSpendInfo = (state: State, newSpendInfo?: GuiMakeSpendInfo = {})
         nativeAmount: newSpendInfo.nativeAmount || getNativeAmount(state),
         publicAddress: newSpendInfo.publicAddress || getPublicAddress(state),
         otherParams: {
-          uniqueIdentifier
-        }
-      }
+          uniqueIdentifier,
+        },
+      },
     ]
   }
 
@@ -114,7 +114,7 @@ export const getSpendInfo = (state: State, newSpendInfo?: GuiMakeSpendInfo = {})
     spendTargets,
     networkFeeOption: newSpendInfo.networkFeeOption || getNetworkFeeOption(state),
     customNetworkFee: newSpendInfo.customNetworkFee ? { ...getCustomNetworkFee(state), ...newSpendInfo.customNetworkFee } : getCustomNetworkFee(state),
-    otherParams: newSpendInfo.otherParams || {}
+    otherParams: newSpendInfo.otherParams || {},
   }
 }
 
@@ -129,9 +129,9 @@ export const getSpendInfoWithoutState = (newSpendInfo?: GuiMakeSpendInfo = {}, s
         nativeAmount: newSpendInfo.nativeAmount || sceneState.nativeAmount,
         publicAddress: newSpendInfo.publicAddress || initialState.guiMakeSpendInfo.publicAddress || sceneState.spendInfo.spendTargets[0].publicAddress,
         otherParams: {
-          uniqueIdentifier
-        }
-      }
+          uniqueIdentifier,
+        },
+      },
     ]
   }
   const metaData = sceneState.guiMakeSpendInfo.metadata || initialState.guiMakeSpendInfo.metadata
@@ -142,7 +142,7 @@ export const getSpendInfoWithoutState = (newSpendInfo?: GuiMakeSpendInfo = {}, s
     spendTargets,
     networkFeeOption: newSpendInfo.networkFeeOption || sceneState.guiMakeSpendInfo.networkFeeOption || initialState.guiMakeSpendInfo.networkFeeOption,
     customNetworkFee: newSpendInfo.customNetworkFee ? { ...customNetworkFee, ...newSpendInfo.customNetworkFee } : customNetworkFee,
-    otherParams: newSpendInfo.otherParams || {}
+    otherParams: newSpendInfo.otherParams || {},
   }
 }
 

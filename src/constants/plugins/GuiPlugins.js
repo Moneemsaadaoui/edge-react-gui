@@ -14,7 +14,7 @@ export const guiPlugins: { [pluginId: string]: GuiPlugin } = {
     baseUri: 'https://libertyx.com/a',
     displayName: 'LibertyX',
     originWhitelist: ['https://libertyx.com'],
-    permissions: ['location']
+    permissions: ['location'],
   },
   moonpay: {
     pluginId: 'moonpay',
@@ -22,21 +22,21 @@ export const guiPlugins: { [pluginId: string]: GuiPlugin } = {
     baseUri: 'https://buy.moonpay.io',
     baseQuery: { apiKey: 'pk_live_Y1vQHUgfppB4oMEZksB8DYNQAdA4sauy' },
     queryPromoCode: 'apiKey',
-    displayName: 'MoonPay'
+    displayName: 'MoonPay',
   },
   safello: {
     pluginId: 'safello',
     storeId: 'com.safello',
     baseUri: 'https://safello.com/edge',
     displayName: 'Safello',
-    originWhitelist: ['https://safello.com', 'https://app.safello.com', 'http://safello.com']
+    originWhitelist: ['https://safello.com', 'https://app.safello.com', 'http://safello.com'],
   },
   'safello-sell': {
     pluginId: 'safello-sell',
     storeId: 'com.safello',
     baseUri: 'https://app.safello.com',
     displayName: 'Safello',
-    originWhitelist: ['https://safello.com', 'https://app.safello.com', 'http://safello.com']
+    originWhitelist: ['https://safello.com', 'https://app.safello.com', 'http://safello.com'],
   },
   bitsofgold: {
     pluginId: 'bitsofgold',
@@ -44,21 +44,21 @@ export const guiPlugins: { [pluginId: string]: GuiPlugin } = {
     baseUri: 'https://www.bitsofgold.co.il',
     queryPromoCode: 'promo_code',
     displayName: 'Bits of Gold',
-    permissions: ['camera']
+    permissions: ['camera'],
   },
   banxa: {
     pluginId: 'banxa',
     storeId: 'banxa',
     baseUri: 'https://edge.banxa.com',
     displayName: 'Banxa',
-    permissions: ['camera']
+    permissions: ['camera'],
   },
   simplex: {
     pluginId: 'simplex',
     storeId: 'co.edgesecure.simplex',
     baseUri: hostedUri + 'co.edgesecure.simplex/index.html',
     lockUriPath: true,
-    displayName: 'Simplex'
+    displayName: 'Simplex',
   },
   wyre: {
     pluginId: 'wyre',
@@ -66,7 +66,7 @@ export const guiPlugins: { [pluginId: string]: GuiPlugin } = {
     baseUri: hostedUri + 'co.edgesecure.wyre/index.html',
     lockUriPath: true,
     displayName: 'Wyre',
-    permissions: ['camera']
+    permissions: ['camera'],
     // supportEmail: 'support@sendwyre.com'
   },
   bity: {
@@ -75,7 +75,7 @@ export const guiPlugins: { [pluginId: string]: GuiPlugin } = {
     baseUri: hostedUri + 'com.bity/index.html',
     lockUriPath: true,
     queryPromoCode: 'client_value',
-    displayName: 'Bity'
+    displayName: 'Bity',
     // supportßEmail: 'support@bity.com'
   },
   bitrefill: {
@@ -84,22 +84,22 @@ export const guiPlugins: { [pluginId: string]: GuiPlugin } = {
     baseUri: hostedUri + 'co.edgesecure.bitrefill/index.html',
     lockUriPath: true,
     displayName: 'Bitrefill',
-    isLegacy: true
+    isLegacy: true,
   },
   cred: {
     pluginId: 'cred',
     storeId: 'cred',
     baseUri: 'https://earn.mycred.io/edge',
     displayName: 'Cred',
-    permissions: ['camera']
+    permissions: ['camera'],
   },
   custom: {
     pluginId: 'custom',
     storeId: 'custom',
     baseUri: '',
     displayName: 'Custom Plugin',
-    permissions: ['camera', 'location']
-  }
+    permissions: ['camera', 'location'],
+  },
 }
 
 export const customPluginRow: GuiPluginRow = {
@@ -112,5 +112,5 @@ export const customPluginRow: GuiPluginRow = {
   partnerIconPath: undefined,
   paymentTypeLogoKey: 'credit',
   paymentTypes: [],
-  cryptoCodes: []
+  cryptoCodes: [],
 }

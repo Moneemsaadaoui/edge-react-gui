@@ -16,7 +16,7 @@ describe('SendConfirmation', () => {
       uniqueIdentifierModalActivated: jest.fn,
       sourceWallet: {},
       currencyCode: 'BTC',
-      isEditable: true
+      isEditable: true,
     }
     const actual = renderer.render(<SendConfirmationOptions {...props} />)
 
@@ -32,7 +32,7 @@ describe('SendConfirmation', () => {
       uniqueIdentifierModalActivated: jest.fn,
       sourceWallet: {},
       currencyCode: 'BTC',
-      isEditable: false
+      isEditable: false,
     }
     const actual = renderer.render(<SendConfirmationOptions {...props} />)
 
@@ -48,7 +48,7 @@ describe('SendConfirmation', () => {
       uniqueIdentifierModalActivated: jest.fn,
       sourceWallet: {},
       currencyCode: 'XMR',
-      isEditable: true
+      isEditable: true,
     }
     const actual = renderer.render(<SendConfirmationOptions {...props} />)
 
@@ -64,7 +64,7 @@ describe('SendConfirmation', () => {
       uniqueIdentifierModalActivated: jest.fn,
       sourceWallet: {},
       currencyCode: 'XRP',
-      isEditable: true
+      isEditable: true,
     }
     const actual = renderer.render(<SendConfirmationOptions {...props} />)
 

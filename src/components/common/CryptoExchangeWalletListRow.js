@@ -19,7 +19,7 @@ export type StateProps = {
   customTokens: Array<CustomTokenInfo>,
   settings: Object,
   exchangeRates: { [string]: number },
-  headerLabel?: string
+  headerLabel?: string,
 }
 
 export type OwnProps = {
@@ -33,7 +33,7 @@ export type OwnProps = {
   currencyCodeFilter: string,
   isMostRecentWallet?: boolean,
   allowedCurrencyCodes?: Array<string>,
-  excludeCurrencyCodes?: Array<string>
+  excludeCurrencyCodes?: Array<string>,
 }
 
 type LocalState = {
@@ -41,7 +41,7 @@ type LocalState = {
   fiatSymbol: string,
   cryptoBalance: string,
   cryptoSymbol: string,
-  enabledNativeBalances: Object
+  enabledNativeBalances: Object,
 }
 
 type Props = StateProps & OwnProps
@@ -49,22 +49,25 @@ type Props = StateProps & OwnProps
 const DIVIDE_PRECISION = 18
 
 class CryptoExchangeWalletListRow extends Component<Props, LocalState> {
-  constructor (props: Props) {
+  constructor(props: Props) {
     super(props)
     this.state = {
       fiatBalance: '',
       cryptoBalance: '',
       cryptoSymbol: '',
       enabledNativeBalances: {},
-      fiatSymbol: ''
+      fiatSymbol: '',
     }
   }
-  componentDidMount () {
+
+  componentDidMount() {
     this.setUp(this.props)
   }
-  UNSAFE_componentWillReceiveProps (nextProps: Props) {
+
+  UNSAFE_componentWillReceiveProps(nextProps: Props) {
     this.setUp(nextProps)
   }
+
   setUp = (props: Props) => {
     const { denomination, customTokens, settings, exchangeRates } = this.props
     const multiplier = denomination.multiplier
@@ -74,9 +77,9 @@ class CryptoExchangeWalletListRow extends Component<Props, LocalState> {
     const wallet = props.wallet
 
     const enabledNativeBalances = {}
-    const enabledNotHiddenTokens = enabledTokens.filter(token => {
+    const enabledNotHiddenTokens = enabledTokens.filter((token) => {
       let isVisible = true // assume we will enable token
-      const tokenIndex = _.findIndex(customTokens, item => item.currencyCode === token)
+      const tokenIndex = _.findIndex(customTokens, (item) => item.currencyCode === token)
       // if token is not supposed to be visible, not point in enabling it
       if (tokenIndex > -1 && customTokens[tokenIndex].isVisible === false) {
         isVisible = false
@@ -96,15 +99,17 @@ class CryptoExchangeWalletListRow extends Component<Props, LocalState> {
       fiatSymbol: wallet ? getFiatSymbol(wallet.isoFiatCurrencyCode) : '',
       cryptoBalance,
       cryptoSymbol: denomination.symbol,
-      enabledNativeBalances
+      enabledNativeBalances,
     })
   }
+
   onPress = () => {
     if (this.props.disableZeroBalance && this.state.cryptoBalance === '0' && this.state.fiatBalance === '0') return
     if (!this.props.excludedCurrencyCode.includes(this.props.wallet.currencyCode)) {
       this.props.onPress(this.props.wallet)
     }
   }
+
   renderTokens = () => {
     const { wallet, settings, exchangeRates, searchFilter, isMostRecentWallet, currencyCodeFilter, allowedCurrencyCodes, excludeCurrencyCodes } = this.props
     if (this.props.wallet.enabledTokens.length > 0) {
@@ -115,19 +120,19 @@ class CryptoExchangeWalletListRow extends Component<Props, LocalState> {
           if (property !== this.props.wallet.currencyCode) {
             // Token Filters
             const checkAllowedCurrencyCodes = allowedCurrencyCodes
-              ? allowedCurrencyCodes.find(currencyCode => {
-                const [currency, token] = currencyCode.split(':')
-                return currency === property || token === property
-              })
+              ? allowedCurrencyCodes.find((currencyCode) => {
+                  const [currency, token] = currencyCode.split(':')
+                  return currency === property || token === property
+                })
               : true
             const checkExcludeCurrencyCodes = excludeCurrencyCodes
-              ? excludeCurrencyCodes.find(currencyCode => {
-                const [currency, token] = currencyCode.split(':')
-                return currency === property || token === property
-              })
+              ? excludeCurrencyCodes.find((currencyCode) => {
+                  const [currency, token] = currencyCode.split(':')
+                  return currency === property || token === property
+                })
               : false
             const { name } = this.props.wallet
-            const token = this.props.wallet.metaTokens.find(item => item.currencyCode === property)
+            const token = this.props.wallet.metaTokens.find((item) => item.currencyCode === property)
             const searchFilterLowerCase = searchFilter.toLowerCase()
             const walletNameString = name.toLowerCase()
             const currencyNameString = token ? token.currencyName.toLowerCase() : ''
@@ -172,10 +177,11 @@ class CryptoExchangeWalletListRow extends Component<Props, LocalState> {
     }
     return null
   }
+
   renderWallet = () => {
     const { wallet, searchFilter, isMostRecentWallet, currencyCodeFilter, allowedCurrencyCodes, excludeCurrencyCodes } = this.props
-    const checkAllowedCurrencyCodes = allowedCurrencyCodes ? allowedCurrencyCodes.find(currencyCode => currencyCode === wallet.currencyCode) : true
-    const checkExcludeCurrencyCodes = excludeCurrencyCodes ? excludeCurrencyCodes.find(currencyCode => currencyCode === wallet.currencyCode) : false
+    const checkAllowedCurrencyCodes = allowedCurrencyCodes ? allowedCurrencyCodes.find((currencyCode) => currencyCode === wallet.currencyCode) : true
+    const checkExcludeCurrencyCodes = excludeCurrencyCodes ? excludeCurrencyCodes.find((currencyCode) => currencyCode === wallet.currencyCode) : false
     const searchFilterLowerCase = searchFilter.toLowerCase()
     const nameString = wallet.name.toLowerCase()
     const currencyNameString = wallet.currencyNames[wallet.currencyCode].toLowerCase()
@@ -200,18 +206,18 @@ class CryptoExchangeWalletListRow extends Component<Props, LocalState> {
       <TouchableHighlight style={styles.touchable} underlayColor={styles.underlayColor} onPress={this.onPress}>
         <View style={styles.rowContainerTop}>
           <View style={styles.containerLeft}>
-            <Image style={styles.imageContainer} source={{ uri: wallet.symbolImage }} resizeMode={'contain'} />
+            <Image style={styles.imageContainer} source={{ uri: wallet.symbolImage }} resizeMode="contain" />
           </View>
           <View style={styles.walletDetailsContainer}>
             <View style={styles.walletDetailsRow}>
-              <FormattedText style={[styles.walletDetailsRowCurrency]}>{wallet.currencyCode}</FormattedText>
-              <FormattedText style={[styles.walletDetailsRowValue]}>
+              <FormattedText style={styles.walletDetailsRowCurrency}>{wallet.currencyCode}</FormattedText>
+              <FormattedText style={styles.walletDetailsRowValue}>
                 {this.state.cryptoSymbol} {this.state.cryptoBalance}
               </FormattedText>
             </View>
             <View style={styles.walletDetailsRow}>
-              <FormattedText style={[styles.walletDetailsRowName]}>{wallet.name}</FormattedText>
-              <FormattedText style={[styles.walletDetailsRowFiat]}>
+              <FormattedText style={styles.walletDetailsRowName}>{wallet.name}</FormattedText>
+              <FormattedText style={styles.walletDetailsRowFiat}>
                 {this.state.fiatSymbol} {this.state.fiatBalance}
               </FormattedText>
             </View>
@@ -220,7 +226,8 @@ class CryptoExchangeWalletListRow extends Component<Props, LocalState> {
       </TouchableHighlight>
     )
   }
-  render () {
+
+  render() {
     return (
       <View style={styles.container}>
         {this.props.headerLabel === 'mostRecentWalletsHeader' && (

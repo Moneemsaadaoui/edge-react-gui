@@ -7,7 +7,7 @@ if (ENV.ETHEREUM_INIT == null && (ENV.ETHERSCAN_API_KEY || ENV.INFURA_PROJECT_ID
   ENV.ETHEREUM_INIT = {
     // blockcypherApiKey: '...',
     etherscanApiKey: ENV.ETHERSCAN_API_KEY,
-    infuraProjectId: ENV.INFURA_PROJECT_ID
+    infuraProjectId: ENV.INFURA_PROJECT_ID,
   }
 }
 
@@ -15,13 +15,13 @@ if (ENV.SHAPESHIFT_INIT == null && ENV.SHAPESHIFT_API_KEY && ENV.SHAPESHIFT_CLIE
   ENV.SHAPESHIFT_INIT = {
     apiKey: ENV.SHAPESHIFT_API_KEY,
     clientId: ENV.SHAPESHIFT_CLIENT_ID,
-    secret: ENV.SHAPESHIFT_SECRET
+    secret: ENV.SHAPESHIFT_SECRET,
   }
 }
 
 if (ENV.CHANGE_NOW_INIT == null && ENV.CHANGE_NOW_API_KEY) {
   ENV.CHANGE_NOW_INIT = {
-    apiKey: ENV.CHANGE_NOW_API_KEY
+    apiKey: ENV.CHANGE_NOW_API_KEY,
   }
 }
 
@@ -58,7 +58,7 @@ export const currencyPlugins = {
   vertcoin: true,
   zcoin: true,
   // edge-currency-monero:
-  monero: ENV.MONERO_INIT
+  monero: ENV.MONERO_INIT,
 }
 
 export const ratePlugins = {
@@ -71,7 +71,7 @@ export const ratePlugins = {
   nomics: ENV.NOMICS_INIT,
   currencyconverterapi: ENV.CURRENCYCONVERTERAPI_INIT,
   xagau: true,
-  wazirx: true
+  wazirx: true,
 }
 
 export const swapPlugins = {
@@ -84,11 +84,11 @@ export const swapPlugins = {
   // shapeshift: ENV.SHAPESHIFT_INIT,
   switchain: ENV.SWITCHAIN_INIT,
   totle: ENV.TOTLE_INIT,
-  transfer: true
+  transfer: true,
 }
 
 export const allPlugins = {
   ...currencyPlugins,
   ...ratePlugins,
-  ...swapPlugins
+  ...swapPlugins,
 }

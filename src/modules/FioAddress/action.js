@@ -20,7 +20,7 @@ export const createFioWallet = () => (dispatch: Dispatch, getState: GetState): P
 
 export const refreshAllFioAddresses = () => async (dispatch: Dispatch, getState: GetState) => {
   dispatch({
-    type: 'FIO/SET_FIO_ADDRESSES_PROGRESS'
+    type: 'FIO/SET_FIO_ADDRESSES_PROGRESS',
   })
   const state = getState()
   const { currencyWallets = {} } = state.core.account
@@ -37,12 +37,12 @@ export const refreshAllFioAddresses = () => async (dispatch: Dispatch, getState:
   window.requestAnimationFrame(() => {
     dispatch({
       type: 'FIO/SET_FIO_ADDRESSES',
-      data: { fioAddresses }
+      data: { fioAddresses },
     })
   })
 
   const { connectedWalletsByFioAddress } = state.ui.fio
-  const wallets = Object.keys(currencyWallets).map(walletKey => currencyWallets[walletKey])
+  const wallets = Object.keys(currencyWallets).map((walletKey) => currencyWallets[walletKey])
   for (const { name } of fioAddresses) {
     if (!connectedWalletsByFioAddress[name]) {
       const fioWallet = await findWalletByFioAddress(fioWallets, name)
@@ -52,8 +52,8 @@ export const refreshAllFioAddresses = () => async (dispatch: Dispatch, getState:
         type: 'FIO/UPDATE_CONNECTED_WALLETS_FOR_FIO_ADDRESS',
         data: {
           fioAddress: name,
-          ccWalletMap
-        }
+          ccWalletMap,
+        },
       })
     }
   }
@@ -69,7 +69,7 @@ export const getRegInfo = (fioAddress: string, selectedWallet: EdgeCurrencyWalle
 
   dispatch({
     type: 'FIO/FIO_ADDRESS_REG_INFO_LOADING',
-    data: true
+    data: true,
   })
 
   try {
@@ -83,7 +83,7 @@ export const getRegInfo = (fioAddress: string, selectedWallet: EdgeCurrencyWalle
     const buyAddressResponse: BuyAddressResponse = await fioPlugin.otherMethods.buyAddressRequest({
       address: fioAddress,
       referralCode: 'edge',
-      publicKey: selectedWallet.publicWalletInfo.keys.publicKey
+      publicKey: selectedWallet.publicWalletInfo.keys.publicKey,
     })
 
     if (buyAddressResponse.error) {
@@ -97,8 +97,8 @@ export const getRegInfo = (fioAddress: string, selectedWallet: EdgeCurrencyWalle
         [Constants.FIO_STR]: {
           amount: `${activationCost}`,
           nativeAmount: '',
-          address: ''
-        }
+          address: '',
+        },
       }
 
       for (const currencyKey in buyAddressResponse.success.charge.pricing) {
@@ -112,13 +112,13 @@ export const getRegInfo = (fioAddress: string, selectedWallet: EdgeCurrencyWalle
         paymentInfo[currencyCode] = {
           amount: buyAddressResponse.success.charge.pricing[currencyKey].amount,
           nativeAmount,
-          address: buyAddressResponse.success.charge.addresses[currencyKey]
+          address: buyAddressResponse.success.charge.addresses[currencyKey],
         }
       }
 
       dispatch({
         type: 'FIO/SET_FIO_ADDRESS_REG_INFO',
-        data: { handleRegistrationInfo: { activationCost, supportedCurrencies }, addressRegistrationPaymentInfo: paymentInfo }
+        data: { handleRegistrationInfo: { activationCost, supportedCurrencies }, addressRegistrationPaymentInfo: paymentInfo },
       })
     }
   } catch (e) {
@@ -128,6 +128,6 @@ export const getRegInfo = (fioAddress: string, selectedWallet: EdgeCurrencyWalle
 
   dispatch({
     type: 'FIO/FIO_ADDRESS_REG_INFO_LOADING',
-    data: false
+    data: false,
   })
 }

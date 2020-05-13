@@ -7,16 +7,16 @@ import slowlog from 'react-native-slowlog'
 export type Props = {
   message: string,
   style: StyleSheet.Styles,
-  useErrorStyle: boolean
+  useErrorStyle: boolean,
 }
 
 export class CryptoExchangeMessageBoxComponent extends Component<Props> {
-  constructor (props: Props) {
+  constructor(props: Props) {
     super(props)
     slowlog(this, /.*/, global.slowlogOptions)
   }
 
-  render () {
+  render() {
     const { container, containerError, text, textError } = this.props.style
     const viewStyle = [container, this.props.useErrorStyle ? containerError : null]
     const textStyle = [text, this.props.useErrorStyle ? textError : null]

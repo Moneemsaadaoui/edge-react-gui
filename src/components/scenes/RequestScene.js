@@ -47,7 +47,7 @@ export type RequestStateProps = {
   useLegacyAddress: boolean,
   fioPlugin: EdgeCurrencyConfig,
   fioAddressesExist: boolean,
-  isConnected: boolean
+  isConnected: boolean,
 }
 export type RequestLoadingProps = {
   edgeWallet: null,
@@ -63,12 +63,12 @@ export type RequestLoadingProps = {
   useLegacyAddress: null,
   fioPlugin: EdgeCurrencyConfig,
   fioAddressesExist: boolean,
-  isConnected: boolean
+  isConnected: boolean,
 }
 
 export type RequestDispatchProps = {
   refreshReceiveAddressRequest(string): void,
-  refreshAllFioAddresses: () => Promise<void>
+  refreshAllFioAddresses: () => Promise<void>,
 }
 type ModalState = 'NOT_YET_SHOWN' | 'VISIBLE' | 'SHOWN'
 type CurrencyMinimumPopupState = { [currencyCode: string]: ModalState }
@@ -81,7 +81,7 @@ export type State = {
   legacyAddress: string,
   encodedURI: string,
   minimumPopupModalState: CurrencyMinimumPopupState,
-  isFioMode: boolean
+  isFioMode: boolean,
 }
 
 const inputAccessoryViewID: string = 'cancelHeaderId'
@@ -90,10 +90,10 @@ export class Request extends Component<Props, State> {
   amounts: ExchangedFlipInputAmounts
   flipInput: RefObject | null = null
 
-  constructor (props: Props) {
+  constructor(props: Props) {
     super(props)
     const minimumPopupModalState: CurrencyMinimumPopupState = {}
-    Object.keys(Constants.SPECIAL_CURRENCY_INFO).forEach(currencyCode => {
+    Object.keys(Constants.SPECIAL_CURRENCY_INFO).forEach((currencyCode) => {
       if (Constants.getSpecialCurrencyInfo(currencyCode).minimumPopupModals) {
         minimumPopupModalState[currencyCode] = 'NOT_YET_SHOWN'
       }
@@ -103,7 +103,7 @@ export class Request extends Component<Props, State> {
       legacyAddress: props.legacyAddress,
       encodedURI: '',
       minimumPopupModalState,
-      isFioMode: false
+      isFioMode: false,
     }
     if (this.shouldShowMinimumModal(props)) {
       if (!props.currencyCode) return
@@ -114,7 +114,7 @@ export class Request extends Component<Props, State> {
     slowlog(this, /.*/, global.slowlogOptions)
   }
 
-  componentDidMount () {
+  componentDidMount() {
     this.generateEncodedUri()
     this.props.refreshAllFioAddresses()
   }
@@ -126,13 +126,13 @@ export class Request extends Component<Props, State> {
     this.setState({ minimumPopupModalState })
   }
 
-  shouldComponentUpdate (nextProps: Props, nextState: State) {
+  shouldComponentUpdate(nextProps: Props, nextState: State) {
     let diffElement2: string = ''
     const diffElement = getObjectDiff(this.props, nextProps, {
       primaryCurrencyInfo: true,
       secondaryCurrencyInfo: true,
       displayDenomination: true,
-      exchangeDenomination: true
+      exchangeDenomination: true,
     })
     if (!diffElement) {
       diffElement2 = getObjectDiff(this.state, nextState)
@@ -140,7 +140,7 @@ export class Request extends Component<Props, State> {
     return !!diffElement || !!diffElement2
   }
 
-  async generateEncodedUri () {
+  async generateEncodedUri() {
     const { edgeWallet, useLegacyAddress, currencyCode } = this.props
     if (!currencyCode) return
     let publicAddress = this.props.publicAddress
@@ -150,7 +150,7 @@ export class Request extends Component<Props, State> {
     try {
       encodedURI = edgeWallet ? await edgeWallet.encodeUri(abcEncodeUri) : s.strings.loading
       this.setState({
-        encodedURI
+        encodedURI,
       })
     } catch (e) {
       console.log(e)
@@ -158,7 +158,7 @@ export class Request extends Component<Props, State> {
       legacyAddress = s.strings.loading
       this.setState({
         publicAddress,
-        legacyAddress
+        legacyAddress,
       })
       setTimeout(() => {
         if (edgeWallet && edgeWallet.id) {
@@ -168,7 +168,7 @@ export class Request extends Component<Props, State> {
     }
   }
 
-  async UNSAFE_componentWillReceiveProps (nextProps: Props) {
+  async UNSAFE_componentWillReceiveProps(nextProps: Props) {
     const { currencyCode } = nextProps
     if (nextProps.loading || currencyCode === null) return
 
@@ -198,7 +198,7 @@ export class Request extends Component<Props, State> {
       this.setState({
         encodedURI,
         publicAddress: publicAddress,
-        legacyAddress: legacyAddress
+        legacyAddress: legacyAddress,
       })
     }
     // old blank address to new
@@ -226,7 +226,7 @@ export class Request extends Component<Props, State> {
       title: s.strings.request_minimum_notification_title,
       message,
       icon: <Icon type={Constants.MATERIAL_COMMUNITY} name={Constants.EXCLAMATION} size={30} />,
-      buttonText: s.strings.string_ok
+      buttonText: s.strings.string_ok,
     })
 
     await launchModal(modal)
@@ -245,9 +245,9 @@ export class Request extends Component<Props, State> {
     this.flipInput = ref && ref.flipInput ? ref.flipInput.current : null
   }
 
-  render () {
+  render() {
     if (this.props.loading) {
-      return <ActivityIndicator style={{ flex: 1, alignSelf: 'center' }} size={'large'} />
+      return <ActivityIndicator style={{ flex: 1, alignSelf: 'center' }} size="large" />
     }
 
     const { primaryCurrencyInfo, secondaryCurrencyInfo, exchangeSecondaryToPrimaryRatio, currencyInfo, guiWallet } = this.props
@@ -271,12 +271,12 @@ export class Request extends Component<Props, State> {
             primaryCurrencyInfo={primaryCurrencyInfo}
             secondaryCurrencyInfo={secondaryCurrencyInfo}
             exchangeSecondaryToPrimaryRatio={exchangeSecondaryToPrimaryRatio}
-            overridePrimaryExchangeAmount={''}
+            overridePrimaryExchangeAmount=""
             forceUpdateGuiCounter={0}
             onExchangeAmountChanged={this.onExchangeAmountChanged}
             keyboardVisible={false}
             color={THEME.COLORS.WHITE}
-            isFiatOnTop={true}
+            isFiatOnTop
             isFocus={false}
             onNext={this.onNext}
             topReturnKeyType={this.state.isFioMode ? 'next' : 'done'}
@@ -373,14 +373,14 @@ export class Request extends Component<Props, State> {
     const message = sprintf(s.strings.request_qr_email_title, s.strings.app_name, currencyCode) + ': ' + sharedAddress
     const path = Platform.OS === 'ios' ? RNFS.DocumentDirectoryPath + '/' + title + '.txt' : RNFS.ExternalDirectoryPath + '/' + title + '.txt'
     RNFS.writeFile(path, message, 'utf8')
-      .then(success => {
+      .then((success) => {
         const url = Platform.OS === 'ios' ? 'file://' + path : ''
         const shareOptions = {
           url,
           title,
-          message: sharedAddress
+          message: sharedAddress,
         }
-        Share.open(shareOptions).catch(e => console.log(e))
+        Share.open(shareOptions).catch((e) => console.log(e))
       })
       .catch(showError)
   }

@@ -15,7 +15,7 @@ import {
   getSettingsCurrencyMultiplier,
   getWalletDefaultDenomProps,
   mergeTokensRemoveInvisible,
-  truncateDecimals
+  truncateDecimals,
 } from '../../../../util/utils.js'
 import Text from '../FormattedText'
 import { styles, stylesRaw } from './WalletListRowStyle.js'
@@ -24,12 +24,12 @@ import { WalletListTokenRowConnector } from './WalletListTokenRowConnector.js'
 export type WalletListRowOwnProps = {
   wallet: GuiWallet,
   onSelectWallet: (string, string) => void,
-  excludedCurrencyCode?: string
+  excludedCurrencyCode?: string,
 }
 
 export type WalletListRowStateProps = {
   fiatBalance: string,
-  settings: Object
+  settings: Object,
 }
 
 export type WalletListRowDispatchProps = {}
@@ -42,16 +42,16 @@ export type WalletListRowState = {
   customTokens: Array<CustomTokenInfo>,
   fiatSymbol: string,
   isWalletFiatBalanceVisible: boolean,
-  fiatBalance: string
+  fiatBalance: string,
 }
 
 export class WalletListRowComponent extends Component<WalletListRowProps, WalletListRowState> {
-  constructor (props: WalletListRowProps) {
+  constructor(props: WalletListRowProps) {
     super(props)
     slowlog(this, /.*/, global.slowlogOptions)
   }
 
-  render () {
+  render() {
     const { wallet, onSelectWallet, settings, fiatBalance, excludedCurrencyCode } = this.props
     const { currencyCode, name, id, enabledTokens, nativeBalances, metaTokens } = wallet
     const denominations = wallet.allDenominations[currencyCode]
@@ -74,11 +74,11 @@ export class WalletListRowComponent extends Component<WalletListRowProps, Wallet
     const tokensToRender = []
     for (const tokenCode in enabledTokenNativeBalances) {
       if (tokenCode !== currencyCode) {
-        const index = _.findIndex(combinedTokens, token => token.currencyCode === tokenCode)
+        const index = _.findIndex(combinedTokens, (token) => token.currencyCode === tokenCode)
         if (index >= 0) {
           tokensToRender.push({
             tokenCode,
-            key: tokenCode // add in 'key' to suppress warning
+            key: tokenCode, // add in 'key' to suppress warning
           })
         }
       }
@@ -111,24 +111,24 @@ export class WalletListRowComponent extends Component<WalletListRowProps, Wallet
     return (
       <View style={styles.rowWrapper}>
         <TouchableHighlight
-          style={[styles.rowContainer]}
+          style={styles.rowContainer}
           disabled={disabled}
           underlayColor={stylesRaw.underlay.color}
           onPress={() => onSelectWallet(id, currencyCode)}
         >
           <View style={styles.rowInfo}>
-            <View style={[styles.rowLeft]}>
-              <Text style={[styles.rowNameText]} numberOfLines={1}>
+            <View style={styles.rowLeft}>
+              <Text style={styles.rowNameText} numberOfLines={1}>
                 {name}
               </Text>
             </View>
-            <View style={[styles.rowRight]}>
-              <View style={[styles.rowRightCryptoWrap]}>
-                <Text style={[styles.rowRightCryptoText]}>
+            <View style={styles.rowRight}>
+              <View style={styles.rowRightCryptoWrap}>
+                <Text style={styles.rowRightCryptoText}>
                   {finalCryptoAmount} {cryptoSymbol || ''}
                 </Text>
               </View>
-              <View style={[styles.rowRightFiatWrap]}>
+              <View style={styles.rowRightFiatWrap}>
                 <Text style={styles.rowRightFiatText}>
                   {fiatSymbol} {fiatBalance}
                 </Text>
@@ -136,7 +136,7 @@ export class WalletListRowComponent extends Component<WalletListRowProps, Wallet
             </View>
           </View>
         </TouchableHighlight>
-        {tokensToRender.map(token => {
+        {tokensToRender.map((token) => {
           return (
             <WalletListTokenRowConnector
               wallet={wallet}

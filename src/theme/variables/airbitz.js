@@ -7,7 +7,7 @@ import { scale } from '../../util/scaling.js'
 /**
  * Calculates the height of the header (where the back button lives).
  */
-export function getHeaderHeight () {
+export function getHeaderHeight() {
   if (Platform.OS === 'ios') {
     const majorVersionIOS = Number(Platform.Version)
     return majorVersionIOS > 9 && majorVersionIOS < 11 ? 62 : 44
@@ -17,12 +17,12 @@ export function getHeaderHeight () {
 
 // https://projects.invisionapp.com/d/main#/console/10954562/239168414/inspect
 export const THEME = {
-  rem (n: number) {
+  rem(n: number) {
     return Math.round(n * scale(16))
   },
 
   BUTTONS: {
-    HEIGHT: 44
+    HEIGHT: 44,
   },
 
   HEADER: Platform.OS === 'ios' ? getHeaderHeight() : getHeaderHeight() + StatusBar.currentHeight,
@@ -32,18 +32,18 @@ export const THEME = {
   FONTS: {
     DEFAULT: 'SourceSansPro-Black',
     BOLD: 'SourceSansPro-Bold',
-    SYMBOLS: Platform.OS === 'android' ? 'SF-UI-Text-Regular' : 'SourceSansPro-Black'
+    SYMBOLS: Platform.OS === 'android' ? 'SF-UI-Text-Regular' : 'SourceSansPro-Black',
   },
 
   OPACITY: {
     ACTIVE: 0.3,
     MID: 0.5,
-    MODAL_DARKNESS: 0.7
+    MODAL_DARKNESS: 0.7,
   },
 
   ALPHA: {
     MID: 50,
-    LOW: 10
+    LOW: 10,
   },
 
   COLORS: {
@@ -54,7 +54,7 @@ export const THEME = {
 
     GRADIENT: {
       DARK: '#0D2145',
-      LIGHT: '#0E4B75'
+      LIGHT: '#0E4B75',
     },
 
     ACCENT_BLUE: '#0073D9', // Airbitz blue
@@ -102,8 +102,8 @@ export const THEME = {
     WALLET_LIST_DIFF_NEGATIVE: '#E85466', // Same as TRANSACTION_LIST_SENT_TX
     WALLET_LIST_DIFF_POSITIVE: '#77C513', // Same as TRANSACTION_LIST_RECEIVED_TX
     WALLET_LIST_GRAY: '#E9E9EF',
-    WALLET_LIST_OPAQUE_BLUE: 'rgba(14, 75, 117, 0.5)' // Same as CRYPTO_EXCHANGE_WALLET_LIST_ROW_OPAQUE_BLUE
-  }
+    WALLET_LIST_OPAQUE_BLUE: 'rgba(14, 75, 117, 0.5)', // Same as CRYPTO_EXCHANGE_WALLET_LIST_ROW_OPAQUE_BLUE
+  },
 }
 
 export default THEME

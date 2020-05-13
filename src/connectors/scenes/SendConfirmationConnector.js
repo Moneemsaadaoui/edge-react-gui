@@ -12,7 +12,7 @@ import {
   signBroadcastAndSave,
   updateAmount,
   updateSpendPending,
-  updateTransaction
+  updateTransaction,
 } from '../../actions/SendConfirmationActions.js'
 import { activated as uniqueIdentifierModalActivated } from '../../actions/UniqueIdentifierModalActions.js'
 import type { SendConfirmationDispatchProps, SendConfirmationStateProps } from '../../components/scenes/SendConfirmationScene'
@@ -24,7 +24,7 @@ import {
   getKeyboardIsVisible,
   getPending,
   getPublicAddress,
-  getTransaction
+  getTransaction,
 } from '../../modules/UI/scenes/SendConfirmation/selectors'
 import type { AuthType } from '../../modules/UI/scenes/SendConfirmation/selectors.js'
 import { getExchangeDenomination, getExchangeRate, getSelectedCurrencyCode, getSelectedWallet } from '../../modules/UI/selectors.js'
@@ -112,7 +112,7 @@ const mapStateToProps = (state: State): SendConfirmationStateProps => {
     sceneState,
     coreWallet,
     toggleCryptoOnTop,
-    isConnected: state.network.isConnected
+    isConnected: state.network.isConnected,
   }
   return out
 }
@@ -121,7 +121,7 @@ const mapDispatchToProps = (dispatch: Dispatch): SendConfirmationDispatchProps =
   updateAmount: (nativeAmount: string, exchangeAmount: string, fiatPerCrypto: string) => {
     return dispatch(updateAmount(nativeAmount, exchangeAmount, fiatPerCrypto))
   },
-  sendConfirmationUpdateTx: guiMakeSpendInfo => dispatch(sendConfirmationUpdateTx(guiMakeSpendInfo)),
+  sendConfirmationUpdateTx: (guiMakeSpendInfo) => dispatch(sendConfirmationUpdateTx(guiMakeSpendInfo)),
   reset: () => dispatch(reset()),
   updateSpendPending: (pending: boolean): any => dispatch(updateSpendPending(pending)),
   signBroadcastAndSave: (): any => dispatch(signBroadcastAndSave()),
@@ -135,10 +135,7 @@ const mapDispatchToProps = (dispatch: Dispatch): SendConfirmationDispatchProps =
   updateTransaction: (transaction: ?EdgeTransaction, guiMakeSpendInfo: ?GuiMakeSpendInfo, forceUpdateGui: ?boolean, error: ?Error) => {
     dispatch(updateTransaction(transaction, guiMakeSpendInfo, forceUpdateGui, error))
   },
-  getAuthRequiredDispatch: (spendInfo: EdgeSpendInfo): any => dispatch(getAuthRequiredDispatch(spendInfo)) // Type casting any cause dispatch returns a function
+  getAuthRequiredDispatch: (spendInfo: EdgeSpendInfo): any => dispatch(getAuthRequiredDispatch(spendInfo)), // Type casting any cause dispatch returns a function
 })
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(SendConfirmation)
+export default connect(mapStateToProps, mapDispatchToProps)(SendConfirmation)

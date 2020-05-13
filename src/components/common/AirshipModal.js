@@ -21,7 +21,7 @@ type Props = {
   onCancel: () => mixed,
 
   // Content padding:
-  padding?: number
+  padding?: number,
 }
 
 /**
@@ -33,13 +33,13 @@ export class AirshipModal extends Component<Props> {
   opacity: Animated.Value
   offset: Animated.Value
 
-  constructor (props: Props) {
+  constructor(props: Props) {
     super(props)
     this.opacity = new Animated.Value(0)
     this.offset = new Animated.Value(Dimensions.get('window').height)
   }
 
-  componentDidMount () {
+  componentDidMount() {
     this.backHandler = BackHandler.addEventListener('hardwareBackPress', () => {
       this.props.onCancel()
       return true
@@ -50,13 +50,13 @@ export class AirshipModal extends Component<Props> {
       Animated.timing(this.opacity, {
         toValue: THEME.OPACITY.MODAL_DARKNESS,
         duration: 300,
-        useNativeDriver: true
+        useNativeDriver: true,
       }),
       Animated.timing(this.offset, {
         toValue: 0,
         duration: 300,
-        useNativeDriver: true
-      })
+        useNativeDriver: true,
+      }),
     ]).start()
 
     // Animate out:
@@ -65,28 +65,28 @@ export class AirshipModal extends Component<Props> {
         Animated.timing(this.opacity, {
           toValue: 0,
           duration: 300,
-          useNativeDriver: true
+          useNativeDriver: true,
         }),
         Animated.timing(this.offset, {
           toValue: Dimensions.get('window').height,
           duration: 300,
-          useNativeDriver: true
-        })
+          useNativeDriver: true,
+        }),
       ]).start(this.props.bridge.remove)
     )
   }
 
-  componentWillUnmount () {
+  componentWillUnmount() {
     if (this.backHandler) this.backHandler.remove()
   }
 
-  render () {
+  render() {
     return (
       <LayoutContext>
-        {metrics => {
+        {(metrics) => {
           const { layout, safeAreaInsets } = metrics
           const downValue = safeAreaInsets.bottom
-          const upValue = keyboardHeight => Math.max(keyboardHeight, downValue)
+          const upValue = (keyboardHeight) => Math.max(keyboardHeight, downValue)
 
           return (
             <KeyboardTracker downValue={downValue} upValue={upValue}>
@@ -101,7 +101,7 @@ export class AirshipModal extends Component<Props> {
   /**
    * Draws the actual visual elements, given the current layout information:
    */
-  renderModal (height: number, gap: SafeAreaGap, keyboardAnimation: Animated.Value, keyboardLayout: number) {
+  renderModal(height: number, gap: SafeAreaGap, keyboardAnimation: Animated.Value, keyboardLayout: number) {
     const { children, center, padding = 0 } = this.props
 
     // Set up the dynamic CSS values:
@@ -109,23 +109,23 @@ export class AirshipModal extends Component<Props> {
       paddingBottom: keyboardAnimation,
       paddingLeft: gap.left,
       paddingRight: gap.right,
-      paddingTop: gap.top
+      paddingTop: gap.top,
     }
     const transform = [{ translateY: this.offset }]
     const bodyStyle = center
       ? [styles.centerBody, { padding, transform }]
       : [
-        styles.bottomBody,
-        {
-          marginBottom: -keyboardLayout,
-          maxHeight: keyboardLayout + 0.75 * (height - gap.bottom - gap.top),
-          paddingBottom: keyboardLayout + padding,
-          paddingLeft: padding,
-          paddingRight: padding,
-          paddingTop: padding,
-          transform
-        }
-      ]
+          styles.bottomBody,
+          {
+            marginBottom: -keyboardLayout,
+            maxHeight: keyboardLayout + 0.75 * (height - gap.bottom - gap.top),
+            paddingBottom: keyboardLayout + padding,
+            paddingLeft: padding,
+            paddingRight: padding,
+            paddingTop: padding,
+            transform,
+          },
+        ]
 
     return (
       <Animated.View style={[styles.screen, screenPadding]}>
@@ -135,11 +135,11 @@ export class AirshipModal extends Component<Props> {
         <Animated.View style={bodyStyle}>
           {typeof children === 'function'
             ? children({
-              bottom: center ? padding : keyboardLayout + padding,
-              left: padding,
-              right: padding,
-              top: padding
-            })
+                bottom: center ? padding : keyboardLayout + padding,
+                left: padding,
+                right: padding,
+                top: padding,
+              })
             : children}
         </Animated.View>
       </Animated.View>
@@ -158,14 +158,14 @@ const commonBody = {
   shadowOpacity: 1,
   shadowOffset: {
     width: 0,
-    height: scale(2)
+    height: scale(2),
   },
   shadowRadius: scale(4),
 
   // Children:
   alignItems: 'stretch',
   flexDirection: 'column',
-  justifyContent: 'flex-start'
+  justifyContent: 'flex-start',
 }
 
 const styles = StyleSheet.create({
@@ -177,7 +177,7 @@ const styles = StyleSheet.create({
 
     // Visuals:
     borderTopLeftRadius: borderRadius,
-    borderTopRightRadius: borderRadius
+    borderTopRightRadius: borderRadius,
   },
 
   centerBody: {
@@ -188,7 +188,7 @@ const styles = StyleSheet.create({
     marginHorizontal: scale(12),
 
     // Visuals:
-    borderRadius: borderRadius
+    borderRadius: borderRadius,
   },
 
   darkness: {
@@ -200,7 +200,7 @@ const styles = StyleSheet.create({
     top: 0,
 
     // Visuals:
-    backgroundColor: THEME.COLORS.SHADOW
+    backgroundColor: THEME.COLORS.SHADOW,
   },
 
   screen: {
@@ -213,6 +213,6 @@ const styles = StyleSheet.create({
 
     // Children:
     flexDirection: 'row',
-    justifyContent: 'center'
-  }
+    justifyContent: 'center',
+  },
 })

@@ -11,13 +11,13 @@ type Props = {
   size: number, // In device pixels
   padding?: number, // In QR cells
   backgroundColor?: string,
-  foregroundColor?: string
+  foregroundColor?: string,
 }
 
 /**
  * Renders a QR code.
  */
-export function QrCode (props: Props) {
+export function QrCode(props: Props) {
   const { data, size, padding = 1, backgroundColor = THEME.COLORS.QR_CODE_BACKGROUND, foregroundColor = THEME.COLORS.QR_CODE_FOREGROUND } = props
 
   // Generate an SVG path:

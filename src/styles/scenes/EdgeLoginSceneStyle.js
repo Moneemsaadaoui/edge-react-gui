@@ -7,59 +7,59 @@ export const styles = {
   header: {
     position: 'relative',
     flex: 3,
-    flexDirection: 'column'
+    flexDirection: 'column',
   },
   headerTopShim: {
-    flex: 2
+    flex: 2,
   },
   headerImageContainer: {
     flex: 4,
     alignItems: 'center',
-    justifyContent: 'space-around'
+    justifyContent: 'space-around',
   },
   image: {
     width: 80,
-    height: 80
+    height: 80,
   },
   headerTextRow: {
     flex: 3,
     alignItems: 'center',
-    justifyContent: 'space-around'
+    justifyContent: 'space-around',
   },
   headerText: {
     color: THEME.COLORS.PRIMARY,
-    fontSize: 36
+    fontSize: 36,
   },
   headerBottomShim: {
-    flex: 1
+    flex: 1,
   },
   body: {
     position: 'relative',
-    flex: 4
+    flex: 4,
   },
   buttonContainer: {
     position: 'relative',
     flex: 3,
     flexDirection: 'column',
     width: '100%',
-    justifyContent: 'flex-end'
+    justifyContent: 'flex-end',
   },
   buttons: {
     marginRight: '5%',
     marginLeft: '5%',
     flexDirection: 'row',
     alignSelf: 'flex-end',
-    paddingBottom: isIphoneX ? 30 : 20
+    paddingBottom: isIphoneX ? 30 : 20,
   },
   buttonsProcessing: {
     flex: 1,
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   spinnerContainer: {
     flex: 1,
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
   },
   bodyText: {
     marginRight: '5%',
@@ -67,14 +67,14 @@ export const styles = {
     color: THEME.COLORS.GRAY_1,
     fontSize: 18,
     textAlign: 'center',
-    fontFamily: THEME.FONTS.DEFAULT
+    fontFamily: THEME.FONTS.DEFAULT,
   },
   loadingTextBody: {
     color: THEME.COLORS.GRAY_1,
     fontSize: 18,
     textAlign: 'center',
     fontFamily: THEME.FONTS.DEFAULT,
-    marginBottom: 20
+    marginBottom: 20,
   },
   bodyTextWarning: {
     marginRight: '5%',
@@ -82,7 +82,7 @@ export const styles = {
     color: THEME.COLORS.ACCENT_RED,
     fontSize: 18,
     textAlign: 'center',
-    fontFamily: THEME.FONTS.DEFAULT
+    fontFamily: THEME.FONTS.DEFAULT,
   },
   cancel: {
     flex: 1,
@@ -90,14 +90,14 @@ export const styles = {
     backgroundColor: THEME.COLORS.GRAY_2,
     justifyContent: 'center',
     alignItems: 'center',
-    borderRadius: 3
+    borderRadius: 3,
   },
   cancelSolo: {
     flex: 1,
     backgroundColor: THEME.COLORS.GRAY_2,
     justifyContent: 'center',
     alignItems: 'center',
-    borderRadius: 3
+    borderRadius: 3,
   },
   submit: {
     flex: 1,
@@ -105,6 +105,6 @@ export const styles = {
     backgroundColor: THEME.COLORS.SECONDARY,
     justifyContent: 'center',
     alignItems: 'center',
-    borderRadius: 3
-  }
+    borderRadius: 3,
+  },
 }

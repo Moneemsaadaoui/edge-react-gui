@@ -12,7 +12,7 @@ const mapStateToProps = (state: State, ownProps: OwnProps): StateProps => {
     denomination: getDisplayDenomination(state, ownProps.wallet.currencyCode),
     customTokens: state.ui.settings.customTokens,
     settings: state.ui.settings,
-    exchangeRates: state.exchangeRates
+    exchangeRates: state.exchangeRates,
   }
 }
 

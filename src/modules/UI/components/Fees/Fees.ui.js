@@ -8,20 +8,20 @@ import * as s from '../../../../locales/strings.js'
 const styles = StyleSheet.create({
   view: {
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
   },
   feesInCrypto: {
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
   },
   secondaryFee: {
     alignItems: 'center',
-    justifyContent: 'center'
-  }
+    justifyContent: 'center',
+  },
 })
 
 export default class Fees extends Component {
-  render () {
+  render() {
     const { primaryFee, secondaryFee } = this.props
     return (
       <View style={styles.view}>

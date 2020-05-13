@@ -16,16 +16,16 @@ const UPPER_RIGHT = { x: 1, y: 0 }
 export type Props = {
   children?: Node,
   reverse?: boolean,
-  style?: StyleSheet.Styles
+  style?: StyleSheet.Styles,
 }
 
 export class Gradient extends Component<Props> {
-  shouldComponentUpdate (nextProps: Props) {
+  shouldComponentUpdate(nextProps: Props) {
     const diffElement = getObjectDiff(this.props, nextProps, { style: true, children: true })
     return !!diffElement
   }
 
-  render () {
+  render() {
     const { children, reverse, style } = this.props
     return (
       <LinearGradient style={style} start={UPPER_LEFT} end={UPPER_RIGHT} colors={reverse ? REVERSE_COLORS : COLORS}>

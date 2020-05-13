@@ -140,11 +140,11 @@ if (ENABLE_PERF_LOGGING) {
 
 const realFetch = fetch
 fetch = (...args: any) => {
-  return realFetch(...args).catch(e => {
+  return realFetch(...args).catch((e) => {
     global.bugsnag.leaveBreadcrumb('realFetchError', {
       url: args[0],
       errorName: e.name,
-      errorMsg: e.message
+      errorMsg: e.message,
     })
     console.log(`realFetchError: ${args[0]} ${e.name} ${e.message}`)
     throw e

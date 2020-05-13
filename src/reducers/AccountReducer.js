@@ -11,23 +11,23 @@ import { type AccountReferral, type Promotion, type ReferralCache } from '../typ
 export type AccountState = {
   +accountReferral: AccountReferral,
   +accountReferralLoaded: boolean,
-  +referralCache: ReferralCache
+  +referralCache: ReferralCache,
   // TODO: Move account settings in here
 }
 
 const defaultAccountReferral: AccountReferral = {
   promotions: [],
   ignoreAccountSwap: false,
-  hiddenAccountMessages: {}
+  hiddenAccountMessages: {},
 }
 
 const defaultReferralCache: ReferralCache = {
   accountMessages: [],
-  accountPlugins: []
+  accountPlugins: [],
 }
 
 const accountInner: Reducer<AccountState, Action> = combineReducers({
-  accountReferral (state: AccountReferral = defaultAccountReferral, action: Action): AccountReferral {
+  accountReferral(state: AccountReferral = defaultAccountReferral, action: Action): AccountReferral {
     switch (action.type) {
       case 'ACCOUNT_REFERRAL_LOADED': {
         const { referral } = action.data
@@ -42,7 +42,7 @@ const accountInner: Reducer<AccountState, Action> = combineReducers({
       case 'MESSAGE_TWEAK_HIDDEN': {
         const { messageId, source } = action.data
         if (source.type === 'promotion') {
-          const promotions = state.promotions.map(promo => {
+          const promotions = state.promotions.map((promo) => {
             if (promo.installerId !== source.installerId) return promo
             const hiddenMessages = { ...promo.hiddenMessages, [messageId]: true }
             return { ...promo, hiddenMessages }
@@ -60,18 +60,18 @@ const accountInner: Reducer<AccountState, Action> = combineReducers({
       }
       case 'PROMOTION_REMOVED': {
         const installerId = action.data
-        const promotions = state.promotions.filter(promo => promo.installerId !== installerId)
+        const promotions = state.promotions.filter((promo) => promo.installerId !== installerId)
         return { ...state, promotions }
       }
     }
     return state
   },
 
-  accountReferralLoaded (state: boolean = false, action: Action): boolean {
+  accountReferralLoaded(state: boolean = false, action: Action): boolean {
     return action.type === 'ACCOUNT_REFERRAL_LOADED' ? true : state
   },
 
-  referralCache (state: ReferralCache = defaultReferralCache, action: Action): ReferralCache {
+  referralCache(state: ReferralCache = defaultReferralCache, action: Action): ReferralCache {
     switch (action.type) {
       case 'ACCOUNT_REFERRAL_LOADED': {
         const { cache } = action.data
@@ -83,7 +83,7 @@ const accountInner: Reducer<AccountState, Action> = combineReducers({
       }
     }
     return state
-  }
+  },
 })
 
 // Shared logout logic:
@@ -97,8 +97,8 @@ export const account: Reducer<AccountState, Action> = (state: AccountState | voi
 /**
  * Merges lists of promotions, preferring items from b if there's a conflict.
  */
-function mergePromotions (a: Promotion[], b: Promotion[]): Promotion[] {
+function mergePromotions(a: Promotion[], b: Promotion[]): Promotion[] {
   const toRemove: { [id: string]: true } = {}
   for (const promo of b) toRemove[promo.installerId] = true
-  return [...a.filter(promo => toRemove[promo.installerId] !== true), ...b]
+  return [...a.filter((promo) => toRemove[promo.installerId] !== true), ...b]
 }

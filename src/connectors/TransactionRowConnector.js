@@ -11,14 +11,11 @@ const mapStateToProps = (state: State): {} => {
   const selectedWallet = UI_SELECTORS.getSelectedWallet(state)
 
   const out: TransactionRowStateProps = {
-    walletBlockHeight: selectedWallet.blockHeight
+    walletBlockHeight: selectedWallet.blockHeight,
   }
 
   return out
 }
 const mapDispatchToProps = () => ({})
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(TransactionRowComponent)
+export default connect(mapStateToProps, mapDispatchToProps)(TransactionRowComponent)

@@ -12,7 +12,7 @@ export const trackConversion = (
   opts: {
     currencyCode: string,
     exchangeAmount: number,
-    pluginId: string
+    pluginId: string,
   }
 ) => async (dispatch: Dispatch, getState: GetState) => {
   const state = getState()
@@ -27,7 +27,7 @@ export const trackConversion = (
   return logEvent(event, {
     dollarValue,
     pluginId,
-    ...makeTrackingValues(accountReferral)
+    ...makeTrackingValues(accountReferral),
   })
 }
 
@@ -42,7 +42,7 @@ export const trackAccountEvent = (event: TrackingEvent, trackingValues: Tracking
   const { accountReferral } = state.account
   return logEvent(event, {
     ...trackingValues,
-    ...makeTrackingValues(accountReferral)
+    ...makeTrackingValues(accountReferral),
   })
 }
 
@@ -50,11 +50,11 @@ export const trackAccountEvent = (event: TrackingEvent, trackingValues: Tracking
  * Turn account affiliate information into clean tracking values.
  * Obfuscates the creation date so the server can't guess account identities.
  */
-function makeTrackingValues (accountReferral: AccountReferral): TrackingValues {
+function makeTrackingValues(accountReferral: AccountReferral): TrackingValues {
   const { creationDate, installerId } = accountReferral
   if (installerId == null || creationDate == null) return {}
   return {
     accountDate: creationDate.toISOString().replace(/-\d\dT.*/, ''),
-    installerId
+    installerId,
   }
 }

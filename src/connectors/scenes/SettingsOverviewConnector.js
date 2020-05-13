@@ -12,7 +12,7 @@ import {
   showSendLogsModal,
   showUnlockSettingsModal,
   togglePinLoginEnabled,
-  updateTouchIdEnabled
+  updateTouchIdEnabled,
 } from '../../actions/SettingsActions'
 import SettingsOverview from '../../components/scenes/SettingsOverviewScene'
 import * as Constants from '../../constants/indexConstants'
@@ -46,7 +46,7 @@ const mapStateToProps = (state: State) => {
     confirmPasswordError,
     sendLogsStatus,
     pinLoginEnabled,
-    developerModeOn
+    developerModeOn,
   }
 }
 const mapDispatchToProps = (dispatch: Dispatch) => ({
@@ -61,10 +61,7 @@ const mapDispatchToProps = (dispatch: Dispatch) => ({
   showUnlockSettingsModal: () => dispatch(showUnlockSettingsModal()),
   showSendLogsModal: () => dispatch(showSendLogsModal()),
   showRestoreWalletsModal: () => dispatch(showRestoreWalletsModal()),
-  toggleDeveloperMode: (developerModeOn: boolean) => dispatch(setDeveloperModeOn(developerModeOn))
+  toggleDeveloperMode: (developerModeOn: boolean) => dispatch(setDeveloperModeOn(developerModeOn)),
 })
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(SettingsOverview)
+export default connect(mapStateToProps, mapDispatchToProps)(SettingsOverview)

@@ -10,7 +10,7 @@ export const styles = {
   cameraArea: {
     alignItems: 'center',
     flex: 1,
-    justifyContent: 'center'
+    justifyContent: 'center',
   },
   overlayTop: {
     alignItems: 'center',
@@ -21,12 +21,12 @@ export const styles = {
     position: 'absolute',
     left: 0,
     right: 0,
-    top: 0
+    top: 0,
   },
   overlayTopText: {
     color: THEME.COLORS.WHITE,
     textAlign: 'center',
-    fontSize: scale(14)
+    fontSize: scale(14),
   },
 
   // Permission denied view:
@@ -34,15 +34,15 @@ export const styles = {
     color: THEME.COLORS.WHITE,
     textAlign: 'center',
     fontSize: scale(14),
-    padding: 20
+    padding: 20,
   },
   settingsButton: {
     backgroundColor: THEME.COLORS.SECONDARY,
     alignItems: 'center',
-    padding: 10
+    padding: 10,
   },
   settingsButtonText: {
-    color: THEME.COLORS.WHITE
+    color: THEME.COLORS.WHITE,
   },
 
   // Bottom button area:
@@ -51,7 +51,7 @@ export const styles = {
     paddingTop: scale(11),
     paddingBottom: scale(11),
     paddingRight: scale(8),
-    paddingLeft: scale(8)
+    paddingLeft: scale(8),
   },
   bottomButton: {
     flex: 1,
@@ -61,48 +61,48 @@ export const styles = {
     borderRadius: scale(3),
     height: scale(50),
     marginLeft: scale(1),
-    marginRight: scale(1)
+    marginRight: scale(1),
   },
   bottomButtonTextWrap: {
     flexDirection: 'column',
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   transferIcon: {
     color: THEME.COLORS.WHITE,
     fontSize: scale(16),
-    height: scale(16)
+    height: scale(16),
   },
   addressBookIcon: {
     color: THEME.COLORS.WHITE,
     fontSize: scale(16),
     height: scale(16),
-    transform: [{ scaleX: -1.0 }]
+    transform: [{ scaleX: -1.0 }],
   },
   flashIcon: {
     color: THEME.COLORS.WHITE,
     fontSize: scale(22),
-    height: scale(18)
+    height: scale(18),
   },
   bottomButtonText: {
     opacity: 1,
     color: THEME.COLORS.WHITE,
     fontSize: scale(14),
-    backgroundColor: THEME.COLORS.TRANSPARENT
+    backgroundColor: THEME.COLORS.TRANSPARENT,
   },
 
   // Secondary (sweep) modal:
   privateKeyIcon: {
     color: THEME.COLORS.WHITE,
-    transform: [{ rotate: '270deg' }]
+    transform: [{ rotate: '270deg' }],
   },
 
   // Address modal:
   addressModalButton: {
-    width: '100%'
+    width: '100%',
   },
   title: {
-    textAlign: 'center'
+    textAlign: 'center',
   },
 
   // These seem unused, and should be cleaned up later:
@@ -110,44 +110,44 @@ export const styles = {
     flex: 1,
     flexDirection: 'column',
     alignItems: 'stretch',
-    justifyContent: 'center'
+    justifyContent: 'center',
   },
   modalBottom: {
     flex: 1,
-    flexDirection: 'row'
+    flexDirection: 'row',
   },
   buttonsWrap: {
     flex: 1,
-    flexDirection: 'row'
+    flexDirection: 'row',
   },
   cancelButtonWrap: {
     flex: 1,
     alignItems: 'flex-end',
-    justifyContent: 'flex-end'
+    justifyContent: 'flex-end',
   },
   cancelButton: {
     fontSize: scale(12),
-    color: THEME.COLORS.PRIMARY
+    color: THEME.COLORS.PRIMARY,
   },
   doneButtonWrap: {
     flex: 1,
     alignItems: 'flex-end',
-    justifyContent: 'flex-end'
+    justifyContent: 'flex-end',
   },
   doneButton: {
     fontSize: scale(28),
-    color: THEME.COLORS.PRIMARY
+    color: THEME.COLORS.PRIMARY,
   },
   icon: {
     backgroundColor: THEME.COLORS.TRANSPARENT,
     zIndex: 1015,
-    elevation: 1015
+    elevation: 1015,
   },
   underlay: {
-    color: THEME.COLORS.SECONDARY
+    color: THEME.COLORS.SECONDARY,
   },
   legacyAddressModalIcon: {
-    color: THEME.COLORS.ACCENT_RED
-  }
+    color: THEME.COLORS.ACCENT_RED,
+  },
 }
 export default StyleSheet.create(styles)

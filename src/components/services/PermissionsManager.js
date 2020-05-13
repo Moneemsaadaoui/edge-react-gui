@@ -10,21 +10,21 @@ import type { Dispatch, State } from '../../types/reduxTypes.js'
 import { showError } from './AirshipInstance.js'
 
 type StateProps = {
-  permissions: PermissionsState
+  permissions: PermissionsState,
 }
 
 type DispatchProps = {
-  updatePermissions(permissions: PermissionsState): void
+  updatePermissions(permissions: PermissionsState): void,
 }
 
 type Props = StateProps & DispatchProps
 
 class PermissionsManagerComponent extends React.Component<Props> {
-  render () {
+  render() {
     return null
   }
 
-  componentDidMount () {
+  componentDidMount() {
     AppState.addEventListener('change', this.handleAppStateChange)
 
     this.checkPermissions().catch(showError)
@@ -38,7 +38,7 @@ class PermissionsManagerComponent extends React.Component<Props> {
     }
   }
 
-  async checkPermissions () {
+  async checkPermissions() {
     const { permissions } = this.props
     const names = Object.keys(permissions)
     const response: PermissionsState = await RNPermissions.checkMultiple(names)
@@ -60,7 +60,7 @@ class PermissionsManagerComponent extends React.Component<Props> {
   }
 }
 
-export async function requestPermission (permission: Permission): Promise<PermissionStatus> {
+export async function requestPermission(permission: Permission): Promise<PermissionStatus> {
   const status: PermissionStatus = await RNPermissions.check(permission)
   if (status === 'undetermined') {
     return RNPermissions.request(permission)
@@ -70,11 +70,11 @@ export async function requestPermission (permission: Permission): Promise<Permis
 
 export const PermissionsManager = connect(
   (state: State): StateProps => ({
-    permissions: state.permissions
+    permissions: state.permissions,
   }),
   (dispatch: Dispatch): DispatchProps => ({
-    updatePermissions (permissions: PermissionsState) {
+    updatePermissions(permissions: PermissionsState) {
       dispatch({ type: 'PERMISSIONS/UPDATE', data: permissions })
-    }
+    },
   })
 )(PermissionsManagerComponent)

@@ -26,7 +26,7 @@ export type GuiMakeSpendInfo = {
   memo?: string,
   onBack?: () => void,
   onDone?: (error: Error | null, edgeTransaction?: EdgeTransaction) => void,
-  beforeTransaction?: () => Promise<void>
+  beforeTransaction?: () => Promise<void>,
 }
 
 export type SendConfirmationState = {
@@ -48,7 +48,7 @@ export type SendConfirmationState = {
   pin: string,
   authRequired: 'pin' | 'none',
 
-  toggleCryptoOnTop: number
+  toggleCryptoOnTop: number,
 }
 
 export const sendConfirmationLegacy = (state: SendConfirmationState = initialState, action: Action) => {
@@ -76,8 +76,8 @@ export const sendConfirmationLegacy = (state: SendConfirmationState = initialSta
         forceUpdateGuiCounter,
         guiMakeSpendInfo: {
           ...state.guiMakeSpendInfo,
-          ...others
-        }
+          ...others,
+        },
       }
     }
 
@@ -92,12 +92,12 @@ export const sendConfirmationLegacy = (state: SendConfirmationState = initialSta
         publicAddress: firstSpendTarget.publicAddress || state.guiMakeSpendInfo.publicAddress,
         nativeAmount: firstSpendTarget.nativeAmount || state.guiMakeSpendInfo.nativeAmount,
         uniqueIdentifier: (firstSpendTarget.otherParams && firstSpendTarget.otherParams.uniqueIdentifier) || state.guiMakeSpendInfo.uniqueIdentifier,
-        metadata: { ...state.guiMakeSpendInfo.metadata, ...spendInfo.metadata }
+        metadata: { ...state.guiMakeSpendInfo.metadata, ...spendInfo.metadata },
       }
 
       return {
         ...state,
-        guiMakeSpendInfo
+        guiMakeSpendInfo,
       }
     }
 
@@ -278,7 +278,7 @@ export const sendConfirmation: Reducer<SendConfirmationState, Action> = (state =
     nativeAmount: nativeAmount(state.nativeAmount, action),
     address: address(state.address, action),
     authRequired: authRequired(state.authRequired, action),
-    toggleCryptoOnTop: toggleCryptoOnTop(state.toggleCryptoOnTop, action)
+    toggleCryptoOnTop: toggleCryptoOnTop(state.toggleCryptoOnTop, action),
   }
 }
 export default sendConfirmation

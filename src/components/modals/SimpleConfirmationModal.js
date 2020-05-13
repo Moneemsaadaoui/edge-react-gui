@@ -10,11 +10,11 @@ import { type AirshipBridge, AirshipModal, ContentArea, dayText, IconCircle, THE
 type Props = {
   bridge: AirshipBridge<void>,
   text: string,
-  buttonText: string
+  buttonText: string,
 }
 
 export class SimpleConfirmationModal extends Component<Props> {
-  render () {
+  render() {
     const { bridge, buttonText, text } = this.props
     return (
       <AirshipModal bridge={bridge} onCancel={() => bridge.resolve()}>

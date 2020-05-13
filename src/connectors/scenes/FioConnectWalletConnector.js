@@ -20,7 +20,7 @@ const mapStateToProps = (state: State, ownProps): StateProps => {
   const out: StateProps = {
     notConnectedWallets,
     fioWallets,
-    loading: false
+    loading: false,
   }
   return out
 }

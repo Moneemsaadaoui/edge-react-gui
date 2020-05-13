@@ -12,13 +12,13 @@ type Props = {
   icon?: Node,
   text: string,
   isSelected: boolean,
-  onPress: () => void
+  onPress: () => void,
 }
 
 /**
  * A settings row with a radio selector on the right side.
  */
-export function SettingsRadioRow (props: Props): Node {
+export function SettingsRadioRow(props: Props): Node {
   const { disabled, icon, text, isSelected, onPress } = props
 
   const radio = isSelected ? (

@@ -19,36 +19,36 @@ import { SceneWrapper } from '../common/SceneWrapper.js'
 
 type OwnProps = {
   selectedWalletType: GuiWalletType,
-  cleanedPrivateKey?: string
+  cleanedPrivateKey?: string,
 }
 type StateProps = {
-  supportedFiats: Array<GuiFiatType>
+  supportedFiats: Array<GuiFiatType>,
 }
 type Props = OwnProps & StateProps
 
 type State = {
   searchTerm: string,
-  selectedFiat: string
+  selectedFiat: string,
 }
 
 class CreateWalletSelectFiatComponent extends Component<Props, State> {
-  constructor (props: Props) {
+  constructor(props: Props) {
     super(props)
     this.state = {
       searchTerm: '',
-      selectedFiat: ''
+      selectedFiat: '',
     }
   }
 
   isValidFiatType = () => {
     const { selectedFiat } = this.state
-    const fiatTypeIndex = this.props.supportedFiats.findIndex(fiatType => fiatType.value === selectedFiat)
+    const fiatTypeIndex = this.props.supportedFiats.findIndex((fiatType) => fiatType.value === selectedFiat)
     const isValid = fiatTypeIndex >= 0
     return isValid
   }
 
   getFiatType = (fiatKey: string) => {
-    const fiatTypeIndex = this.props.supportedFiats.findIndex(fiatType => fiatType.value === fiatKey)
+    const fiatTypeIndex = this.props.supportedFiats.findIndex((fiatType) => fiatType.value === fiatKey)
 
     return this.props.supportedFiats[fiatTypeIndex]
   }
@@ -63,7 +63,7 @@ class CreateWalletSelectFiatComponent extends Component<Props, State> {
       Actions[nextSceneKey]({
         selectedWalletType: selectedWalletType,
         selectedFiat: this.getFiatType(this.state.selectedFiat),
-        cleanedPrivateKey
+        cleanedPrivateKey,
       })
     } else {
       Alert.alert(s.strings.create_wallet_invalid_input, s.strings.create_wallet_select_valid_fiat)
@@ -72,18 +72,18 @@ class CreateWalletSelectFiatComponent extends Component<Props, State> {
 
   handleSearchTermChange = (searchTerm: string) => {
     this.setState({
-      searchTerm
+      searchTerm,
     })
   }
 
   handleSelectFiatType = (item: GuiFiatType) => {
-    const selectedFiat = this.props.supportedFiats.find(type => type.value === item.value)
+    const selectedFiat = this.props.supportedFiats.find((type) => type.value === item.value)
 
     if (selectedFiat) {
       this.setState(
         {
           selectedFiat: selectedFiat.value,
-          searchTerm: selectedFiat.label
+          searchTerm: selectedFiat.label,
         },
         this.onNext
       )
@@ -94,29 +94,29 @@ class CreateWalletSelectFiatComponent extends Component<Props, State> {
 
   handleOnBlur = () => {}
 
-  render () {
-    const filteredArray = this.props.supportedFiats.filter(entry => {
+  render() {
+    const filteredArray = this.props.supportedFiats.filter((entry) => {
       return entry.label.toLowerCase().indexOf(this.state.searchTerm.toLowerCase()) >= 0
     })
     const formFieldHeight = scale(50)
 
     return (
       <SceneWrapper avoidKeyboard background="body">
-        {gap => (
+        {(gap) => (
           <View style={[styles.content, { marginBottom: -gap.bottom }]}>
             <FormField
               style={styles.picker}
               autoFocus
               containerStyle={{ height: formFieldHeight }}
-              clearButtonMode={'while-editing'}
+              clearButtonMode="while-editing"
               onFocus={this.handleOnFocus}
               onBlur={this.handleOnBlur}
               autoCorrect={false}
-              autoCapitalize={'words'}
+              autoCapitalize="words"
               onChangeText={this.handleSearchTermChange}
               value={this.state.searchTerm}
               label={s.strings.fragment_wallets_addwallet_fiat_hint}
-              returnKeyType={'search'}
+              returnKeyType="search"
             />
             <FlatList
               style={styles.resultList}
@@ -137,15 +137,11 @@ class CreateWalletSelectFiatComponent extends Component<Props, State> {
   renderFiatTypeResult = (data: FlatListItem<GuiFiatType>) => {
     return (
       <View style={[styles.singleCryptoTypeWrap, data.item.value === this.state.selectedFiat && styles.selectedItem]}>
-        <TouchableHighlight
-          style={[styles.singleCryptoType]}
-          onPress={() => this.handleSelectFiatType(data.item)}
-          underlayColor={stylesRaw.underlayColor.color}
-        >
-          <View style={[styles.cryptoTypeInfoWrap]}>
+        <TouchableHighlight style={styles.singleCryptoType} onPress={() => this.handleSelectFiatType(data.item)} underlayColor={stylesRaw.underlayColor.color}>
+          <View style={styles.cryptoTypeInfoWrap}>
             <View style={styles.cryptoTypeLeft}>
-              <View style={[styles.cryptoTypeLeftTextWrap]}>
-                <Text style={[styles.cryptoTypeName]}>{data.item.label}</Text>
+              <View style={styles.cryptoTypeLeftTextWrap}>
+                <Text style={styles.cryptoTypeName}>{data.item.label}</Text>
               </View>
             </View>
           </View>
@@ -161,7 +157,7 @@ class CreateWalletSelectFiatComponent extends Component<Props, State> {
 
 export const CreateWalletSelectFiatScene = connect(
   (state: ReduxState): StateProps => ({
-    supportedFiats: getSupportedFiats(getDefaultFiat(state))
+    supportedFiats: getSupportedFiats(getDefaultFiat(state)),
   }),
   (dispatch: Dispatch) => ({})
 )(CreateWalletSelectFiatComponent)

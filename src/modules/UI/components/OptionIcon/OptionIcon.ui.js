@@ -7,23 +7,21 @@ import THEME from '../../../../theme/variables/airbitz.js'
 import { scale } from '../../../../util/scaling.js'
 
 type Props = {
-  iconName: string
+  iconName: string,
 }
 
 export default class OptionIcon extends Component<Props> {
-  render () {
+  render() {
     return (
       <FAIcon
         name={this.props.iconName}
         size={scale(24)}
         color={THEME.COLORS.PRIMARY}
-        style={[
-          {
-            backgroundColor: THEME.COLORS.TRANSPARENT,
-            zIndex: 1015,
-            elevation: 1015
-          }
-        ]}
+        style={{
+          backgroundColor: THEME.COLORS.TRANSPARENT,
+          zIndex: 1015,
+          elevation: 1015,
+        }}
       />
     )
   }

@@ -8,13 +8,13 @@ import { rawStyles, styles } from './style.js'
 
 export type TextProps = {
   children: Node,
-  style?: StyleSheet.Styles
+  style?: StyleSheet.Styles,
 }
 class Text extends Component<TextProps> {
-  render () {
+  render() {
     const { children, style, ...props } = this.props
     return (
-      <RNText numberOfLines={1} ellipsizeMode={'middle'} style={[styles.buttonText, styles.textButtonText, style]} {...props}>
+      <RNText numberOfLines={1} ellipsizeMode="middle" style={[styles.buttonText, styles.textButtonText, style]} {...props}>
         {children}
       </RNText>
     )
@@ -24,11 +24,11 @@ class Text extends Component<TextProps> {
 export type Props = {
   children: Node,
   style?: StyleSheet.Styles,
-  onPress: () => void
+  onPress: () => void,
 }
 export class TextButton extends Component<Props> {
   static Text = Text
-  render () {
+  render() {
     const { children, style, ...props } = this.props
     return (
       <TouchableHighlight underlayColor={rawStyles.textButtonUnderlay.color} style={[styles.button, styles.textButton, style]} {...props}>

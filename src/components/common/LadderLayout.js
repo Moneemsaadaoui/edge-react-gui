@@ -10,13 +10,13 @@ type Props = {
   padding: number,
 
   // True to use a horizontal layout. Defaults to false:
-  horizontal?: boolean
+  horizontal?: boolean,
 }
 
 /**
  * Lays out a collection of children with equal space between each one.
  */
-export function LadderLayout (props: Props) {
+export function LadderLayout(props: Props) {
   const { horizontal = false, padding } = props
   const children = React.Children.toArray(props.children)
 
@@ -44,7 +44,7 @@ export function LadderLayout (props: Props) {
       // This child accepts a stylesheet, so use that for spacing:
       newChildren.push(
         React.cloneElement(child, {
-          style: child.props.style == null ? style : Array.isArray(child.props.style) ? [...child.props.style, style] : [child.props.style, style]
+          style: child.props.style == null ? style : Array.isArray(child.props.style) ? [...child.props.style, style] : [child.props.style, style],
         })
       )
       needsSpaceBefore = false
@@ -63,9 +63,9 @@ export function LadderLayout (props: Props) {
     }
   }
 
-  return <Fragment>{newChildren}</Fragment>
+  return <>{newChildren}</>
 }
 
-function isStyled (element) {
+function isStyled(element) {
   return React.isValidElement(element) && (element.type === Image || element.type === Text || element.type === View || element.props.style != null)
 }

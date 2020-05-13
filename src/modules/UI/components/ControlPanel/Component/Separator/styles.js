@@ -8,8 +8,8 @@ export const rawStyles = {
   separator: {
     width: '100%',
     height: 0.8,
-    backgroundColor: THEME.COLORS.OPACITY_WHITE
-  }
+    backgroundColor: THEME.COLORS.OPACITY_WHITE,
+  },
 }
 export const styles = StyleSheet.create(rawStyles)
 export default styles

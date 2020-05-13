@@ -5,7 +5,7 @@ import { type Reducer, combineReducers } from 'redux'
 import { type Action } from '../../../../types/reduxTypes.js'
 
 export type ExchangeRateState = {
-  exchangeRates: {}
+  exchangeRates: {},
 }
 
 const exchangeRates = (state = {}, action: Action): {} => {
@@ -19,5 +19,5 @@ const exchangeRates = (state = {}, action: Action): {} => {
 }
 
 export const exchangeRate: Reducer<ExchangeRateState, Action> = combineReducers({
-  exchangeRates
+  exchangeRates,
 })

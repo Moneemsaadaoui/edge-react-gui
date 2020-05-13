@@ -9,15 +9,15 @@ const iosDir = './ios/plugins/'
 
 const platforms = [androidDir, iosDir]
 
-platforms.forEach(platform => {
+platforms.forEach((platform) => {
   if (!fs.existsSync(platform)) {
     fs.mkdirSync(platform)
   }
 })
 
-function copyAssets (plugin) {
+function copyAssets(plugin) {
   const manifest = require(`./node_modules/${plugin}/manifest.json`)
-  platforms.forEach(platformDir => {
+  platforms.forEach((platformDir) => {
     const pluginDir = path.join(platformDir, manifest.pluginId)
     if (!fs.existsSync(pluginDir)) {
       fs.mkdirSync(pluginDir)

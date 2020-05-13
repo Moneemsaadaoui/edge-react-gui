@@ -43,7 +43,7 @@ const mapStateToProps = (state: State, ownProps: TransactionDetailsOwnProps) => 
     currencyCode,
     guiWallet: wallet,
     currentFiatAmount,
-    walletDefaultDenomProps
+    walletDefaultDenomProps,
   }
 }
 
@@ -52,10 +52,7 @@ const mapDispatchToProps = (dispatch: Dispatch) => ({
     dispatch(setTransactionDetails(transaction, edgeMetadata))
   },
   getSubcategories: () => dispatch(getSubcategories()),
-  setNewSubcategory: (newSubcategory: string) => dispatch(setNewSubcategory(newSubcategory))
+  setNewSubcategory: (newSubcategory: string) => dispatch(setNewSubcategory(newSubcategory)),
 })
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(TransactionDetails)
+export default connect(mapStateToProps, mapDispatchToProps)(TransactionDetails)

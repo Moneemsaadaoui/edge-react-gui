@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 
 import type {
   FioDisconnectWalletsDispatchProps as DispatchProps,
-  FioDisconnectWalletsStateProps as StateProps
+  FioDisconnectWalletsStateProps as StateProps,
 } from '../../components/scenes/FioDisconnectWalletScene'
 import { FioDisconnectWalletScene } from '../../components/scenes/FioDisconnectWalletScene'
 import { makeConnectedWallets } from '../../modules/FioAddress/util'
@@ -18,7 +18,7 @@ const mapStateToProps = (state: State, ownProps): StateProps => {
   if (!ccWalletMap) {
     return {
       ccWalletMap,
-      isConnected: state.network.isConnected
+      isConnected: state.network.isConnected,
     }
   }
   const connectedWallets = makeConnectedWallets(wallets, ccWalletMap)
@@ -26,7 +26,7 @@ const mapStateToProps = (state: State, ownProps): StateProps => {
   const out: StateProps = {
     ccWalletMap,
     connectedWallets,
-    isConnected: state.network.isConnected
+    isConnected: state.network.isConnected,
   }
   return out
 }
@@ -37,13 +37,10 @@ const mapDispatchToProps = (dispatch: Dispatch): DispatchProps => ({
       type: 'FIO/UPDATE_CONNECTED_WALLETS_FOR_FIO_ADDRESS',
       data: {
         fioAddress,
-        ccWalletMap
-      }
+        ccWalletMap,
+      },
     })
-  }
+  },
 })
 
-export const FioDisconnectWalletsConnector = connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(FioDisconnectWalletScene)
+export const FioDisconnectWalletsConnector = connect(mapStateToProps, mapDispatchToProps)(FioDisconnectWalletScene)

@@ -40,7 +40,7 @@ const mapStateToProps = (state: State): RequestStateProps | RequestLoadingProps 
       useLegacyAddress: null,
       fioPlugin,
       fioAddressesExist: false,
-      isConnected: state.network.isConnected
+      isConnected: state.network.isConnected,
     }
   }
 
@@ -56,13 +56,13 @@ const mapStateToProps = (state: State): RequestStateProps | RequestLoadingProps 
     displayCurrencyCode: currencyCode,
     displayDenomination: primaryDisplayDenomination,
     exchangeCurrencyCode: primaryExchangeCurrencyCode,
-    exchangeDenomination: primaryExchangeDenomination
+    exchangeDenomination: primaryExchangeDenomination,
   }
   const secondaryCurrencyInfo: GuiCurrencyInfo = {
     displayCurrencyCode: guiWallet.fiatCurrencyCode,
     displayDenomination: secondaryDisplayDenomination,
     exchangeCurrencyCode: secondaryExchangeCurrencyCode,
-    exchangeDenomination: secondaryExchangeDenomination
+    exchangeDenomination: secondaryExchangeDenomination,
   }
   const isoFiatCurrencyCode: string = guiWallet.isoFiatCurrencyCode
   const exchangeSecondaryToPrimaryRatio = UI_SELECTORS.getExchangeRate(state, currencyCode, isoFiatCurrencyCode)
@@ -81,17 +81,14 @@ const mapStateToProps = (state: State): RequestStateProps | RequestLoadingProps 
     useLegacyAddress: state.ui.scenes.requestType.useLegacyAddress,
     fioPlugin,
     fioAddressesExist,
-    isConnected: state.network.isConnected
+    isConnected: state.network.isConnected,
   }
 }
 const mapDispatchToProps = (dispatch: Dispatch): RequestDispatchProps => ({
   refreshReceiveAddressRequest: (walletId: string) => {
     dispatch(refreshReceiveAddressRequest(walletId))
   },
-  refreshAllFioAddresses: () => dispatch(refreshAllFioAddresses())
+  refreshAllFioAddresses: () => dispatch(refreshAllFioAddresses()),
 })
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Request)
+export default connect(mapStateToProps, mapDispatchToProps)(Request)

@@ -2,11 +2,11 @@
 import type { Action } from '../types/reduxTypes.js'
 
 export const initialState = {
-  isConnected: true
+  isConnected: true,
 }
 
 export type NetworkState = {
-  isConnected: boolean
+  isConnected: boolean,
 }
 
 export const network = (state: NetworkState = initialState, action: Action) => {
@@ -15,7 +15,7 @@ export const network = (state: NetworkState = initialState, action: Action) => {
       if (!action.data) throw new Error('Invalid action')
       return {
         ...state,
-        isConnected: action.data.isConnected
+        isConnected: action.data.isConnected,
       }
     }
 

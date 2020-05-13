@@ -20,10 +20,10 @@ import { FormField } from '../common/FormField.js'
 import { launchModal } from '../common/ModalProvider.js'
 
 type OwnProps = {
-  selectedWalletType: GuiWalletType
+  selectedWalletType: GuiWalletType,
 }
 type StateProps = {
-  account: EdgeAccount
+  account: EdgeAccount,
 }
 type DispatchProps = {}
 type Props = OwnProps & StateProps & DispatchProps
@@ -32,17 +32,17 @@ type State = {
   input: string,
   error: string,
   isProcessing: boolean,
-  cleanedPrivateKey: string
+  cleanedPrivateKey: string,
 }
 
 class CreateWalletImportComponent extends Component<Props, State> {
-  constructor (props: Props) {
+  constructor(props: Props) {
     super(props)
     this.state = {
       input: '',
       error: '',
       isProcessing: false,
-      cleanedPrivateKey: ''
+      cleanedPrivateKey: '',
     }
   }
 
@@ -51,7 +51,7 @@ class CreateWalletImportComponent extends Component<Props, State> {
     const { input } = this.state
 
     this.setState({
-      isProcessing: true
+      isProcessing: true,
     })
     try {
       const { currencyCode } = selectedWalletType
@@ -60,12 +60,12 @@ class CreateWalletImportComponent extends Component<Props, State> {
       await currencyPlugin.importKey(input)
       Actions[CREATE_WALLET_SELECT_FIAT]({ selectedWalletType, cleanedPrivateKey: input })
       this.setState({
-        isProcessing: false
+        isProcessing: false,
       })
     } catch (error) {
       await launchModal(errorModal(s.strings.create_wallet_failed_import_header, error))
       this.setState({
-        isProcessing: false
+        isProcessing: false,
       })
     }
   }
@@ -74,7 +74,7 @@ class CreateWalletImportComponent extends Component<Props, State> {
     this.setState({ input })
   }
 
-  render () {
+  render() {
     const { error, isProcessing } = this.state
     return (
       <SafeAreaView>
@@ -85,21 +85,21 @@ class CreateWalletImportComponent extends Component<Props, State> {
               <Text style={styles.instructionalText}>{s.strings.create_wallet_import_instructions}</Text>
             </View>
             <FormField
-              style={[{ flex: 1, height: 150 }]}
+              style={{ flex: 1, height: 150 }}
               autoFocus
-              clearButtonMode={'while-editing'}
+              clearButtonMode="while-editing"
               autoCorrect={false}
               onChangeText={this.onChangeText}
               label={s.strings.create_wallet_import_input_prompt}
               value={this.state.input}
-              returnKeyType={'next'}
+              returnKeyType="next"
               onSubmitEditing={this.onNext}
               numberOfLines={5}
-              multiline={true}
+              multiline
               error={error}
             />
             <View style={styles.buttons}>
-              <PrimaryButton style={[styles.next]} onPress={this.onNext} disabled={isProcessing}>
+              <PrimaryButton style={styles.next} onPress={this.onNext} disabled={isProcessing}>
                 {isProcessing ? <ActivityIndicator /> : <PrimaryButton.Text>{s.strings.string_next_capitalized}</PrimaryButton.Text>}
               </PrimaryButton>
             </View>
@@ -112,7 +112,7 @@ class CreateWalletImportComponent extends Component<Props, State> {
 
 export const CreateWalletImportScene = connect(
   (state: ReduxState): StateProps => ({
-    account: state.core.account
+    account: state.core.account,
   }),
   (dispatch: Dispatch): DispatchProps => ({})
 )(CreateWalletImportComponent)

@@ -12,7 +12,7 @@ import type { CustomTokenInfo, ExchangeData, GuiDenomination, GuiWallet } from '
 
 export const DIVIDE_PRECISION = 18
 
-export function capitalize (string: string): string {
+export function capitalize(string: string): string {
   if (!string) return ''
   const firstLetter = string.charAt(0).toUpperCase()
   const otherLetters = string.slice(1)
@@ -48,7 +48,7 @@ export const getSettingsTokenMultiplier = (currencyCode: string, settings: Objec
   if (denomination) {
     multiplier = denomination[settings[currencyCode].denomination].multiplier
   } else {
-    const customDenom = _.find(settings.customTokens, item => item.currencyCode === currencyCode)
+    const customDenom = _.find(settings.customTokens, (item) => item.currencyCode === currencyCode)
     if (customDenom && customDenom.denominations && customDenom.denominations[0]) {
       multiplier = customDenom.denominations[0].multiplier
     } else {
@@ -58,7 +58,7 @@ export const getSettingsTokenMultiplier = (currencyCode: string, settings: Objec
   return multiplier
 }
 
-export function getWalletDefaultDenomProps (
+export function getWalletDefaultDenomProps(
   wallet: GuiWallet,
   settingsState: Object,
   currencyCode?: string // for metaTokens
@@ -111,7 +111,7 @@ export const mergeTokensRemoveInvisible = (preferredEdgeMetaTokens: Array<EdgeMe
   const tokensToAdd = []
   for (const x of edgeMetaTokens) {
     // loops through the account-level array
-    if (x.isVisible !== false && _.findIndex(tokensEnabled, walletToken => walletToken.currencyCode === x.currencyCode) === -1) {
+    if (x.isVisible !== false && _.findIndex(tokensEnabled, (walletToken) => walletToken.currencyCode === x.currencyCode) === -1) {
       tokensToAdd.push(x)
     }
   }
@@ -188,32 +188,32 @@ export const convertDisplayToNative = (nativeToDisplayRatio: string) => (display
 
 export const isCryptoParentCurrency = (wallet: GuiWallet, currencyCode: string) => currencyCode === wallet.currencyCode
 
-export function getNewArrayWithoutItem<T> (array: Array<T>, targetItem: T): Array<T> {
-  return array.filter(item => item !== targetItem)
+export function getNewArrayWithoutItem<T>(array: Array<T>, targetItem: T): Array<T> {
+  return array.filter((item) => item !== targetItem)
 }
 
 export const getNewArrayWithItem = (array: Array<any>, item: any) => (!array.includes(item) ? [...array, item] : array)
 
 const restrictedCurrencyCodes = ['BTC']
 
-export function getDenomFromIsoCode (currencyCode: string): GuiDenomination {
-  if (restrictedCurrencyCodes.findIndex(item => item === currencyCode) !== -1) {
+export function getDenomFromIsoCode(currencyCode: string): GuiDenomination {
+  if (restrictedCurrencyCodes.findIndex((item) => item === currencyCode) !== -1) {
     return {
       name: '',
       symbol: '',
-      multiplier: '0'
+      multiplier: '0',
     }
   }
   const symbol = getSymbolFromCurrency(currencyCode)
   const denom: GuiDenomination = {
     name: currencyCode,
     symbol,
-    multiplier: '100'
+    multiplier: '100',
   }
   return denom
 }
 
-export function getAllDenomsOfIsoCurrencies (): Array<GuiDenomination> {
+export function getAllDenomsOfIsoCurrencies(): Array<GuiDenomination> {
   // Convert map to an array
   const denomArray = []
 
@@ -233,7 +233,7 @@ export const getSupportedFiats = (defaultCurrencyCode?: string): Array<{ label: 
   if (defaultCurrencyCode && FIAT_CODES_SYMBOLS[defaultCurrencyCode]) {
     out.push({
       label: `${defaultCurrencyCode} - ${FIAT_CODES_SYMBOLS[defaultCurrencyCode]}`,
-      value: defaultCurrencyCode
+      value: defaultCurrencyCode,
     })
   }
   for (const currencyCode in FIAT_CODES_SYMBOLS) {
@@ -243,7 +243,7 @@ export const getSupportedFiats = (defaultCurrencyCode?: string): Array<{ label: 
     if (FIAT_CODES_SYMBOLS.hasOwnProperty(currencyCode)) {
       out.push({
         label: `${currencyCode} - ${FIAT_CODES_SYMBOLS[currencyCode]}`,
-        value: currencyCode
+        value: currencyCode,
       })
     }
   }
@@ -254,7 +254,7 @@ export const getSupportedFiats = (defaultCurrencyCode?: string): Array<{ label: 
  * Adds the `iso:` prefix to a currency code, if it's missing.
  * @param {*} currencyCode A currency code we believe to be a fiat value.
  */
-export function fixFiatCurrencyCode (currencyCode: string) {
+export function fixFiatCurrencyCode(currencyCode: string) {
   // These are included in the currency-symbol-map library,
   // and therefore might sneak into contexts where we expect fiat codes:
   if (currencyCode === 'BTC' || currencyCode === 'ETH') return currencyCode
@@ -321,10 +321,10 @@ export const isSentTransaction = (edgeTransaction: EdgeTransaction): boolean => 
 export type PrecisionAdjustParams = {
   exchangeSecondaryToPrimaryRatio: number,
   secondaryExchangeMultiplier: string,
-  primaryExchangeMultiplier: string
+  primaryExchangeMultiplier: string,
 }
 
-export function precisionAdjust (params: PrecisionAdjustParams): number {
+export function precisionAdjust(params: PrecisionAdjustParams): number {
   const order = Math.floor(Math.log(params.exchangeSecondaryToPrimaryRatio) / Math.LN10 + 0.000000001) // because float math sucks like that
   const exchangeRateOrderOfMagnitude = Math.pow(10, order)
 
@@ -350,14 +350,14 @@ export const noOp = (optionalArgument: any = null) => {
 
 export const getReceiveAddresses = (currencyWallets: { [id: string]: EdgeCurrencyWallet }): Promise<{ [id: string]: EdgeReceiveAddress }> => {
   const ids = Object.keys(currencyWallets)
-  const promises = ids.map(id => {
+  const promises = ids.map((id) => {
     return currencyWallets[id].getReceiveAddress()
   })
-  return Promise.all(promises).then(receiveAddresses => {
+  return Promise.all(promises).then((receiveAddresses) => {
     return ids.reduce((result, id, index) => {
       return {
         ...result,
-        [id]: receiveAddresses[index]
+        [id]: receiveAddresses[index],
       }
     }, {})
   })
@@ -373,7 +373,7 @@ export const daysBetween = (DateInMsA: number, dateInMsB: number) => {
 // Does a shallow compare of obj1 to obj2 and returns the element name of the element which differs
 // between the two. Will recursively deep compare any unequal elements specified in traverseObjects.
 // Returns the element name of the unequal element or '' if objects are equal
-export function getObjectDiff (obj1: Object, obj2: Object, traverseObjects?: Object, ignoreObjects?: Object): string {
+export function getObjectDiff(obj1: Object, obj2: Object, traverseObjects?: Object, ignoreObjects?: Object): string {
   const comparedElements = {}
   for (const e in obj1) {
     if (ignoreObjects && ignoreObjects[e]) {
@@ -424,7 +424,7 @@ export function getObjectDiff (obj1: Object, obj2: Object, traverseObjects?: Obj
   return ''
 }
 
-export function runWithTimeout<T> (promise: Promise<T>, ms: number, error: Error = new Error(`Timeout of ${ms}ms exceeded`)): Promise<T> {
+export function runWithTimeout<T>(promise: Promise<T>, ms: number, error: Error = new Error(`Timeout of ${ms}ms exceeded`)): Promise<T> {
   const timeout = new Promise((resolve, reject) => {
     const timer = setTimeout(() => reject(error), ms)
     const onDone = () => clearTimeout(timer)
@@ -433,7 +433,7 @@ export function runWithTimeout<T> (promise: Promise<T>, ms: number, error: Error
   return Promise.race([promise, timeout])
 }
 
-export function snooze (ms: number): Promise<void> {
+export function snooze(ms: number): Promise<void> {
   return new Promise((resolve: any) => setTimeout(resolve, ms))
 }
 
@@ -465,13 +465,13 @@ export const getTotalFiatAmountFromExchangeRates = (state: State, isoFiatCurrenc
           denominations = settings[currencyCode].denominations
         } else {
           // otherwise find the token whose currencyCode matches the one that we are working with
-          const tokenInfo = settings.customTokens.find(token => token.currencyCode === currencyCode)
+          const tokenInfo = settings.customTokens.find((token) => token.currencyCode === currencyCode)
           // grab the denominations array (which is equivalent of the denominations from the previous (true) clause)
           if (!tokenInfo) continue
           denominations = tokenInfo.denominations
         }
         // now go through that array of denominations and find the one whose name matches the currency
-        const exchangeDenomination = denominations.find(denomination => denomination.name === currencyCode)
+        const exchangeDenomination = denominations.find((denomination) => denomination.name === currencyCode)
         if (!exchangeDenomination) continue
         // grab the multiplier, which is the ratio that we can multiply and divide by
         const nativeToExchangeRatio: string = exchangeDenomination.multiplier
@@ -546,16 +546,16 @@ export const getFeeDisplayed = (number: number): string => {
   return number.toFixed(defaultAmount)
 }
 
-export function splitTransactionCategory (
+export function splitTransactionCategory(
   fullCategory: string
 ): {
   category: string,
-  subCategory: string
+  subCategory: string,
 } {
   const splittedCategory = fullCategory.split(':')
   const categoryArray = splittedCategory.shift()
   return {
     category: categoryArray,
-    subCategory: splittedCategory.length > 0 ? splittedCategory.join(':') : ''
+    subCategory: splittedCategory.length > 0 ? splittedCategory.join(':') : '',
   }
 }

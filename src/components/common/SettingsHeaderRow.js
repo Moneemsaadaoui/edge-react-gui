@@ -9,13 +9,13 @@ import { THEME } from '../../theme/variables/airbitz'
 
 type Props = {
   icon?: Node,
-  text: string
+  text: string,
 }
 
 /**
  * A blue header row in a settings scene.
  */
-export function SettingsHeaderRow (props: Props) {
+export function SettingsHeaderRow(props: Props) {
   const { icon, text } = props
 
   return (
@@ -36,18 +36,18 @@ const rawStyles = {
     // Children:
     alignItems: 'center',
     flexDirection: 'row',
-    justifyContent: 'flex-start'
+    justifyContent: 'flex-start',
   },
 
   text: {
     ...nightText('row-left'),
     flexGrow: 1,
     fontSize: THEME.rem(1.125),
-    padding: THEME.rem(0.5)
+    padding: THEME.rem(0.5),
   },
 
   padding: {
-    padding: THEME.rem(0.5)
-  }
+    padding: THEME.rem(0.5),
+  },
 }
 const styles: typeof rawStyles = StyleSheet.create(rawStyles)

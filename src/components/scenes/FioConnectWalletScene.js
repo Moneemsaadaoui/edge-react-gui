@@ -18,17 +18,17 @@ import { showError } from '../services/AirshipInstance'
 export type State = {
   selectedWalletsMap: { [walletId: string]: FioConnectionWalletItem },
   fioWallet: EdgeCurrencyWallet | null,
-  fioWalletLoading: boolean
+  fioWalletLoading: boolean,
 }
 
 export type FioConnectWalletStateProps = {
   notConnectedWallets?: { [key: string]: FioConnectionWalletItem },
   fioWallets: EdgeCurrencyWallet[],
-  loading: boolean
+  loading: boolean,
 }
 
 export type FioConnectWalletRouteProps = {
-  fioAddressName: string
+  fioAddressName: string,
 }
 
 type Props = FioConnectWalletStateProps & FioConnectWalletRouteProps
@@ -37,10 +37,10 @@ export class FioConnectWalletScene extends Component<Props, State> {
   state = {
     selectedWalletsMap: {},
     fioWallet: null,
-    fioWalletLoading: false
+    fioWalletLoading: false,
   }
 
-  componentDidMount (): void {
+  componentDidMount(): void {
     this.findFioWallet()
   }
 
@@ -71,7 +71,7 @@ export class FioConnectWalletScene extends Component<Props, State> {
     }
   }
 
-  selectWallet (wallet: FioConnectionWalletItem): void {
+  selectWallet(wallet: FioConnectionWalletItem): void {
     const { selectedWalletsMap } = this.state
     if (selectedWalletsMap[wallet.key]) {
       delete selectedWalletsMap[wallet.key]
@@ -101,15 +101,15 @@ export class FioConnectWalletScene extends Component<Props, State> {
         >
           <View style={walletStyles.rowContainerTop}>
             <View style={walletStyles.containerLeft}>
-              {wallet.symbolImage ? <Image style={walletStyles.imageContainer} source={{ uri: wallet.symbolImage }} resizeMode={'contain'} /> : <T>-</T>}
+              {wallet.symbolImage ? <Image style={walletStyles.imageContainer} source={{ uri: wallet.symbolImage }} resizeMode="contain" /> : <T>-</T>}
             </View>
             <View style={styles.walletDetailsContainer}>
               <View style={styles.walletDetailsCol}>
-                <T style={[styles.walletDetailsRowCurrency]}>{wallet.currencyCode}</T>
-                <T style={[styles.walletDetailsRowName]}>{wallet.name}</T>
+                <T style={styles.walletDetailsRowCurrency}>{wallet.currencyCode}</T>
+                <T style={styles.walletDetailsRowName}>{wallet.name}</T>
               </View>
               <View style={styles.walletDetailsCol}>
-                <T style={[walletStyles.walletDetailsRowFiat]}>
+                <T style={walletStyles.walletDetailsRowFiat}>
                   {disabled ? '' : isSelected ? s.strings.fio_wallet_connect_remove : s.strings.fio_wallet_connect_add}
                 </T>
               </View>
@@ -121,12 +121,12 @@ export class FioConnectWalletScene extends Component<Props, State> {
     return null
   }
 
-  renderNoWallets () {
+  renderNoWallets() {
     const { loading } = this.props
     return <T style={styles.no_wallets_text}>{loading ? s.strings.loading : s.strings.fio_connect_no_wallets}</T>
   }
 
-  render () {
+  render() {
     const { notConnectedWallets } = this.props
     const { selectedWalletsMap, fioWalletLoading } = this.state
     const continueDisabled = !Object.keys(selectedWalletsMap).length

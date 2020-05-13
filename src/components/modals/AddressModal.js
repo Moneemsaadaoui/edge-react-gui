@@ -26,13 +26,13 @@ const inputAccessoryViewID: string = 'inputAccessoryViewID'
 type OwnProps = {
   bridge: AirshipBridge<string | null>,
   walletId: string,
-  currencyCode: string
+  currencyCode: string,
 }
 
 type StateProps = {
   coreWallet: EdgeCurrencyWallet,
   fioPlugin: EdgeCurrencyConfig,
-  account: EdgeAccount
+  account: EdgeAccount,
 }
 
 type State = {
@@ -41,7 +41,7 @@ type State = {
   statusLabel: string,
   fieldError: string,
   cryptoAddress?: string,
-  fioAddresses: string[]
+  fioAddresses: string[],
 }
 
 type Props = StateProps & OwnProps
@@ -49,7 +49,7 @@ type Props = StateProps & OwnProps
 class AddressModalConnected extends Component<Props, State> {
   fioCheckQueue: number = 0
 
-  constructor (props: Props) {
+  constructor(props: Props) {
     super(props)
     this.fioCheckQueue = 0
     this.state = {
@@ -58,16 +58,16 @@ class AddressModalConnected extends Component<Props, State> {
       statusLabel: s.strings.fragment_send_address,
       cryptoAddress: undefined,
       fieldError: '',
-      fioAddresses: []
+      fioAddresses: [],
     }
   }
 
-  componentDidMount () {
+  componentDidMount() {
     this._setClipboard(this.props)
     this.setFioAddresses()
   }
 
-  _setClipboard = async props => {
+  _setClipboard = async (props) => {
     const coreWallet = props.coreWallet
 
     try {
@@ -77,7 +77,7 @@ class AddressModalConnected extends Component<Props, State> {
       await coreWallet.parseUri(uri)
 
       this.setState({
-        clipboard: uri
+        clipboard: uri,
       })
     } catch (e) {
       // Failure is acceptable
@@ -126,7 +126,7 @@ class AddressModalConnected extends Component<Props, State> {
     }
     const baseurl = `https://unstoppabledomains.com/api/v1`
     const url = this.checkIfEnsDomain(domain) ? `${baseurl}/${domain}/${currencyTicker}` : `${baseurl}/${domain}`
-    const response = await global.fetch(url).then(res => res.json())
+    const response = await global.fetch(url).then((res) => res.json())
     const { addresses, meta } = response
     if (!meta || !meta.owner) {
       throw new ResolutionError(ResolutionErrorCode.UnregisteredDomain, { domain })
@@ -157,7 +157,7 @@ class AddressModalConnected extends Component<Props, State> {
     }
   }
 
-  checkFioPubAddressQueue (uri: string) {
+  checkFioPubAddressQueue(uri: string) {
     this.setStatusLabel(s.strings.resolving)
     this.fioCheckQueue++
     setTimeout(async () => {
@@ -180,7 +180,7 @@ class AddressModalConnected extends Component<Props, State> {
     }, 1000)
   }
 
-  async checkIfFioAddress (uri: string) {
+  async checkIfFioAddress(uri: string) {
     this.setState({ fieldError: '' })
 
     if (await this.isFioAddressValid(uri)) {
@@ -195,7 +195,7 @@ class AddressModalConnected extends Component<Props, State> {
 
   updateUri = (uri: string) => {
     this.setState({
-      uri
+      uri,
     })
   }
 
@@ -230,7 +230,7 @@ class AddressModalConnected extends Component<Props, State> {
     return (
       <TouchableWithoutFeedback onPress={() => this.onPressFioAddress(item)}>
         <View style={styles.tileContainer}>
-          <Image source={addressType} style={styles.fioAddressAvatarContainer} resizeMode={'cover'} />
+          <Image source={addressType} style={styles.fioAddressAvatarContainer} resizeMode="cover" />
           <Text style={styles.fioAddressText}>{item}</Text>
         </View>
       </TouchableWithoutFeedback>
@@ -243,15 +243,16 @@ class AddressModalConnected extends Component<Props, State> {
     if (fieldError) return
     this.props.bridge.resolve(submitData)
   }
+
   handleClose = () => this.props.bridge.resolve(null)
   keyExtractor = (item: string, index: number) => index.toString()
-  render () {
+  render() {
     const copyMessage = this.state.clipboard ? sprintf(s.strings.string_paste_address, this.state.clipboard) : null
     const { uri, statusLabel, fieldError } = this.state
     return (
       <AirshipModal bridge={this.props.bridge} onCancel={this.handleClose}>
-        {gap => (
-          <Fragment>
+        {(gap) => (
+          <>
             <IconCircle>
               <FontAwesomeIcon name={MODAL_ICON} size={iconStyles.size} color={iconStyles.color} />
             </IconCircle>
@@ -261,7 +262,7 @@ class AddressModalConnected extends Component<Props, State> {
               </View>
               {copyMessage && (
                 <View style={styles.tileContainerButtons}>
-                  <TertiaryButton ellipsizeMode={'middle'} onPress={this.onPasteFromClipboard} numberOfLines={1} style={styles.addressModalButton}>
+                  <TertiaryButton ellipsizeMode="middle" onPress={this.onPasteFromClipboard} numberOfLines={1} style={styles.addressModalButton}>
                     <TertiaryButton.Text>{copyMessage}</TertiaryButton.Text>
                   </TertiaryButton>
                 </View>
@@ -299,24 +300,22 @@ class AddressModalConnected extends Component<Props, State> {
                 renderItem={this.renderFioAddressRow}
               />
             </View>
-          </Fragment>
+          </>
         )}
       </AirshipModal>
     )
   }
 }
 
-const AddressModal = connect(
-  (state: StateType, ownProps: OwnProps): StateProps => {
-    const { account } = state.core
-    const { currencyWallets = {} } = account
-    return {
-      account,
-      coreWallet: currencyWallets[ownProps.walletId],
-      fioPlugin: account.currencyConfig[CURRENCY_PLUGIN_NAMES.FIO]
-    }
+const AddressModal = connect((state: StateType, ownProps: OwnProps): StateProps => {
+  const { account } = state.core
+  const { currencyWallets = {} } = account
+  return {
+    account,
+    coreWallet: currencyWallets[ownProps.walletId],
+    fioPlugin: account.currencyConfig[CURRENCY_PLUGIN_NAMES.FIO],
   }
-)(AddressModalConnected)
+})(AddressModalConnected)
 export { AddressModal }
 
 const { rem } = THEME
@@ -325,13 +324,13 @@ const addressInputStyles = {
   ...MaterialInputStyle,
   container: {
     ...MaterialInputStyle.container,
-    paddingTop: 0
-  }
+    paddingTop: 0,
+  },
 }
 
 const iconStyles = {
   size: rem(2),
-  color: THEME.COLORS.SECONDARY
+  color: THEME.COLORS.SECONDARY,
 }
 
 const tileStyles = {
@@ -339,19 +338,19 @@ const tileStyles = {
   backgroundColor: THEME.COLORS.WHITE,
   borderBottomWidth: 1,
   borderBottomColor: THEME.COLORS.GRAY_3,
-  padding: rem(1)
+  padding: rem(1),
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     width: '100%',
-    flexDirection: 'column'
+    flexDirection: 'column',
   },
   tileContainerHeader: {
     ...tileStyles,
     borderBottomWidth: 0,
-    paddingVertical: rem(0.5)
+    paddingVertical: rem(0.5),
   },
   tileContainerButtons: {
     ...tileStyles,
@@ -359,7 +358,7 @@ const styles = StyleSheet.create({
     borderBottomWidth: 0,
     flexDirection: 'row',
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   tileContainerInput: {
     ...tileStyles,
@@ -367,26 +366,26 @@ const styles = StyleSheet.create({
     paddingBottom: rem(0.5),
     flexDirection: 'row',
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   tileContainer: {
     ...tileStyles,
     flexDirection: 'row',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   fioAddressAvatarContainer: {
     width: rem(2.2),
     height: rem(2.2),
     borderRadius: rem(1.1),
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   fioAddressText: {
     fontSize: rem(1.2),
-    paddingLeft: rem(0.8)
+    paddingLeft: rem(0.8),
   },
   addressModalButton: {
-    width: '100%'
+    width: '100%',
   },
 
   // Accessory Input
@@ -394,13 +393,13 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'row',
     justifyContent: 'space-between',
-    backgroundColor: THEME.COLORS.WHITE
+    backgroundColor: THEME.COLORS.WHITE,
   },
   accessoryButton: {
-    padding: rem(0.5)
+    padding: rem(0.5),
   },
   accessoryText: {
     color: THEME.COLORS.ACCENT_BLUE,
-    fontSize: rem(1)
-  }
+    fontSize: rem(1),
+  },
 })

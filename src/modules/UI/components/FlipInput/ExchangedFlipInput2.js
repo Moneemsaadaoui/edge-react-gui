@@ -13,7 +13,7 @@ const DIVIDE_PRECISION = 18
 
 export type ExchangedFlipInputAmounts = {
   exchangeAmount: string,
-  nativeAmount: string
+  nativeAmount: string,
 }
 
 export type ExchangedFlipInputOwnProps = {
@@ -41,7 +41,7 @@ export type ExchangedFlipInputOwnProps = {
   inputAccessoryViewID?: string,
   headerText: string,
   headerLogo: string | void,
-  headerCallback?: () => void
+  headerCallback?: () => void,
 }
 
 type Props = ExchangedFlipInputOwnProps
@@ -50,22 +50,22 @@ type State = {
   overridePrimaryDecimalAmount: string, // This should be a decimal amount in display denomination (ie. mBTC)
   exchangeSecondaryToPrimaryRatio: string,
   primaryInfo: FlipInputFieldInfo,
-  secondaryInfo: FlipInputFieldInfo
+  secondaryInfo: FlipInputFieldInfo,
 }
 
-function getPrimaryDisplayToExchangeRatio (props: Props): string {
+function getPrimaryDisplayToExchangeRatio(props: Props): string {
   const exchangeMultiplier: string = props.primaryCurrencyInfo.exchangeDenomination.multiplier
   const displayMultiplier: string = props.primaryCurrencyInfo.displayDenomination.multiplier
   return bns.div(exchangeMultiplier, displayMultiplier, DIVIDE_PRECISION)
 }
 
-function getSecondaryDisplayToExchangeRatio (props: Props): string {
+function getSecondaryDisplayToExchangeRatio(props: Props): string {
   const displayMultiplier: string = props.secondaryCurrencyInfo.displayDenomination.multiplier
   const exchangeMultiplier: string = props.secondaryCurrencyInfo.exchangeDenomination.multiplier
   return bns.div(exchangeMultiplier, displayMultiplier, DIVIDE_PRECISION)
 }
 
-function propsToState (props: Props): State {
+function propsToState(props: Props): State {
   // Calculate secondaryToPrimaryRatio for FlipInput. FlipInput takes a ratio in display amounts which may be
   // different than exchange amounts. ie. USD / mBTC
   // nextProps.exchangeSecondaryToPrimaryRatio // ie. 1/10000
@@ -88,7 +88,7 @@ function propsToState (props: Props): State {
   const precisionAdjustVal = precisionAdjust({
     primaryExchangeMultiplier: props.primaryCurrencyInfo.exchangeDenomination.multiplier,
     secondaryExchangeMultiplier: props.secondaryCurrencyInfo.exchangeDenomination.multiplier,
-    exchangeSecondaryToPrimaryRatio: props.exchangeSecondaryToPrimaryRatio
+    exchangeSecondaryToPrimaryRatio: props.exchangeSecondaryToPrimaryRatio,
   })
 
   const newPrimaryPrecision = primaryEntryPrecision - precisionAdjustVal
@@ -99,7 +99,7 @@ function propsToState (props: Props): State {
     currencySymbol: props.primaryCurrencyInfo.displayDenomination.symbol ? props.primaryCurrencyInfo.displayDenomination.symbol : '',
     currencyCode: props.primaryCurrencyInfo.displayCurrencyCode,
     maxEntryDecimals: primaryEntryPrecision,
-    maxConversionDecimals: primaryConversionPrecision
+    maxConversionDecimals: primaryConversionPrecision,
   }
 
   const secondaryInfo: FlipInputFieldInfo = {
@@ -107,7 +107,7 @@ function propsToState (props: Props): State {
     currencySymbol: props.secondaryCurrencyInfo.displayDenomination.symbol ? props.secondaryCurrencyInfo.displayDenomination.symbol : '',
     currencyCode: props.secondaryCurrencyInfo.displayCurrencyCode,
     maxEntryDecimals: secondaryPrecision,
-    maxConversionDecimals: secondaryPrecision
+    maxConversionDecimals: secondaryPrecision,
   }
 
   // Convert overridePrimaryExchangeAmount => overridePrimaryDecimalAmount which goes from exchange to display
@@ -122,34 +122,34 @@ export class ExchangedFlipInput extends Component<Props, State> {
   toggleCryptoOnTop: any
 
   static defaultProps = {
-    isEditable: true
+    isEditable: true,
   }
 
-  constructor (props: Props) {
+  constructor(props: Props) {
     super(props)
     this.state = propsToState(props)
     slowlog(this, /.*/, global.slowlogOptions)
     this.flipInput = React.createRef()
   }
 
-  UNSAFE_componentWillReceiveProps (nextProps: Props) {
+  UNSAFE_componentWillReceiveProps(nextProps: Props) {
     this.setState(propsToState(nextProps))
   }
 
-  componentDidMount () {
+  componentDidMount() {
     this.toggleCryptoOnTop = this.flipInput.current ? this.flipInput.current.toggleCryptoOnTop : null
   }
 
-  shouldComponentUpdate (nextProps: Props, nextState: State) {
+  shouldComponentUpdate(nextProps: Props, nextState: State) {
     let diffElement2: string = ''
     const diffElement = getObjectDiff(this.props, nextProps, {
       primaryCurrencyInfo: true,
-      secondaryCurrencyInfo: true
+      secondaryCurrencyInfo: true,
     })
     if (!diffElement) {
       diffElement2 = getObjectDiff(this.state, nextState, {
         primaryInfo: true,
-        secondaryInfo: true
+        secondaryInfo: true,
       })
     }
     return !!diffElement || !!diffElement2
@@ -168,7 +168,7 @@ export class ExchangedFlipInput extends Component<Props, State> {
     return !bns.eq(this.state.exchangeSecondaryToPrimaryRatio, '0')
   }
 
-  render () {
+  render() {
     return (
       <FlipInput
         overridePrimaryDecimalAmount={this.state.overridePrimaryDecimalAmount}

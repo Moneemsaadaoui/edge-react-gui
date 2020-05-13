@@ -120,8 +120,8 @@ export type Action =
         walletId: string,
         tokenObj: CustomTokenInfo,
         settings: Object,
-        enabledTokens: Array<string>
-      }
+        enabledTokens: Array<string>,
+      },
     }
   | {
       type: 'ADD_NEW_TOKEN_THEN_DELETE_OLD_SUCCESS',
@@ -132,12 +132,12 @@ export type Action =
         enabledTokensOnWallet: Array<string>,
         oldCurrencyCode: string,
         setSettings: Object,
-        tokenObj: CustomTokenInfo
-      }
+        tokenObj: CustomTokenInfo,
+      },
     }
   | {
       type: 'CORE/CONTEXT/ADD_CONTEXT',
-      data: { context: EdgeContext, disklet: Disklet }
+      data: { context: EdgeContext, disklet: Disklet },
     }
   | {
       type: 'CORE/WALLETS/UPDATE_WALLETS',
@@ -145,15 +145,15 @@ export type Action =
         activeWalletIds: Array<string>,
         archivedWalletIds: Array<string>,
         currencyWallets: { [id: string]: EdgeCurrencyWallet },
-        receiveAddresses: { [id: string]: EdgeReceiveAddress }
-      }
+        receiveAddresses: { [id: string]: EdgeReceiveAddress },
+      },
     }
   | { type: 'DEEP_LINK_RECEIVED', data: DeepLink }
   | { type: 'DELETE_CUSTOM_TOKEN_SUCCESS', data: { currencyCode: string } }
   | { type: 'DEVICE_REFERRAL_LOADED', data: DeviceReferral }
   | {
       type: 'INSERT_WALLET_IDS_FOR_PROGRESS',
-      data: { activeWalletIds: Array<string> }
+      data: { activeWalletIds: Array<string> },
     }
   | { type: 'IS_CHECKING_HANDLE_AVAILABILITY', data: boolean }
   | { type: 'LOGIN', data: EdgeAccount }
@@ -164,15 +164,15 @@ export type Action =
   | { type: 'MESSAGE_TWEAK_HIDDEN', data: { messageId: string, source: TweakSource } }
   | {
       type: 'OPEN_VIEWXPUB_WALLET_MODAL',
-      data: { walletId: string, xPub: string | null, xPubExplorer: string }
+      data: { walletId: string, xPub: string | null, xPubExplorer: string },
     }
   | {
       type: 'OVERWRITE_THEN_DELETE_TOKEN_SUCCESS',
       data: {
         tokenObj: CustomTokenInfo,
         oldCurrencyCode: string,
-        coreWalletsToUpdate: Array<EdgeCurrencyWallet>
-      }
+        coreWalletsToUpdate: Array<EdgeCurrencyWallet>,
+      },
     }
   | { type: 'PERMISSIONS/UPDATE', data: PermissionsState }
   | { type: 'PROMOTION_ADDED', data: Promotion }
@@ -184,8 +184,8 @@ export type Action =
         balanceMessage: string,
         currencyCode: string,
         primaryInfo: GuiCurrencyInfo,
-        wallet: GuiWallet
-      }
+        wallet: GuiWallet,
+      },
     }
   | { type: 'CONTACTS/LOAD_CONTACTS_SUCCESS', data: { contacts: Array<GuiContact> } }
   | { type: 'GENERIC_SHAPE_SHIFT_ERROR', data: string }
@@ -200,21 +200,21 @@ export type Action =
       type: 'UI/WALLETS/REFRESH_RECEIVE_ADDRESS',
       data: {
         walletId: string,
-        receiveAddress: EdgeReceiveAddress
-      }
+        receiveAddress: EdgeReceiveAddress,
+      },
     }
   | {
       type: 'UI/WALLETS/SELECT_WALLET',
-      data: { currencyCode: string, walletId: string }
+      data: { currencyCode: string, walletId: string },
     }
   | {
       type: 'UPDATE_EXISTING_TOKEN_SUCCESS',
-      data: { tokenObj: CustomTokenInfo }
+      data: { tokenObj: CustomTokenInfo },
     }
   | { type: 'UPDATE_SWAP_QUOTE', data: GuiSwapInfo }
   | {
       type: 'UPDATE_WALLET_ENABLED_TOKENS',
-      data: { walletId: string, tokens: Array<string> }
+      data: { walletId: string, tokens: Array<string> },
     }
   | { type: 'WALLET_ACCOUNT_ACTIVATION_ESTIMATE_ERROR', data: string }
   | { type: 'NETWORK/NETWORK_STATUS', data: { isConnected: boolean } }
@@ -228,16 +228,16 @@ export type Action =
       data: {
         handleRegistrationInfo: {
           activationCost: number,
-          supportedCurrencies: { [currencyCode: string]: boolean }
+          supportedCurrencies: { [currencyCode: string]: boolean },
         },
         addressRegistrationPaymentInfo: {
           [currencyCode: string]: {
             amount: string,
             nativeAmount: string,
-            address: string
-          }
-        }
-      }
+            address: string,
+          },
+        },
+      },
     }
   | { type: 'FIO/UPDATE_CONNECTED_WALLETS', data: { connectedWalletsByFioAddress: { [fioAddress: string]: CcWalletMap } } }
   | { type: 'FIO/UPDATE_CONNECTED_WALLETS_FOR_FIO_ADDRESS', data: { fioAddress: string, ccWalletMap: CcWalletMap } }

@@ -7,7 +7,7 @@ import s from '../../locales/strings.js'
 
 type OtpHeroProps = {
   style: Object,
-  enabled: boolean
+  enabled: boolean,
 }
 
 export default class OtpHero extends Component<OtpHeroProps> {
@@ -17,7 +17,8 @@ export default class OtpHero extends Component<OtpHeroProps> {
     }
     return <Text style={style.bodyText}>{s.strings.title_otp_disabled}</Text>
   }
-  render () {
+
+  render() {
     const style = this.props.style
     return (
       <View style={style.container}>

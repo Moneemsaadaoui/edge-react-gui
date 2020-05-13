@@ -6,7 +6,7 @@ import { exchangeRate as exchangeRateReducer } from './reducer.js'
 
 test('initialState', () => {
   const expected = {
-    exchangeRates: {}
+    exchangeRates: {},
   }
   const actual = exchangeRateReducer(undefined, {})
 

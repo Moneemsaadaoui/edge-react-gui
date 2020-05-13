@@ -23,34 +23,34 @@ const SETTINGS_DENOMINATION_TEXT = s.strings.settings_denominations_title
 const CUSTOM_NODES_TEXT = s.strings.settings_custom_nodes_title
 
 type NavigationProps = {
-  currencyInfo: EdgeCurrencyInfo
+  currencyInfo: EdgeCurrencyInfo,
 }
 type StateProps = {
   denominations: Array<GuiDenomination>,
   selectedDenominationKey: string,
   electrumServers: Array<string>,
   disableFetchingServers: boolean,
-  defaultElectrumServer: string
+  defaultElectrumServer: string,
 }
 type DispatchProps = {
   disableCustomNodes(): void,
   enableCustomNodes(): void,
   saveCustomNodesList(nodes: Array<string>): void,
-  selectDenomination(string): void
+  selectDenomination(string): void,
 }
 type Props = NavigationProps & StateProps & DispatchProps
 
 type State = {
   isSetCustomNodesModalVisible: boolean,
-  activatedBy: string | null
+  activatedBy: string | null,
 }
 
 export class CurrencySettingsComponent extends Component<Props, State> {
-  constructor (props: Props) {
+  constructor(props: Props) {
     super(props)
     this.state = {
       isSetCustomNodesModalVisible: false,
-      activatedBy: null
+      activatedBy: null,
     }
   }
 
@@ -61,7 +61,7 @@ export class CurrencySettingsComponent extends Component<Props, State> {
   closeSetCustomNodesModal = (callback: () => mixed) => {
     this.setState(
       {
-        isSetCustomNodesModalVisible: false
+        isSetCustomNodesModalVisible: false,
       },
       callback
     )
@@ -70,7 +70,7 @@ export class CurrencySettingsComponent extends Component<Props, State> {
   openSetCustomNodesModal = (activatedBy: string) => {
     this.setState({
       isSetCustomNodesModalVisible: true,
-      activatedBy
+      activatedBy,
     })
   }
 
@@ -86,7 +86,7 @@ export class CurrencySettingsComponent extends Component<Props, State> {
     if (!this.props.disableFetchingServers) {
       this.setState(
         {
-          isSetCustomNodesModalVisible: true
+          isSetCustomNodesModalVisible: true,
         },
         this.enableSetCustomNodes
       )
@@ -96,7 +96,7 @@ export class CurrencySettingsComponent extends Component<Props, State> {
     }
   }
 
-  render () {
+  render() {
     return (
       <SceneWrapper background="body" hasTabs={false}>
         <ScrollView>
@@ -112,7 +112,7 @@ export class CurrencySettingsComponent extends Component<Props, State> {
             />
           )}
           <SettingsHeaderRow text={SETTINGS_DENOMINATION_TEXT} />
-          {this.props.denominations.map(denomination => {
+          {this.props.denominations.map((denomination) => {
             const key = denomination.multiplier
             const left = (
               <Text style={{ ...dayText('row-left'), color: THEME.COLORS.GRAY_1 }}>
@@ -124,7 +124,7 @@ export class CurrencySettingsComponent extends Component<Props, State> {
             return <SettingsRadioRow key={denomination.multiplier} icon={left} text="" isSelected={isSelected} onPress={onPress} />
           })}
           {this.props.defaultElectrumServer.length !== 0 && (
-            <Fragment>
+            <>
               <SettingsHeaderRow text={CUSTOM_NODES_TEXT} />
               <SettingsSwitchRow
                 text={s.strings.settings_enable_custom_nodes}
@@ -136,7 +136,7 @@ export class CurrencySettingsComponent extends Component<Props, State> {
                 text={s.strings.settings_set_custom_nodes_modal_title}
                 onPress={() => this.openSetCustomNodesModal('row')}
               />
-            </Fragment>
+            </>
           )}
         </ScrollView>
       </SceneWrapper>
@@ -159,21 +159,21 @@ export const CurrencySettingsScene = connect(
       selectedDenominationKey: SETTINGS_SELECTORS.getDisplayDenominationKey(state, currencyCode),
       electrumServers,
       disableFetchingServers,
-      defaultElectrumServer
+      defaultElectrumServer,
     }
   },
   (dispatch: Dispatch, ownProps: NavigationProps): DispatchProps => ({
-    disableCustomNodes () {
+    disableCustomNodes() {
       dispatch(disableCustomNodes(ownProps.currencyInfo.currencyCode))
     },
-    enableCustomNodes () {
+    enableCustomNodes() {
       dispatch(enableCustomNodes(ownProps.currencyInfo.currencyCode))
     },
-    selectDenomination (denominationKey) {
+    selectDenomination(denominationKey) {
       dispatch(setDenominationKeyRequest(ownProps.currencyInfo.currencyCode, denominationKey))
     },
-    saveCustomNodesList (nodesList: Array<string>) {
+    saveCustomNodesList(nodesList: Array<string>) {
       dispatch(saveCustomNodesList(ownProps.currencyInfo.currencyCode, nodesList))
-    }
+    },
   })
 )(CurrencySettingsComponent)

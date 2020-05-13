@@ -15,7 +15,7 @@ const getTime = () => new Date().toISOString()
 
 const isObject = (item: any) => typeof item === 'object' && item !== null
 
-const normalize = (...info: Array<any>) => `${getTime()} | ${info.map(item => (isObject(item) ? JSON.stringify(item) : item)).join(' ')}`
+const normalize = (...info: Array<any>) => `${getTime()} | ${info.map((item) => (isObject(item) ? JSON.stringify(item) : item)).join(' ')}`
 
 const lock = new AsyncLock({ maxPending: 100000 })
 // function saveToBuffer (log: string) {
@@ -34,14 +34,14 @@ const NUM_WRITES_BEFORE_ROTATE_CHECK = 100
 
 let numWrites = 0
 
-async function isLogFileLimitExceeded (filePath) {
+async function isLogFileLimitExceeded(filePath) {
   const stats = await RNFS.stat(filePath)
 
   const size = stats.size
   return size > MAX_BYTE_SIZE_PER_FILE
 }
 
-async function rotateLogs () {
+async function rotateLogs() {
   try {
     if (await RNFS.exists(path3)) {
       await RNFS.unlink(path3)
@@ -58,7 +58,7 @@ async function rotateLogs () {
   }
 }
 
-async function writeLog (content) {
+async function writeLog(content) {
   try {
     const exists = await RNFS.exists(path)
 
@@ -79,7 +79,7 @@ async function writeLog (content) {
   }
 }
 
-export async function readLogs () {
+export async function readLogs() {
   try {
     let log = ''
     let exists
@@ -102,7 +102,7 @@ export async function readLogs () {
   }
 }
 
-export async function log (...info: Array<number | string | null | {}>) {
+export async function log(...info: Array<number | string | null | {}>) {
   const logs = normalize(...info)
 
   const now = Date.now()
@@ -118,18 +118,18 @@ export async function log (...info: Array<number | string | null | {}>) {
   global.clog(logs)
 }
 
-async function request (data: string) {
+async function request(data: string) {
   return global.fetch(`${ENV.LOG_SERVER.host}:${ENV.LOG_SERVER.port}/log`, {
     method: 'POST',
     headers: {
       Accept: 'application/json',
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
     },
-    body: JSON.stringify({ data })
+    body: JSON.stringify({ data }),
   })
 }
 
-export async function logToServer (...info: Array<any>) {
+export async function logToServer(...info: Array<any>) {
   const args = info[0]
   let logs = ''
   for (const item of args) {
@@ -139,7 +139,7 @@ export async function logToServer (...info: Array<any>) {
       logs = logs + (' ' + item)
     }
   }
-  request(logs).catch(e => {
+  request(logs).catch((e) => {
     console.log('Failed logToServer')
   })
 }

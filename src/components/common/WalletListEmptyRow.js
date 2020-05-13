@@ -7,7 +7,7 @@ import { THEME } from '../../theme/variables/airbitz.js'
 import { scale } from '../../util/scaling.js'
 
 export class WalletListEmptyRow extends Component<{}> {
-  render () {
+  render() {
     return (
       <TouchableHighlight style={[styles.rowContainer, styles.emptyRow]} underlayColor={THEME.COLORS.ROW_PRESSED}>
         <View style={styles.rowContent}>
@@ -29,7 +29,7 @@ const rawStyles = {
     paddingRight: scale(20),
     justifyContent: 'space-between',
     borderBottomWidth: 1,
-    borderColor: THEME.COLORS.GRAY_4
+    borderColor: THEME.COLORS.GRAY_4,
   },
   rowContainer: {
     padding: scale(6),
@@ -37,17 +37,17 @@ const rawStyles = {
     height: scale(106),
     backgroundColor: THEME.COLORS.WHITE,
     borderBottomWidth: scale(1),
-    borderBottomColor: THEME.COLORS.GRAY_3
+    borderBottomColor: THEME.COLORS.GRAY_3,
   },
   rowContent: {
     flex: 1,
-    flexDirection: 'row'
+    flexDirection: 'row',
   },
   rowNameTextWrap: {
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    marginRight: scale(5)
-  }
+    marginRight: scale(5),
+  },
 }
 const styles: typeof rawStyles = StyleSheet.create(rawStyles)

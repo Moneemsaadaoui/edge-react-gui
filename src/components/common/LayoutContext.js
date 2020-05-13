@@ -9,23 +9,23 @@ export type SafeAreaGap = {
   bottom: number,
   left: number,
   right: number,
-  top: number
+  top: number,
 }
 
 export type LayoutMetrics = {
   layout: { height: number, width: number },
-  safeAreaInsets: SafeAreaGap
+  safeAreaInsets: SafeAreaGap,
 }
 
 type Props = {
   // Expects a single child, which is a function
   // that accepts the current layout and returns an element.
-  children: (layout: LayoutMetrics) => ChildrenArray<Node>
+  children: (layout: LayoutMetrics) => ChildrenArray<Node>,
 }
 
 type State = {
   height: number,
-  width: number
+  width: number,
 }
 
 /**
@@ -42,18 +42,18 @@ type State = {
 export class LayoutContext extends Component<Props, State> {
   update: *
 
-  constructor (props: Props) {
+  constructor(props: Props) {
     super(props)
     this.state = Dimensions.get('window')
     this.update = ({ window }) => this.setState(window)
     Dimensions.addEventListener('change', this.update)
   }
 
-  componentWillUnmount () {
+  componentWillUnmount() {
     Dimensions.removeEventListener('change', this.update)
   }
 
-  render () {
+  render() {
     const { height, width } = this.state
     const isLandscape = height < width
 
@@ -63,8 +63,8 @@ export class LayoutContext extends Component<Props, State> {
         bottom: isIos ? getInset('bottom', isLandscape) : 0,
         left: isIos ? getInset('left', isLandscape) : 0,
         right: isIos ? getInset('right', isLandscape) : 0,
-        top: isIos ? getInset('top', isLandscape) : StatusBar.currentHeight
-      }
+        top: isIos ? getInset('top', isLandscape) : StatusBar.currentHeight,
+      },
     }
 
     return this.props.children(metrics)

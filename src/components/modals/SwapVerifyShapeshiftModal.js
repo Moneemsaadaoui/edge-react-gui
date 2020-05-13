@@ -9,21 +9,21 @@ import { PrimaryButton } from '../../modules/UI/components/Buttons/index'
 import { type AirshipBridge, AirshipModal, ContentArea, dayText, IconCircle, ModalCloseArrow, THEME } from './modalParts.js'
 
 type Props = {
-  bridge: AirshipBridge<boolean>
+  bridge: AirshipBridge<boolean>,
 }
 
 const goToUrl = () => {
   Linking.openURL('https://ShapeShift.io')
 }
 
-export function SwapVerifyShapeshiftModal (props: Props) {
+export function SwapVerifyShapeshiftModal(props: Props) {
   const { bridge } = props
   const iconSize = THEME.rem(1.75)
 
   return (
     <AirshipModal bridge={bridge} onCancel={() => bridge.resolve(false)}>
       <IconCircle>
-        <Image source={swapPluginIcons.shapeshift} resizeMode={'contain'} style={{ height: iconSize, width: iconSize }} />
+        <Image source={swapPluginIcons.shapeshift} resizeMode="contain" style={{ height: iconSize, width: iconSize }} />
       </IconCircle>
 
       <ContentArea padding="wide">

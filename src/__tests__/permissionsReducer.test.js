@@ -16,7 +16,7 @@ test('initialState', () => {
 test('updatePermissions => AUTHORIZED', () => {
   const expected = {
     ...initialState,
-    camera: 'authorized'
+    camera: 'authorized',
   }
   const action = { type: 'PERMISSIONS/UPDATE', data: { camera: 'authorized' } }
   const actual = permissionsReducer(initialState, action)
@@ -27,7 +27,7 @@ test('updatePermissions => AUTHORIZED', () => {
 test('updatePermissions => DENIED', () => {
   const expected = {
     ...initialState,
-    camera: 'denied'
+    camera: 'denied',
   }
   const action = { type: 'PERMISSIONS/UPDATE', data: { camera: 'denied' } }
   const actual = permissionsReducer(initialState, action)
@@ -38,7 +38,7 @@ test('updatePermissions => DENIED', () => {
 test('updatePermissions => RESTRICTED', () => {
   const expected = {
     ...initialState,
-    camera: 'restricted'
+    camera: 'restricted',
   }
   const action = { type: 'PERMISSIONS/UPDATE', data: { camera: 'restricted' } }
   const actual = permissionsReducer(initialState, action)
@@ -50,14 +50,14 @@ test('updatePermissions => MULTI', () => {
   const expected = {
     ...initialState,
     camera: 'restricted',
-    contacts: 'authorized'
+    contacts: 'authorized',
   }
   const action = {
     type: 'PERMISSIONS/UPDATE',
     data: {
       camera: 'restricted',
-      contacts: 'authorized'
-    }
+      contacts: 'authorized',
+    },
   }
   const actual = permissionsReducer(initialState, action)
 

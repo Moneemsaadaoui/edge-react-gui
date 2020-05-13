@@ -12,31 +12,31 @@ export const styles = StyleSheet.create({
     position: 'relative',
     flex: 1,
     backgroundColor: THEME.COLORS.WHITE,
-    paddingBottom: scale(50)
+    paddingBottom: scale(50),
   },
   icon: {
     backgroundColor: THEME.COLORS.TRANSPARENT,
     fontSize: scale(22),
-    color: THEME.COLORS.WHITE
+    color: THEME.COLORS.WHITE,
   },
   instructionalArea: {
     paddingVertical: scale(16),
-    paddingHorizontal: scale(20)
+    paddingHorizontal: scale(20),
   },
   instructionalText: {
     fontSize: scale(16),
-    textAlign: 'center'
+    textAlign: 'center',
   },
   metaTokenListArea: {
     borderTopWidth: 1,
     borderTopColor: THEME.COLORS.GRAY_3,
-    flex: 1
+    flex: 1,
   },
   metaTokenListWrap: {
-    flex: 1
+    flex: 1,
   },
   tokenList: {
-    flex: 1
+    flex: 1,
   },
 
   /// //// start of token row styling ///////
@@ -46,38 +46,38 @@ export const styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderBottomColor: THEME.COLORS.GRAY_3,
     paddingLeft: scale(20),
-    paddingRight: scale(20)
+    paddingRight: scale(20),
   },
   rowLeftArea: {
-    flexDirection: 'row'
+    flexDirection: 'row',
   },
   manageTokenRowInterior: {
     flex: 1,
     flexDirection: 'row',
     justifyContent: 'space-between',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   touchableCheckboxInterior: {
     paddingHorizontal: scale(8),
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   checkBox: {
-    alignSelf: 'center'
+    alignSelf: 'center',
   },
   tokenNameArea: {
-    alignSelf: 'center'
+    alignSelf: 'center',
   },
   tokenNameText: {
     color: THEME.COLORS.GRAY_1,
-    fontSize: scale(16)
+    fontSize: scale(16),
   },
   tokenCheckboxArea: {
-    alignSelf: 'center'
+    alignSelf: 'center',
   },
   rowRightArrow: {
     fontSize: scale(18),
-    color: THEME.COLORS.GRAY_1
+    color: THEME.COLORS.GRAY_1,
   },
   /// //// end of token row styling /////////
 
@@ -88,27 +88,27 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
     alignSelf: 'flex-end',
     paddingVertical: scale(4),
-    paddingHorizontal: scale(20)
+    paddingHorizontal: scale(20),
   },
   addButton: {
     flex: 1,
     marginLeft: scale(2),
     backgroundColor: THEME.COLORS.GRAY_2,
-    borderRadius: 3
+    borderRadius: 3,
   },
   buttonText: {
     color: THEME.COLORS.WHITE,
-    fontSize: scale(17.5)
+    fontSize: scale(17.5),
   },
   saveButton: {
     flex: 1,
     marginRight: scale(2),
     backgroundColor: THEME.COLORS.SECONDARY,
-    borderRadius: 3
+    borderRadius: 3,
   },
   oneButton: {
     flex: 1,
     backgroundColor: THEME.COLORS.SECONDARY,
-    borderRadius: 3
-  }
+    borderRadius: 3,
+  },
 })

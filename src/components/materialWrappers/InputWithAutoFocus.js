@@ -34,11 +34,11 @@ type Props = {
   maxLength?: number,
   multiline?: boolean,
   numberOfLines?: number,
-  suffix?: string
+  suffix?: string,
 }
 
 type State = {
-  inputText: string
+  inputText: string,
 }
 
 class InputWithAutoFocus extends Component<Props, State> {
@@ -51,25 +51,26 @@ class InputWithAutoFocus extends Component<Props, State> {
     onFocus: null,
     keyboardType: 'default',
     placeholder: '',
-    multiline: true
+    multiline: true,
   }
+
   textInput: TextField
-  UNSAFE_componentWillMount () {
+  UNSAFE_componentWillMount() {
     this.textInput = null
     this.setState({
-      inputText: ''
+      inputText: '',
     })
   }
 
-  UNSAFE_componentWillReceiveProps (nextProps: any) {
+  UNSAFE_componentWillReceiveProps(nextProps: any) {
     if (nextProps.value !== this.state.inputText) {
       this.setState({
-        inputText: nextProps.value
+        inputText: nextProps.value,
       })
     }
   }
 
-  render () {
+  render() {
     const value = this.props.value ? this.props.value : ''
     const error = this.props.error ? this.props.error : ''
     const {
@@ -85,7 +86,7 @@ class InputWithAutoFocus extends Component<Props, State> {
       secureTextEntry,
       returnKeyType,
       autoCorrect,
-      suffix
+      suffix,
     } = this.props
     return (
       <TextField
@@ -130,7 +131,7 @@ class InputWithAutoFocus extends Component<Props, State> {
 
   onChange = (text: string) => {
     this.setState({
-      inputText: text
+      inputText: text,
     })
     this.props.onChangeText(text)
   }
@@ -140,11 +141,13 @@ class InputWithAutoFocus extends Component<Props, State> {
       this.props.onSubmitEditing()
     }
   }
+
   onFocus = () => {
     if (this.props.onFocus) {
       this.props.onFocus()
     }
   }
+
   onBlur = () => {
     if (this.props.onBlur) {
       this.props.onBlur()

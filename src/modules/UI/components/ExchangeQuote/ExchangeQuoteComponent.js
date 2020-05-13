@@ -23,7 +23,7 @@ type Props = {
   fiatCurrencyAmount: string,
   walletName: string,
   miningFee?: string | null,
-  isEstimate?: boolean
+  isEstimate?: boolean,
 }
 type State = {}
 
@@ -46,15 +46,17 @@ class ExchangeQuoteComponent extends Component<Props, State> {
     }
     return null
   }
+
   showExplanationForEstimate = () => {
     const modal = createSimpleConfirmModal({
       title: s.strings.estimated_exchange_rate,
       message: s.strings.estimated_exchange_rate_body,
       icon: <Icon type={MATERIAL_COMMUNITY} name={EXCLAMATION} size={30} />,
-      buttonText: s.strings.string_ok
+      buttonText: s.strings.string_ok,
     })
     launchModal(modal).then((response: null) => {})
   }
+
   renderHeadline = () => {
     const styles = sceneStyles.quoteDetailContainer
     if (this.props.isEstimate) {
@@ -71,7 +73,8 @@ class ExchangeQuoteComponent extends Component<Props, State> {
     }
     return <FormattedText style={styles.headlineText}>{this.props.headline}</FormattedText>
   }
-  render () {
+
+  render() {
     const styles = sceneStyles.quoteDetailContainer
     const container = this.props.isTop ? styles.containerExpanded : styles.containerCollapsed
     return (

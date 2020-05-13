@@ -30,7 +30,7 @@ export const showDeleteWalletModal = (walletId: string, additionalMsg: string = 
     ),
     icon: <OptionIcon iconName={DELETE} />,
     noButtonText: s.strings.string_cancel_cap,
-    yesButtonText: s.strings.string_delete
+    yesButtonText: s.strings.string_delete,
   })
 
   const resolveValue = await launchModal(modal)

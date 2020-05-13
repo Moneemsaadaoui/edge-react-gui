@@ -18,7 +18,7 @@ import {
   isValidInput,
   mergeTokens,
   MILLISECONDS_PER_DAY,
-  truncateDecimals
+  truncateDecimals,
 } from '../util/utils.js'
 
 describe('isValidInput', function () {
@@ -261,7 +261,7 @@ describe('getNewArrayWithoutItem', function () {
 describe('getSupportedFiats', function () {
   test('resolves to array of object {value, label}', function () {
     const supportedFiats = getSupportedFiats()
-    supportedFiats.forEach(fiat => {
+    supportedFiats.forEach((fiat) => {
       expect(fiat).toEqual(expect.objectContaining({ label: expect.any(String), value: expect.any(String) }))
     })
   })
@@ -275,7 +275,7 @@ describe('isCompleteExchangeData', function () {
         primaryDisplayName: 'BTC',
         secondaryDisplaySymbol: '$',
         secondaryDisplayAmount: '4000',
-        secondaryCurrencyCode: 'USD'
+        secondaryCurrencyCode: 'USD',
       }
       const expected = false
       // $FlowExpectedError
@@ -291,7 +291,7 @@ describe('isCompleteExchangeData', function () {
         primaryDisplayName: undefined,
         secondaryDisplaySymbol: '$',
         secondaryDisplayAmount: '4000',
-        secondaryCurrencyCode: 'USD'
+        secondaryCurrencyCode: 'USD',
       }
       const expected = false
       // $FlowExpectedError
@@ -307,7 +307,7 @@ describe('isCompleteExchangeData', function () {
         primaryDisplayName: 'BTC',
         secondaryDisplaySymbol: undefined,
         secondaryDisplayAmount: '4000',
-        secondaryCurrencyCode: 'USD'
+        secondaryCurrencyCode: 'USD',
       }
       const expected = false
       // $FlowExpectedError
@@ -323,7 +323,7 @@ describe('isCompleteExchangeData', function () {
         primaryDisplayName: 'BTC',
         secondaryDisplaySymbol: '$',
         secondaryDisplayAmount: undefined,
-        secondaryCurrencyCode: 'USD'
+        secondaryCurrencyCode: 'USD',
       }
       const expected = false
       // $FlowExpectedError
@@ -339,7 +339,7 @@ describe('isCompleteExchangeData', function () {
         primaryDisplayName: 'BTC',
         secondaryDisplaySymbol: '$',
         secondaryDisplayAmount: '4000',
-        secondaryCurrencyCode: undefined
+        secondaryCurrencyCode: undefined,
       }
       const expected = false
       // $FlowExpectedError
@@ -354,7 +354,7 @@ describe('isCompleteExchangeData', function () {
       primaryDisplayName: 'BTC',
       secondaryDisplaySymbol: '$',
       secondaryDisplayAmount: '4000',
-      secondaryCurrencyCode: 'USD'
+      secondaryCurrencyCode: 'USD',
     }
     const expected = true
     const actual = isCompleteExchangeData(completeExchangeData)
@@ -376,7 +376,7 @@ describe('mergeTokens', function () {
     const expected = [
       preferredTokenA, // from preferredEdgeTokens
       preferredTokenB, // from preferredEdgeTokens
-      tokenD
+      tokenD,
     ]
     // $FlowExpectedError
     const actual = mergeTokens(preferredEdgeMetaTokens, edgeMetaTokens)
@@ -443,11 +443,11 @@ describe('getObjectDiff', () => {
   test('simple equal', () => {
     const obj1 = {
       a: '1',
-      b: '2'
+      b: '2',
     }
     const obj2 = {
       a: '1',
-      b: '2'
+      b: '2',
     }
     expect(getObjectDiff(obj1, obj2)).toEqual('')
   })
@@ -455,11 +455,11 @@ describe('getObjectDiff', () => {
   test('simple unequal', () => {
     const obj1 = {
       a: '1',
-      b: '3'
+      b: '3',
     }
     const obj2 = {
       a: '1',
-      b: '2'
+      b: '2',
     }
     expect(getObjectDiff(obj1, obj2)).toEqual('b')
   })
@@ -468,14 +468,14 @@ describe('getObjectDiff', () => {
     const obj1 = {
       a: '1',
       b: {
-        c: 1
-      }
+        c: 1,
+      },
     }
     const obj2 = {
       a: '1',
       b: {
-        c: 1
-      }
+        c: 1,
+      },
     }
     expect(getObjectDiff(obj1, obj2)).toEqual('b')
   })
@@ -484,14 +484,14 @@ describe('getObjectDiff', () => {
     const obj1 = {
       a: '1',
       b: {
-        c: 1
-      }
+        c: 1,
+      },
     }
     const obj2 = {
       a: '1',
       b: {
-        c: 2
-      }
+        c: 2,
+      },
     }
     expect(getObjectDiff(obj1, obj2, { b: true })).toEqual('b')
   })
@@ -500,14 +500,14 @@ describe('getObjectDiff', () => {
     const obj1 = {
       a: '1',
       b: {
-        c: 2
-      }
+        c: 2,
+      },
     }
     const obj2 = {
       a: '1',
       b: {
-        c: 2
-      }
+        c: 2,
+      },
     }
     expect(getObjectDiff(obj1, obj2, { b: true })).toEqual('')
   })
@@ -516,15 +516,15 @@ describe('getObjectDiff', () => {
     const obj1 = {
       a: '1',
       b: {
-        c: 2
+        c: 2,
       },
-      d: false
+      d: false,
     }
     const obj2 = {
       a: '1',
       b: {
-        c: 2
-      }
+        c: 2,
+      },
     }
     expect(getObjectDiff(obj1, obj2, { b: true })).toEqual('d')
   })
@@ -533,15 +533,15 @@ describe('getObjectDiff', () => {
     const obj1 = {
       a: '1',
       b: {
-        c: 2
-      }
+        c: 2,
+      },
     }
     const obj2 = {
       a: '1',
       b: {
-        c: 2
+        c: 2,
       },
-      d: false
+      d: false,
     }
     expect(getObjectDiff(obj1, obj2, { b: true })).toEqual('d')
   })
@@ -551,14 +551,14 @@ describe('getObjectDiff', () => {
       a: '1',
       b: {
         c: 2,
-        d: 3
-      }
+        d: 3,
+      },
     }
     const obj2 = {
       a: '1',
       b: {
-        c: 2
-      }
+        c: 2,
+      },
     }
     expect(getObjectDiff(obj1, obj2, { b: true })).toEqual('b')
   })
@@ -567,15 +567,15 @@ describe('getObjectDiff', () => {
     const obj1 = {
       a: '1',
       b: {
-        c: 2
-      }
+        c: 2,
+      },
     }
     const obj2 = {
       a: '1',
       b: {
         c: 2,
-        d: true
-      }
+        d: true,
+      },
     }
     expect(getObjectDiff(obj1, obj2, { b: true })).toEqual('b')
   })

@@ -12,7 +12,7 @@ const EN_US_LOCALE = {
   quotationEndDelimiterKey: '”',
   currencySymbol: '$',
   currencyCode: 'USD',
-  groupingSeparator: ','
+  groupingSeparator: ',',
 }
 const DE_DE_LOCALE = {
   localeIdentifier: 'de_DE',
@@ -21,7 +21,7 @@ const DE_DE_LOCALE = {
   quotationEndDelimiterKey: '”',
   currencySymbol: 'DKK',
   currencyCode: 'DKK',
-  groupingSeparator: '.'
+  groupingSeparator: '.',
 }
 
 describe('Intl numbers', function () {

@@ -12,17 +12,17 @@ import { type AirshipBridge, AirshipModal } from './modalParts.js'
 type Props = {
   bridge: AirshipBridge<null>,
   notes: string,
-  onChange: string => void
+  onChange: (string) => void,
 }
 
 type State = {
-  notes: string
+  notes: string,
 }
 
 export class TransactionDetailsNotesInput extends Component<Props, State> {
   notesInput: TextInput
 
-  constructor (props: Props) {
+  constructor(props: Props) {
     super(props)
     this.state = { notes: props.notes }
   }
@@ -32,7 +32,7 @@ export class TransactionDetailsNotesInput extends Component<Props, State> {
     this.props.onChange(notes)
   }
 
-  render () {
+  render() {
     const { bridge } = this.props
     const { notes } = this.state
     return (
@@ -51,7 +51,7 @@ export class TransactionDetailsNotesInput extends Component<Props, State> {
                   underlineColorAndroid={THEME.COLORS.TRANSPARENT}
                   placeholderTextColor={THEME.COLORS.GRAY_3}
                   value={notes}
-                  ref={ref => (this.notesInput = ref)}
+                  ref={(ref) => (this.notesInput = ref)}
                   onChangeText={this.onChange}
                   placeholder={s.strings.transaction_details_notes_title}
                 />

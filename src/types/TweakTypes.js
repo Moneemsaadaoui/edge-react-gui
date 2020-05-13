@@ -5,7 +5,7 @@ import { type Cleaner, asBoolean, asDate, asNumber, asObject, asOptional, asStri
 /**
  * A currency code to create a wallet for, normalized to uppercase.
  */
-export const asCurrencyCode: Cleaner<string> = raw => asString(raw).toUpperCase()
+export const asCurrencyCode: Cleaner<string> = (raw) => asString(raw).toUpperCase()
 
 /**
  * An message card to show the user.
@@ -19,7 +19,7 @@ export const asMessageTweak = asObject({
   iconUri: asOptional(asString),
 
   startDate: asOptional(asDate),
-  durationDays: asNumber
+  durationDays: asNumber,
 })
 export type MessageTweak = $Call<typeof asMessageTweak, any>
 
@@ -36,6 +36,6 @@ export const asPluginTweak = asObject({
   disabled: asOptional(asBoolean, false),
 
   startDate: asOptional(asDate),
-  durationDays: asNumber
+  durationDays: asNumber,
 })
 export type PluginTweak = $Call<typeof asPluginTweak, any>

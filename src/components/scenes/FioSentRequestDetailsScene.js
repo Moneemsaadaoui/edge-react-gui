@@ -14,13 +14,13 @@ import type { FioRequest } from '../../types/types'
 import { SceneWrapper } from '../common/SceneWrapper'
 
 export type NavigationProps = {
-  selectedFioSentRequest: FioRequest
+  selectedFioSentRequest: FioRequest,
 }
 
 export type FioSentRequestDetailsProps = {
   fiatSymbol: string,
   isoFiatCurrencyCode: string,
-  exchangeRates: ExchangeRatesState
+  exchangeRates: ExchangeRatesState,
 }
 
 export type FioSentRequestDetailsDispatchProps = {}
@@ -29,15 +29,15 @@ type Props = FioSentRequestDetailsProps & FioSentRequestDetailsDispatchProps & N
 
 type LocalState = {
   memo: string,
-  focused: boolean
+  focused: boolean,
 }
 
 export class FioSentRequestDetailsComponent extends Component<Props, LocalState> {
-  constructor (props: Props) {
+  constructor(props: Props) {
     super(props)
     const state: LocalState = {
       memo: '',
-      focused: false
+      focused: false,
     }
     this.state = state
   }
@@ -106,7 +106,7 @@ export class FioSentRequestDetailsComponent extends Component<Props, LocalState>
     )
   }
 
-  render () {
+  render() {
     return (
       <SceneWrapper>
         <SafeAreaView>

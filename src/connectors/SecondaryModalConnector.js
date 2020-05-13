@@ -9,7 +9,7 @@ import type { Dispatch, State } from '../types/reduxTypes.js'
 export const mapStateToProps = (state: State) => ({
   error: state.ui.scenes.scan.privateKeyModal.error,
   isSweeping: state.ui.scenes.scan.privateKeyModal.isSweeping,
-  isActive: state.ui.scenes.scan.privateKeyModal.secondaryModal.isActive
+  isActive: state.ui.scenes.scan.privateKeyModal.secondaryModal.isActive,
 })
 export const mapDispatchToProps = (dispatch: Dispatch) => ({
   onBackButtonPress: () => {
@@ -17,11 +17,8 @@ export const mapDispatchToProps = (dispatch: Dispatch) => ({
   },
   onBackdropPress: () => {
     dispatch(secondaryModalDeactivated())
-  }
+  },
 })
 
-export const SecondaryModalConnector = connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(SecondaryModal)
+export const SecondaryModalConnector = connect(mapStateToProps, mapDispatchToProps)(SecondaryModal)
 export default SecondaryModalConnector

@@ -30,7 +30,7 @@ describe('sendConfirmation reducer', () => {
           legacyAddress: '123412341234',
           nativeAmount: '100000',
           currencyCode: 'BCH',
-          metadata: {}
+          metadata: {},
         }
         const transaction = {
           blockHeight: 0,
@@ -41,7 +41,7 @@ describe('sendConfirmation reducer', () => {
           otherParams: {},
           ourReceiveAddresses: ['123123123'],
           signedTx: '',
-          txid: ''
+          txid: '',
         }
         const error = null
         const forceUpdateGui = true
@@ -58,8 +58,8 @@ describe('sendConfirmation reducer', () => {
           nativeAmount: '100000',
           currencyCode: 'BCH',
           metadata: {
-            name: 'airbitz'
-          }
+            name: 'airbitz',
+          },
         }
         const transaction = {
           blockHeight: 0,
@@ -70,7 +70,7 @@ describe('sendConfirmation reducer', () => {
           otherParams: {},
           ourReceiveAddresses: ['123123123'],
           signedTx: '',
-          txid: ''
+          txid: '',
         }
         const error = null
         const forceUpdateGui = true
@@ -104,7 +104,7 @@ describe('sendConfirmation reducer', () => {
           otherParams: {},
           ourReceiveAddresses: ['123123123'],
           signedTx: '',
-          txid: ''
+          txid: '',
         }
         const error = new Error(s.strings.incorrect_pin)
         const forceUpdateGui = true
@@ -122,7 +122,7 @@ describe('sendConfirmation reducer', () => {
           currencyCode: 'BTC',
           nativeAmount: '1000',
           spendTargets: [{ currencyCode: 'BTC', nativeAmount: '1000', publicAddress: '123123123' }],
-          metadata: { name: 'airbitz' }
+          metadata: { name: 'airbitz' },
         }
         const action = newSpendInfo(spendInfo, 'none')
         const initialStateClone = clone(initialState)
@@ -136,7 +136,7 @@ describe('sendConfirmation reducer', () => {
           currencyCode: 'BTC',
           nativeAmount: '1000',
           spendTargets: [{ currencyCode: 'BTC', nativeAmount: '1000', publicAddress: '123123123' }],
-          metadata: {}
+          metadata: {},
         }
         const action = newSpendInfo(spendInfo, 'none')
         const initialStateClone = clone(initialState)
@@ -151,7 +151,7 @@ describe('sendConfirmation reducer', () => {
     test('NEW_SPEND_INFO', () => {
       const spendInfo = {
         spendTargets: [{ publicAddress: '123123123', nativeAmount: '0' }],
-        metadata: {}
+        metadata: {},
       }
       const action = newSpendInfo(spendInfo, 'none')
       const initialStateClone = clone(initialState)

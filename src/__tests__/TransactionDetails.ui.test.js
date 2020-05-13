@@ -14,16 +14,16 @@ const typeHack: any = {
       '100000000': {
         name: 'BTC',
         multiplier: '100000000',
-        symbol: '₿'
-      }
-    }
+        symbol: '₿',
+      },
+    },
   },
   denominations: [
     {
       name: 'BTC',
       multiplier: '100000000',
-      symbol: '₿'
-    }
+      symbol: '₿',
+    },
   ],
   balances: { BTC: '123123' },
   blockHeight: 12345,
@@ -34,7 +34,7 @@ const typeHack: any = {
   displayPublicSeed: 'public seed',
   fiatCurrencyCode: 'iso:USD',
   id: '123',
-  name: 'wallet name'
+  name: 'wallet name',
 }
 const fakeGuiWallet: GuiWallet = typeHack
 const fakeCoreWallet: EdgeCurrencyWallet = typeHack
@@ -45,9 +45,9 @@ const settings = {
     denominations: {
       name: 'BTC',
       multiplier: '100000000',
-      symbol: '₿'
-    }
-  }
+      symbol: '₿',
+    },
+  },
 }
 
 describe('TransactionDetails.ui', () => {
@@ -64,7 +64,7 @@ describe('TransactionDetails.ui', () => {
         signedTx: 'this is a signed tx',
         otherParams: {},
         wallet: fakeCoreWallet,
-        blockHeight: 0
+        blockHeight: 0,
       },
       contacts: [],
       subcategoriesList: [],
@@ -77,7 +77,7 @@ describe('TransactionDetails.ui', () => {
       setNewSubcategory: jest.fn(),
       setTransactionDetails: jest.fn(),
       getSubcategories: jest.fn(),
-      displayDropdownAlert: jest.fn()
+      displayDropdownAlert: jest.fn(),
     }
     const actual = renderer.render(<TransactionDetails {...props} />)
 
@@ -97,7 +97,7 @@ describe('TransactionDetails.ui', () => {
         signedTx: 'this is a signed tx',
         otherParams: {},
         wallet: fakeCoreWallet,
-        blockHeight: 0
+        blockHeight: 0,
       },
       contacts: [],
       subcategoriesList: [],
@@ -110,7 +110,7 @@ describe('TransactionDetails.ui', () => {
       setNewSubcategory: jest.fn(),
       setTransactionDetails: jest.fn(),
       getSubcategories: jest.fn(),
-      displayDropdownAlert: jest.fn()
+      displayDropdownAlert: jest.fn(),
     }
     const actual = renderer.render(<TransactionDetails {...props} />)
 
@@ -130,7 +130,7 @@ describe('TransactionDetails.ui', () => {
         signedTx: 'this is a signed tx',
         otherParams: {},
         wallet: fakeCoreWallet,
-        blockHeight: 0
+        blockHeight: 0,
       },
       contacts: [],
       subcategoriesList: [],
@@ -143,7 +143,7 @@ describe('TransactionDetails.ui', () => {
       setNewSubcategory: jest.fn(),
       setTransactionDetails: jest.fn(),
       getSubcategories: jest.fn(),
-      displayDropdownAlert: jest.fn()
+      displayDropdownAlert: jest.fn(),
     }
     const actual = renderer.render(<TransactionDetails {...props} />)
 
@@ -165,8 +165,8 @@ describe('TransactionDetails.ui', () => {
         wallet: fakeCoreWallet,
         blockHeight: 0,
         metadata: {
-          amountFiat: -6392.93
-        }
+          amountFiat: -6392.93,
+        },
       },
       contacts: [],
       subcategoriesList: [],
@@ -179,7 +179,7 @@ describe('TransactionDetails.ui', () => {
       setNewSubcategory: jest.fn(),
       setTransactionDetails: jest.fn(),
       getSubcategories: jest.fn(),
-      displayDropdownAlert: jest.fn()
+      displayDropdownAlert: jest.fn(),
     }
     const actual = renderer.render(<TransactionDetails {...props} />)
 

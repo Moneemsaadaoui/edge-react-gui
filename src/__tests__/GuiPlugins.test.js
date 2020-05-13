@@ -73,12 +73,12 @@ describe('GuiPlugins tools', () => {
       storeId: 'custom',
       baseUri: 'file://test/',
       baseQuery: { api_key: 'edge' },
-      displayName: 'Test Plugin'
+      displayName: 'Test Plugin',
     }
     const opts = {
       deepPath: 'sell',
       deepQuery: { kickback: null },
-      promoCode: 'deals'
+      promoCode: 'deals',
     }
 
     expect(makePluginUri(testPlugin, opts)).toEqual('file://test/sell?api_key=edge&kickback')
@@ -87,12 +87,12 @@ describe('GuiPlugins tools', () => {
   })
 })
 
-function pluginIds (plugins: GuiPluginRow[]): string[] {
-  return plugins.map(plugin => plugin.pluginId)
+function pluginIds(plugins: GuiPluginRow[]): string[] {
+  return plugins.map((plugin) => plugin.pluginId)
 }
 
-function titles (plugins: GuiPluginRow[]): string[] {
-  return plugins.map(plugin => plugin.title)
+function titles(plugins: GuiPluginRow[]): string[] {
+  return plugins.map((plugin) => plugin.title)
 }
 
 // This test data is designed to exercise specific problem areas:
@@ -102,7 +102,7 @@ const testJson = asGuiPluginJson([
     pluginId: 'phony',
     title: 'Credit card',
     paymentTypes: ['credit'],
-    forCountries: ['US', 'AU']
+    forCountries: ['US', 'AU'],
   },
   {
     id: 'phony-apple',
@@ -111,40 +111,40 @@ const testJson = asGuiPluginJson([
     title: 'Apple Pay',
     paymentTypes: ['applepay'],
     forCountries: ['US'],
-    forPlatform: 'ios'
+    forPlatform: 'ios',
   },
   {
     id: 'gox',
     pluginId: 'gox',
     title: 'Wire transfer',
     paymentTypes: ['wire', 'hack'],
-    forCountries: ['US', 'JP']
+    forCountries: ['US', 'JP'],
   },
   '----- Sorting -----',
   {
     id: 'phony-credit',
-    sortIndex: 3
+    sortIndex: 3,
   },
   {
     id: 'gox',
-    sortIndex: 4
+    sortIndex: 4,
   },
   '----- Platform Specifics -----',
   {
     id: 'phony-apple',
     forPlatform: 'ios',
-    sortIndex: 2 // Apple Pay to top on iOS
+    sortIndex: 2, // Apple Pay to top on iOS
   },
   {
     id: 'phony-credit',
     forPlatform: 'ios',
-    sortIndex: 5 // Credit to bottom on iOS
+    sortIndex: 5, // Credit to bottom on iOS
   },
   '----- Country Specifics -----',
   {
     id: 'gox',
     title: 'Nice lawsuit', // Special title in Japan
     forCountries: ['JP', 'GB'], // Note that GB isn't supported above
-    sortIndex: 1
-  }
+    sortIndex: 1,
+  },
 ])

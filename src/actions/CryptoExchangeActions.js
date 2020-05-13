@@ -26,7 +26,7 @@ const DIVIDE_PRECISION = 18
 
 export type SetNativeAmountInfo = {
   whichWallet: 'from' | 'to',
-  primaryNativeAmount: string
+  primaryNativeAmount: string,
 }
 
 export const getQuoteForTransaction = (info: SetNativeAmountInfo) => async (dispatch: Dispatch, getState: GetState) => {
@@ -51,7 +51,7 @@ export const getQuoteForTransaction = (info: SetNativeAmountInfo) => async (disp
       nativeAmount: info.primaryNativeAmount,
       quoteFor: info.whichWallet,
       toCurrencyCode,
-      toWallet: toCoreWallet
+      toWallet: toCoreWallet,
     }
 
     const swapInfo = await fetchSwapQuote(state, request)
@@ -101,7 +101,7 @@ export const exchangeMax = () => async (dispatch: Dispatch, getState: GetState) 
     const edgeSpendInfo: EdgeSpendInfo = {
       networkFeeOption: 'standard',
       currencyCode,
-      spendTargets: [{ publicAddress }]
+      spendTargets: [{ publicAddress }],
     }
     primaryNativeAmount = await wallet.getMaxSpendable(edgeSpendInfo)
   } catch (error) {
@@ -110,7 +110,7 @@ export const exchangeMax = () => async (dispatch: Dispatch, getState: GetState) 
   dispatch({ type: 'SET_FROM_WALLET_MAX', data: primaryNativeAmount })
 }
 
-async function fetchSwapQuote (state: State, request: EdgeSwapRequest): Promise<GuiSwapInfo> {
+async function fetchSwapQuote(state: State, request: EdgeSwapRequest): Promise<GuiSwapInfo> {
   const { account } = state.core
 
   // Find preferred swap provider:
@@ -126,7 +126,7 @@ async function fetchSwapQuote (state: State, request: EdgeSwapRequest): Promise<
   const quote: EdgeSwapQuote = await account.fetchSwapQuote(request, {
     preferPluginId,
     disabled: activePlugins.disabled,
-    promoCodes: activePlugins.promoCodes
+    promoCodes: activePlugins.promoCodes,
   })
 
   // Currency conversion tools:
@@ -171,7 +171,7 @@ async function fetchSwapQuote (state: State, request: EdgeSwapRequest): Promise<
     fromDisplayAmount,
     fromFiat,
     toDisplayAmount,
-    toFiat
+    toFiat,
   }
   return swapInfo
 }
@@ -201,7 +201,7 @@ const processSwapQuoteError = (error: any) => (dispatch: Dispatch, getState: Get
 
       return dispatch({
         type: 'GENERIC_SHAPE_SHIFT_ERROR',
-        data: sprintf(s.strings.amount_above_limit, displayMax, currentCurrencyDenomination.name)
+        data: sprintf(s.strings.amount_above_limit, displayMax, currentCurrencyDenomination.name),
       })
     }
 
@@ -216,14 +216,14 @@ const processSwapQuoteError = (error: any) => (dispatch: Dispatch, getState: Get
 
       return dispatch({
         type: 'GENERIC_SHAPE_SHIFT_ERROR',
-        data: sprintf(s.strings.amount_below_limit, displayMin, currentCurrencyDenomination.name)
+        data: sprintf(s.strings.amount_below_limit, displayMin, currentCurrencyDenomination.name),
       })
     }
 
     case errorNames.SwapCurrencyError: {
       return dispatch({
         type: 'GENERIC_SHAPE_SHIFT_ERROR',
-        data: sprintf(s.strings.ss_unable, fromCurrencyCode, toCurrencyCode)
+        data: sprintf(s.strings.ss_unable, fromCurrencyCode, toCurrencyCode),
       })
     }
 
@@ -232,7 +232,7 @@ const processSwapQuoteError = (error: any) => (dispatch: Dispatch, getState: Get
         case 'geoRestriction': {
           return dispatch({
             type: 'GENERIC_SHAPE_SHIFT_ERROR',
-            data: s.strings.ss_geolock
+            data: s.strings.ss_geolock,
           })
         }
 
@@ -240,7 +240,7 @@ const processSwapQuoteError = (error: any) => (dispatch: Dispatch, getState: Get
           if (error.pluginId === 'shapeshift') {
             Alert.alert(s.strings.kyc_title, s.strings.kyc_message, [
               { text: s.strings.string_cancel_cap, onPress: () => {} },
-              { text: s.strings.string_ok, onPress: () => Actions[Constants.SWAP_ACTIVATE_SHAPESHIFT]() }
+              { text: s.strings.string_ok, onPress: () => Actions[Constants.SWAP_ACTIVATE_SHAPESHIFT]() },
             ])
             return
           }
@@ -249,7 +249,7 @@ const processSwapQuoteError = (error: any) => (dispatch: Dispatch, getState: Get
 
         case 'noVerification': {
           if (error.pluginId === 'shapeshift') {
-            Airship.show(bridge => <SwapVerifyShapeshiftModal bridge={bridge} />)
+            Airship.show((bridge) => <SwapVerifyShapeshiftModal bridge={bridge} />)
             return
           }
           break // Not handled
@@ -267,7 +267,7 @@ const processSwapQuoteError = (error: any) => (dispatch: Dispatch, getState: Get
   // Anything else:
   return dispatch({
     type: 'GENERIC_SHAPE_SHIFT_ERROR',
-    data: error.message
+    data: error.message,
   })
 }
 
@@ -323,7 +323,7 @@ export const shiftCryptoCurrency = (swapInfo: GuiSwapInfo) => async (dispatch: D
     const edgeMetaData: EdgeMetadata = {
       name,
       category,
-      notes
+      notes,
     }
     Actions.popTo(Constants.EXCHANGE_SCENE)
     await fromWallet.saveTxMetadata(result.transaction.txid, result.transaction.currencyCode, edgeMetaData)
@@ -340,7 +340,7 @@ export const shiftCryptoCurrency = (swapInfo: GuiSwapInfo) => async (dispatch: D
       account,
       pluginId,
       currencyCode: toCurrencyCode,
-      exchangeAmount: Number(exchangeAmount)
+      exchangeAmount: Number(exchangeAmount),
     })
   } catch (error) {
     console.log(error)
@@ -363,14 +363,14 @@ export const selectWalletForExchange = (walletId: string, currencyCode: string, 
     displayCurrencyCode: cc,
     exchangeCurrencyCode: cc,
     displayDenomination: primaryDisplayDenomination,
-    exchangeDenomination: primaryExchangeDenomination
+    exchangeDenomination: primaryExchangeDenomination,
   }
 
   const data = {
     wallet,
     balanceMessage: await getBalanceMessage(state, wallet, cc),
     currencyCode: cc,
-    primaryInfo
+    primaryInfo,
   }
 
   let walletDirection = 'from'
@@ -406,7 +406,7 @@ export const checkEnabledExchanges = () => (dispatch: Dispatch, getState: GetSta
   }
 }
 
-async function getBalanceMessage (state: State, wallet: GuiWallet, currencyCode: string) {
+async function getBalanceMessage(state: State, wallet: GuiWallet, currencyCode: string) {
   const { account } = state.core
   const currencyConverter = account.exchangeCache
   const balanceInCrypto = wallet.nativeBalances[currencyCode]

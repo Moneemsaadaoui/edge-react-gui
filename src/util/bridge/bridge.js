@@ -3,7 +3,7 @@
 
 import { Bridge, bridgifyObject } from 'yaob'
 
-function setupBridge () {
+function setupBridge() {
   // We have already run once in this context:
   if (window.bridge != null) return
 
@@ -14,7 +14,7 @@ function setupBridge () {
 
       // Tell anybody waiting that we are ready:
       document.dispatchEvent(new Event('edgeProviderReady'))
-    }
+    },
   }
   bridgifyObject(workerApi)
 
@@ -22,7 +22,7 @@ function setupBridge () {
   window.bridge = new Bridge({
     sendMessage: function (message) {
       window.ReactNativeWebView.postMessage(JSON.stringify(message))
-    }
+    },
   })
   window.bridge.sendRoot(workerApi)
 }

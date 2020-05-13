@@ -13,28 +13,28 @@ export const styles = {
     justifyContent: 'center',
     paddingVertical: scale(7),
     flexDirection: 'row',
-    borderColor: THEME.COLORS.GRAY_4
+    borderColor: THEME.COLORS.GRAY_4,
   },
   outerView: {
     alignItems: 'center',
     justifyContent: 'center',
     paddingVertical: scale(7),
-    flex: 1
+    flex: 1,
   },
   view: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
     width: '100%',
-    paddingVertical: scale(2)
+    paddingVertical: scale(2),
   },
   text: {
     fontSize: scale(17),
-    color: THEME.COLORS.WHITE
+    color: THEME.COLORS.WHITE,
   },
   underlay: {
-    color: THEME.COLORS.SECONDARY
-  }
+    color: THEME.COLORS.SECONDARY,
+  },
 }
 
 export default StyleSheet.create(styles)

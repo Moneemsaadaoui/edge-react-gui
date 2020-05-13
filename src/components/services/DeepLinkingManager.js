@@ -16,32 +16,32 @@ type StateProps = {
 
   // We don't actually read these, but we need them to trigger updates:
   accountReferralLoaded: boolean,
-  wallets: WalletsState
+  wallets: WalletsState,
 }
 
 type DispatchProps = {
   launchDeepLink(link: DeepLink): void,
-  retryPendingDeepLink(): void
+  retryPendingDeepLink(): void,
 }
 
 type Props = StateProps & DispatchProps
 
 class DeepLinkingManagerComponent extends React.Component<Props> {
-  componentDidMount () {
+  componentDidMount() {
     Linking.addEventListener('url', this.handleLinkEvent)
     Linking.getInitialURL()
-      .then(url => {
+      .then((url) => {
         if (url != null) this.props.launchDeepLink(parseDeepLink(url))
       })
       .catch(showError)
   }
 
-  componentWillUnmount () {
+  componentWillUnmount() {
     Linking.removeEventListener('url', this.handleLinkEvent)
   }
 
   // Retry links that need a different app state:
-  componentDidUpdate () {
+  componentDidUpdate() {
     const { pendingDeepLink } = this.props
     if (pendingDeepLink == null) return
 
@@ -49,7 +49,7 @@ class DeepLinkingManagerComponent extends React.Component<Props> {
     requestAnimationFrame(() => this.props.retryPendingDeepLink())
   }
 
-  render () {
+  render() {
     return null
   }
 
@@ -62,15 +62,15 @@ export const DeepLinkingManager = connect(
   (state: ReduxState): StateProps => ({
     pendingDeepLink: state.pendingDeepLink,
     accountReferralLoaded: state.account.accountReferralLoaded,
-    wallets: state.ui.wallets
+    wallets: state.ui.wallets,
   }),
 
   (dispatch: Dispatch): DispatchProps => ({
-    launchDeepLink (link) {
+    launchDeepLink(link) {
       dispatch(launchDeepLink(link))
     },
-    retryPendingDeepLink () {
+    retryPendingDeepLink() {
       dispatch(retryPendingDeepLink())
-    }
+    },
   })
 )(DeepLinkingManagerComponent)

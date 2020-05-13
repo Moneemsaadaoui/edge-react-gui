@@ -24,22 +24,19 @@ export const mapStateToProps = (state: State, ownProps: OwnProps): StateProps =>
     pending: state.cryptoExchange.shiftPendingTransaction,
     toCurrencyIcon: state.cryptoExchange.toCurrencyIcon || '',
     toDenomination: state.cryptoExchange.toWalletPrimaryInfo.displayDenomination.name,
-    toWalletCurrencyName
+    toWalletCurrencyName,
   }
 }
 
 export const mapDispatchToProps = (dispatch: Dispatch): DispatchProps => ({
-  shift (swapInfo: GuiSwapInfo) {
+  shift(swapInfo: GuiSwapInfo) {
     dispatch(shiftCryptoCurrency(swapInfo))
   },
-  timeExpired (swapInfo: GuiSwapInfo) {
+  timeExpired(swapInfo: GuiSwapInfo) {
     dispatch(exchangeTimerExpired(swapInfo))
-  }
+  },
 })
 
-const CryptoExchangeQuoteConnector = connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(CryptoExchangeQuoteScreenComponent)
+const CryptoExchangeQuoteConnector = connect(mapStateToProps, mapDispatchToProps)(CryptoExchangeQuoteScreenComponent)
 
 export { CryptoExchangeQuoteConnector }

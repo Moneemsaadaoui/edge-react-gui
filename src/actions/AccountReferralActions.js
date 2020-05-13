@@ -21,7 +21,7 @@ export const loadAccountReferral = (account: EdgeAccount) => async (dispatch: Di
       // Cache errors are fine:
       account.localDisklet.getText(REFERRAL_CACHE_FILE).catch(() => '{}'),
       // Referral errors mean we aren't affiliated:
-      account.disklet.getText(ACCOUNT_REFERRAL_FILE)
+      account.disklet.getText(ACCOUNT_REFERRAL_FILE),
     ])
     const cache = asDiskReferralCache(JSON.parse(cacheText))
     const referral = unpackAccountReferral(JSON.parse(referralText))
@@ -41,11 +41,11 @@ export const loadAccountReferral = (account: EdgeAccount) => async (dispatch: Di
   const referral: AccountReferral = {
     promotions: [],
     ignoreAccountSwap: false,
-    hiddenAccountMessages: {}
+    hiddenAccountMessages: {},
   }
   const cache: ReferralCache = {
     accountMessages: [],
-    accountPlugins: []
+    accountPlugins: [],
   }
   dispatch({ type: 'ACCOUNT_REFERRAL_LOADED', data: { cache, referral } })
 }
@@ -64,11 +64,11 @@ const createAccountReferral = () => async (dispatch: Dispatch, getState: GetStat
     currencyCodes,
     promotions: [],
     ignoreAccountSwap: false,
-    hiddenAccountMessages: {}
+    hiddenAccountMessages: {},
   }
   const cache: ReferralCache = {
     accountMessages: lockStartDates(messages, creationDate),
-    accountPlugins: lockStartDates(plugins, creationDate)
+    accountPlugins: lockStartDates(plugins, creationDate),
   }
 
   dispatch({ type: 'ACCOUNT_REFERRAL_LOADED', data: { cache, referral } })
@@ -100,7 +100,7 @@ export const activatePromotion = (installerId: string) => async (dispatch: Dispa
     installerId,
     hiddenMessages: {},
     messages: lockStartDates(clean.messages, now),
-    plugins: lockStartDates(clean.plugins, now)
+    plugins: lockStartDates(clean.plugins, now),
   }
   dispatch({ type: 'PROMOTION_ADDED', data: promotion })
   saveAccountReferral(getState())
@@ -143,7 +143,7 @@ export const refreshAccountReferral = () => async (dispatch: Dispatch, getState:
   const clean = asServerTweaks(await reply.json())
   const cache: ReferralCache = {
     accountMessages: lockStartDates(clean.messages, creationDate),
-    accountPlugins: lockStartDates(clean.plugins, creationDate)
+    accountPlugins: lockStartDates(clean.plugins, creationDate),
   }
   dispatch({ type: 'ACCOUNT_TWEAKS_REFRESHED', data: cache })
   saveReferralCache(getState())
@@ -152,7 +152,7 @@ export const refreshAccountReferral = () => async (dispatch: Dispatch, getState:
 /**
  * Writes the account referral information from redux to the disk.
  */
-async function saveAccountReferral (state: State): Promise<void> {
+async function saveAccountReferral(state: State): Promise<void> {
   const { account } = state.core
   const { accountReferral } = state.account
   await account.disklet.setText(ACCOUNT_REFERRAL_FILE, JSON.stringify(accountReferral))
@@ -161,7 +161,7 @@ async function saveAccountReferral (state: State): Promise<void> {
 /**
  * Writes the referral cache from redux to the disk.
  */
-async function saveReferralCache (state: State): Promise<void> {
+async function saveReferralCache(state: State): Promise<void> {
   const { account } = state.core
   const { referralCache } = state.account
   await account.localDisklet.setText(REFERRAL_CACHE_FILE, JSON.stringify(referralCache))
@@ -170,7 +170,7 @@ async function saveReferralCache (state: State): Promise<void> {
 /**
  * Turns on-disk data into a AccountReferral structure.
  */
-function unpackAccountReferral (raw: any): AccountReferral {
+function unpackAccountReferral(raw: any): AccountReferral {
   const clean = asDiskAccountReferral(raw)
   const out: AccountReferral = {
     creationDate: clean.creationDate,
@@ -178,7 +178,7 @@ function unpackAccountReferral (raw: any): AccountReferral {
     currencyCodes: clean.currencyCodes,
     promotions: clean.promotions,
     ignoreAccountSwap: clean.ignoreAccountSwap,
-    hiddenAccountMessages: clean.hiddenAccountMessages
+    hiddenAccountMessages: clean.hiddenAccountMessages,
   }
 
   // Upgrade legacy fields:
@@ -192,7 +192,7 @@ const asDiskPromotion = asObject({
   installerId: asString,
   hiddenMessages: asOptional(asMap(asBoolean), {}),
   messages: asOptional(asArray(asMessageTweak), []),
-  plugins: asOptional(asArray(asPluginTweak), [])
+  plugins: asOptional(asArray(asPluginTweak), []),
 })
 
 const asDiskAccountReferral = asObject({
@@ -206,7 +206,7 @@ const asDiskAccountReferral = asObject({
   hiddenAccountMessages: asOptional(asMap(asBoolean), {}),
 
   // Legacy:
-  currencyCode: asOptional(asString)
+  currencyCode: asOptional(asString),
 })
 
 /**
@@ -214,7 +214,7 @@ const asDiskAccountReferral = asObject({
  */
 const asDiskReferralCache = asObject({
   accountMessages: asOptional(asArray(asMessageTweak), []),
-  accountPlugins: asOptional(asArray(asPluginTweak), [])
+  accountPlugins: asOptional(asArray(asPluginTweak), []),
 })
 
 /**
@@ -222,5 +222,5 @@ const asDiskReferralCache = asObject({
  */
 const asServerTweaks = asObject({
   messages: asOptional(asArray(asMessageTweak), []),
-  plugins: asOptional(asArray(asPluginTweak), [])
+  plugins: asOptional(asArray(asPluginTweak), []),
 })

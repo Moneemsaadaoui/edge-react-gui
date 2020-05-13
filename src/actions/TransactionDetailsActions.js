@@ -10,7 +10,7 @@ import { refreshTransactionsRequest } from './TransactionListActions.js'
 
 export const setSubcategories = (subcategories: Array<string>) => ({
   type: 'SET_TRANSACTION_SUBCATEGORIES',
-  data: { subcategories }
+  data: { subcategories },
 })
 
 export const setTransactionDetails = (transaction: EdgeTransaction, edgeMetadata: EdgeMetadata) => (dispatch: Dispatch, getState: GetState) => {
@@ -27,7 +27,7 @@ export const setTransactionDetails = (transaction: EdgeTransaction, edgeMetadata
 
 export const getSubcategories = () => (dispatch: Dispatch, getState: GetState) => {
   const { account } = getState().core
-  ACCOUNT_SETTINGS.getSyncedSubcategories(account).then(s => {
+  ACCOUNT_SETTINGS.getSyncedSubcategories(account).then((s) => {
     return dispatch(setSubcategories(s))
   })
 }

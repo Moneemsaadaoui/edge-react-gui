@@ -36,7 +36,7 @@ try {
   // Set env.json with correct path
   envJSON.LOG_SERVER = {
     host: `http://${address}`,
-    port: `${PORT}`
+    port: `${PORT}`,
   }
   jsonfile.writeFileSync(envFile, envJSON)
 } catch (e) {

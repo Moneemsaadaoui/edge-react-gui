@@ -21,16 +21,16 @@ import { showActivity } from '../services/AirshipInstance.js'
 
 type StateProps = {
   accountReferral: AccountReferral,
-  deviceReferral: DeviceReferral
+  deviceReferral: DeviceReferral,
 }
 type DispatchProps = {
   activatePromotion(installerId: string): Promise<void>,
-  removePromotion(installerId: string): Promise<void>
+  removePromotion(installerId: string): Promise<void>,
 }
 type Props = StateProps & DispatchProps
 
 export class PromotionSettingsComponent extends React.Component<Props> {
-  render () {
+  render() {
     const { accountReferral, deviceReferral, removePromotion } = this.props
 
     const addIcon = <AntDesignIcon name="pluscircleo" color={THEME.COLORS.GRAY_2} size={THEME.rem(1)} />
@@ -55,7 +55,7 @@ export class PromotionSettingsComponent extends React.Component<Props> {
           </Text>
         </View>
         <SettingsHeaderRow text={s.strings.settings_promotion_header} />
-        {accountReferral.promotions.map(promotion => (
+        {accountReferral.promotions.map((promotion) => (
           <SettingsRow
             key={promotion.installerId}
             text={promotion.installerId}
@@ -80,12 +80,12 @@ export class PromotionSettingsComponent extends React.Component<Props> {
           returnKeyType: 'go',
           label: '',
           initialValue: '',
-          autoFocus: true
+          autoFocus: true,
         },
         yesButton: { title: s.strings.string_done_cap },
-        noButton: { title: s.strings.string_cancel_cap }
+        noButton: { title: s.strings.string_cancel_cap },
       })
-    ).then(installerId => {
+    ).then((installerId) => {
       if (installerId != null) {
         showActivity(sprintf(s.strings.settings_promotion_adding, installerId), this.props.activatePromotion(installerId))
       }
@@ -96,26 +96,26 @@ export class PromotionSettingsComponent extends React.Component<Props> {
 const space = THEME.rem(0.5)
 const rawStyles = {
   textBlock: {
-    padding: space
+    padding: space,
   },
   textRow: {
     ...dayText(),
-    margin: space
-  }
+    margin: space,
+  },
 }
 const styles: typeof rawStyles = StyleSheet.create(rawStyles)
 
 export const PromotionSettingsScene = connect(
   (state: ReduxState): StateProps => ({
     accountReferral: state.account.accountReferral,
-    deviceReferral: state.deviceReferral
+    deviceReferral: state.deviceReferral,
   }),
   (dispatch: Dispatch): DispatchProps => ({
-    activatePromotion (installerId: string): Promise<void> {
+    activatePromotion(installerId: string): Promise<void> {
       return dispatch(activatePromotion(installerId))
     },
-    removePromotion (installerId: string): Promise<void> {
+    removePromotion(installerId: string): Promise<void> {
       return dispatch(removePromotion(installerId))
-    }
+    },
   })
 )(PromotionSettingsComponent)

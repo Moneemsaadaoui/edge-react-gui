@@ -11,7 +11,7 @@ import { isReceivedTransaction } from '../../util/utils.js'
 
 type EdgeWalletCallbackManagerStateProps = {
   id: string,
-  wallet: EdgeCurrencyWallet
+  wallet: EdgeCurrencyWallet,
 }
 
 type EdgeWalletCallbackManagerDispatchProps = {
@@ -20,20 +20,20 @@ type EdgeWalletCallbackManagerDispatchProps = {
   refreshWallet: (id: string) => void,
   checkPasswordRecovery: () => void,
   updateWalletLoadingProgress: (id: string, transactionCount: number) => void,
-  newTransactionsRequest: (id: string, transactions: Array<EdgeTransaction>) => void
+  newTransactionsRequest: (id: string, transactions: Array<EdgeTransaction>) => void,
 }
 
 type Props = EdgeWalletCallbackManagerStateProps & EdgeWalletCallbackManagerDispatchProps
 
 class EdgeWalletCallbackManager extends React.Component<Props> {
-  render () {
+  render() {
     return null
   }
 
-  componentDidMount () {
+  componentDidMount() {
     const { wallet } = this.props
 
-    wallet.on('newTransactions', transactions => {
+    wallet.on('newTransactions', (transactions) => {
       if (transactions && transactions.length) {
         console.log(`${this.props.id} - onNewTransactions, num of new tx's: ${transactions.length}`)
         for (const tx of transactions) {
@@ -52,7 +52,7 @@ class EdgeWalletCallbackManager extends React.Component<Props> {
       if (isReceivedTransaction(transactions[finalTxIndex])) this.props.checkPasswordRecovery()
     })
 
-    wallet.on('transactionsChanged', transactions => {
+    wallet.on('transactionsChanged', (transactions) => {
       if (transactions && transactions.length) {
         console.log(`${this.props.id} - onTransactionsChanged, num of tx's changed: ${transactions.length}`)
         for (const tx of transactions) {
@@ -67,7 +67,7 @@ class EdgeWalletCallbackManager extends React.Component<Props> {
       this.props.refreshWallet(this.props.id)
     })
 
-    wallet.watch('syncRatio', transactionCount => {
+    wallet.watch('syncRatio', (transactionCount) => {
       console.log(`${this.props.id} - onAddressesChecked with progress ratio: ${transactionCount}`)
 
       if (transactionCount > 0) {
@@ -79,13 +79,13 @@ class EdgeWalletCallbackManager extends React.Component<Props> {
       this.props.refreshWallet(this.props.id)
     })
 
-    wallet.watch('blockHeight', blockHeight => {
+    wallet.watch('blockHeight', (blockHeight) => {
       console.log(`${this.props.id} - onBlockHeightChanged with height:${blockHeight}`)
 
       this.props.refreshWallet(this.props.id)
     })
 
-    wallet.watch('name', walletName => {
+    wallet.watch('name', (walletName) => {
       console.log(`${this.props.id} - onWalletNameChanged with new name:${walletName || ''}`)
 
       this.props.refreshWallet(this.props.id)
@@ -97,22 +97,19 @@ const mapStateToProps = (state, ownProps): EdgeWalletCallbackManagerStateProps =
   const { currencyWallets = {} } = state.core.account
   return {
     id: ownProps.id,
-    wallet: currencyWallets[ownProps.id]
+    wallet: currencyWallets[ownProps.id],
   }
 }
 
 const mapDispatchToProps = (dispatch: Dispatch): EdgeWalletCallbackManagerDispatchProps => {
   return {
-    refreshReceiveAddressRequest: id => dispatch(refreshReceiveAddressRequest(id)),
+    refreshReceiveAddressRequest: (id) => dispatch(refreshReceiveAddressRequest(id)),
     refreshTransactionsRequest: (transactions, id) => dispatch(refreshTransactionsRequest(transactions, id)),
-    refreshWallet: id => dispatch(refreshWallet(id)),
+    refreshWallet: (id) => dispatch(refreshWallet(id)),
     checkPasswordRecovery: () => dispatch(checkPasswordRecovery()),
     updateWalletLoadingProgress: (id, transactionCount) => dispatch(updateWalletLoadingProgress(id, transactionCount)),
-    newTransactionsRequest: (walletId: string, transactions: Array<EdgeTransaction>) => dispatch(newTransactionsRequest(walletId, transactions))
+    newTransactionsRequest: (walletId: string, transactions: Array<EdgeTransaction>) => dispatch(newTransactionsRequest(walletId, transactions)),
   }
 }
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(EdgeWalletCallbackManager)
+export default connect(mapStateToProps, mapDispatchToProps)(EdgeWalletCallbackManager)

@@ -19,7 +19,7 @@ import { swapVerifyTerms } from '../modals/SwapVerifyTermsModal.js'
 import { showError } from '../services/AirshipInstance.js'
 
 export type OwnProps = {
-  swapInfo: GuiSwapInfo
+  swapInfo: GuiSwapInfo,
 }
 export type StateProps = {
   account: EdgeAccount,
@@ -29,11 +29,11 @@ export type StateProps = {
   pending: boolean,
   toCurrencyIcon: string,
   toDenomination: string,
-  toWalletCurrencyName: string
+  toWalletCurrencyName: string,
 }
 export type DispatchProps = {
   shift(swapInfo: GuiSwapInfo): mixed,
-  timeExpired(swapInfo: GuiSwapInfo): void
+  timeExpired(swapInfo: GuiSwapInfo): void,
 }
 
 type Props = OwnProps & StateProps & DispatchProps
@@ -59,7 +59,7 @@ class CryptoExchangeQuoteScreenComponent extends Component<Props, State> {
     logEvent('SwapQuote')
   }
 
-  componentWillUnmount () {
+  componentWillUnmount() {
     const { swapInfo } = this.props
     if (!this.calledApprove) swapInfo.quote.close()
   }
@@ -73,10 +73,11 @@ class CryptoExchangeQuoteScreenComponent extends Component<Props, State> {
   renderSlider = () => {
     const { pending } = this.props
     if (pending) {
-      return <ActivityIndicator style={{ flex: 1, alignSelf: 'center' }} size={'small'} />
+      return <ActivityIndicator style={{ flex: 1, alignSelf: 'center' }} size="small" />
     }
     return <Slider onSlidingComplete={this.doShift} sliderDisabled={pending} parentStyle={styles.slideContainer} />
   }
+
   renderTimer = () => {
     const { swapInfo, timeExpired } = this.props
     const { expirationDate } = swapInfo.quote
@@ -85,86 +86,86 @@ class CryptoExchangeQuoteScreenComponent extends Component<Props, State> {
     return <CircleTimer style={styles.timerContainer} timeExpired={() => timeExpired(swapInfo)} expiration={expirationDate} />
   }
 
-  async checkChangellyKYC () {
+  async checkChangellyKYC() {
     const { account, swapInfo, timeExpired } = this.props
     const result = await swapVerifyTerms(account.swapConfig.changelly, [
       {
         text: s.strings.swap_terms_terms_link,
-        uri: 'https://changelly.com/terms-of-use'
+        uri: 'https://changelly.com/terms-of-use',
       },
       {
         text: s.strings.swap_terms_privacy_link,
-        uri: 'https://changelly.com/privacy-policy'
+        uri: 'https://changelly.com/privacy-policy',
       },
       {
         text: s.strings.swap_terms_kyc_link,
-        uri: 'https://changelly.com/aml-kyc'
-      }
+        uri: 'https://changelly.com/aml-kyc',
+      },
     ])
     if (!result) timeExpired(swapInfo)
   }
 
-  async checkSwitchainKYC () {
+  async checkSwitchainKYC() {
     const { account, swapInfo, timeExpired } = this.props
     const result = await swapVerifyTerms(account.swapConfig.switchain, [
       {
         text: s.strings.swap_terms_terms_link,
-        uri: 'https://www.switchain.com/tos'
+        uri: 'https://www.switchain.com/tos',
       },
       {
         text: s.strings.swap_terms_privacy_link,
-        uri: 'https://www.switchain.com/policy'
+        uri: 'https://www.switchain.com/policy',
       },
       {
         text: s.strings.swap_terms_kyc_link,
-        uri: 'https://www.switchain.com/policy'
-      }
+        uri: 'https://www.switchain.com/policy',
+      },
     ])
     if (!result) timeExpired(swapInfo)
   }
 
-  async checkChangeNowKYC () {
+  async checkChangeNowKYC() {
     const { account, swapInfo, timeExpired } = this.props
     const result = await swapVerifyTerms(account.swapConfig.changenow, [
       {
         text: s.strings.swap_terms_terms_link,
-        uri: 'https://changenow.io/terms-of-use'
+        uri: 'https://changenow.io/terms-of-use',
       },
       {
         text: s.strings.swap_terms_privacy_link,
-        uri: 'https://changenow.io/privacy-policy'
+        uri: 'https://changenow.io/privacy-policy',
       },
       {
         text: s.strings.swap_terms_kyc_link,
-        uri: 'https://changenow.io/faq/kyc'
-      }
+        uri: 'https://changenow.io/faq/kyc',
+      },
     ])
     if (!result) timeExpired(swapInfo)
   }
 
-  async checkCoinswitchKYC () {
+  async checkCoinswitchKYC() {
     const { account, swapInfo, timeExpired } = this.props
     const result = await swapVerifyTerms(account.swapConfig.coinswitch, [
       {
         text: s.strings.swap_terms_terms_link,
-        uri: 'https://coinswitch.co/terms'
-      }
+        uri: 'https://coinswitch.co/terms',
+      },
     ])
     if (!result) timeExpired(swapInfo)
   }
 
-  async checkFoxExchangeKYC () {
+  async checkFoxExchangeKYC() {
     const { account, swapInfo, timeExpired } = this.props
     const result = await swapVerifyTerms(account.swapConfig.foxExchange, [
       {
         text: s.strings.swap_terms_terms_link,
-        uri: 'https://fox.exchange/tos'
-      }
+        uri: 'https://fox.exchange/tos',
+      },
     ])
     if (!result) timeExpired(swapInfo)
   }
 
-  render () {
+  render() {
     const { fromCurrencyIcon, fromDenomination, fromWalletCurrencyName, swapInfo, toCurrencyIcon, toDenomination, toWalletCurrencyName } = this.props
     const { fee, fromDisplayAmount, fromFiat, toDisplayAmount, toFiat } = swapInfo
     const { isEstimate, pluginId } = swapInfo.quote
@@ -174,7 +175,7 @@ class CryptoExchangeQuoteScreenComponent extends Component<Props, State> {
       <SceneWrapper>
         <ScrollView>
           <View style={styles.topLogoRow}>
-            <Image source={swapPluginLogos[pluginId]} resizeMode={'contain'} style={styles.logoImage} />
+            <Image source={swapPluginLogos[pluginId]} resizeMode="contain" style={styles.logoImage} />
           </View>
           <View style={styles.centerRow}>
             <ExchangeQuoteComponent

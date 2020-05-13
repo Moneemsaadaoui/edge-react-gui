@@ -48,12 +48,12 @@ export type StateProps = {
   fiatSymbol: string,
   requiredConfirmations?: number,
   numTransactions: number,
-  isBalanceVisible: boolean
+  isBalanceVisible: boolean,
 }
 
 export type DispatchProps = {
   fetchMoreTransactions: (walletId: string, currencyCode: string, reset: boolean) => any,
-  toggleBalanceVisibility: () => void
+  toggleBalanceVisibility: () => void,
 }
 
 type Props = StateProps & DispatchProps
@@ -63,7 +63,7 @@ type State = {
   op: any,
   animation: any,
   width: ?number,
-  reset: boolean
+  reset: boolean,
 }
 
 const SHOW_BALANCE_TEXT = s.strings.string_show_balance
@@ -73,14 +73,14 @@ const SEND_TEXT = s.strings.fragment_send_subtitle
 const emptyArray = []
 
 export class TransactionList extends Component<Props, State> {
-  constructor (props: Props) {
+  constructor(props: Props) {
     super(props)
     this.state = {
       reset: true,
       focused: false,
       animation: new Animated.Value(0),
       op: new Animated.Value(0),
-      width: undefined
+      width: undefined,
     }
     slowlog(this, /.*/, global.slowlogOptions)
   }
@@ -92,7 +92,7 @@ export class TransactionList extends Component<Props, State> {
     }
   }
 
-  UNSAFE_componentWillReceiveProps (nextProps: Props) {
+  UNSAFE_componentWillReceiveProps(nextProps: Props) {
     if (nextProps.selectedWalletId !== this.props.selectedWalletId || nextProps.selectedCurrencyCode !== this.props.selectedCurrencyCode) {
       this.props.fetchMoreTransactions(nextProps.selectedWalletId, nextProps.selectedCurrencyCode, this.state.reset)
       if (this.state.reset) {
@@ -114,7 +114,7 @@ export class TransactionList extends Component<Props, State> {
     if (this.props.numTransactions) {
       return (
         <View style={styles.emptyListLoader}>
-          <ActivityIndicator size={'large'} />
+          <ActivityIndicator size="large" />
         </View>
       )
     }
@@ -135,7 +135,7 @@ export class TransactionList extends Component<Props, State> {
     }
   }
 
-  render () {
+  render() {
     const txs = this.state.reset ? emptyArray : this.props.transactions
     return (
       <SceneWrapper background="body" bodySplit={200}>
@@ -148,7 +148,7 @@ export class TransactionList extends Component<Props, State> {
           initialNumToRender={INITIAL_TRANSACTION_BATCH_NUMBER}
           onEndReached={this.handleScrollEnd}
           onEndReachedThreshold={SCROLL_THRESHOLD}
-          keyExtractor={item => item.key.toString()}
+          keyExtractor={(item) => item.key.toString()}
         />
       </SceneWrapper>
     )
@@ -166,12 +166,12 @@ export class TransactionList extends Component<Props, State> {
       fiatCurrencyCode,
       isoFiatCurrencyCode,
       isBalanceVisible,
-      transactions
+      transactions,
     } = this.props
 
     // should we get rid of "loading" area? Currently unused
     if (loading) {
-      return <ActivityIndicator style={{ flex: 1, alignSelf: 'center' }} size={'large'} />
+      return <ActivityIndicator style={{ flex: 1, alignSelf: 'center' }} size="large" />
     }
 
     let logo
@@ -204,24 +204,24 @@ export class TransactionList extends Component<Props, State> {
     return (
       <View>
         <TouchableOpacity onPress={this.props.toggleBalanceVisibility} style={styles.touchableBalanceBox} activeOpacity={BALANCE_BOX_OPACITY}>
-          <Gradient style={[styles.currentBalanceBox]}>
+          <Gradient style={styles.currentBalanceBox}>
             <View style={styles.balanceBoxContents}>
               {!isBalanceVisible ? (
-                <View style={[styles.totalBalanceWrap]}>
-                  <View style={[styles.hiddenBalanceBoxDollarsWrap]}>
-                    <T style={[styles.currentBalanceBoxHiddenText]}>{SHOW_BALANCE_TEXT}</T>
+                <View style={styles.totalBalanceWrap}>
+                  <View style={styles.hiddenBalanceBoxDollarsWrap}>
+                    <T style={styles.currentBalanceBoxHiddenText}>{SHOW_BALANCE_TEXT}</T>
                   </View>
                 </View>
               ) : (
                 <View style={styles.balanceShownContainer}>
-                  <View style={[styles.iconWrap]}>
+                  <View style={styles.iconWrap}>
                     {logo ? (
-                      <Image style={[{ height: '100%' }]} source={{ uri: logo }} resizeMode={'cover'} />
+                      <Image style={{ height: '100%' }} source={{ uri: logo }} resizeMode="cover" />
                     ) : (
-                      <T style={[styles.request]}>{displayDenomination.symbol}</T>
+                      <T style={styles.request}>{displayDenomination.symbol}</T>
                     )}
                   </View>
-                  <View style={[styles.currentBalanceBoxBitsWrap]}>
+                  <View style={styles.currentBalanceBoxBitsWrap}>
                     <View style={{ flexDirection: 'row' }}>
                       {displayDenomination.symbol ? (
                         <View style={{ flexDirection: 'row' }}>
@@ -245,22 +245,22 @@ export class TransactionList extends Component<Props, State> {
                       )}
                     </View>
                   </View>
-                  <View style={[styles.currentBalanceBoxDollarsWrap]}>
-                    <T numberOfLines={1} style={[styles.currentBalanceBoxDollars]}>
+                  <View style={styles.currentBalanceBoxDollarsWrap}>
+                    <T numberOfLines={1} style={styles.currentBalanceBoxDollars}>
                       {fiatBalanceString}
                     </T>
                   </View>
                 </View>
               )}
-              <View style={[styles.requestSendRow]}>
+              <View style={styles.requestSendRow}>
                 <TouchableHighlight style={[styles.requestBox, styles.button]} underlayColor={styleRaw.underlay.color} onPress={Actions.request}>
-                  <View style={[styles.requestWrap]}>
+                  <View style={styles.requestWrap}>
                     <Image style={{ width: 25, height: 25 }} source={requestImage} />
-                    <T style={[styles.request]}>{REQUEST_TEXT}</T>
+                    <T style={styles.request}>{REQUEST_TEXT}</T>
                   </View>
                 </TouchableHighlight>
                 <TouchableHighlight style={[styles.sendBox, styles.button]} underlayColor={styleRaw.underlay.color} onPress={Actions.scan}>
-                  <View style={[styles.sendWrap]}>
+                  <View style={styles.sendWrap}>
                     <Image style={{ width: 25, height: 25 }} source={sendImage} />
                     <T style={styles.send}>{SEND_TEXT}</T>
                   </View>
@@ -273,7 +273,7 @@ export class TransactionList extends Component<Props, State> {
         {transactions.length !== 0 && Constants.getSpecialCurrencyInfo(currencyCode).showEarnInterestCard && (
           <TouchableOpacity onPress={() => Actions[Constants.PLUGIN_EARN_INTEREST]({ plugin: guiPlugins.cred })} style={styles.earnInterestContainer}>
             <View style={styles.earnInterestBox}>
-              <Image style={styles.earnInterestImage} source={credLogo} resizeMode={'contain'} />
+              <Image style={styles.earnInterestImage} source={credLogo} resizeMode="contain" />
               <T style={styles.earnInterestText}>{sprintf(s.strings.earn_interest_on, currencyName)}</T>
             </View>
           </TouchableOpacity>

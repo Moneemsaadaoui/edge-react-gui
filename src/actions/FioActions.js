@@ -26,7 +26,7 @@ export const refreshConnectedWallets = async (dispatch: Dispatch, currencyWallet
   dispatch({
     type: 'FIO/UPDATE_CONNECTED_WALLETS',
     data: {
-      connectedWalletsByFioAddress
-    }
+      connectedWalletsByFioAddress,
+    },
   })
 }

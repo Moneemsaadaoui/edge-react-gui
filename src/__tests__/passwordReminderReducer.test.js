@@ -23,8 +23,8 @@ describe('PasswordReminder', () => {
           type: 'NON_PASSWORD_LOGIN',
           data: {
             ...initialState,
-            lastLoginDate: Date.now()
-          }
+            lastLoginDate: Date.now(),
+          },
         }
         const actual = uut(initialState, action).nonPasswordLoginsCount
 
@@ -43,8 +43,8 @@ describe('PasswordReminder', () => {
             ...initialState,
             nonPasswordDaysLimit,
             nonPasswordLoginsLimit,
-            lastLoginDate: Date.now()
-          }
+            lastLoginDate: Date.now(),
+          },
         }
         const actual = uut(initialState, action).nonPasswordLoginsLimit
 
@@ -67,13 +67,13 @@ describe('PasswordReminder', () => {
         const expected = {
           ...initialState,
           lastPasswordUseDate,
-          lastLoginDate
+          lastLoginDate,
         }
         const action = {
           type: 'NEW_ACCOUNT_LOGIN',
           data: {
-            lastLoginDate: testDate
-          }
+            lastLoginDate: testDate,
+          },
         }
         const actual = uut(initialState, action)
 
@@ -94,13 +94,13 @@ describe('PasswordReminder', () => {
           needsPasswordCheck,
           lastPasswordUseDate,
           nonPasswordDaysLimit,
-          nonPasswordLoginsLimit
+          nonPasswordLoginsLimit,
         }
         const action = {
           type: 'PASSWORD_USED',
           data: {
-            lastPasswordUseDate: testDate
-          }
+            lastPasswordUseDate: testDate,
+          },
         }
         const actual = uut(initialState, action)
 
@@ -114,15 +114,15 @@ describe('PasswordReminder', () => {
         const previousState = {
           ...initialState,
           passwordUseCount: 100,
-          nonPasswordLoginsLimit: MAX_NON_PASSWORD_LOGINS_LIMIT
+          nonPasswordLoginsLimit: MAX_NON_PASSWORD_LOGINS_LIMIT,
         }
         const expected = MAX_NON_PASSWORD_LOGINS_LIMIT
         const action = {
           type: 'PASSWORD_LOGIN',
           data: {
             ...previousState,
-            lastLoginDate: testDate
-          }
+            lastLoginDate: testDate,
+          },
         }
         const actual = uut(previousState, action).nonPasswordLoginsLimit
 
@@ -135,15 +135,15 @@ describe('PasswordReminder', () => {
         const testDate = Date.now()
         const previousState = {
           ...initialState,
-          passwordUseCount: 100
+          passwordUseCount: 100,
         }
         const expected = MAX_NON_PASSWORD_DAYS_LIMIT
         const action = {
           type: 'PASSWORD_LOGIN',
           data: {
             ...previousState,
-            lastLoginDate: testDate
-          }
+            lastLoginDate: testDate,
+          },
         }
         const actual = uut(previousState, action).nonPasswordDaysLimit
 
@@ -160,15 +160,15 @@ describe('PasswordReminder', () => {
       const previousState = {
         ...initialState,
         lastPasswordUseDate,
-        nonPasswordDaysLimit
+        nonPasswordDaysLimit,
       }
       const expected = true
       const action = {
         type: 'NON_PASSWORD_LOGIN',
         data: {
           ...initialState,
-          lastLoginDate: testDate
-        }
+          lastLoginDate: testDate,
+        },
       }
       const actual = uut(previousState, action).needsPasswordCheck
 
@@ -180,15 +180,15 @@ describe('PasswordReminder', () => {
       const nonPasswordLoginsRemaining = 1
       const previousState = {
         ...initialState,
-        nonPasswordLoginsRemaining
+        nonPasswordLoginsRemaining,
       }
       const expected = true
       const action = {
         type: 'NON_PASSWORD_LOGIN',
         data: {
           ...previousState,
-          lastLoginDate: testDate
-        }
+          lastLoginDate: testDate,
+        },
       }
       const actual = uut(previousState, action).needsPasswordCheck
 
@@ -201,12 +201,12 @@ describe('PasswordReminder', () => {
       test('Increase nonPasswordDaysLimit, 2 days into future', () => {
         const action = {
           type: 'PASSWORD_REMINDER_POSTPONED',
-          data: {}
+          data: {},
         }
 
         const previousState = {
           ...initialState,
-          lastLoginDate: 0
+          lastLoginDate: 0,
         }
         const expected = daysBetween(previousState.lastPasswordUseDate, previousState.lastLoginDate) + 2
         const actual = uut(previousState, action).nonPasswordDaysLimit
@@ -218,8 +218,8 @@ describe('PasswordReminder', () => {
         const action = {
           type: 'PASSWORD_REMINDER_POSTPONED',
           data: {
-            lastLoginDate: Date.now()
-          }
+            lastLoginDate: Date.now(),
+          },
         }
 
         const expected = 2
@@ -232,12 +232,12 @@ describe('PasswordReminder', () => {
         const action = {
           type: 'PASSWORD_REMINDER_POSTPONED',
           data: {
-            lastLoginDate: Date.now()
-          }
+            lastLoginDate: Date.now(),
+          },
         }
         const state = {
           ...initialState,
-          needsPasswordCheck: true
+          needsPasswordCheck: true,
         }
         const expected = false
         const actual = uut(state, action).needsPasswordCheck
@@ -253,12 +253,12 @@ describe('PasswordReminder', () => {
         const action = {
           type: 'REQUEST_CHANGE_PASSWORD',
           data: {
-            lastLoginDate: Date.now()
-          }
+            lastLoginDate: Date.now(),
+          },
         }
         const state = {
           ...initialState,
-          needsPasswordCheck: true
+          needsPasswordCheck: true,
         }
         const expected = false
         const actual = uut(state, action).needsPasswordCheck

@@ -29,7 +29,7 @@ const DIVIDE_PRECISION = 18
 type OwnProps = {
   guiWallet: GuiWallet,
   executeWalletRowOption(walletId: string, option: WalletListMenuKey): void,
-  showBalance: boolean | Function
+  showBalance: boolean | Function,
 }
 type StateProps = {
   customTokens: Array<CustomTokenInfo>,
@@ -38,11 +38,11 @@ type StateProps = {
   exchangeRates: { [string]: number },
   settings: Object,
   walletFiatSymbol: string,
-  walletsProgress: Object
+  walletsProgress: Object,
 }
 type DispatchProps = {
   getEnabledTokensList(walletId: string): void,
-  selectWallet(walletId: string, currencyCode: string): void
+  selectWallet(walletId: string, currencyCode: string): void,
 }
 type Props = OwnProps & StateProps & DispatchProps
 
@@ -56,20 +56,20 @@ class WalletListRowComponent extends Component<Props> {
     }
   }
 
-  shouldComponentUpdate (nextProps) {
+  shouldComponentUpdate(nextProps) {
     const diffElement = getObjectDiff(this.props, nextProps, {
       data: true,
-      item: true
+      item: true,
     })
     return !!diffElement
   }
 
-  componentDidMount () {
+  componentDidMount() {
     const { guiWallet } = this.props
     this.props.getEnabledTokensList(guiWallet.id)
   }
 
-  render () {
+  render() {
     const { guiWallet, walletFiatSymbol, settings, exchangeRates, showBalance } = this.props
     const progress = this.getProgress()
 
@@ -88,10 +88,10 @@ class WalletListRowComponent extends Component<Props> {
     const enabledTokens = guiWallet.enabledTokens
 
     const customTokens = this.props.customTokens
-    const enabledNotHiddenTokens = enabledTokens.filter(token => {
+    const enabledNotHiddenTokens = enabledTokens.filter((token) => {
       let isVisible = true // assume we will enable token
 
-      const tokenIndex = customTokens.findIndex(item => item.currencyCode === token)
+      const tokenIndex = customTokens.findIndex((item) => item.currencyCode === token)
       // if token is not supposed to be visible, not point in enabling it
       if (tokenIndex > -1 && customTokens[tokenIndex].isVisible === false) isVisible = false
       if (SYNCED_ACCOUNT_DEFAULTS[token] && guiWallet.enabledTokens.includes(token)) {
@@ -144,39 +144,39 @@ class WalletListRowComponent extends Component<Props> {
     }
 
     return (
-      <View style={[{ width: '100%' }]}>
+      <View style={{ width: '100%' }}>
         <View>
           <TouchableHighlight
-            style={[styles.rowContainer]}
+            style={styles.rowContainer}
             underlayColor={THEME.COLORS.ROW_PRESSED}
             onPress={() => this._onPressSelectWallet(id, currencyCode, guiWallet.receiveAddress.publicAddress)}
           >
-            <View style={[styles.rowContent]}>
+            <View style={styles.rowContent}>
               <View style={styles.rowIconWrap}>
-                {symbolImageDarkMono && <Image style={[styles.rowCurrencyLogoAndroid]} source={{ uri: symbolImageDarkMono }} resizeMode="cover" />}
+                {symbolImageDarkMono && <Image style={styles.rowCurrencyLogoAndroid} source={{ uri: symbolImageDarkMono }} resizeMode="cover" />}
                 <View style={styles.rowCurrencyLogoAndroid}>
                   <ProgressPie size={rowCurrencyOverlaySize} color={THEME.COLORS.OPAQUE_WHITE_2} progress={progress} />
                 </View>
               </View>
               <View style={styles.walletDetailsContainer}>
                 <View style={styles.walletDetailsRow}>
-                  <T style={[styles.walletDetailsRowCurrency]}>{currencyCode}</T>
-                  <T style={[styles.walletDetailsRowValue]}>{finalCryptoAmountString}</T>
+                  <T style={styles.walletDetailsRowCurrency}>{currencyCode}</T>
+                  <T style={styles.walletDetailsRowValue}>{finalCryptoAmountString}</T>
                 </View>
                 <View style={styles.walletDetailsRow}>
-                  <T style={[styles.walletDetailsRowName]}>{name}</T>
+                  <T style={styles.walletDetailsRowName}>{name}</T>
                   <View style={styles.walletDetailsFiatBalanceRow}>
-                    <T style={[styles.walletDetailsRowFiat]}>{fiatBalanceSymbol}</T>
-                    <T style={[styles.walletDetailsRowFiat]}>{fiatBalanceString}</T>
+                    <T style={styles.walletDetailsRowFiat}>{fiatBalanceSymbol}</T>
+                    <T style={styles.walletDetailsRowFiat}>{fiatBalanceString}</T>
                   </View>
                 </View>
                 <View style={styles.walletDetailsRowLine} />
                 <View style={styles.walletDetailsRow}>
                   <View style={styles.walletDetailsExchangeRow}>
-                    <T style={[styles.walletDetailsRowExchangeRate]}>{exchangeRateFiatSymbol}</T>
-                    <T style={[styles.walletDetailsRowExchangeRate]}>{exchangeRateString}</T>
+                    <T style={styles.walletDetailsRowExchangeRate}>{exchangeRateFiatSymbol}</T>
+                    <T style={styles.walletDetailsRowExchangeRate}>{exchangeRateString}</T>
                   </View>
-                  <T style={[differencePercentageStringStyle]}>{differencePercentageString}</T>
+                  <T style={differencePercentageStringStyle}>{differencePercentageString}</T>
                 </View>
               </View>
               <View style={styles.rowOptionsWrap}>
@@ -240,14 +240,14 @@ const customWalletListOptionsStyles = StyleSheet.create({
     fontSize: scale(21),
     fontWeight: '200',
     position: 'relative',
-    top: 6
+    top: 6,
   },
   menuIconWrap: {
     width: scale(46),
     height: '100%',
     alignItems: 'center',
-    justifyContent: 'flex-start'
-  }
+    justifyContent: 'flex-start',
+  },
 })
 const rowCurrencyOverlaySize = scale(23.3)
 const rawStyles = {
@@ -257,16 +257,16 @@ const rawStyles = {
     height: scale(106),
     backgroundColor: THEME.COLORS.WHITE,
     borderBottomWidth: scale(1),
-    borderBottomColor: THEME.COLORS.GRAY_3
+    borderBottomColor: THEME.COLORS.GRAY_3,
   },
   rowContent: {
     flex: 1,
-    flexDirection: 'row'
+    flexDirection: 'row',
   },
   rowIconWrap: {
     alignItems: 'center',
     justifyContent: 'center',
-    width: scale(36)
+    width: scale(36),
   },
   rowCurrencyLogoAndroid: {
     position: 'absolute',
@@ -279,79 +279,79 @@ const rawStyles = {
     marginRight: scale(12),
     marginLeft: scale(3),
     resizeMode: 'contain',
-    alignSelf: 'center'
+    alignSelf: 'center',
   },
   rowOptionsWrap: {
-    width: scaleH(37)
+    width: scaleH(37),
   },
   symbol: {
-    fontFamily: THEME.FONTS.SYMBOLS
+    fontFamily: THEME.FONTS.SYMBOLS,
   },
   walletDetailsContainer: {
     flex: 1,
     flexDirection: 'column',
-    marginTop: scale(5)
+    marginTop: scale(5),
   },
   walletDetailsRow: {
     flexDirection: 'row',
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   walletDetailsRowLine: {
     height: 1,
     borderColor: 'rgba(14, 75, 117, 0.5)',
     borderBottomWidth: 1,
     marginTop: scale(12),
-    marginBottom: scale(9)
+    marginBottom: scale(9),
   },
   walletDetailsRowCurrency: {
     flex: 1,
-    fontSize: scale(18)
+    fontSize: scale(18),
   },
   walletDetailsRowValue: {
     textAlign: 'right',
     fontSize: scale(18),
-    color: THEME.COLORS.GRAY_1
+    color: THEME.COLORS.GRAY_1,
   },
   walletDetailsRowName: {
     flex: 1,
     fontSize: scale(14),
-    color: THEME.COLORS.SECONDARY
+    color: THEME.COLORS.SECONDARY,
   },
   walletDetailsRowFiat: {
     fontSize: scale(14),
     textAlign: 'right',
-    color: THEME.COLORS.SECONDARY
+    color: THEME.COLORS.SECONDARY,
   },
   walletDetailsRowExchangeRate: {
     fontSize: scale(14),
     textAlign: 'left',
-    color: THEME.COLORS.GRAY_1
+    color: THEME.COLORS.GRAY_1,
   },
   walletDetailsRowDifferenceNeutral: {
     fontSize: scale(14),
     textAlign: 'right',
-    color: THEME.COLORS.SECONDARY
+    color: THEME.COLORS.SECONDARY,
   },
   walletDetailsRowDifferencePositive: {
     fontSize: scale(14),
     textAlign: 'right',
     fontWeight: '400',
-    color: THEME.COLORS.WALLET_LIST_DIFF_POSITIVE
+    color: THEME.COLORS.WALLET_LIST_DIFF_POSITIVE,
   },
   walletDetailsRowDifferenceNegative: {
     fontSize: scale(14),
     textAlign: 'right',
     fontWeight: '400',
-    color: THEME.COLORS.WALLET_LIST_DIFF_NEGATIVE
+    color: THEME.COLORS.WALLET_LIST_DIFF_NEGATIVE,
   },
   walletDetailsFiatBalanceRow: {
-    flexDirection: 'row'
+    flexDirection: 'row',
   },
   walletDetailsExchangeRow: {
     flexDirection: 'row',
-    flex: 1
-  }
+    flex: 1,
+  },
 }
 const styles: typeof rawStyles = StyleSheet.create(rawStyles)
 
@@ -364,14 +364,14 @@ export const WalletListRow = connect(
     settings: state.ui.settings,
     showBalance: typeof ownProps.showBalance === 'function' ? ownProps.showBalance(state) : ownProps.showBalance,
     walletFiatSymbol: getFiatSymbol(ownProps.guiWallet.isoFiatCurrencyCode),
-    walletsProgress: state.ui.wallets.walletLoadingProgress
+    walletsProgress: state.ui.wallets.walletLoadingProgress,
   }),
   (dispatch: Dispatch): DispatchProps => ({
-    getEnabledTokensList (walletId: string) {
+    getEnabledTokensList(walletId: string) {
       dispatch(getEnabledTokens(walletId))
     },
-    selectWallet (walletId: string, currencyCode) {
+    selectWallet(walletId: string, currencyCode) {
       dispatch(selectWallet(walletId, currencyCode, WALLET_LIST_SCENE))
-    }
+    },
   })
 )(WalletListRowComponent)

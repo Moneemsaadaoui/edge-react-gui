@@ -12,14 +12,14 @@ export const CURRENCY_SYMBOL_IMAGES = {
   BCH: 'https://developer.airbitz.co/content/bitcoincash-logo-solo-64.png',
   BTC: 'https://developer.airbitz.co/content/bitcoin-logo-solo-64.png',
   ETH: 'https://developer.airbitz.co/content/ethereum-logo-solo-64.png',
-  ETC: 'https://developer.airbitz.co/content/ethereum-classic-logo-solo-64.png'
+  ETC: 'https://developer.airbitz.co/content/ethereum-classic-logo-solo-64.png',
 }
 
 // Translations for custom fee keys:
 export const FEE_STRINGS = {
   gasLimit: s.strings.gasLimit,
   gasPrice: s.strings.gasPrice,
-  satPerByte: s.strings.satPerByte
+  satPerByte: s.strings.satPerByte,
 }
 
 export const DEFAULT_STARTER_WALLET_NAMES = {
@@ -48,7 +48,7 @@ export const DEFAULT_STARTER_WALLET_NAMES = {
   XMR: s.strings.string_first_monero_wallet_name,
   XRP: s.strings.string_first_ripple_wallet_name,
   XTZ: s.strings.string_first_tezos_wallet_name,
-  XZC: s.strings.string_first_zcoin_wallet_name
+  XZC: s.strings.string_first_zcoin_wallet_name,
 }
 
 /**
@@ -74,7 +74,7 @@ export const CURRENCY_SETTINGS_KEYS = [
   'smartcash',
   'groestlcoin',
   'eboost',
-  'ufo'
+  'ufo',
 ]
 
 /**
@@ -105,7 +105,7 @@ export const WALLET_TYPE_ORDER = [
   'wallet:smartcash',
   'wallet:groestlcoin',
   'wallet:zcoin',
-  'wallet:ufo'
+  'wallet:ufo',
 ]
 
 // Put these in reverse order of preference
@@ -140,7 +140,7 @@ export const CURRENCY_PLUGIN_NAMES = {
   XMR: 'monero',
   XRP: 'ripple',
   XTZ: 'tezos',
-  XZC: 'zcoin'
+  XZC: 'zcoin',
 }
 
 export const getSpecialCurrencyInfo = (currencyCode: string): Object => {
@@ -161,71 +161,71 @@ type SpecialCurrencyInfo = {
     uniqueIdentifier?: {
       addButtonText: string,
       identifierName: string,
-      identifierKeyboardType: string
+      identifierKeyboardType: string,
     },
     showEarnInterestCard?: boolean,
     minimumPopupModals?: {
       minimumNativeBalance: string,
-      modalMessage: string
-    }
-  }
+      modalMessage: string,
+    },
+  },
 }
 
 export const SPECIAL_CURRENCY_INFO: SpecialCurrencyInfo = {
   BTC: {
     displayBuyCrypto: true,
     isImportKeySupported: false,
-    showEarnInterestCard: true
+    showEarnInterestCard: true,
   },
   BCH: {
     displayBuyCrypto: true,
     isImportKeySupported: false,
-    showEarnInterestCard: true
+    showEarnInterestCard: true,
   },
   LTC: {
     displayBuyCrypto: true,
     isImportKeySupported: false,
-    showEarnInterestCard: true
+    showEarnInterestCard: true,
   },
   RBTC: {
     dummyPublicAddress: '0x74f9452e22fe58e27575f176fc884729d88267ba', // rj116
     allowZeroTx: true,
     isImportKeySupported: true,
     isCustomTokensSupported: false,
-    isTokensSupported: true
+    isTokensSupported: true,
   },
   XLM: {
     dummyPublicAddress: 'GBEVGJYAUKJ2TVPMC3GEPI2GGZQLMWZDRWJCVNBXCJ3ELYTDPHVQQM74',
     uniqueIdentifier: {
       addButtonText: s.strings.unique_identifier_dropdown_option_memo_id,
       identifierName: s.strings.unique_identifier_memo_id,
-      identifierKeyboardType: 'numeric'
+      identifierKeyboardType: 'numeric',
     },
     minimumPopupModals: {
       minimumNativeBalance: '10000000',
-      modalMessage: s.strings.request_xlm_minimum_notification_body
+      modalMessage: s.strings.request_xlm_minimum_notification_body,
     },
     displayBuyCrypto: false,
-    isImportKeySupported: true
+    isImportKeySupported: true,
   },
   XRP: {
     dummyPublicAddress: 'rfuESo7eHUnvebxgaFjfYxfwXhM2uBPAj3',
     uniqueIdentifier: {
       addButtonText: s.strings.unique_identifier_dropdown_option_destination_tag,
       identifierName: s.strings.unique_identifier_destination_tag,
-      identifierKeyboardType: 'numeric'
+      identifierKeyboardType: 'numeric',
     },
     minimumPopupModals: {
       minimumNativeBalance: '20000000',
-      modalMessage: s.strings.request_xrp_minimum_notification_body
+      modalMessage: s.strings.request_xrp_minimum_notification_body,
     },
     displayBuyCrypto: true,
-    isImportKeySupported: true
+    isImportKeySupported: true,
   },
   XMR: {
     dummyPublicAddress: '46qxvuS78CNBoiiKmDjvjd5pMAZrTBbDNNHDoP52jKj9j5mk6m4R5nU6BDrWQURiWV9a2n5Sy8Qo4aJskKa92FX1GpZFiYA',
     noMaxSpend: true,
-    isImportKeySupported: false
+    isImportKeySupported: false,
   },
   EOS: {
     dummyPublicAddress: 'edgecreator2',
@@ -234,9 +234,9 @@ export const SPECIAL_CURRENCY_INFO: SpecialCurrencyInfo = {
     uniqueIdentifier: {
       addButtonText: s.strings.unique_identifier_dropdown_option_memo,
       identifierName: s.strings.unique_identifier_memo,
-      identifierKeyboardType: 'default'
+      identifierKeyboardType: 'default',
     },
-    isImportKeySupported: false
+    isImportKeySupported: false,
   },
   ETH: {
     dummyPublicAddress: '0x0d73358506663d484945ba85d0cd435ad610b0a0',
@@ -245,41 +245,41 @@ export const SPECIAL_CURRENCY_INFO: SpecialCurrencyInfo = {
     isImportKeySupported: true,
     isCustomTokensSupported: true,
     isTokensSupported: true,
-    showEarnInterestCard: true
+    showEarnInterestCard: true,
   },
   DAI: {
     displayBuyCrypto: true,
-    isImportKeySupported: true
+    isImportKeySupported: true,
   },
   HERC: {
     displayBuyCrypto: true,
-    isImportKeySupported: false
+    isImportKeySupported: false,
   },
   XTZ: {
     noChangeMiningFee: true,
     // will share / copy public address instead of URI on Request scene
     isUriEncodedStructure: true,
     dummyPublicAddress: 'tz1cVgSd4oY25pDkH7vdvVp5DfPkZwT2hXwX',
-    isImportKeySupported: true
+    isImportKeySupported: true,
   },
   BNB: {
     uniqueIdentifier: {
       addButtonText: s.strings.unique_identifier_dropdown_option_memo,
       identifierName: s.strings.unique_identifier_memo,
-      identifierKeyboardType: 'default'
+      identifierKeyboardType: 'default',
     },
     isImportKeySupported: true,
-    dummyPublicAddress: 'bnb1rt449yu7us6hmk4pmyr8talc60ydkwp4qkvcl7'
+    dummyPublicAddress: 'bnb1rt449yu7us6hmk4pmyr8talc60ydkwp4qkvcl7',
   },
   TUSD: {
-    showEarnInterestCard: true
+    showEarnInterestCard: true,
   },
   LBA: {
-    showEarnInterestCard: true
+    showEarnInterestCard: true,
   },
   BAT: {
-    showEarnInterestCard: true
-  }
+    showEarnInterestCard: true,
+  },
 }
 
 /**
@@ -288,41 +288,41 @@ export const SPECIAL_CURRENCY_INFO: SpecialCurrencyInfo = {
 export const WALLET_LIST_MENU: {
   currencyCodes?: string[],
   label: string,
-  value: WalletListMenuKey
+  value: WalletListMenuKey,
 }[] = [
   {
     label: s.strings.fragment_wallets_sort,
-    value: 'sort'
+    value: 'sort',
   },
   {
     label: s.strings.string_rename,
-    value: 'rename'
+    value: 'rename',
   },
   {
     label: s.strings.string_delete,
-    value: 'delete'
+    value: 'delete',
   },
   {
     label: s.strings.string_resync,
-    value: 'resync'
+    value: 'resync',
   },
   {
     label: s.strings.fragment_wallets_export_transactions,
-    value: 'exportWalletTransactions'
+    value: 'exportWalletTransactions',
   },
   {
     label: s.strings.string_master_private_key,
-    value: 'getSeed'
+    value: 'getSeed',
   },
   {
     currencyCodes: ['BTC', 'BCH'],
     label: s.strings.string_split_wallet,
-    value: 'split'
+    value: 'split',
   },
   {
     currencyCodes: ['ETH', 'RBTC'],
     label: s.strings.string_add_edit_tokens,
-    value: 'manageTokens'
+    value: 'manageTokens',
   },
   {
     currencyCodes: [
@@ -345,11 +345,11 @@ export const WALLET_LIST_MENU: {
       'DOGE',
       'RVN',
       'RBTC',
-      'TBTC'
+      'TBTC',
     ],
     label: s.strings.fragment_wallets_view_xpub,
-    value: 'viewXPub'
-  }
+    value: 'viewXPub',
+  },
 ]
 
 export const USD_FIAT = 'iso:USD'
@@ -519,7 +519,7 @@ export const FIAT_CODES_SYMBOLS = {
   XPF: 'Fr',
   YER: '﷼',
   ZAR: 'R',
-  ZMW: 'ZK'
+  ZMW: 'ZK',
 }
 
 export const FIO_WALLET_TYPE = 'wallet:fio'

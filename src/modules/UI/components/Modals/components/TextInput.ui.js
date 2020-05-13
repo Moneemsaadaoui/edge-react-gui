@@ -8,7 +8,7 @@ import { THEME } from '../../../../../theme/variables/airbitz.js'
 
 const DEFAULTS = {
   tintColor: THEME.COLORS.SECONDARY,
-  baseColor: THEME.COLORS.SECONDARY
+  baseColor: THEME.COLORS.SECONDARY,
 }
 
 export type Props = {
@@ -46,10 +46,10 @@ export type Props = {
   title?: string,
   titleFontSize?: number,
   titleTextStyle?: StyleSheet.Styles,
-  value?: string
+  value?: string,
 }
 export class TextInput extends Component<Props> {
-  render () {
+  render() {
     const props = { ...DEFAULTS, ...this.props }
     return <TextField {...props} />
   }

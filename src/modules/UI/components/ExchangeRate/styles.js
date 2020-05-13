@@ -7,12 +7,12 @@ import { scale } from '../../../../util/scaling.js'
 
 const styles = StyleSheet.create({
   view: {
-    backgroundColor: THEME.COLORS.TRANSPARENT
+    backgroundColor: THEME.COLORS.TRANSPARENT,
   },
   text: {
     color: THEME.COLORS.WHITE,
-    fontSize: scale(16)
-  }
+    fontSize: scale(16),
+  },
 })
 
 export default styles

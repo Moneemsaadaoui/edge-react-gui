@@ -5,7 +5,7 @@ import { type Reducer } from 'redux'
 import type { Action } from '../../types/reduxTypes.js'
 
 export type ExchangeRatesState = {
-  [string]: number
+  [string]: number,
 }
 
 const initialState = {}

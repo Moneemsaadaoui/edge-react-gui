@@ -36,7 +36,7 @@ describe.skip('Account', () => {
           const plugin = account.currencyConfig[CURRENCY_PLUGIN_NAMES[key]]
           const currencyInfo = plugin.currencyInfo
           const denoms = currencyInfo.denominations
-          const defaultDenomIndex = denoms.findIndex(item => item.multiplier === defaultDenom)
+          const defaultDenomIndex = denoms.findIndex((item) => item.multiplier === defaultDenom)
           expect(defaultDenomIndex).toBeGreaterThan(-1)
         }
       }

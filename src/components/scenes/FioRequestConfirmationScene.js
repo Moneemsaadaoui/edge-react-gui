@@ -31,20 +31,20 @@ export type FioRequestConfirmationProps = {
   secondaryCurrencyInfo: GuiCurrencyInfo,
   fioWallets: EdgeCurrencyWallet[],
   account: EdgeAccount,
-  isConnected: boolean
+  isConnected: boolean,
 }
 
 export type FioRequestConfirmationDispatchProps = {
   refreshReceiveAddressRequest: (walletId: string) => void,
-  onSelectWallet: (walletId: string, currencyCode: string) => void
+  onSelectWallet: (walletId: string, currencyCode: string) => void,
 }
 
 type NavigationProps = {
   amounts: ExchangedFlipInputAmounts,
   fioModalData: {
     fioAddress: string,
-    memo: string
-  }
+    memo: string,
+  },
 }
 
 type Props = FioRequestConfirmationProps & FioRequestConfirmationDispatchProps & NavigationProps
@@ -52,20 +52,20 @@ type Props = FioRequestConfirmationProps & FioRequestConfirmationDispatchProps &
 type LocalState = {
   loading: boolean,
   selectedFioAddress: string,
-  walletAddresses: { fioAddress: string, fioWallet: EdgeCurrencyWallet }[]
+  walletAddresses: { fioAddress: string, fioWallet: EdgeCurrencyWallet }[],
 }
 
 export class FioRequestConfirmationComponent extends Component<Props, LocalState> {
-  constructor (props: Props) {
+  constructor(props: Props) {
     super(props)
     this.state = {
       loading: false,
       selectedFioAddress: '',
-      walletAddresses: []
+      walletAddresses: [],
     }
   }
 
-  async componentDidMount () {
+  async componentDidMount() {
     if (this.props.fioWallets) {
       const walletAddresses = []
       for (const fioWallet: EdgeCurrencyWallet of this.props.fioWallets) {
@@ -83,7 +83,7 @@ export class FioRequestConfirmationComponent extends Component<Props, LocalState
 
       this.setState({
         walletAddresses,
-        selectedFioAddress: walletAddresses[0].fioAddress
+        selectedFioAddress: walletAddresses[0].fioAddress,
       })
     }
   }
@@ -118,7 +118,7 @@ export class FioRequestConfirmationComponent extends Component<Props, LocalState
           tokenCode: this.props.primaryCurrencyInfo.exchangeCurrencyCode,
           chainCode: this.props.chainCode || this.props.primaryCurrencyInfo.exchangeCurrencyCode,
           memo: this.props.fioModalData.memo,
-          maxFee: 0
+          maxFee: 0,
         })
         this.setState({ loading: false })
         showToast(s.strings.fio_request_ok_body)
@@ -146,7 +146,7 @@ export class FioRequestConfirmationComponent extends Component<Props, LocalState
     return item.fioAddress
   }
 
-  render () {
+  render() {
     const { loading, selectedFioAddress, walletAddresses } = this.state
     const { primaryCurrencyInfo, secondaryCurrencyInfo, exchangeSecondaryToPrimaryRatio } = this.props
     if (!primaryCurrencyInfo || !secondaryCurrencyInfo) return null
@@ -162,8 +162,8 @@ export class FioRequestConfirmationComponent extends Component<Props, LocalState
       ...MaterialInput,
       container: {
         ...MaterialInput.container,
-        width: styles.input.width
-      }
+        width: styles.input.width,
+      },
     }
 
     return (
@@ -198,7 +198,7 @@ export class FioRequestConfirmationComponent extends Component<Props, LocalState
         </View>
         <View style={styles.button}>
           <PrimaryButton onPress={this.onNextPress}>
-            {loading ? <ActivityIndicator size={'small'} /> : <PrimaryButton.Text>{s.strings.string_next_capitalized}</PrimaryButton.Text>}
+            {loading ? <ActivityIndicator size="small" /> : <PrimaryButton.Text>{s.strings.string_next_capitalized}</PrimaryButton.Text>}
           </PrimaryButton>
         </View>
         <View style={CryptoExchangeSceneStyle.shim} />

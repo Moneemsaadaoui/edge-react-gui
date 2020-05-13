@@ -65,9 +65,9 @@ device: ${DeviceInfo.getBrand()} ${DeviceInfo.getDeviceId()}
     .then(() => LOGGER.log(appInfo))
     .then(() => LOGGER.log(walletDump))
     .then(() => LOGGER.readLogs())
-    .then(logs => LOGS_API.sendLogs(logs))
-    .then(result => dispatch({ type: 'LOGS/SEND_LOGS_SUCCESS', result }))
-    .catch(error => {
+    .then((logs) => LOGS_API.sendLogs(logs))
+    .then((result) => dispatch({ type: 'LOGS/SEND_LOGS_SUCCESS', result }))
+    .catch((error) => {
       dispatch({ type: 'LOGS/SEND_LOGS_FAILURE', error })
       throw new Error(s.strings.settings_modal_send_logs_failure)
     })

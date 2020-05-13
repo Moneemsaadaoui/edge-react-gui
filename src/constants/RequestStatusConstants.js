@@ -9,5 +9,5 @@ export const REQUEST_STATUS = {
   PENDING,
   LOADING,
   SUCCESS,
-  FAILURE
+  FAILURE,
 }

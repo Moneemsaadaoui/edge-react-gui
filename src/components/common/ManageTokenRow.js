@@ -12,29 +12,29 @@ import { styles, underlayColor } from '../../styles/scenes/ManageTokensStyle.js'
 import * as UTILS from '../../util/utils.js'
 
 export type State = {
-  enabled?: boolean
+  enabled?: boolean,
 }
 
 export type Props = {
-  toggleToken: string => void,
+  toggleToken: (string) => void,
   // this is an stange case that needs to be looked at later
   metaToken: EdgeMetaToken & {
-    item: any
+    item: any,
   },
   enabled?: boolean,
   enabledList: Array<string>,
-  goToEditTokenScene: string => void
+  goToEditTokenScene: (string) => void,
 }
 
 class ManageTokenRow extends Component<Props, State> {
-  constructor (props: Props) {
+  constructor(props: Props) {
     super(props)
     this.state = {
-      enabled: props.enabled
+      enabled: props.enabled,
     }
   }
 
-  render () {
+  render() {
     const { item } = this.props.metaToken
     const { goToEditTokenScene, toggleToken, enabledList } = this.props
     let enabled = false
@@ -46,16 +46,16 @@ class ManageTokenRow extends Component<Props, State> {
     const onPress = isEditable ? goToEditTokenScene : UTILS.noOp
 
     return (
-      <TouchableHighlight onPress={() => onPress(item.currencyCode)} underlayColor={underlayColor} style={[styles.manageTokenRow]}>
-        <View style={[styles.manageTokenRowInterior]}>
+      <TouchableHighlight onPress={() => onPress(item.currencyCode)} underlayColor={underlayColor} style={styles.manageTokenRow}>
+        <View style={styles.manageTokenRowInterior}>
           <View style={styles.rowLeftArea}>
             <TouchableWithoutFeedback onPress={() => toggleToken(item.currencyCode)} isVisible={item.isVisible} enabled={enabled}>
-              <View style={[styles.touchableCheckboxInterior]}>
+              <View style={styles.touchableCheckboxInterior}>
                 <CheckBox style={styles.checkBox} enabled={enabled} />
               </View>
             </TouchableWithoutFeedback>
-            <View style={[styles.tokenNameArea]}>
-              <Text style={[styles.tokenNameText]}>
+            <View style={styles.tokenNameArea}>
+              <Text style={styles.tokenNameText}>
                 {item.currencyName} ({item.currencyCode})
               </Text>
             </View>

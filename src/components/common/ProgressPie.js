@@ -9,21 +9,21 @@ const CIRCLE = Math.PI * 2
 type Props = {
   color: string,
   progress: number,
-  size: number
+  size: number,
 }
 
 export class ProgressPie extends Component<Props> {
   progressAnimation: Animated.Value
   progressTarget: number
 
-  constructor (props: Props) {
+  constructor(props: Props) {
     super(props)
 
     this.progressTarget = 0
     this.progressAnimation = new Animated.Value(this.progressTarget)
   }
 
-  componentDidUpdate (prevProps: Props) {
+  componentDidUpdate(prevProps: Props) {
     const { progress } = this.props
 
     if (progress !== this.progressTarget) {
@@ -32,12 +32,12 @@ export class ProgressPie extends Component<Props> {
       // Progress has changed, so update the animation:
       Animated.spring(this.progressAnimation, {
         toValue: this.progressTarget,
-        bounciness: 0
+        bounciness: 0,
       }).start()
     }
   }
 
-  render () {
+  render() {
     const { color, size } = this.props
 
     return (
@@ -52,7 +52,7 @@ export class ProgressPie extends Component<Props> {
  * This is a separate component so we can animate its props.
  */
 class PieShape extends Component<{ color: string, progress: number, radius: number }> {
-  render () {
+  render() {
     const { color, progress, radius } = this.props
 
     const angle = progress * CIRCLE

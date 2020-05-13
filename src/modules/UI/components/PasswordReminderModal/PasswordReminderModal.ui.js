@@ -22,27 +22,27 @@ type Props = {
   onPostpone: () => void,
   setPasswordReminder: (passwordReminder: PasswordReminder) => void,
   passwordReminder: PasswordReminder,
-  loginStatus: boolean | null
+  loginStatus: boolean | null,
 }
 
 type State = {
-  password: string
+  password: string,
 }
 
 export class PasswordReminderModal extends Component<Props, State> {
-  constructor (props: Props) {
+  constructor(props: Props) {
     super(props)
 
     this.state = this.initialState()
   }
 
-  UNSAFE_componentWillReceiveProps (nextProps: Props) {
+  UNSAFE_componentWillReceiveProps(nextProps: Props) {
     if (nextProps.loginStatus && !equals(this.props.passwordReminder, nextProps.passwordReminder)) {
       nextProps.setPasswordReminder(nextProps.passwordReminder)
     }
   }
 
-  render () {
+  render() {
     const error = this.props.status === 'INVALID' ? s.strings.password_reminder_invalid : ''
     const isChecking = this.props.status === 'IS_CHECKING'
     return (
@@ -97,7 +97,7 @@ export class PasswordReminderModal extends Component<Props, State> {
 
   onChangeText = (password: string) => {
     this.setState({
-      password
+      password,
     })
   }
 
@@ -123,6 +123,6 @@ export class PasswordReminderModal extends Component<Props, State> {
   }
 
   initialState = () => ({
-    password: ''
+    password: '',
   })
 }

@@ -15,7 +15,7 @@ import { scale } from '../../util/scaling.js'
 
 type FioAddressItemProps = {
   address: FioAddress,
-  onFioAddressPress: (fioAddress: string, expiration: string) => void
+  onFioAddressPress: (fioAddress: string, expiration: string) => void,
 }
 
 export const FioAddressItem = (props: FioAddressItemProps) => {

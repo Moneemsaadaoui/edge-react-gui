@@ -11,26 +11,26 @@ type AppStateType = 'active' | 'background' | 'inactive'
 
 type State = {
   timestamp: Date,
-  appState: AppStateType
+  appState: AppStateType,
 }
 
 type Props = {
   autoLogoutTimeInSeconds: ?number,
   loginStatus: boolean,
-  logout: () => void
+  logout: () => void,
 }
 
 class AutoLogoutComponent extends Component<Props, State> {
   state = {
     timestamp: new Date(),
-    appState: 'active'
+    appState: 'active',
   }
 
-  componentDidMount () {
+  componentDidMount() {
     AppState.addEventListener('change', this.handleAppStateChange)
   }
 
-  componentWillUnmount () {
+  componentWillUnmount() {
     AppState.removeEventListener('change', this.handleAppStateChange)
   }
 
@@ -43,28 +43,28 @@ class AutoLogoutComponent extends Component<Props, State> {
       this.props.logout()
     }
 
-    this.setState(state => ({
+    this.setState((state) => ({
       ...state,
       timestamp: newTimestamp,
-      appState: nextAppState
+      appState: nextAppState,
     }))
   }
 
-  foregrounded (nextAppState: AppStateType): boolean {
+  foregrounded(nextAppState: AppStateType): boolean {
     return this.state.appState === 'background' && nextAppState === 'active'
   }
 
-  backgrounded (nextAppState: AppStateType): boolean {
+  backgrounded(nextAppState: AppStateType): boolean {
     return this.state.appState === 'background' && nextAppState !== 'active'
   }
 
-  isTimeExpired (durationInSeconds: number, newTimestamp: Date, oldTimeStamp: Date): boolean {
+  isTimeExpired(durationInSeconds: number, newTimestamp: Date, oldTimeStamp: Date): boolean {
     const differenceInMilliseconds: number = newTimestamp - oldTimeStamp
     const differenceInSeconds: number = differenceInMilliseconds / 1000
     return differenceInSeconds > durationInSeconds
   }
 
-  render () {
+  render() {
     return null
   }
 }
@@ -72,11 +72,11 @@ class AutoLogoutComponent extends Component<Props, State> {
 export const AutoLogout = connect(
   (state: ReduxState) => ({
     loginStatus: state.ui.settings.loginStatus,
-    autoLogoutTimeInSeconds: state.ui.settings.autoLogoutTimeInSeconds
+    autoLogoutTimeInSeconds: state.ui.settings.autoLogoutTimeInSeconds,
   }),
   (dispatch: Dispatch) => ({
-    logout () {
+    logout() {
       return dispatch(logoutRequest())
-    }
+    },
   })
 )(AutoLogoutComponent)

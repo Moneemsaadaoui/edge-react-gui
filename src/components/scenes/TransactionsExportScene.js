@@ -14,16 +14,16 @@ import { sanitizeForFilename } from '../../util/utils.js'
 import { SceneWrapper } from '../common/SceneWrapper.js'
 
 export type PassedProps = {
-  sourceWallet: EdgeCurrencyWallet
+  sourceWallet: EdgeCurrencyWallet,
 }
 type StateProps = {
-  denomination: string
+  denomination: string,
 }
 
 type Props = StateProps & PassedProps
 
 export class TransactionsExportSceneComponent extends Component<Props> {
-  render () {
+  render() {
     return (
       <SceneWrapper background="body">
         <View style={styles.shim} />
@@ -67,7 +67,7 @@ export class TransactionsExportSceneComponent extends Component<Props> {
 
   exportQBO = async () => {
     const transactionOptions: EdgeGetTransactionsOptions = {
-      denomination: this.props.denomination
+      denomination: this.props.denomination,
     }
     const file = await this.props.sourceWallet.exportTransactionsToQBO(transactionOptions)
 
@@ -78,7 +78,7 @@ export class TransactionsExportSceneComponent extends Component<Props> {
 
   exportCSV = async () => {
     const transactionOptions: EdgeGetTransactionsOptions = {
-      denomination: this.props.denomination
+      denomination: this.props.denomination,
     }
     let file = await this.props.sourceWallet.exportTransactionsToCSV(transactionOptions)
     if (typeof file !== 'string') file = ''
@@ -93,14 +93,14 @@ export class TransactionsExportSceneComponent extends Component<Props> {
     const fileName = this.fileName(format)
 
     RNFS.writeFile(path, file, 'utf8')
-      .then(success => {
+      .then((success) => {
         if (Platform.OS === 'ios') {
           this.openShareApp(path, 'Share Transactions ' + format)
           return
         }
         this.openMailApp(path, 'Share Transactions ' + format, format, fileName)
       })
-      .catch(err => {
+      .catch((err) => {
         console.log('Error creating : ' + fileName, err.message)
       })
   }
@@ -110,13 +110,13 @@ export class TransactionsExportSceneComponent extends Component<Props> {
       title: subject,
       message: '',
       url: 'file://' + path,
-      subject: subject //  for email
+      subject: subject, //  for email
     }
     Share.open(shareOptions)
       .then(() => {
         console.log('FS: Success')
       })
-      .catch(err => {
+      .catch((err) => {
         console.log('FS:error on Share  ', err.message)
         console.log('FS:error on Share  ', err)
       })
@@ -125,7 +125,7 @@ export class TransactionsExportSceneComponent extends Component<Props> {
   openMailApp = (path: string, subject: string, fileType: string, fileName: string) => {
     const attachment = {
       path: path, // The absolute path of the file from which to read data.
-      type: fileType // Mime Type: jpg, png, doc, ppt, html, pdf
+      type: fileType, // Mime Type: jpg, png, doc, ppt, html, pdf
     }
     Mailer.mail(
       {
@@ -133,7 +133,7 @@ export class TransactionsExportSceneComponent extends Component<Props> {
         recipients: [''],
         body: ' ',
         isHTML: true,
-        attachment: attachment
+        attachment: attachment,
       },
       (error, event) => {
         if (error) {

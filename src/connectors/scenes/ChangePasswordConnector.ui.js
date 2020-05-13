@@ -10,14 +10,11 @@ import type { State } from '../../types/reduxTypes.js'
 export const mapStateToProps = (state: State, ownProps: ChangePasswordOwnProps): ChangePasswordStateProps => ({
   context: state.core.context,
   account: state.core.account,
-  showHeader: false
+  showHeader: false,
 })
 
 export const mapDispatchToProps = (dispatch: Dispatch): ChangePasswordDispatchProps => ({
-  onComplete: Actions.pop
+  onComplete: Actions.pop,
 })
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(ChangePasswordComponent)
+export default connect(mapStateToProps, mapDispatchToProps)(ChangePasswordComponent)

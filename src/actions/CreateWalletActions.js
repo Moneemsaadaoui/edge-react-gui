@@ -34,19 +34,19 @@ export const createCurrencyWalletAndAddToSwap = (walletName: string, walletType:
     .createCurrencyWallet(type, {
       name: walletName,
       fiatCurrencyCode,
-      keyOptions: format ? { format } : {}
+      keyOptions: format ? { format } : {},
     })
-    .then(edgeWallet => {
+    .then((edgeWallet) => {
       dispatch({ type: 'UI/WALLETS/CREATE_WALLET_SUCCESS' })
       dispatch(updateMostRecentWalletsSelected(edgeWallet.id, edgeWallet.currencyInfo.currencyCode))
       dispatch(selectWalletForExchange(edgeWallet.id, edgeWallet.currencyInfo.currencyCode))
     })
-    .catch(async error => {
+    .catch(async (error) => {
       const modal = createSimpleConfirmModal({
         title: s.strings.create_wallet_failed_header,
         message: s.strings.create_wallet_failed_message,
         icon: <Icon type={Constants.MATERIAL_COMMUNITY} name={Constants.EXCLAMATION} size={30} />,
-        buttonText: s.strings.string_ok
+        buttonText: s.strings.string_ok,
       })
       await launchModal(modal)
       console.log(error)
@@ -66,7 +66,7 @@ export const createCurrencyWalletAndSelectForPlugins = (walletName: string, wall
   const wallet = await account.createCurrencyWallet(type, {
     name: walletName,
     fiatCurrencyCode,
-    keyOptions: format ? { format } : {}
+    keyOptions: format ? { format } : {},
   })
   return Promise.resolve(wallet)
 }
@@ -89,11 +89,11 @@ export const createCurrencyWallet = (
     name: walletName,
     fiatCurrencyCode,
     keyOptions: format ? { format } : {},
-    importText
+    importText,
   }
   return account
     .createCurrencyWallet(type, opts)
-    .then(edgeWallet => {
+    .then((edgeWallet) => {
       if (popScene) Actions.popTo(Constants.WALLET_LIST_SCENE)
       dispatch({ type: 'UI/WALLETS/CREATE_WALLET_SUCCESS' })
       if (selectWallet) {
@@ -101,7 +101,7 @@ export const createCurrencyWallet = (
       }
       return edgeWallet
     })
-    .catch(async error => {
+    .catch(async (error) => {
       showError(error)
       dispatch({ type: 'UI/WALLETS/CREATE_WALLET_FAILURE' })
     })
@@ -121,8 +121,8 @@ export const fetchAccountActivationInfo = (currencyCode: string) => async (dispa
       type: 'ACCOUNT_ACTIVATION_INFO',
       data: {
         supportedCurrencies: modifiedSupportedCurrencies,
-        activationCost: activationInfo[1]
-      }
+        activationCost: activationInfo[1],
+      },
     })
   } catch (error) {
     showError(error)
@@ -138,18 +138,18 @@ export const fetchWalletAccountActivationPaymentInfo = (paymentParams: AccountPa
       showError('Network Timeout')
       dispatch({
         type: 'WALLET_ACCOUNT_ACTIVATION_ESTIMATE_ERROR',
-        data: 'Network Timeout'
+        data: 'Network Timeout',
       })
     }, 12000)
     createdCoreWallet.otherMethods
       .getAccountActivationQuote(paymentParams)
-      .then(activationQuote => {
+      .then((activationQuote) => {
         dispatch({
           type: 'ACCOUNT_ACTIVATION_PAYMENT_INFO',
           data: {
             ...activationQuote,
-            currencyCode: paymentParams.currencyCode
-          }
+            currencyCode: paymentParams.currencyCode,
+          },
         })
         clearTimeout(networkTimeout)
       })
@@ -208,7 +208,7 @@ export const createAccountTransaction = (createdWalletId: string, accountName: s
       onBack: () => {
         // Hack. Keyboard pops up for some reason. Close it
         logEvent('ActivateWalletCancel', {
-          currencyCode: createdWalletCurrencyCode
+          currencyCode: createdWalletCurrencyCode,
         })
       },
       onDone: (error: Error | null, edgeTransaction?: EdgeTransaction) => {
@@ -219,12 +219,12 @@ export const createAccountTransaction = (createdWalletId: string, accountName: s
           }, 750)
         } else if (edgeTransaction) {
           logEvent('ActivateWalletSuccess', {
-            currencyCode: createdWalletCurrencyCode
+            currencyCode: createdWalletCurrencyCode,
           })
           const edgeMetadata: EdgeMetadata = {
             name: sprintf(s.strings.create_wallet_account_metadata_name, createdWalletCurrencyCode),
             category: 'Expense:' + sprintf(s.strings.create_wallet_account_metadata_category, createdWalletCurrencyCode),
-            notes: sprintf(s.strings.create_wallet_account_metadata_notes, createdWalletCurrencyCode, createdWalletCurrencyCode, 'support@edge.app')
+            notes: sprintf(s.strings.create_wallet_account_metadata_notes, createdWalletCurrencyCode, createdWalletCurrencyCode, 'support@edge.app'),
           }
           paymentWallet.saveTxMetadata(edgeTransaction.txid, currencyCode, edgeMetadata).then(() => {
             Actions.popTo(Constants.WALLET_LIST_SCENE)
@@ -233,11 +233,11 @@ export const createAccountTransaction = (createdWalletId: string, accountName: s
             }, 750)
           })
         }
-      }
+      },
     }
     dispatch({
       type: 'UI/WALLETS/SELECT_WALLET',
-      data: { currencyCode, walletId: paymentWalletId }
+      data: { currencyCode, walletId: paymentWalletId },
     })
     Actions[Constants.SEND_CONFIRMATION]({ guiMakeSpendInfo })
   } else {
@@ -251,14 +251,14 @@ export const createHandleUnavailableModal = (newWalletId: string, accountName: s
   const { account } = state.core
   account.changeWalletStates({
     [newWalletId]: {
-      deleted: true
-    }
+      deleted: true,
+    },
   })
   const modal = createSimpleConfirmModal({
     title: s.strings.create_wallet_account_handle_unavailable_modal_title,
     message: sprintf(s.strings.create_wallet_account_handle_unavailable_modal_message, accountName),
     icon: <Icon type={Constants.MATERIAL_COMMUNITY} name={Constants.CLOSE_ICON} size={30} />,
-    buttonText: s.strings.string_ok
+    buttonText: s.strings.string_ok,
   })
   await launchModal(modal)
   Actions.pop()

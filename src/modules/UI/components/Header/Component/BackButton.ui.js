@@ -13,22 +13,22 @@ const isIos = Platform.OS === 'ios'
 export type Props = {
   withArrow: boolean,
   onPress: () => mixed,
-  label?: string
+  label?: string,
 }
 export default class BackButton extends Component<Props> {
   static defaultProps = {
     withArrow: false,
-    onPress: () => {}
+    onPress: () => {},
   }
 
-  render () {
+  render() {
     const { withArrow } = this.props
     const icon = isIos ? 'ios-arrow-back' : 'md-arrow-back'
 
     return (
       <TouchableOpacity style={styles.backButton} onPress={this.props.onPress}>
         {withArrow && <Icon size={22} name={icon} type={Constants.ION_ICONS} style={[styles.backIconStyle, !isIos && styles.backIconAndroid]} />}
-        {withArrow && !isIos ? null : <T style={[styles.sideText]}>{this.props.label}</T>}
+        {withArrow && !isIos ? null : <T style={styles.sideText}>{this.props.label}</T>}
       </TouchableOpacity>
     )
   }

@@ -19,13 +19,13 @@ export type AdvancedTransactionDetailsModalOwnProps = {
   txExplorerUrl: string | null,
   onDone: () => void,
   txid: string,
-  signedTx?: string
+  signedTx?: string,
 }
 
 export class AdvancedTransactionDetailsModal extends Component<AdvancedTransactionDetailsModalOwnProps> {
   handleClick = () => {
     if (this.props.txExplorerUrl) {
-      Linking.canOpenURL(this.props.txExplorerUrl).then(supported => {
+      Linking.canOpenURL(this.props.txExplorerUrl).then((supported) => {
         if (supported) {
           Linking.openURL(this.props.txExplorerUrl)
         }
@@ -47,7 +47,7 @@ export class AdvancedTransactionDetailsModal extends Component<AdvancedTransacti
     onDone()
   }
 
-  render () {
+  render() {
     const { txid, signedTx } = this.props
     const isTxId = !!txid
     const isSignedTx = !!signedTx
@@ -99,11 +99,11 @@ export class AdvancedTransactionDetailsModal extends Component<AdvancedTransacti
 export type AdvancedTransactionDetailsOpts = {
   txid: string,
   txExplorerUrl: string | null,
-  signedTx?: string
+  signedTx?: string,
 }
 
 export const createAdvancedTransactionDetailsModal = (opts: AdvancedTransactionDetailsOpts) => {
-  function AdvancedTransactionDetailsWrapped (props: { +onDone: Function }) {
+  function AdvancedTransactionDetailsWrapped(props: { +onDone: Function }) {
     return <AdvancedTransactionDetailsModal {...opts} {...props} />
   }
   return AdvancedTransactionDetailsWrapped

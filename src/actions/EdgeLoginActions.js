@@ -17,7 +17,7 @@ export const loginWithEdge = (lobbyId: string) => (dispatch: Dispatch, getState:
     .then((lobby: EdgeLobby) => {
       dispatch({ type: 'SAVE_EDGE_LOBBY', data: lobby })
     })
-    .catch(error => {
+    .catch((error) => {
       dispatch({ type: 'SET_LOBBY_ERROR', data: error.message })
     })
 }

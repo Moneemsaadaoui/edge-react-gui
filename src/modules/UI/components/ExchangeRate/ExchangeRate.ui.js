@@ -16,26 +16,26 @@ type Props = {
   primaryInfo: Object,
   primaryDisplayAmount: string,
   secondaryInfo: Object,
-  secondaryDisplayAmount: string
+  secondaryDisplayAmount: string,
 }
 
 export default class ExchangeRate extends Component<Props> {
-  shouldComponentUpdate (nextProps: Props) {
+  shouldComponentUpdate(nextProps: Props) {
     const diffElement = UTILS.getObjectDiff(this.props, nextProps, {
       primaryInfo: true,
       secondaryInfo: true,
       displayDenomination: true,
-      exchangeDenomination: true
+      exchangeDenomination: true,
     })
     return !!diffElement
   }
 
-  render () {
+  render() {
     const { primaryInfo, primaryDisplayAmount, secondaryInfo, secondaryDisplayAmount } = this.props
 
     const primaryDisplayName: string = primaryInfo.displayDenomination.name
     const secondaryDisplaySymbol: string = secondaryInfo.displayDenomination.symbol
-    const getDisplayExchangeAmount = secondaryDisplayAmount => {
+    const getDisplayExchangeAmount = (secondaryDisplayAmount) => {
       const primaryRatio = parseInt(primaryInfo.displayDenomination.multiplier) / parseInt(primaryInfo.exchangeDenomination.multiplier)
       const secondaryRatio = parseInt(secondaryInfo.displayDenomination.multiplier) / parseInt(secondaryInfo.exchangeDenomination.multiplier)
       return (primaryRatio / secondaryRatio) * parseFloat(secondaryDisplayAmount)
@@ -54,7 +54,7 @@ export default class ExchangeRate extends Component<Props> {
       primaryDisplayName,
       secondaryDisplayAmount: formattedSecondaryDisplayAmount,
       secondaryDisplaySymbol,
-      secondaryCurrencyCode
+      secondaryCurrencyCode,
     }
     const formattedPrimaryAmount = intl.formatNumber(primaryDisplayAmount || '1')
     const formattedSecondaryAmount = intl.formatNumber(formattedSecondaryDisplayAmount, { toFixed: precision })

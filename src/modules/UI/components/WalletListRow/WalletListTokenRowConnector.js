@@ -19,14 +19,11 @@ const mapStateToProps = (state: State, ownProps: WalletListTokenRowOwnProps): Wa
   fiatValue = convertCurrency(state, ownProps.currencyCode, ownProps.wallet.isoFiatCurrencyCode, cryptoAmount)
   return {
     fiatValue,
-    cryptoAmount
+    cryptoAmount,
   }
 }
 const mapDispatchToProps = (dispatch: Dispatch): WalletListTokenRowDispatchProps => {
   return {}
 }
 
-export const WalletListTokenRowConnector = connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(WalletListTokenRowComponent)
+export const WalletListTokenRowConnector = connect(mapStateToProps, mapDispatchToProps)(WalletListTokenRowComponent)

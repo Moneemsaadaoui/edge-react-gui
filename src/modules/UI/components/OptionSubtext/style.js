@@ -9,11 +9,11 @@ export default StyleSheet.create({
   subHeaderSyntax: {
     color: THEME.COLORS.GRAY_1,
     textAlign: 'center',
-    fontSize: scale(14)
+    fontSize: scale(14),
   },
   subHeaderWalletName: {
     fontFamily: THEME.FONTS.BOLD,
     lineHeight: scale(26),
-    fontSize: scale(18)
-  }
+    fontSize: scale(18),
+  },
 })

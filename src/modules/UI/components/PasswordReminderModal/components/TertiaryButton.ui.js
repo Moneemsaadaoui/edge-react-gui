@@ -9,12 +9,12 @@ import { rawStyles, styles } from '../../Buttons/style.js'
 export type TertiaryButtonProps = {
   onPress: Function,
   children: Node,
-  style?: Object
+  style?: Object,
 }
 export type TertiaryButtonState = {}
 export class TertiaryButton extends Component<TertiaryButtonProps, TertiaryButtonState> {
   static Text: Node
-  render () {
+  render() {
     return (
       <TouchableHighlight
         onPress={this.props.onPress}
@@ -29,12 +29,12 @@ export class TertiaryButton extends Component<TertiaryButtonProps, TertiaryButto
 
 export type TertiaryButtonTextProps = {
   children: Node,
-  style?: Object
+  style?: Object,
 }
 export type TertiaryButtonTextState = {}
 
 TertiaryButton.Text = class Text extends Component<TertiaryButtonTextProps, TertiaryButtonTextState> {
-  render () {
+  render() {
     return <RN.Text style={[styles.buttonText, styles.tertiaryButtonText, this.props.style]}>{this.props.children}</RN.Text>
   }
 }

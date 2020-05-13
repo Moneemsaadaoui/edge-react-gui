@@ -32,7 +32,7 @@ type Props = {
   parseScannedUri: (data: string) => Promise<void>,
   toggleEnableTorch: () => void,
   toggleScanToWalletListModal: () => void,
-  selectFromWalletForExchange: (walletId: string, currencyCode: string) => void
+  selectFromWalletForExchange: (walletId: string, currencyCode: string) => void,
 }
 
 const HEADER_TEXT = s.strings.send_scan_header_text
@@ -44,14 +44,14 @@ const ADDRESS_TEXT = s.strings.fragment_send_address
 const FLASH_TEXT = s.strings.fragment_send_flash
 
 export class Scan extends Component<Props> {
-  constructor (props: Props) {
+  constructor(props: Props) {
     super(props)
     slowlog(this, /.*/, global.slowlogOptions)
   }
 
-  render () {
+  render() {
     return (
-      <Fragment>
+      <>
         <SceneWrapper background="header" hasTabs={false}>
           {this.renderCameraArea()}
           <View style={styles.overlayButtonAreaWrap}>
@@ -78,7 +78,7 @@ export class Scan extends Component<Props> {
           </View>
         </SceneWrapper>
         <SecondaryModal />
-      </Fragment>
+      </>
     )
   }
 
@@ -94,7 +94,7 @@ export class Scan extends Component<Props> {
 
   _onToggleAddressModal = async () => {
     const { walletId, currencyCode } = this.props
-    const uri = await Airship.show(bridge => <AddressModal bridge={bridge} walletId={walletId} currencyCode={currencyCode} />)
+    const uri = await Airship.show((bridge) => <AddressModal bridge={bridge} walletId={walletId} currencyCode={currencyCode} />)
     if (uri) {
       this.props.parseScannedUri(uri)
     }

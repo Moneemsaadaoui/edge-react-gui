@@ -5,7 +5,7 @@ import { type Reducer, combineReducers } from 'redux'
 import { type Action } from '../../../../types/reduxTypes.js'
 
 export type ControlPanelState = {
-  +usersView: boolean
+  +usersView: boolean,
 }
 
 const usersView = (state = false, action: Action): boolean => {
@@ -24,5 +24,5 @@ const usersView = (state = false, action: Action): boolean => {
 }
 
 export const controlPanel: Reducer<ControlPanelState, Action> = combineReducers({
-  usersView
+  usersView,
 })

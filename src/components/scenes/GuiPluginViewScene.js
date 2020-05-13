@@ -20,7 +20,7 @@ import { requestPermission } from '../services/PermissionsManager.js'
 
 type WebViewCallbacks = {
   onMessage: Function,
-  setRef: Function
+  setRef: Function,
 }
 
 /**
@@ -32,7 +32,7 @@ type WebViewCallbacks = {
  * May be called multiple times if the inner HTML reloads.
  * @param {*} debug Set to true to enable logging.
  */
-function makeOuterWebViewBridge<Root> (onRoot: (root: Root) => mixed, debug: boolean = false): WebViewCallbacks {
+function makeOuterWebViewBridge<Root>(onRoot: (root: Root) => mixed, debug: boolean = false): WebViewCallbacks {
   let bridge: Bridge | void
   let gatedRoot: Root | void
   let webview: WebView | void
@@ -46,13 +46,13 @@ function makeOuterWebViewBridge<Root> (onRoot: (root: Root) => mixed, debug: boo
   }
 
   // Feed incoming messages into the YAOB bridge (if any):
-  const onMessage = event => {
+  const onMessage = (event) => {
     const message = JSON.parse(event.nativeEvent.data)
     if (debug) console.info('plugin →', message)
 
     // This was crashing us, so send to bugsnag:
     if (bridge != null && message.events != null && typeof message.events.find !== 'function') {
-      global.bugsnag.notify(new Error('Corrupted yaob events'), report => {
+      global.bugsnag.notify(new Error('Corrupted yaob events'), (report) => {
         report.metadata.rawData = event.nativeEvent.data
         report.metadata.eventType = typeof message.events
       })
@@ -60,7 +60,7 @@ function makeOuterWebViewBridge<Root> (onRoot: (root: Root) => mixed, debug: boo
 
     // This is a terrible hack. We are using our inside knowledge
     // of YAOB's message format to determine when the client has restarted.
-    if (bridge != null && Array.isArray(message.events) && message.events.find(event => event.localId === 0)) {
+    if (bridge != null && Array.isArray(message.events) && message.events.find((event) => event.localId === 0)) {
       bridge.close(new Error('plugin: The WebView has been unmounted.'))
       bridge = void 0
     }
@@ -69,7 +69,7 @@ function makeOuterWebViewBridge<Root> (onRoot: (root: Root) => mixed, debug: boo
     if (bridge == null) {
       let firstMessage = true
       bridge = new Bridge({
-        sendMessage: message => {
+        sendMessage: (message) => {
           if (debug) console.info('plugin ←', message)
           if (webview == null) return
 
@@ -78,12 +78,12 @@ function makeOuterWebViewBridge<Root> (onRoot: (root: Root) => mixed, debug: boo
           } window.bridge.handleMessage(${JSON.stringify(message)})}`
           firstMessage = false
           webview.injectJavaScript(js)
-        }
+        },
       })
 
       // Use our inside knowledge of YAOB to directly
       // subscribe to the root object appearing:
-      onMethod.call(bridge._state, 'root', root => {
+      onMethod.call(bridge._state, 'root', (root) => {
         gatedRoot = root
         tryReleasingRoot()
       })
@@ -98,7 +98,7 @@ function makeOuterWebViewBridge<Root> (onRoot: (root: Root) => mixed, debug: boo
   }
 
   // Listen for the webview component to mount:
-  const setRef = element => {
+  const setRef = (element) => {
     webview = element
     tryReleasingRoot()
   }
@@ -114,7 +114,7 @@ type OwnProps = {
 
   // Set these to add stuff to the plugin URI:
   deepPath?: string,
-  deepQuery?: GuiPluginQuery
+  deepQuery?: GuiPluginQuery,
 }
 
 type DispatchProps = { dispatch: Dispatch }
@@ -122,11 +122,11 @@ type StateProps = { state: ReduxState }
 type Props = OwnProps & DispatchProps & StateProps
 
 type State = {
-  webViewKey: number
+  webViewKey: number,
 }
 
 type PluginWorkerApi = {
-  setEdgeProvider(provider: EdgeProvider): Promise<mixed>
+  setEdgeProvider(provider: EdgeProvider): Promise<mixed>,
 }
 
 class GuiPluginView extends React.Component<Props, State> {
@@ -137,7 +137,7 @@ class GuiPluginView extends React.Component<Props, State> {
   _promoMessage: string | void
   _webview: WebView | void
 
-  constructor (props) {
+  constructor(props) {
     const { deepPath, deepQuery, dispatch, plugin, state } = props
     super(props)
     setPluginScene(this)
@@ -155,7 +155,7 @@ class GuiPluginView extends React.Component<Props, State> {
     // Set up the WebView bridge:
     this._canGoBack = false
     this._callbacks = makeOuterWebViewBridge((root: PluginWorkerApi) => {
-      root.setEdgeProvider(this._edgeProvider).catch(e => {
+      root.setEdgeProvider(this._edgeProvider).catch((e) => {
         console.warn('plugin setEdgeProvider error: ' + String(e))
       })
     }, true)
@@ -169,7 +169,7 @@ class GuiPluginView extends React.Component<Props, State> {
     }
   }
 
-  componentDidMount () {
+  componentDidMount() {
     this.checkPermissions()
       .then(() => {
         const message = this._promoMessage
@@ -178,13 +178,13 @@ class GuiPluginView extends React.Component<Props, State> {
       .catch(showError)
   }
 
-  componentDidUpdate () {
+  componentDidUpdate() {
     const { deepPath, deepQuery, plugin, state } = this.props
     this.updatePromoCode(plugin, state)
     this._edgeProvider._updateState(state, deepPath, deepQuery, this._promoCode)
   }
 
-  updatePromoCode (plugin: GuiPlugin, state: ReduxState) {
+  updatePromoCode(plugin: GuiPlugin, state: ReduxState) {
     const accountPlugins = state.account.referralCache.accountPlugins
     const accountReferral = state.account.accountReferral
     const activePlugins = bestOfPlugins(accountPlugins, accountReferral, undefined)
@@ -192,13 +192,13 @@ class GuiPluginView extends React.Component<Props, State> {
     this._promoMessage = activePlugins.promoMessages[plugin.pluginId]
   }
 
-  async checkPermissions () {
+  async checkPermissions() {
     const { plugin } = this.props
     const { permissions = [] } = plugin
     for (const name of permissions) await requestPermission(name)
   }
 
-  goBack (): boolean {
+  goBack(): boolean {
     if (this._webview == null || !this._canGoBack) {
       return false
     }
@@ -206,28 +206,28 @@ class GuiPluginView extends React.Component<Props, State> {
     return true
   }
 
-  onNavigationStateChange = event => {
+  onNavigationStateChange = (event) => {
     console.log('Plugin navigation: ', event)
     this._canGoBack = event.canGoBack
   }
 
-  onLoadProgress = event => {
+  onLoadProgress = (event) => {
     console.log('Plugin navigation: ', event.nativeEvent)
     this._canGoBack = event.nativeEvent.canGoBack
   }
 
-  onNavigationStateChange = event => {
+  onNavigationStateChange = (event) => {
     console.log('Plugin navigation: ', event)
     this._canGoBack = event.canGoBack
   }
 
-  render () {
+  render() {
     const { plugin, deepPath, deepQuery } = this.props
     const { originWhitelist = ['file://*', 'https://*', 'http://*', 'edge://*'] } = plugin
     const uri = makePluginUri(plugin, {
       deepPath,
       deepQuery,
-      promoCode: this._promoCode
+      promoCode: this._promoCode,
     })
 
     const userAgent =
@@ -242,14 +242,14 @@ class GuiPluginView extends React.Component<Props, State> {
           allowUniversalAccessFromFileURLs
           geolocationEnabled
           injectedJavaScript={javascript}
-          javaScriptEnabled={true}
+          javaScriptEnabled
           onLoadProgress={this.onLoadProgress}
           onNavigationStateChange={this.onNavigationStateChange}
           onMessage={this._callbacks.onMessage}
           originWhitelist={originWhitelist}
           key={`webView${this.state.webViewKey}`}
           ref={this._callbacks.setRef}
-          setWebContentsDebuggingEnabled={true}
+          setWebContentsDebuggingEnabled
           source={{ uri }}
           userAgent={userAgent + ' hasEdgeProvider edge/app.edge.'}
           useWebKit

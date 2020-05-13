@@ -12,26 +12,27 @@ type Props = {
   style: Object,
   children: any,
   showMessage: string,
-  hideMessage: string
+  hideMessage: string,
 }
 
 type State = {
-  collapsed: boolean
+  collapsed: boolean,
 }
 class ExpandableBoxComponent extends Component<Props, State> {
-  constructor (props: any) {
+  constructor(props: any) {
     super(props)
     slowlog(this, /.*/, global.slowlogOptions)
   }
 
-  UNSAFE_componentWillMount () {
+  UNSAFE_componentWillMount() {
     this.setState({
-      collapsed: true
+      collapsed: true,
     })
   }
+
   onPress = () => {
     this.setState({
-      collapsed: !this.state.collapsed
+      collapsed: !this.state.collapsed,
     })
   }
 
@@ -58,7 +59,7 @@ class ExpandableBoxComponent extends Component<Props, State> {
     return null
   }
 
-  render () {
+  render() {
     const style = this.props.style
     return (
       <View
@@ -67,8 +68,8 @@ class ExpandableBoxComponent extends Component<Props, State> {
           !this.state.collapsed && {
             ...style.container,
             borderWidth: 0,
-            borderColor: THEME.COLORS.GRAY_3
-          }
+            borderColor: THEME.COLORS.GRAY_3,
+          },
         ]}
       >
         {this.renderTop(style)}

@@ -3,11 +3,11 @@
 import type { Action } from '../../../../types/reduxTypes.js'
 
 export const initialState = {
-  status: null
+  status: null,
 }
 
 export type PasswordReminderModalState = {
-  status: null | 'IS_CHECKING' | 'VERIFIED' | 'INVALID'
+  status: null | 'IS_CHECKING' | 'VERIFIED' | 'INVALID',
 }
 
 export const passwordReminderModalReducer = (state: PasswordReminderModalState = initialState, action: Action) => {
@@ -15,25 +15,25 @@ export const passwordReminderModalReducer = (state: PasswordReminderModalState =
     case 'PASSWORD_REMINDER_MODAL/CHECK_PASSWORD_START': {
       return {
         ...state,
-        status: 'IS_CHECKING'
+        status: 'IS_CHECKING',
       }
     }
     case 'PASSWORD_REMINDER_MODAL/CHECK_PASSWORD_SUCCESS': {
       return {
         ...state,
-        status: 'VERIFIED'
+        status: 'VERIFIED',
       }
     }
     case 'PASSWORD_REMINDER_MODAL/CHECK_PASSWORD_FAIL': {
       return {
         ...state,
-        status: 'INVALID'
+        status: 'INVALID',
       }
     }
     case 'PASSWORD_REMINDER_MODAL/PASSWORD_REMINDER_POSTPONED': {
       return {
         ...state,
-        status: null
+        status: null,
       }
     }
     default:

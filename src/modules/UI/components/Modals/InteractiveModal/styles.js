@@ -13,20 +13,20 @@ export const rawStyles = {
     borderRadius: scale(4),
     shadowOffset: {
       width: 0,
-      height: scale(5)
+      height: scale(5),
     },
     shadowOpacity: 1,
-    shadowRadius: scale(4)
+    shadowRadius: scale(4),
   },
   header: {
     alignItems: 'center',
-    paddingHorizontal: scale(22)
+    paddingHorizontal: scale(22),
   },
   body: {
-    padding: scale(6)
+    padding: scale(6),
   },
   footer: {
-    padding: scale(6)
+    padding: scale(6),
   },
   icon: {
     height: scale(65),
@@ -39,30 +39,30 @@ export const rawStyles = {
     alignItems: 'center',
     alignSelf: 'center',
     marginBottom: scale(-32),
-    zIndex: 1
+    zIndex: 1,
   },
   androidHackSpacer: {
-    paddingTop: scale(26)
+    paddingTop: scale(26),
   },
   item: {
     flex: 1,
-    padding: scale(4)
+    padding: scale(4),
   },
   row: {
-    flexDirection: 'row'
+    flexDirection: 'row',
   },
   title: {
     fontSize: scale(22),
     fontFamily: THEME.FONTS.DEFAULT,
-    color: THEME.COLORS.PRIMARY
+    color: THEME.COLORS.PRIMARY,
   },
   description: {
     paddingVertical: scale(6),
     fontSize: scale(16),
     color: THEME.COLORS.GRAY_1,
     fontFamily: THEME.FONTS.DEFAULT,
-    alignSelf: 'center'
-  }
+    alignSelf: 'center',
+  },
 }
 
 export const styles = StyleSheet.create(rawStyles)

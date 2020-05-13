@@ -31,15 +31,15 @@ import * as UI_SELECTORS from '../../../UI/selectors.js'
 type EdgeReceiveAddress = {
   publicAddress?: string,
   segwitAddress?: string,
-  legacyAddress?: string
+  legacyAddress?: string,
 }
 type WalletDetails = {
   name: string,
   receiveAddress: {
-    publicAddress: string
+    publicAddress: string,
   },
   currencyCode: string,
-  fiatCurrencyCode: string
+  fiatCurrencyCode: string,
 }
 
 type EdgeRequestSpendOptions = {
@@ -60,25 +60,25 @@ type EdgeRequestSpendOptions = {
   // This overrides any parameters specified in a URI
   uniqueIdentifier?: string,
 
-  customNetworkFee?: EdgeNetworkFee
+  customNetworkFee?: EdgeNetworkFee,
 }
 
 type EdgeGetReceiveAddressOptions = {
   // Metadata to tag these addresses with for when funds arrive at the address
-  metadata?: EdgeMetadata
+  metadata?: EdgeMetadata,
 }
 
 type EdgeGetWalletHistoryResult = {
   fiatCurrencyCode: string, // the fiat currency code of all transactions in the wallet. I.e. "iso:USD"
   balance: string, // the current balance of wallet in the native amount units. I.e. "satoshis"
-  transactions: Array<EdgeTransaction>
+  transactions: Array<EdgeTransaction>,
 }
 
 export type EdgeProviderSpendTarget = {
   exchangeAmount?: string,
   nativeAmount?: string,
   publicAddress?: string,
-  otherParams?: JsonObject
+  otherParams?: JsonObject,
 }
 
 export class EdgeProvider extends Bridgeable {
@@ -93,7 +93,7 @@ export class EdgeProvider extends Bridgeable {
   promoCode: string | void
   restartPlugin: () => void
 
-  constructor (
+  constructor(
     plugin: GuiPlugin,
     state: State,
     dispatch: Dispatch,
@@ -113,7 +113,7 @@ export class EdgeProvider extends Bridgeable {
     this.restartPlugin = restartPlugin
   }
 
-  _updateState (state: State, deepPath?: string, deepQuery?: GuiPluginQuery, promoCode?: string): void {
+  _updateState(state: State, deepPath?: string, deepQuery?: GuiPluginQuery, promoCode?: string): void {
     this._state = state
     this.deepPath = deepPath
     this.deepQuery = deepQuery
@@ -124,9 +124,9 @@ export class EdgeProvider extends Bridgeable {
   // Set the currency wallet to interact with. This will show a wallet selector modal
   // for the user to pick a wallet within their list of wallets that match `currencyCodes`
   // Returns the currencyCode chosen by the user (store: Store)
-  async chooseCurrencyWallet (allowedCurrencyCodes: Array<string> = []): Promise<string> {
-    const selectedWallet: WalletListResult = await Airship.show(bridge => (
-      <WalletListModal bridge={bridge} showCreateWallet={true} allowedCurrencyCodes={allowedCurrencyCodes} headerTitle={s.strings.choose_your_wallet} />
+  async chooseCurrencyWallet(allowedCurrencyCodes: Array<string> = []): Promise<string> {
+    const selectedWallet: WalletListResult = await Airship.show((bridge) => (
+      <WalletListModal bridge={bridge} showCreateWallet allowedCurrencyCodes={allowedCurrencyCodes} headerTitle={s.strings.choose_your_wallet} />
     ))
 
     if (selectedWallet.walletToSelect) {
@@ -149,20 +149,18 @@ export class EdgeProvider extends Bridgeable {
           title: s.strings.create_wallet_failed_header,
           message: s.strings.create_wallet_failed_message,
           icon: <Icon type={MATERIAL_COMMUNITY} name={EXCLAMATION} size={30} />,
-          buttonText: s.strings.string_ok
+          buttonText: s.strings.string_ok,
         })
-        return launchModal(modal).then(
-          (response): Promise<string> => {
-            throw new Error(s.strings.user_closed_modal_no_wallet)
-          }
-        )
+        return launchModal(modal).then((response): Promise<string> => {
+          throw new Error(s.strings.user_closed_modal_no_wallet)
+        })
       }
     }
     throw new Error(s.strings.user_closed_modal_no_wallet)
   }
 
   // Get an address from the user's wallet
-  getReceiveAddress (options: EdgeGetReceiveAddressOptions): EdgeReceiveAddress {
+  getReceiveAddress(options: EdgeGetReceiveAddressOptions): EdgeReceiveAddress {
     const wallet: GuiWallet = UI_SELECTORS.getSelectedWallet(this._state)
     if (options && options.metadata) {
       wallet.receiveAddress.metadata = options.metadata
@@ -170,7 +168,7 @@ export class EdgeProvider extends Bridgeable {
     return Promise.resolve(wallet.receiveAddress)
   }
 
-  getCurrentWalletInfo (): Promise<WalletDetails> {
+  getCurrentWalletInfo(): Promise<WalletDetails> {
     const wallet: GuiWallet = UI_SELECTORS.getSelectedWallet(this._state)
     const currentCode = UI_SELECTORS.getSelectedCurrencyCode(this._state)
     let walletName = wallet.name
@@ -184,21 +182,22 @@ export class EdgeProvider extends Bridgeable {
       currencyCode: currentCode,
       fiatCurrencyCode: wallet.fiatCurrencyCode,
       currencyIcon: wallet.symbolImage,
-      currencyIconDark: wallet.symbolImageDarkMono
+      currencyIconDark: wallet.symbolImageDarkMono,
     }
     return Promise.resolve(returnObject)
   }
 
-  openURL (url: string): void {
+  openURL(url: string): void {
     Linking.openURL(url)
   }
-  openEmailApp (emailAddress: string) {
+
+  openEmailApp(emailAddress: string) {
     Mailer.mail(
       {
         subject: '',
         recipients: [emailAddress],
         body: '',
-        isHTML: true
+        isHTML: true,
       },
       (error, event) => {
         if (error) showError(error)
@@ -206,17 +205,17 @@ export class EdgeProvider extends Bridgeable {
     )
   }
 
-  consoleLog (arg: any): void {
+  consoleLog(arg: any): void {
     console.log('EP: BridgeLog', arg)
   }
 
   // Write data to user's account. This data is encrypted and persisted in their Edge
   // account and transferred between devices
-  async writeData (data: { [key: string]: string }) {
+  async writeData(data: { [key: string]: string }) {
     const { account } = this._state.core
     const store = account.dataStore
     console.log('edgeProvider writeData: ', JSON.stringify(data))
-    await Promise.all(Object.keys(data).map(key => store.setItem(this._plugin.storeId, key, data[key])))
+    await Promise.all(Object.keys(data).map((key) => store.setItem(this._plugin.storeId, key, data[key])))
     console.log('edgeProvider writeData Success')
     return { success: true }
   }
@@ -224,22 +223,22 @@ export class EdgeProvider extends Bridgeable {
   // Read data back from the user's account. This can only access data written by this same plugin
   // 'keys' is an array of strings with keys to lookup.
   // Returns an object with a map of key value pairs from the keys passed in
-  async readData (keys: Array<string>): Promise<Object> {
+  async readData(keys: Array<string>): Promise<Object> {
     const { account } = this._state.core
     const store = account.dataStore
     const returnObj = {}
     for (let i = 0; i < keys.length; i++) {
-      returnObj[keys[i]] = await store.getItem(this._plugin.storeId, keys[i]).catch(e => undefined)
+      returnObj[keys[i]] = await store.getItem(this._plugin.storeId, keys[i]).catch((e) => undefined)
     }
     console.log('edgeProvider readData: ', JSON.stringify(returnObj))
     return returnObj
   }
 
-  async exitPlugin () {
+  async exitPlugin() {
     Actions.pop()
   }
 
-  async getWalletHistory () {
+  async getWalletHistory() {
     // Get Wallet Info
     const { currencyWallets = {} } = this._state.core.account
     const guiWallet = UI_SELECTORS.getSelectedWallet(this._state)
@@ -247,7 +246,7 @@ export class EdgeProvider extends Bridgeable {
     const currencyCode = UI_SELECTORS.getSelectedCurrencyCode(this._state)
 
     // Prompt user with yes/no modal for permission
-    const confirmTxShare = await Airship.show(bridge => (
+    const confirmTxShare = await Airship.show((bridge) => (
       <TwoButtonSimpleConfirmationModal
         bridge={bridge}
         title={s.strings.fragment_wallets_export_transactions}
@@ -277,21 +276,21 @@ export class EdgeProvider extends Bridgeable {
         signedTx: '',
         txid: tx.txid,
         ourReceiveAddresses: tx.ourReceiveAddresses,
-        metadata: tx.metadata
+        metadata: tx.metadata,
       }
       transactions.push(newTx)
     }
     const result: EdgeGetWalletHistoryResult = {
       fiatCurrencyCode,
       balance,
-      transactions
+      transactions,
     }
     console.log('EdgeGetWalletHistoryResult', JSON.stringify(result))
     return result
   }
 
   // Request that the user spend to an address or multiple addresses
-  async requestSpend (spendTargets: Array<EdgeProviderSpendTarget>, options: EdgeRequestSpendOptions = {}): Promise<EdgeTransaction | void> {
+  async requestSpend(spendTargets: Array<EdgeProviderSpendTarget>, options: EdgeRequestSpendOptions = {}): Promise<EdgeTransaction | void> {
     const { currencyWallets = {} } = this._state.core.account
     const guiWallet = UI_SELECTORS.getSelectedWallet(this._state)
     const coreWallet = currencyWallets[guiWallet.id]
@@ -304,7 +303,7 @@ export class EdgeProvider extends Bridgeable {
       customNetworkFee,
       metadata,
       lockInputs,
-      uniqueIdentifier
+      uniqueIdentifier,
     }
 
     const edgeSpendTargets: Array<EdgeSpendTarget> = []
@@ -325,7 +324,7 @@ export class EdgeProvider extends Bridgeable {
   }
 
   // Request that the user spend to a URI
-  async requestSpendUri (uri: string, options: EdgeRequestSpendOptions = {}): Promise<EdgeTransaction | void> {
+  async requestSpendUri(uri: string, options: EdgeRequestSpendOptions = {}): Promise<EdgeTransaction | void> {
     const { currencyWallets = {} } = this._state.core.account
     const guiWallet = UI_SELECTORS.getSelectedWallet(this._state)
     const coreWallet = currencyWallets[guiWallet.id]
@@ -341,7 +340,7 @@ export class EdgeProvider extends Bridgeable {
       customNetworkFee,
       metadata,
       lockInputs,
-      uniqueIdentifier
+      uniqueIdentifier,
     }
 
     // Launch:
@@ -350,7 +349,7 @@ export class EdgeProvider extends Bridgeable {
 
   // log body and signature and pubic address and final message (returned from signMessage)
   // log response afterwards line 451
-  async signMessage (message: string) /* EdgeSignedMessage */ {
+  async signMessage(message: string) /* EdgeSignedMessage */ {
     console.log(`signMessage message:***${message}***`)
     const { currencyWallets = {} } = this._state.core.account
     const guiWallet = UI_SELECTORS.getSelectedWallet(this._state)
@@ -364,7 +363,7 @@ export class EdgeProvider extends Bridgeable {
   /**
    * Internal helper to launch the send confirmation scene.
    */
-  async _makeSpendRequest (guiMakeSpendInfo: GuiMakeSpendInfo, coreWallet: EdgeCurrencyWallet): Promise<EdgeTransaction | void> {
+  async _makeSpendRequest(guiMakeSpendInfo: GuiMakeSpendInfo, coreWallet: EdgeCurrencyWallet): Promise<EdgeTransaction | void> {
     const transaction: EdgeTransaction | void = await new Promise((resolve, reject) => {
       guiMakeSpendInfo.onDone = (error: Error | null, transaction?: EdgeTransaction) => {
         error ? reject(error) : resolve(transaction)
@@ -388,13 +387,13 @@ export class EdgeProvider extends Bridgeable {
         pluginId: this._plugin.storeId,
         account: this._state.core.account,
         currencyCode: transaction.currencyCode,
-        exchangeAmount: Number(bns.abs(exchangeAmount))
+        exchangeAmount: Number(bns.abs(exchangeAmount)),
       })
     }
     return transaction
   }
 
-  async trackConversion (opts?: { currencyCode: string, exchangeAmount: number }) {
+  async trackConversion(opts?: { currencyCode: string, exchangeAmount: number }) {
     if (opts != null) {
       const { currencyCode, exchangeAmount } = opts
       this._dispatch(
@@ -402,26 +401,26 @@ export class EdgeProvider extends Bridgeable {
           pluginId: this._plugin.storeId,
           account: this._state.core.account,
           currencyCode,
-          exchangeAmount
+          exchangeAmount,
         })
       )
     } else {
       this._dispatch(
         trackAccountEvent('EdgeProviderConversion', {
-          pluginId: this._plugin.storeId
+          pluginId: this._plugin.storeId,
         })
       )
     }
   }
 
-  hasSafariView (): Promise<boolean> {
+  hasSafariView(): Promise<boolean> {
     return SafariView.isAvailable()
   }
 
   // window.fetch.catch(console log then throw)
-  async deprecatedAndNotSupportedDouble (request: Object, firstURL: string, url2: string): Promise<mixed> {
+  async deprecatedAndNotSupportedDouble(request: Object, firstURL: string, url2: string): Promise<mixed> {
     console.log('Bity firstURL: ' + firstURL)
-    const response = await window.fetch(firstURL, request).catch(e => {
+    const response = await window.fetch(firstURL, request).catch((e) => {
       console.log(`throw from fetch firstURL: ${firstURL}`, e)
       throw e
     })
@@ -434,9 +433,9 @@ export class EdgeProvider extends Bridgeable {
     console.log('Bity secondURL: ', secondURL)
     const request2 = {
       method: 'GET',
-      credentials: 'include'
+      credentials: 'include',
     }
-    const response2 = await window.fetch(secondURL, request2).catch(e => {
+    const response2 = await window.fetch(secondURL, request2).catch((e) => {
       console.log(`throw from fetch secondURL: ${secondURL}`, e)
       throw e
     })
@@ -454,12 +453,12 @@ export class EdgeProvider extends Bridgeable {
         method: 'POST',
         headers: {
           Host: 'exchange.api.bity.com',
-          'Content-Type': '*/*'
+          'Content-Type': '*/*',
         },
-        body: signedTransaction
+        body: signedTransaction,
       }
       console.log('Bity thirdURL: ' + thirdURL)
-      const signedTransactionResponse = await window.fetch(thirdURL, request).catch(e => {
+      const signedTransactionResponse = await window.fetch(thirdURL, request).catch((e) => {
         console.log(`throw from fetch thirdURL: ${thirdURL}`, e)
         throw e
       })
@@ -470,11 +469,11 @@ export class EdgeProvider extends Bridgeable {
       if (signedTransactionResponse.status === 204) {
         const bankDetailsRequest = {
           method: 'GET',
-          credentials: 'include'
+          credentials: 'include',
         }
         const detailUrl = firstURL + '/' + orderData.id
         console.log('detailURL: ' + detailUrl)
-        const bankDetailResponse = await window.fetch(detailUrl, bankDetailsRequest).catch(e => {
+        const bankDetailResponse = await window.fetch(detailUrl, bankDetailsRequest).catch((e) => {
           console.log(`throw from fetch detailUrl: ${detailUrl}`, e)
           throw e
         })
@@ -488,13 +487,15 @@ export class EdgeProvider extends Bridgeable {
     return orderData
   }
 
-  async openSafariView (url: string): Promise<mixed> {
+  async openSafariView(url: string): Promise<mixed> {
     SafariView.show({ url })
   }
-  async displayError (error: Error | string) {
+
+  async displayError(error: Error | string) {
     showError(error)
   }
-  async displayToast (arg: string) {
+
+  async displayToast(arg: string) {
     showToast(arg)
   }
 }

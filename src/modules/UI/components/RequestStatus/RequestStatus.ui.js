@@ -14,7 +14,7 @@ const RECEIVED_TEXT = s.strings.bitcoin_received
 type RequestStateProps = {
   amountSatoshi: number,
   requestAddress: string,
-  addressExplorer: string
+  addressExplorer: string,
 }
 
 const RequestStatus = (props: RequestStateProps) => {

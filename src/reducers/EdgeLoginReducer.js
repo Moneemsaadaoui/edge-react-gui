@@ -8,13 +8,13 @@ import type { Action } from '../types/reduxTypes.js'
 export type EdgeLoginState = {
   lobby: EdgeLobby | null,
   error: string | null,
-  isProcessing: boolean
+  isProcessing: boolean,
 }
 
 const initialState = {
   lobby: null,
   error: null,
-  isProcessing: false
+  isProcessing: false,
 }
 
 export const edgeLogin: Reducer<EdgeLoginState, Action> = (state = initialState, action: Action) => {
@@ -22,14 +22,14 @@ export const edgeLogin: Reducer<EdgeLoginState, Action> = (state = initialState,
     case 'PROCESS_EDGE_LOGIN': {
       return {
         ...state,
-        isProcessing: true
+        isProcessing: true,
       }
     }
 
     case 'EDGE_LOBBY_ACCEPT_FAILED': {
       return {
         ...state,
-        isProcessing: false
+        isProcessing: false,
       }
     }
 
@@ -37,7 +37,7 @@ export const edgeLogin: Reducer<EdgeLoginState, Action> = (state = initialState,
       return {
         ...state,
         lobby: null,
-        isProcessing: false
+        isProcessing: false,
       }
     }
 
@@ -46,7 +46,7 @@ export const edgeLogin: Reducer<EdgeLoginState, Action> = (state = initialState,
         ...state,
         lobby: null,
         error: action.data,
-        isProcessing: false
+        isProcessing: false,
       }
     }
 
@@ -55,7 +55,7 @@ export const edgeLogin: Reducer<EdgeLoginState, Action> = (state = initialState,
         ...state,
         lobby: action.data,
         error: null,
-        isProcessing: false
+        isProcessing: false,
       }
     }
 

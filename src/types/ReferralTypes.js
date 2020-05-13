@@ -9,7 +9,7 @@ export type DeviceReferral = {
   installerId?: string,
   currencyCodes?: string[],
   messages: MessageTweak[],
-  plugins: PluginTweak[]
+  plugins: PluginTweak[],
 }
 
 // A promotion that can be activated by tapping a link.
@@ -17,7 +17,7 @@ export type Promotion = {
   installerId: string,
   hiddenMessages: { [messageId: string]: boolean },
   messages: MessageTweak[],
-  plugins: PluginTweak[]
+  plugins: PluginTweak[],
 }
 
 /**
@@ -34,7 +34,7 @@ export type AccountReferral = {
   ignoreAccountSwap: boolean,
 
   // Add account messages to this array to prevent them from appearing:
-  hiddenAccountMessages: { [messageId: string]: boolean }
+  hiddenAccountMessages: { [messageId: string]: boolean },
 }
 
 /**
@@ -42,5 +42,5 @@ export type AccountReferral = {
  */
 export type ReferralCache = {
   accountMessages: MessageTweak[],
-  accountPlugins: PluginTweak[]
+  accountPlugins: PluginTweak[],
 }

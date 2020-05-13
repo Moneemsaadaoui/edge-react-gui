@@ -32,10 +32,10 @@ export const refreshReceiveAddressRequest = (walletId: string) => (dispatch: Dis
 
   if (walletId === currentWalletId) {
     const wallet = currencyWallets[walletId]
-    wallet.getReceiveAddress().then(receiveAddress => {
+    wallet.getReceiveAddress().then((receiveAddress) => {
       dispatch({
         type: 'UI/WALLETS/REFRESH_RECEIVE_ADDRESS',
-        data: { walletId, receiveAddress }
+        data: { walletId, receiveAddress },
       })
     })
   }
@@ -55,12 +55,12 @@ export const selectWallet = (walletId: string, currencyCode: string, from?: stri
   if (walletId !== currentWalletId || currencyCode !== currentWalletCurrencyCode) {
     dispatch({
       type: 'UI/WALLETS/SELECT_WALLET',
-      data: { walletId, currencyCode }
+      data: { walletId, currencyCode },
     })
     const wallet: EdgeCurrencyWallet = currencyWallets[walletId]
     wallet
       .getReceiveAddress({ currencyCode })
-      .then(receiveAddress => {
+      .then((receiveAddress) => {
         dispatch({ type: 'NEW_RECEIVE_ADDRESS', data: { receiveAddress } })
       })
       .catch(showError)
@@ -85,13 +85,13 @@ export const selectEOSWallet = (walletId: string, currencyCode: string, from?: s
       // already activated
       dispatch({
         type: 'UI/WALLETS/SELECT_WALLET',
-        data: { walletId, currencyCode }
+        data: { walletId, currencyCode },
       })
     } else {
       // not activated yet
       // find fiat and crypto (EOS) types and populate scene props
       const supportedFiats = UTILS.getSupportedFiats()
-      const fiatTypeIndex = supportedFiats.findIndex(fiatType => fiatType.value === guiWallet.fiatCurrencyCode)
+      const fiatTypeIndex = supportedFiats.findIndex((fiatType) => fiatType.value === guiWallet.fiatCurrencyCode)
       const selectedFiat = supportedFiats[fiatTypeIndex]
 
       const { eos } = state.core.account.currencyConfig
@@ -101,14 +101,14 @@ export const selectEOSWallet = (walletId: string, currencyCode: string, from?: s
         selectedWalletType,
         selectedFiat,
         isReactivation: true,
-        existingWalletId: walletId
+        existingWalletId: walletId,
       }
       Actions[Constants.CREATE_WALLET_ACCOUNT_SETUP](createWalletAccountSetupSceneProps)
       const modal = createSimpleConfirmModal({
         title: s.strings.create_wallet_account_unfinished_activation_title,
         message: sprintf(s.strings.create_wallet_account_unfinished_activation_message, 'EOS'),
         icon: <Icon type={Constants.MATERIAL_COMMUNITY} name={Constants.EXCLAMATION} size={30} />,
-        buttonText: s.strings.string_ok
+        buttonText: s.strings.string_ok,
       })
       launchModal(modal)
     }
@@ -120,7 +120,7 @@ export const selectWalletFromModal = (walletId: string, currencyCode: string) =>
   dispatch(refreshReceiveAddressRequest(walletId))
 }
 
-function dispatchUpsertWallets (dispatch, wallets: Array<EdgeCurrencyWallet>) {
+function dispatchUpsertWallets(dispatch, wallets: Array<EdgeCurrencyWallet>) {
   global.pcount('dispatchUpsertWallets')
   dispatch(upsertWallets(wallets))
 }
@@ -128,7 +128,7 @@ function dispatchUpsertWallets (dispatch, wallets: Array<EdgeCurrencyWallet>) {
 const refreshDetails = {
   lastUpsert: 0,
   delayUpsert: false,
-  walletIds: {}
+  walletIds: {},
 }
 
 const upsertFrequency = 3000
@@ -173,8 +173,8 @@ export const upsertWallets = (wallets: Array<EdgeCurrencyWallet>) => (dispatch: 
   dispatch({
     type: 'UI/WALLETS/UPSERT_WALLETS',
     data: {
-      wallets
-    }
+      wallets,
+    },
   })
 }
 
@@ -195,7 +195,7 @@ export const setWalletEnabledTokens = (walletId: string, enabledTokens: Array<st
     dispatch({ type: 'MANAGE_TOKENS_SUCCESS' })
     dispatch({
       type: 'UPDATE_WALLET_ENABLED_TOKENS',
-      data: { walletId, tokens: enabledTokens }
+      data: { walletId, tokens: enabledTokens },
     })
     // refresh the wallet in Redux
     dispatch(refreshWallet(walletId))
@@ -221,7 +221,7 @@ export const getEnabledTokens = (walletId: string) => async (dispatch: Dispatch,
 
     // Add any enabledTokens that are custom tokens or in the currencyInfo
     for (const et of enabledTokens) {
-      let found = guiWallet.metaTokens.find(element => {
+      let found = guiWallet.metaTokens.find((element) => {
         return element.currencyCode === et
       })
       if (found) {
@@ -229,7 +229,7 @@ export const getEnabledTokens = (walletId: string) => async (dispatch: Dispatch,
         continue
       }
 
-      found = customTokens.find(element => {
+      found = customTokens.find((element) => {
         return element.currencyCode === et
       })
       if (found) {
@@ -242,7 +242,7 @@ export const getEnabledTokens = (walletId: string) => async (dispatch: Dispatch,
     if (tokensToEnable.length) {
       dispatch({
         type: 'UPDATE_WALLET_ENABLED_TOKENS',
-        data: { walletId, tokens: tokensToEnable }
+        data: { walletId, tokens: tokensToEnable },
       })
       dispatch(refreshWallet(walletId))
     }
@@ -263,11 +263,11 @@ export const assembleCustomToken = (currencyName: string, currencyCode: string, 
       {
         name: currencyCode,
         multiplier: denomination,
-        symbol: ''
-      }
+        symbol: '',
+      },
     ],
     isVisible: true,
-    walletType
+    walletType,
   }
 
   return newTokenObj
@@ -288,7 +288,7 @@ export const editCustomToken = (
     const customTokens = settings.customTokens
     const guiWallet = UI_SELECTORS.getWallet(state, walletId)
     const allTokens = UTILS.mergeTokens(guiWallet.metaTokens, customTokens)
-    const indexInAllTokens = _.findIndex(allTokens, token => token.currencyCode === currencyCode)
+    const indexInAllTokens = _.findIndex(allTokens, (token) => token.currencyCode === currencyCode)
     const tokenObj = assembleCustomToken(currencyName, currencyCode, contractAddress, denomination, guiWallet.type)
     if (indexInAllTokens >= 0) {
       // currently exists in some form
@@ -298,11 +298,11 @@ export const editCustomToken = (
           .then(() => {
             dispatch({
               type: 'UPDATE_EXISTING_TOKEN_SUCCESS',
-              data: { tokenObj }
+              data: { tokenObj },
             })
             Actions.pop()
           })
-          .catch(error => {
+          .catch((error) => {
             showError(error)
             dispatch({ type: 'EDIT_CUSTOM_TOKEN_FAILURE' })
           })
@@ -311,15 +311,15 @@ export const editCustomToken = (
         addTokenAsync(walletId, currencyName, currencyCode, contractAddress, denomination, state) // update the receiving token
           .then(() => {
             deleteCustomTokenAsync(walletId, oldCurrencyCode, getState) // delete the sending token
-              .then(coreWalletsToUpdate => {
+              .then((coreWalletsToUpdate) => {
                 dispatch({
                   type: 'OVERWRITE_THEN_DELETE_TOKEN_SUCCESS',
-                  data: { tokenObj, oldCurrencyCode, coreWalletsToUpdate }
+                  data: { tokenObj, oldCurrencyCode, coreWalletsToUpdate },
                 })
                 Actions.pop()
               })
           })
-          .catch(error => {
+          .catch((error) => {
             showError(error)
             dispatch({ type: 'EDIT_CUSTOM_TOKEN_FAILURE' })
           })
@@ -327,8 +327,8 @@ export const editCustomToken = (
     } else {
       // does not yet exist. Create the new one then delete the old one, CASE 4
       addTokenAsync(walletId, currencyName, currencyCode, contractAddress, denomination, state)
-        .then(addedTokenData => {
-          deleteCustomTokenAsync(walletId, oldCurrencyCode, getState).then(coreWalletsToUpdate => {
+        .then((addedTokenData) => {
+          deleteCustomTokenAsync(walletId, oldCurrencyCode, getState).then((coreWalletsToUpdate) => {
             tokenObj.isVisible = true
             dispatch({
               type: 'ADD_NEW_TOKEN_THEN_DELETE_OLD_SUCCESS',
@@ -339,13 +339,13 @@ export const editCustomToken = (
                 enabledTokensOnWallet: addedTokenData.enabledTokensOnWallet,
                 oldCurrencyCode,
                 setSettings: addedTokenData.setSettings,
-                tokenObj: addedTokenData.newTokenObj
-              }
+                tokenObj: addedTokenData.newTokenObj,
+              },
             })
             Actions.pop()
           })
         })
-        .catch(error => {
+        .catch((error) => {
           showError(error)
           dispatch({ type: 'EDIT_CUSTOM_TOKEN_FAILURE' })
         })
@@ -353,7 +353,7 @@ export const editCustomToken = (
   }
 }
 
-export async function deleteCustomTokenAsync (walletId: string, currencyCode: string, getState: GetState) {
+export async function deleteCustomTokenAsync(walletId: string, currencyCode: string, getState: GetState) {
   const state = getState()
   const { account } = state.core
   const { currencyWallets = {} } = account
@@ -362,11 +362,11 @@ export async function deleteCustomTokenAsync (walletId: string, currencyCode: st
   const receivedSyncSettings = await SETTINGS_API.getSyncedSettings(account)
   receivedSyncSettings[currencyCode].isVisible = false
   const syncedCustomTokens: Array<CustomTokenInfo> = [...receivedSyncSettings.customTokens]
-  const indexOfSyncedToken: number = _.findIndex(syncedCustomTokens, item => item.currencyCode === currencyCode)
+  const indexOfSyncedToken: number = _.findIndex(syncedCustomTokens, (item) => item.currencyCode === currencyCode)
   syncedCustomTokens[indexOfSyncedToken].isVisible = false
   receivedSyncSettings.customTokens = syncedCustomTokens
   await SETTINGS_API.setSyncedSettingsAsync(account, receivedSyncSettings)
-  const walletPromises = Object.values(guiWallets).map(wallet => {
+  const walletPromises = Object.values(guiWallets).map((wallet) => {
     // Flow is having issues here, need to fix
     // $FlowFixMe
     const temporaryWalletId = wallet.id
@@ -389,29 +389,29 @@ export const deleteCustomToken = (walletId: string, currencyCode: string) => (di
   const { currencyWallets = {} } = account
   const guiWallets = state.ui.wallets.byId
   const localSettings = {
-    ...getSettings(state)
+    ...getSettings(state),
   }
   const coreWalletsToUpdate = []
   dispatch({ type: 'DELETE_CUSTOM_TOKEN_START' })
   SETTINGS_API.getSyncedSettings(account)
-    .then(settings => {
+    .then((settings) => {
       if (settings[currencyCode]) settings[currencyCode].isVisible = false // remove top-level property. We should migrate away from it eventually anyway
       if (localSettings[currencyCode]) localSettings[currencyCode].isVisible = false
       const customTokensOnFile = [...settings.customTokens] // should use '|| []' as catch-all or no?
       const customTokensOnLocal = [...localSettings.customTokens]
-      const indexOfToken = _.findIndex(customTokensOnFile, item => item.currencyCode === currencyCode)
-      const indexOfTokenOnLocal = _.findIndex(customTokensOnLocal, item => item.currencyCode === currencyCode)
+      const indexOfToken = _.findIndex(customTokensOnFile, (item) => item.currencyCode === currencyCode)
+      const indexOfTokenOnLocal = _.findIndex(customTokensOnLocal, (item) => item.currencyCode === currencyCode)
       customTokensOnFile[indexOfToken].isVisible = false
       customTokensOnLocal[indexOfTokenOnLocal].isVisible = false
       settings.customTokens = customTokensOnFile
       localSettings.customTokens = customTokensOnLocal
       return settings
     })
-    .then(adjustedSettings => {
+    .then((adjustedSettings) => {
       return SETTINGS_API.setSyncedSettings(account, adjustedSettings)
     })
     .then(() => {
-      const walletPromises = Object.values(guiWallets).map(wallet => {
+      const walletPromises = Object.values(guiWallets).map((wallet) => {
         // Flow is having issues here, need to fix
         // $FlowFixMe
         const temporaryWalletId = wallet.id
@@ -426,12 +426,12 @@ export const deleteCustomToken = (walletId: string, currencyCode: string) => (di
       return Promise.all(walletPromises)
     })
     .then(() => {
-      coreWalletsToUpdate.forEach(wallet => {
+      coreWalletsToUpdate.forEach((wallet) => {
         dispatch(upsertWallets([wallet]))
         const newEnabledTokens = _.difference(guiWallets[wallet.id].enabledTokens, [currencyCode])
         dispatch({
           type: 'UPDATE_WALLET_ENABLED_TOKENS',
-          data: { walletId: wallet.id, tokens: newEnabledTokens }
+          data: { walletId: wallet.id, tokens: newEnabledTokens },
         })
       })
     })
@@ -439,11 +439,11 @@ export const deleteCustomToken = (walletId: string, currencyCode: string) => (di
       dispatch(updateSettings(localSettings))
       dispatch({
         type: 'DELETE_CUSTOM_TOKEN_SUCCESS',
-        data: { currencyCode }
+        data: { currencyCode },
       }) // need to remove modal and update settings
       Actions.pop()
     })
-    .catch(error => {
+    .catch((error) => {
       showError(error)
       dispatch({ type: 'DELETE_CUSTOM_TOKEN_FAILURE' })
     })
@@ -452,7 +452,7 @@ export const deleteCustomToken = (walletId: string, currencyCode: string) => (di
 export const updateWalletLoadingProgress = (walletId: string, newWalletProgress: number) => (dispatch: Dispatch, getState: GetState) => {
   const data = {
     walletId,
-    addressLoadingProgress: newWalletProgress
+    addressLoadingProgress: newWalletProgress,
   }
   const state = getState()
   const currentWalletProgress = state.ui.wallets.walletLoadingProgress[walletId]
@@ -462,7 +462,7 @@ export const updateWalletLoadingProgress = (walletId: string, newWalletProgress:
 
   dispatch({
     type: 'UPDATE_WALLET_LOADING_PROGRESS',
-    data
+    data,
   })
 }
 
@@ -470,7 +470,7 @@ export const updateMostRecentWalletsSelected = (walletId: string, currencyCode: 
   const state = getState()
   const { account } = state.core
   const { mostRecentWallets } = state.ui.settings
-  const currentMostRecentWallets = mostRecentWallets.filter(wallet => {
+  const currentMostRecentWallets = mostRecentWallets.filter((wallet) => {
     return wallet.id !== walletId || wallet.currencyCode !== currencyCode
   })
   if (currentMostRecentWallets.length === 100) {
@@ -489,7 +489,7 @@ export const removeMostRecentWallet = (walletId: string, currencyCode: string) =
   const state = getState()
   const { account } = state.core
   const { mostRecentWallets } = state.ui.settings
-  const currentMostRecentWallets = mostRecentWallets.filter(wallet => wallet.id !== walletId || wallet.currencyCode !== currencyCode)
+  const currentMostRecentWallets = mostRecentWallets.filter((wallet) => wallet.id !== walletId || wallet.currencyCode !== currencyCode)
   SETTINGS_API.setMostRecentWalletsSelected(account, currentMostRecentWallets)
     .then(() => {
       dispatch(updateMostRecentWallets(currentMostRecentWallets))
@@ -502,8 +502,8 @@ export const checkEnabledTokensArray = (walletId: string, newEnabledTokens: Arra
   const wallet = UI_SELECTORS.getWallet(state, walletId)
   const oldEnabledTokens = wallet.enabledTokens
 
-  oldEnabledTokens.forEach(oldToken => {
-    const checkedToken = newEnabledTokens.find(newToken => newToken === oldToken)
+  oldEnabledTokens.forEach((oldToken) => {
+    const checkedToken = newEnabledTokens.find((newToken) => newToken === oldToken)
     if (!checkedToken) {
       dispatch(removeMostRecentWallet(walletId, oldToken))
     }

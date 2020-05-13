@@ -11,7 +11,7 @@ import { showError } from '../services/AirshipInstance.js'
 
 type Props = {
   contactsPermission: PermissionStatus,
-  loadContactsSuccess: (contacts: Array<GuiContact>) => void
+  loadContactsSuccess: (contacts: Array<GuiContact>) => void,
 }
 
 const merchantPartners = [
@@ -25,7 +25,7 @@ const merchantPartners = [
     company: '',
     jobTitle: '',
     familyName: '',
-    recordID: ''
+    recordID: '',
   },
   {
     givenName: 'Changelly',
@@ -37,7 +37,7 @@ const merchantPartners = [
     company: '',
     jobTitle: '',
     familyName: '',
-    recordID: ''
+    recordID: '',
   },
   {
     givenName: 'EOS Network',
@@ -49,7 +49,7 @@ const merchantPartners = [
     company: '',
     jobTitle: '',
     familyName: '',
-    recordID: ''
+    recordID: '',
   },
   {
     givenName: 'Change NOW',
@@ -61,7 +61,7 @@ const merchantPartners = [
     company: '',
     jobTitle: '',
     familyName: '',
-    recordID: ''
+    recordID: '',
   },
   {
     givenName: 'Faa.st',
@@ -73,7 +73,7 @@ const merchantPartners = [
     company: '',
     jobTitle: '',
     familyName: '',
-    recordID: ''
+    recordID: '',
   },
   {
     givenName: 'Simplex',
@@ -85,7 +85,7 @@ const merchantPartners = [
     company: '',
     jobTitle: '',
     familyName: '',
-    recordID: ''
+    recordID: '',
   },
   {
     givenName: 'Wyre',
@@ -97,7 +97,7 @@ const merchantPartners = [
     company: '',
     jobTitle: '',
     familyName: '',
-    recordID: ''
+    recordID: '',
   },
   {
     givenName: 'Bitrefill',
@@ -109,7 +109,7 @@ const merchantPartners = [
     company: '',
     jobTitle: '',
     familyName: '',
-    recordID: ''
+    recordID: '',
   },
   {
     givenName: 'Godex',
@@ -121,7 +121,7 @@ const merchantPartners = [
     company: '',
     jobTitle: '',
     familyName: '',
-    recordID: ''
+    recordID: '',
   },
   {
     givenName: 'Fox Exchange',
@@ -133,7 +133,7 @@ const merchantPartners = [
     company: '',
     jobTitle: '',
     familyName: '',
-    recordID: ''
+    recordID: '',
   },
   {
     givenName: 'Coinswitch',
@@ -145,7 +145,7 @@ const merchantPartners = [
     company: '',
     jobTitle: '',
     familyName: '',
-    recordID: ''
+    recordID: '',
   },
   {
     givenName: 'Bits of Gold',
@@ -157,7 +157,7 @@ const merchantPartners = [
     company: '',
     jobTitle: '',
     familyName: '',
-    recordID: ''
+    recordID: '',
   },
   {
     givenName: 'Totle',
@@ -169,7 +169,7 @@ const merchantPartners = [
     company: '',
     jobTitle: '',
     familyName: '',
-    recordID: ''
+    recordID: '',
   },
   {
     givenName: 'Switchain',
@@ -181,12 +181,12 @@ const merchantPartners = [
     company: '',
     jobTitle: '',
     familyName: '',
-    recordID: ''
-  }
+    recordID: '',
+  },
 ]
 
 class ContactsLoaderComponent extends Component<Props> {
-  UNSAFE_componentWillReceiveProps (nextProps: Props) {
+  UNSAFE_componentWillReceiveProps(nextProps: Props) {
     const { contactsPermission } = nextProps
 
     if (this.props.contactsPermission !== 'authorized' && contactsPermission === 'authorized') {
@@ -194,7 +194,7 @@ class ContactsLoaderComponent extends Component<Props> {
     }
   }
 
-  fetchContacts (): Promise<Array<GuiContact>> {
+  fetchContacts(): Promise<Array<GuiContact>> {
     return new Promise((resolve, reject) => {
       return Contacts.getAll((error, result) => {
         // The native code sometimes sends strings instead of errors:
@@ -206,13 +206,13 @@ class ContactsLoaderComponent extends Component<Props> {
 
   loadContacts = () => {
     return this.fetchContacts()
-      .catch(error => {
+      .catch((error) => {
         showError(error)
         return []
       })
-      .then(contacts => {
+      .then((contacts) => {
         const cleanContacts = contacts
-          .filter(item => item.givenName)
+          .filter((item) => item.givenName)
           .concat(merchantPartners)
           .sort((a, b) => a.givenName.toUpperCase().localeCompare(b.givenName.toUpperCase()))
 
@@ -220,20 +220,20 @@ class ContactsLoaderComponent extends Component<Props> {
       })
   }
 
-  render () {
+  render() {
     return null
   }
 }
 
 export const ContactsLoader = connect(
   (state: State) => ({
-    contactsPermission: state.permissions.contacts
+    contactsPermission: state.permissions.contacts,
   }),
   (dispatch: Dispatch) => ({
     loadContactsSuccess: (contacts: Array<GuiContact>) =>
       dispatch({
         type: 'CONTACTS/LOAD_CONTACTS_SUCCESS',
-        data: { contacts }
-      })
+        data: { contacts },
+      }),
   })
 )(ContactsLoaderComponent)

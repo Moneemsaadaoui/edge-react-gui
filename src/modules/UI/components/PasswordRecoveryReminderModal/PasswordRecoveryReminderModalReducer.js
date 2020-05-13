@@ -5,7 +5,7 @@ import { type Reducer, combineReducers } from 'redux'
 import type { Action } from '../../../../types/reduxTypes.js'
 
 export type PasswordRecoveryReminderModalState = {
-  isVisible: boolean
+  isVisible: boolean,
 }
 
 export const isVisible = (state: boolean = false, action: Action) => {
@@ -24,5 +24,5 @@ export const isVisible = (state: boolean = false, action: Action) => {
 }
 
 export const passwordRecoveryReminderModal: Reducer<PasswordRecoveryReminderModalState, Action> = combineReducers({
-  isVisible
+  isVisible,
 })

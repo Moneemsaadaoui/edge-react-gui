@@ -25,7 +25,7 @@ export const addNewToken = (
     dispatch({ type: 'ADD_TOKEN_START' })
     const state = getState()
     addTokenAsync(walletId, currencyName, currencyCode, contractAddress, denomination, state)
-      .then(addedWalletInfo => {
+      .then((addedWalletInfo) => {
         const { walletId, newTokenObj, setSettings, enabledTokensOnWallet } = addedWalletInfo
         newTokenObj.walletType = walletType
         dispatch({
@@ -34,13 +34,13 @@ export const addNewToken = (
             walletId,
             tokenObj: newTokenObj,
             settings: setSettings,
-            enabledTokens: enabledTokensOnWallet
-          }
+            enabledTokens: enabledTokensOnWallet,
+          },
         })
         dispatch(WALLET_ACTIONS.refreshWallet(walletId))
         Actions.pop()
       })
-      .catch(error => {
+      .catch((error) => {
         showError(error)
         dispatch({ type: 'ADD_NEW_CUSTOM_TOKEN_FAILURE' })
       })

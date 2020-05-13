@@ -16,14 +16,14 @@ export const updateTransactions = (transactionUpdate: {
   transactionIdMap: { [txid: string]: TransactionListTx },
   currentCurrencyCode: string,
   currentWalletId: string,
-  currentEndIndex: number
+  currentEndIndex: number,
 }) => ({
   type: 'UI/SCENES/TRANSACTION_LIST/UPDATE_TRANSACTIONS',
-  data: transactionUpdate
+  data: transactionUpdate,
 })
 
 export const updateBalance = () => ({
-  type: 'noop'
+  type: 'noop',
 })
 
 export const CHANGED_TRANSACTIONS = 'UI/SCENES/TRANSACTION_LIST/CHANGED_TRANSACTIONS'
@@ -75,7 +75,7 @@ export const fetchMoreTransactions = (walletId: string, currencyCode: string, re
     // If startEntries is undefined / null, this means query until the end of the transaction list
     getAndMergeTransactions(state, dispatch, walletId, currencyCode, {
       startEntries,
-      startIndex: nextStartIndex
+      startIndex: nextStartIndex,
     })
   }
 }
@@ -114,7 +114,7 @@ const getAndMergeTransactions = async (state: State, dispatch: Dispatch, walletI
           ...tx,
           dateString,
           time,
-          key
+          key,
         })
         key++
       }
@@ -133,7 +133,7 @@ const getAndMergeTransactions = async (state: State, dispatch: Dispatch, walletI
         transactions: transactionsWithKeys,
         currentCurrencyCode: currencyCode,
         currentWalletId: walletId,
-        currentEndIndex: lastUnfilteredIndex
+        currentEndIndex: lastUnfilteredIndex,
       })
     )
   } catch (error) {
@@ -170,7 +170,7 @@ export const newTransactionsRequest = (walletId: string, edgeTransactions: Array
     if (transaction.currencyCode === selectedCurrencyCode && transaction.wallet && transaction.wallet.id === selectedWalletId) {
       isTransactionForSelectedWallet = true
       // this next part may be unnecessary
-      const indexOfNewTransaction = _.findIndex(currentViewableTransactions, tx => tx.txid === transaction.txid)
+      const indexOfNewTransaction = _.findIndex(currentViewableTransactions, (tx) => tx.txid === transaction.txid)
       if (indexOfNewTransaction === -1) {
         numberOfRelevantTransactions++
       }
@@ -178,7 +178,7 @@ export const newTransactionsRequest = (walletId: string, edgeTransactions: Array
   }
   const options = {
     startIndex: 0,
-    startEntries: state.ui.scenes.transactionList.currentEndIndex + 1 + numberOfRelevantTransactions
+    startEntries: state.ui.scenes.transactionList.currentEndIndex + 1 + numberOfRelevantTransactions,
   }
   if (isTransactionForSelectedWallet) dispatch(fetchTransactions(walletId, selectedCurrencyCode, options))
   if (!UTILS.isReceivedTransaction(edgeTransaction)) return
@@ -197,6 +197,6 @@ export const fetchTransactions = (walletId: string, currencyCode: string, option
   }
   getAndMergeTransactions(state, dispatch, walletId, currencyCode, {
     startEntries,
-    startIndex
+    startIndex,
   })
 }

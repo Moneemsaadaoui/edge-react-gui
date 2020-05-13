@@ -24,7 +24,7 @@ import { SceneWrapper } from '../common/SceneWrapper'
 import { Airship, showError } from '../services/AirshipInstance'
 
 export type NavigationProps = {
-  selectedFioPendingRequest: FioRequest
+  selectedFioPendingRequest: FioRequest,
 }
 
 export type FioPendingRequestDetailsStateProps = {
@@ -35,36 +35,36 @@ export type FioPendingRequestDetailsStateProps = {
   fioWalletByAddress: EdgeCurrencyWallet | null,
   exchangeDenomination: EdgeDenomination,
   isoFiatCurrencyCode: string,
-  fiatSymbol: string
+  fiatSymbol: string,
 }
 
 export type FioPendingRequestDetailsDispatchProps = {
   onSelectWallet: (walletId: string, currencyCode: string) => void,
-  openModal(data: 'from' | 'to'): mixed
+  openModal(data: 'from' | 'to'): mixed,
 }
 
 type Props = FioPendingRequestDetailsStateProps & FioPendingRequestDetailsDispatchProps & NavigationProps
 
 type LocalState = {
   memo: string,
-  memoError: string
+  memoError: string,
 }
 
 export class FioPendingRequestDetailsComponent extends Component<Props, LocalState> {
-  constructor (props: Props) {
+  constructor(props: Props) {
     super(props)
     const newState: LocalState = {
       memo: this.props.selectedFioPendingRequest.content.memo,
-      memoError: ''
+      memoError: '',
     }
     this.state = newState
   }
 
-  componentDidMount (): void {
+  componentDidMount(): void {
     this.setDefaultWallet()
   }
 
-  setDefaultWallet (): void {
+  setDefaultWallet(): void {
     const { onSelectWallet, wallets, selectedFioPendingRequest } = this.props
     const { chain_code, token_code } = selectedFioPendingRequest.content
     const confirmTokenCode = token_code && token_code !== chain_code ? token_code : null
@@ -72,7 +72,7 @@ export class FioPendingRequestDetailsComponent extends Component<Props, LocalSta
     for (const walletKey of walletKeys) {
       const wallet = wallets[walletKey]
       if (chain_code.toUpperCase() === wallet.currencyCode) {
-        if (confirmTokenCode && wallet.enabledTokens.find(token => token === token_code.toUpperCase())) {
+        if (confirmTokenCode && wallet.enabledTokens.find((token) => token === token_code.toUpperCase())) {
           onSelectWallet(wallet.id, wallet.currencyCode)
           return
         } else if (!confirmTokenCode) {
@@ -99,7 +99,7 @@ export class FioPendingRequestDetailsComponent extends Component<Props, LocalSta
     }
 
     this.setState({
-      memoError
+      memoError,
     })
   }
 
@@ -163,7 +163,7 @@ export class FioPendingRequestDetailsComponent extends Component<Props, LocalSta
         try {
           const getFeeResult = await fioWalletByAddress.otherMethods.fioAction('getFee', {
             endPoint: 'record_obt_data',
-            fioAddress: pendingRequest.payer_fio_address
+            fioAddress: pendingRequest.payer_fio_address,
           })
           if (getFeeResult.fee) {
             showError(s.strings.fio_no_bundled_err_msg)
@@ -182,7 +182,7 @@ export class FioPendingRequestDetailsComponent extends Component<Props, LocalSta
         } else if (edgeTransaction) {
           this.fioAcceptRequest(edgeTransaction, this.state.memo)
         }
-      }
+      },
     }
 
     Actions[Constants.SEND_CONFIRMATION]({ guiMakeSpendInfo })
@@ -205,7 +205,7 @@ export class FioPendingRequestDetailsComponent extends Component<Props, LocalSta
         obtId: edgeTransaction.txid,
         memo,
         tpid: '',
-        status: 'sent_to_blockchain'
+        status: 'sent_to_blockchain',
       })
     } catch (e) {
       showError(s.strings.fio_confirm_request_error)
@@ -230,7 +230,7 @@ export class FioPendingRequestDetailsComponent extends Component<Props, LocalSta
     const { chain_code, token_code } = selectedFioPendingRequest.content
     const allowedFullCurrencyCode = chain_code !== token_code && token_code && token_code !== '' ? [`${chain_code}:${token_code}`] : [chain_code]
 
-    Airship.show(bridge => <WalletListModal bridge={bridge} headerTitle={s.strings.fio_src_wallet} allowedCurrencyCodes={allowedFullCurrencyCode} />).then(
+    Airship.show((bridge) => <WalletListModal bridge={bridge} headerTitle={s.strings.fio_src_wallet} allowedCurrencyCodes={allowedFullCurrencyCode} />).then(
       (response: WalletListResult) => {
         if (response.walletToSelect) {
           onSelectWallet(response.walletToSelect.walletId, response.walletToSelect.currencyCode)
@@ -239,7 +239,7 @@ export class FioPendingRequestDetailsComponent extends Component<Props, LocalSta
     )
   }
 
-  render () {
+  render() {
     const materialStyle = MaterialInput
     materialStyle.tintColor = THEME.COLORS.WHITE
     materialStyle.baseColor = THEME.COLORS.WHITE

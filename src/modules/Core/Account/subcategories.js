@@ -110,5 +110,5 @@ export const categories = [
   'Transfer:Electrum',
   'Transfer:Multibit',
   'Transfer:Mycelium',
-  'Transfer:Dark Wallet'
+  'Transfer:Dark Wallet',
 ]

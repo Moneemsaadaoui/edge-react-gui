@@ -6,13 +6,13 @@ import type { Action } from '../types/reduxTypes.js'
 export type Permission = 'camera' | 'contacts' | 'location'
 export type PermissionStatus = 'authorized' | 'denied' | 'restricted' | 'undetermined'
 export type PermissionsState = {
-  [permission: Permission]: PermissionStatus
+  [permission: Permission]: PermissionStatus,
 }
 
 export const initialState = {
   camera: 'undetermined',
   contacts: 'undetermined',
-  location: 'undetermined'
+  location: 'undetermined',
 }
 
 export const permissions = (state: PermissionsState = initialState, action: Action) => {
@@ -20,7 +20,7 @@ export const permissions = (state: PermissionsState = initialState, action: Acti
     case 'PERMISSIONS/UPDATE': {
       return {
         ...state,
-        ...action.data
+        ...action.data,
       }
     }
 

@@ -5,7 +5,7 @@ import { type Reducer, combineReducers } from 'redux'
 import type { Action } from '../../types/reduxTypes.js'
 
 export type TransactionDetailsState = {
-  subcategories: Array<string>
+  subcategories: Array<string>,
 }
 
 const subcategories = (state = [], action: Action): Array<string> => {
@@ -23,5 +23,5 @@ const subcategories = (state = [], action: Action): Array<string> => {
 }
 
 export const transactionDetails: Reducer<TransactionDetailsState, Action> = combineReducers({
-  subcategories
+  subcategories,
 })

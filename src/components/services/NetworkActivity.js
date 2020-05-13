@@ -11,7 +11,7 @@ import { type Dispatch } from '../../types/reduxTypes.js'
 import { showError } from './AirshipInstance'
 
 type Props = {
-  changeConnectivity: (isConnected: boolean) => void
+  changeConnectivity: (isConnected: boolean) => void,
 }
 
 const NetInfo = {}
@@ -19,8 +19,8 @@ const NetInfo = {}
 class NetworkActivityComponent extends Component<Props> {
   netInfoUnsubscribe: Function | null = null
 
-  componentDidMount () {
-    this.netInfoUnsubscribe = NetInfo.addEventListener(state => {
+  componentDidMount() {
+    this.netInfoUnsubscribe = NetInfo.addEventListener((state) => {
       console.log('NetworkActivity - isConnected changed: ', state.isConnected)
       this.props.changeConnectivity(state.isConnected)
       if (!state.isConnected) {
@@ -29,11 +29,11 @@ class NetworkActivityComponent extends Component<Props> {
     })
   }
 
-  componentWillUnmount () {
+  componentWillUnmount() {
     this.netInfoUnsubscribe && this.netInfoUnsubscribe()
   }
 
-  render () {
+  render() {
     return null
   }
 }
@@ -44,8 +44,8 @@ export const NetworkActivity = connect(
     changeConnectivity: (isConnected: boolean) => {
       return dispatch({
         type: 'NETWORK/NETWORK_STATUS',
-        data: { isConnected }
+        data: { isConnected },
       })
-    }
+    },
   })
 )(NetworkActivityComponent)

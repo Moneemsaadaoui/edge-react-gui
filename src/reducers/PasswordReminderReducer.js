@@ -22,14 +22,14 @@ export const INITIAL_PASSWORD_USES = 0
 type NewAccountAction = {
   type: 'NEW_ACCOUNT_LOGIN',
   data: {
-    lastLoginDate: number
-  }
+    lastLoginDate: number,
+  },
 }
 type PasswordUsedAction = {
   type: 'PASSWORD_USED',
   data: {
-    lastPasswordUseDate: number
-  }
+    lastPasswordUseDate: number,
+  },
 }
 type PasswordLoginAction = {
   type: 'PASSWORD_LOGIN',
@@ -38,12 +38,12 @@ type PasswordLoginAction = {
     passwordUseCount: number,
     nonPasswordDaysLimit: number,
     nonPasswordLoginsLimit: number,
-    lastLoginDate: number
-  }
+    lastLoginDate: number,
+  },
 }
 type PasswordReminderPostponedAction = {
   type: 'PASSWORD_REMINDER_POSTPONED',
-  data: {}
+  data: {},
 }
 type NonPasswordLoginAction = {
   type: 'NON_PASSWORD_LOGIN',
@@ -52,16 +52,16 @@ type NonPasswordLoginAction = {
     nonPasswordDaysLimit: number,
     nonPasswordLoginsLimit: number,
     nonPasswordLoginsCount: number,
-    lastLoginDate: number
-  }
+    lastLoginDate: number,
+  },
 }
 type ChangePasswordAction = {
   type: 'REQUEST_CHANGE_PASSWORD',
-  data: {}
+  data: {},
 }
 type DefaultAction = {
   type: 'default',
-  data: {}
+  data: {},
 }
 
 export type PasswordReminderReducerAction =
@@ -80,7 +80,7 @@ export type PasswordReminderState = {
   nonPasswordDaysLimit: number,
   nonPasswordLoginsCount: number,
   nonPasswordLoginsLimit: number,
-  passwordUseCount: number
+  passwordUseCount: number,
 }
 
 export const initialState = {
@@ -90,7 +90,7 @@ export const initialState = {
   nonPasswordDaysLimit: INITIAL_NON_PASSWORD_DAYS_LIMIT,
   nonPasswordLoginsCount: 0,
   nonPasswordLoginsLimit: INITIAL_NON_PASSWORD_LOGINS_LIMIT,
-  passwordUseCount: 0
+  passwordUseCount: 0,
 }
 
 export const untranslatedReducer: Reducer<PasswordReminderState, PasswordReminderReducerAction> = (state = initialState, action) => {
@@ -101,7 +101,7 @@ export const untranslatedReducer: Reducer<PasswordReminderState, PasswordReminde
       return {
         ...state,
         ...action.data,
-        lastPasswordUseDate
+        lastPasswordUseDate,
       }
     }
 
@@ -122,7 +122,7 @@ export const untranslatedReducer: Reducer<PasswordReminderState, PasswordReminde
         nonPasswordDaysLimit,
         nonPasswordLoginsCount,
         nonPasswordLoginsLimit,
-        passwordUseCount
+        passwordUseCount,
       }
     }
 
@@ -136,7 +136,7 @@ export const untranslatedReducer: Reducer<PasswordReminderState, PasswordReminde
         ...state,
         ...action.data,
         nonPasswordLoginsCount,
-        needsPasswordCheck
+        needsPasswordCheck,
       }
     }
 
@@ -155,7 +155,7 @@ export const untranslatedReducer: Reducer<PasswordReminderState, PasswordReminde
         needsPasswordCheck,
         nonPasswordDaysLimit,
         nonPasswordLoginsCount,
-        nonPasswordLoginsLimit
+        nonPasswordLoginsLimit,
       }
     }
 
@@ -169,13 +169,13 @@ export const untranslatedReducer: Reducer<PasswordReminderState, PasswordReminde
         ...action.data,
         nonPasswordDaysLimit,
         nonPasswordLoginsLimit,
-        needsPasswordCheck
+        needsPasswordCheck,
       }
     }
 
     case 'REQUEST_CHANGE_PASSWORD': {
       return {
-        ...initialState
+        ...initialState,
       }
     }
 
@@ -184,15 +184,15 @@ export const untranslatedReducer: Reducer<PasswordReminderState, PasswordReminde
   }
 }
 
-function translateAction (action: Action): PasswordReminderReducerAction {
+function translateAction(action: Action): PasswordReminderReducerAction {
   if (action.type === 'ACCOUNT_INIT_COMPLETE' && action.data.account.newAccount) {
     const now = Date.now()
     return {
       type: 'NEW_ACCOUNT_LOGIN',
       data: {
         lastLoginDate: now,
-        lastPasswordUseDate: now
-      }
+        lastPasswordUseDate: now,
+      },
     }
   }
 
@@ -203,8 +203,8 @@ function translateAction (action: Action): PasswordReminderReducerAction {
       data: {
         ...action.data.passwordReminder,
         lastLoginDate: now,
-        lastPasswordUseDate: now
-      }
+        lastPasswordUseDate: now,
+      },
     }
   }
 
@@ -213,8 +213,8 @@ function translateAction (action: Action): PasswordReminderReducerAction {
       type: 'NON_PASSWORD_LOGIN',
       data: {
         ...action.data.passwordReminder,
-        lastLoginDate: Date.now()
-      }
+        lastLoginDate: Date.now(),
+      },
     }
   }
 
@@ -222,44 +222,44 @@ function translateAction (action: Action): PasswordReminderReducerAction {
     return {
       type: 'PASSWORD_USED',
       data: {
-        lastPasswordUseDate: Date.now()
-      }
+        lastPasswordUseDate: Date.now(),
+      },
     }
   }
   if (action.type === 'UI/SETTINGS/SET_SETTINGS_LOCK' && action.data === false) {
     return {
       type: 'PASSWORD_USED',
       data: {
-        lastPasswordUseDate: Date.now()
-      }
+        lastPasswordUseDate: Date.now(),
+      },
     }
   }
   if (action.type === 'PASSWORD_REMINDER_MODAL/CHECK_PASSWORD_SUCCESS') {
     return {
       type: 'PASSWORD_USED',
       data: {
-        lastPasswordUseDate: Date.now()
-      }
+        lastPasswordUseDate: Date.now(),
+      },
     }
   }
 
   if (action.type === 'PASSWORD_REMINDER/PASSWORD_REMINDER_POSTPONED') {
     return {
       type: 'PASSWORD_REMINDER_POSTPONED',
-      data: {}
+      data: {},
     }
   }
 
   if (action.type === 'PASSWORD_REMINDER_MODAL/REQUEST_CHANGE_PASSWORD') {
     return {
       type: 'REQUEST_CHANGE_PASSWORD',
-      data: {}
+      data: {},
     }
   }
 
   return {
     type: 'default',
-    data: {}
+    data: {},
   }
 }
 

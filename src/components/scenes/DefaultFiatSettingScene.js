@@ -22,49 +22,49 @@ const DEFAULT_FIAT_PICKER_PLACEHOLDER = s.strings.settings_select_currency
 const INVALID_DATA_TEXT = s.strings.fragment_create_wallet_select_valid
 
 type StateProps = {
-  supportedFiats: Array<GuiFiatType>
+  supportedFiats: Array<GuiFiatType>,
 }
 type DispatchProps = {
-  onSelectFiat: string => void
+  onSelectFiat: (string) => void,
 }
 type Props = StateProps & DispatchProps
 
 type State = {
   supportedFiats: Array<GuiFiatType>,
   selectedFiat: string,
-  searchTerm: string
+  searchTerm: string,
 }
 
 class DefaultFiatSettingComponent extends Component<Props, State> {
-  constructor (props: Props) {
+  constructor(props: Props) {
     super(props)
     this.state = {
       searchTerm: '',
       supportedFiats: props.supportedFiats,
-      selectedFiat: ''
+      selectedFiat: '',
     }
   }
 
   handleSearchTermChange = (searchTerm: string): void => {
     this.setState({
-      searchTerm
+      searchTerm,
     })
   }
 
-  render () {
-    const filteredArray = this.props.supportedFiats.filter(entry => {
+  render() {
+    const filteredArray = this.props.supportedFiats.filter((entry) => {
       return entry.label.toLowerCase().indexOf(this.state.searchTerm.toLowerCase()) >= 0
     })
 
     return (
       <SceneWrapper avoidKeyboard background="body" hasTabs={false}>
-        {gap => (
+        {(gap) => (
           <View style={[styles.content, { marginBottom: -gap.bottom }]}>
             <FormField
               autoFocus
-              clearButtonMode={'while-editing'}
+              clearButtonMode="while-editing"
               autoCorrect={false}
-              autoCapitalize={'words'}
+              autoCapitalize="words"
               onChangeText={this.handleSearchTermChange}
               value={this.state.searchTerm}
               label={DEFAULT_FIAT_PICKER_PLACEHOLDER}
@@ -99,7 +99,7 @@ class DefaultFiatSettingComponent extends Component<Props, State> {
   isValidFiat = (selectedFiat: string) => {
     const { supportedFiats } = this.state
 
-    const isValid = supportedFiats.find(fiat => fiat.value === selectedFiat)
+    const isValid = supportedFiats.find((fiat) => fiat.value === selectedFiat)
 
     return isValid
   }
@@ -107,11 +107,11 @@ class DefaultFiatSettingComponent extends Component<Props, State> {
   renderFiatTypeResult = (data: FlatListItem<GuiFiatType>) => {
     return (
       <View style={[styles.singleFiatTypeWrap, data.item.value === this.state.selectedFiat && styles.selectedItem]}>
-        <TouchableHighlight style={[styles.singleFiatType]} onPress={() => this.onSelectFiat(data.item)} underlayColor={stylesRaw.underlayColor.color}>
-          <View style={[styles.fiatTypeInfoWrap]}>
+        <TouchableHighlight style={styles.singleFiatType} onPress={() => this.onSelectFiat(data.item)} underlayColor={stylesRaw.underlayColor.color}>
+          <View style={styles.fiatTypeInfoWrap}>
             <View style={styles.fiatTypeLeft}>
-              <View style={[styles.fiatTypeLeftTextWrap]}>
-                <Text style={[styles.fiatTypeName]}>{data.item.label}</Text>
+              <View style={styles.fiatTypeLeftTextWrap}>
+                <Text style={styles.fiatTypeName}>{data.item.label}</Text>
               </View>
             </View>
           </View>
@@ -128,7 +128,7 @@ const stylesRaw = {
     backgroundColor: THEME.COLORS.WHITE,
     flex: 1,
     paddingHorizontal: scale(20),
-    paddingTop: scale(5)
+    paddingTop: scale(5),
   },
   selectedItem: {},
   resultList: {
@@ -136,55 +136,55 @@ const stylesRaw = {
     borderTopColor: THEME.COLORS.GRAY_3,
     borderTopWidth: 1,
     flexGrow: 1,
-    flexShrink: 1
+    flexShrink: 1,
   },
   singleFiatType: {
     height: scale(60),
     borderBottomWidth: 1,
     borderBottomColor: THEME.COLORS.GRAY_3,
     paddingVertical: scale(10),
-    paddingHorizontal: scale(15)
+    paddingHorizontal: scale(15),
   },
   singleFiatTypeWrap: {
     flexDirection: 'column',
-    flex: 1
+    flex: 1,
   },
   fiatTypeInfoWrap: {
     flexDirection: 'row',
     height: scale(40),
     flex: 1,
-    justifyContent: 'space-between'
+    justifyContent: 'space-between',
   },
   fiatTypeLeft: {
-    flexDirection: 'row'
+    flexDirection: 'row',
   },
   fiatTypeLogo: {
     width: scale(40),
     height: scale(40),
-    marginRight: scale(10)
+    marginRight: scale(10),
   },
   fiatTypeLeftTextWrap: {
-    justifyContent: 'center'
+    justifyContent: 'center',
   },
   fiatTypeName: {
     fontSize: scale(16),
     color: THEME.COLORS.GRAY_1,
-    textAlignVertical: 'center'
+    textAlignVertical: 'center',
   },
   underlayColor: {
-    color: THEME.COLORS.GRAY_4
-  }
+    color: THEME.COLORS.GRAY_4,
+  },
 }
 const styles: typeof stylesRaw = StyleSheet.create(stylesRaw)
 
 export const DefaultFiatSettingScene = connect(
   (state: ReduxState): StateProps => ({
-    supportedFiats: getSupportedFiats(getDefaultFiat(state))
+    supportedFiats: getSupportedFiats(getDefaultFiat(state)),
   }),
   (dispatch: Dispatch): DispatchProps => ({
-    onSelectFiat (selectedDefaultFiat) {
+    onSelectFiat(selectedDefaultFiat) {
       dispatch(setDefaultFiatRequest(selectedDefaultFiat))
       Actions.pop()
-    }
+    },
   })
 )(DefaultFiatSettingComponent)

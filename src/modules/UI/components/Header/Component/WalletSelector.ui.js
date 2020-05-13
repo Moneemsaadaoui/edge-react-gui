@@ -12,27 +12,27 @@ import { WalletNameHeader } from './WalletNameHeader.ui.js'
 
 export type StateProps = {
   selectedWalletName: string | null,
-  selectedWalletCurrencyCode: string
+  selectedWalletCurrencyCode: string,
 }
 
 export type DispatchProps = {
-  onPress: () => any | null
+  onPress: () => any | null,
 }
 
 type Props = StateProps & DispatchProps
 
 export default class WalletSelector extends Component<Props, State> {
-  constructor (props: any) {
+  constructor(props: any) {
     super(props)
     slowlog(this, /.*/, global.slowlogOptions)
   }
 
-  render () {
+  render() {
     let title = s.strings.loading
     if (this.props.selectedWalletName) {
       const selectedWalletName = this.props.selectedWalletName
       const selectedWalletCurrencyCode = this.props.selectedWalletCurrencyCode
-      title = function HeaderComp (styles) {
+      title = function HeaderComp(styles) {
         return <WalletNameHeader name={selectedWalletName} denomination={selectedWalletCurrencyCode} styles={styles} />
       }
     }

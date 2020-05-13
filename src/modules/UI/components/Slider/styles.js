@@ -12,21 +12,21 @@ export const rawStyles = {
     overflow: 'hidden',
     borderRadius: 26,
     height: 52,
-    zIndex: 2
+    zIndex: 2,
   },
   thumb: {
     width: 52,
     height: 52,
     position: 'absolute',
     backgroundColor: THEME.COLORS.ACCENT_MINT,
-    borderRadius: 52
+    borderRadius: 52,
   },
   disabledThumb: {
     width: 52,
     height: 52,
     position: 'absolute',
     backgroundColor: THEME.COLORS.GRAY_2,
-    borderRadius: 52
+    borderRadius: 52,
   },
   textOverlay: {
     backgroundColor: THEME.COLORS.TRANSPARENT,
@@ -35,15 +35,15 @@ export const rawStyles = {
     color: THEME.COLORS.WHITE,
     alignSelf: 'center',
     top: 17,
-    zIndex: 1
+    zIndex: 1,
   },
   activityIndicator: {
     backgroundColor: THEME.COLORS.TRANSPARENT,
     position: 'absolute',
     alignSelf: 'center',
     top: 17,
-    zIndex: 1
-  }
+    zIndex: 1,
+  },
 }
 
 export const styles = StyleSheet.create(rawStyles)

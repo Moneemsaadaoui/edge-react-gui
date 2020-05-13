@@ -12,16 +12,16 @@ export const updateShowPasswordRecoveryReminderModal = (level: string, wasShown:
   type: 'UPDATE_SHOW_PASSWORD_RECOVERY_REMINDER_MODAL',
   data: {
     level,
-    wasShown
-  }
+    wasShown,
+  },
 })
 
 export const showPasswordRecoveryReminderModal = () => ({
-  type: 'SHOW_PASSWORD_RECOVERY_MODAL'
+  type: 'SHOW_PASSWORD_RECOVERY_MODAL',
 })
 
 export const hidePasswordRecoveryReminderModal = () => ({
-  type: 'HIDE_PASSWORD_RECOVERY_MODAL'
+  type: 'HIDE_PASSWORD_RECOVERY_MODAL',
 })
 
 export const onGoToPasswordRecoveryScene = () => (dispatch: Dispatch, getState: GetState) => {

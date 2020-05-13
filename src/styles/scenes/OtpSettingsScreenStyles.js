@@ -7,40 +7,40 @@ export const styles = {
   body: {
     backgroundColor: THEME.COLORS.WHITE,
     flex: 1,
-    padding: scale(18)
+    padding: scale(18),
   },
   hero: {
     container: {
       width: '100%',
       height: scale(120),
       alignItems: 'center',
-      backgroundColor: THEME.COLORS.TRANSPARENT
+      backgroundColor: THEME.COLORS.TRANSPARENT,
     },
     icon: {},
     shim: {
-      height: scale(10)
+      height: scale(10),
     },
     imageSize: scale(50),
     bodyText: {
       width: '100%',
       textAlign: 'center',
       fontSize: scale(21),
-      color: THEME.COLORS.GRAY_1
-    }
+      color: THEME.COLORS.GRAY_1,
+    },
   },
   shim: {
-    height: scale(10)
+    height: scale(10),
   },
   middle: {
     width: '100%',
-    minHeight: scale(200)
+    minHeight: scale(200),
   },
   middleText: {
     width: '100%',
     fontSize: scale(18),
     textAlign: 'center',
     fontFamily: THEME.FONTS.DEFAULT,
-    color: THEME.COLORS.GRAY_2
+    color: THEME.COLORS.GRAY_2,
   },
   keyText: {
     width: '100%',
@@ -48,14 +48,14 @@ export const styles = {
     textAlign: 'center',
     fontFamily: THEME.FONTS.DEFAULT,
     color: THEME.COLORS.ACCENT_BLUE,
-    textDecorationLine: 'underline'
+    textDecorationLine: 'underline',
   },
   buttonContainer: {
     width: '100%',
-    height: scale(THEME.BUTTONS.HEIGHT)
+    height: scale(THEME.BUTTONS.HEIGHT),
   },
   icon: {
-    color: THEME.COLORS.WHITE
+    color: THEME.COLORS.WHITE,
   },
-  iconSize: scale(36)
+  iconSize: scale(36),
 }

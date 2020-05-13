@@ -14,15 +14,15 @@ type FormFieldSelectProps = {
   labelFontSize?: number,
   valueExtractor?: any,
   labelExtractor?: any,
-  onChangeText(string, number, any): void
+  onChangeText(string, number, any): void,
 }
 
 class FormFieldSelect extends Component<FormFieldSelectProps> {
   static defaultProps = {
-    label: ''
+    label: '',
   }
 
-  render () {
+  render() {
     const { container, baseColor, textColor } = this.props.style
     const { data } = this.props
     return (

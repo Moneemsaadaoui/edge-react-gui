@@ -62,11 +62,11 @@ export type SendConfirmationStateProps = {
   sceneState: SendConfirmationState,
   toggleCryptoOnTop: number,
   guiWallet: GuiWallet,
-  isConnected: boolean
+  isConnected: boolean,
 }
 
 export type SendConfirmationDispatchProps = {
-  updateSpendPending: boolean => any,
+  updateSpendPending: (boolean) => any,
   signBroadcastAndSave: () => any,
   reset: () => any,
   updateAmount: (nativeAmount: string, exchangeAmount: string, fiatPerCrypto: string) => any,
@@ -75,11 +75,11 @@ export type SendConfirmationDispatchProps = {
   uniqueIdentifierButtonPressed: () => void,
   newSpendInfo: (EdgeSpendInfo, AuthType) => mixed,
   updateTransaction: (?EdgeTransaction, ?GuiMakeSpendInfo, ?boolean, ?Error) => void,
-  getAuthRequiredDispatch: EdgeSpendInfo => void
+  getAuthRequiredDispatch: (EdgeSpendInfo) => void,
 }
 
 type SendConfirmationRouterParams = {
-  guiMakeSpendInfo: GuiMakeSpendInfo
+  guiMakeSpendInfo: GuiMakeSpendInfo,
 }
 
 type Props = SendConfirmationStateProps & SendConfirmationDispatchProps & SendConfirmationRouterParams
@@ -92,21 +92,21 @@ type State = {|
   keyboardVisible: boolean,
   showSpinner: boolean,
   isFiatOnTop: boolean,
-  isFocus: boolean
+  isFocus: boolean,
 |}
 
 export class SendConfirmation extends Component<Props, State> {
   pinInput: any
   flipInput: any
 
-  constructor (props: Props) {
+  constructor(props: Props) {
     super(props)
     slowlog(this, /.*/, global.slowlogOptions)
     this.state = {
       secondaryDisplayDenomination: {
         name: '',
         multiplier: '1',
-        symbol: ''
+        symbol: '',
       },
       overridePrimaryExchangeAmount: '',
       keyboardVisible: false,
@@ -114,12 +114,12 @@ export class SendConfirmation extends Component<Props, State> {
       nativeAmount: props.nativeAmount,
       showSpinner: false,
       isFiatOnTop: !!(props.guiMakeSpendInfo && props.guiMakeSpendInfo.nativeAmount && bns.eq(props.guiMakeSpendInfo.nativeAmount, '0')),
-      isFocus: !!(props.guiMakeSpendInfo && props.guiMakeSpendInfo.nativeAmount && bns.eq(props.guiMakeSpendInfo.nativeAmount, '0'))
+      isFocus: !!(props.guiMakeSpendInfo && props.guiMakeSpendInfo.nativeAmount && bns.eq(props.guiMakeSpendInfo.nativeAmount, '0')),
     }
     this.flipInput = React.createRef()
   }
 
-  componentDidMount () {
+  componentDidMount() {
     const secondaryDisplayDenomination = getDenomFromIsoCode(this.props.fiatCurrencyCode)
     const overridePrimaryExchangeAmount = bns.div(this.props.nativeAmount, this.props.primaryExchangeDenomination.multiplier, DIVIDE_PRECISION)
     const guiMakeSpendInfo = this.props.guiMakeSpendInfo
@@ -137,7 +137,7 @@ export class SendConfirmation extends Component<Props, State> {
     this.setState({ secondaryDisplayDenomination, overridePrimaryExchangeAmount, keyboardVisible })
   }
 
-  componentDidUpdate (prevProps: Props) {
+  componentDidUpdate(prevProps: Props) {
     if (!prevProps.transactionMetadata && this.props.transactionMetadata && this.props.authRequired !== 'none' && this.props.nativeAmount !== '0') {
       this.pinInput.focus()
     }
@@ -146,7 +146,7 @@ export class SendConfirmation extends Component<Props, State> {
     }
   }
 
-  UNSAFE_componentWillReceiveProps (nextProps: Props) {
+  UNSAFE_componentWillReceiveProps(nextProps: Props) {
     const newState = {}
     if (nextProps.forceUpdateGuiCounter !== this.state.forceUpdateGuiCounter) {
       const overridePrimaryExchangeAmount = bns.div(nextProps.nativeAmount, nextProps.primaryExchangeDenomination.multiplier, DIVIDE_PRECISION)
@@ -165,20 +165,20 @@ export class SendConfirmation extends Component<Props, State> {
     this.setState(newState)
   }
 
-  componentWillUnmount () {
+  componentWillUnmount() {
     this.props.reset()
     if (this.props.guiMakeSpendInfo && this.props.guiMakeSpendInfo.onBack) {
       this.props.guiMakeSpendInfo.onBack()
     }
   }
 
-  render () {
+  render() {
     const { networkFee, parentNetworkFee, guiWallet } = this.props
     const primaryInfo: GuiCurrencyInfo = {
       displayCurrencyCode: this.props.currencyCode,
       displayDenomination: this.props.primaryDisplayDenomination,
       exchangeCurrencyCode: this.props.primaryExchangeDenomination.name,
-      exchangeDenomination: this.props.primaryExchangeDenomination
+      exchangeDenomination: this.props.primaryExchangeDenomination,
     }
 
     let exchangeCurrencyCode = this.props.secondaryExchangeCurrencyCode
@@ -195,7 +195,7 @@ export class SendConfirmation extends Component<Props, State> {
       displayCurrencyCode: this.props.fiatCurrencyCode,
       displayDenomination: this.state.secondaryDisplayDenomination,
       exchangeCurrencyCode: exchangeCurrencyCode,
-      exchangeDenomination: this.state.secondaryDisplayDenomination
+      exchangeDenomination: this.state.secondaryDisplayDenomination,
     }
 
     const cryptoBalanceAmount: string = convertNativeToDisplay(primaryInfo.displayDenomination.multiplier)(this.props.balanceInCrypto) // convert to correct denomination
@@ -222,7 +222,7 @@ export class SendConfirmation extends Component<Props, State> {
     const flipInputHeaderText = guiWallet ? sprintf(s.strings.send_from_wallet, guiWallet.name) : ''
     const flipInputHeaderLogo = guiWallet.symbolImageDarkMono
     return (
-      <Fragment>
+      <>
         <SceneWrapper>
           <View style={styles.mainScrollView}>
             <View style={[styles.balanceContainer, styles.error]}>
@@ -312,7 +312,7 @@ export class SendConfirmation extends Component<Props, State> {
                         style={styles.addUniqueIDButton}
                         onPress={this.props.uniqueIdentifierButtonPressed}
                       >
-                        <Text style={styles.addUniqueIDButtonText} ellipsizeMode={'tail'}>
+                        <Text style={styles.addUniqueIDButtonText} ellipsizeMode="tail">
                           {uniqueIdentifierText(currencyCode, uniqueIdentifier)}
                         </Text>
                       </TouchableOpacity>
@@ -326,7 +326,7 @@ export class SendConfirmation extends Component<Props, State> {
                       <View style={styles.pinInputSpacer} />
 
                       <View style={styles.pinInputContainer}>
-                        <PinInput ref={ref => (this.pinInput = ref)} onChangePin={this.handleChangePin} returnKeyType="done" />
+                        <PinInput ref={(ref) => (this.pinInput = ref)} onChangePin={this.handleChangePin} returnKeyType="done" />
                       </View>
                     </Scene.Row>
                   )}
@@ -352,7 +352,7 @@ export class SendConfirmation extends Component<Props, State> {
             keyboardType={getSpecialCurrencyInfo(currencyCode).uniqueIdentifier.identifierKeyboardType}
           />
         )}
-      </Fragment>
+      </>
     )
   }
 
@@ -397,7 +397,7 @@ export class SendConfirmation extends Component<Props, State> {
       displayCurrencyCode: this.props.currencyCode,
       displayDenomination: this.props.primaryDisplayDenomination,
       exchangeCurrencyCode: this.props.primaryExchangeDenomination.name,
-      exchangeDenomination: this.props.primaryExchangeDenomination
+      exchangeDenomination: this.props.primaryExchangeDenomination,
     }
 
     let exchangeCurrencyCode = this.props.secondaryExchangeCurrencyCode
@@ -414,7 +414,7 @@ export class SendConfirmation extends Component<Props, State> {
       displayCurrencyCode: this.props.fiatCurrencyCode,
       displayDenomination: this.state.secondaryDisplayDenomination,
       exchangeCurrencyCode: exchangeCurrencyCode,
-      exchangeDenomination: this.state.secondaryDisplayDenomination
+      exchangeDenomination: this.state.secondaryDisplayDenomination,
     }
 
     let denomination, exchangeDenomination, usedNetworkFee, currencyCode
@@ -430,7 +430,7 @@ export class SendConfirmation extends Component<Props, State> {
       const fiatFeeSymbol = secondaryInfo.displayDenomination.symbol ? secondaryInfo.displayDenomination.symbol : ''
       return {
         feeSyntax: sprintf(s.strings.send_confirmation_fee_line, `${cryptoFeeSymbol()} 0`, `${fiatFeeSymbol} 0`),
-        feeStyle
+        feeStyle,
       }
       // if parentNetworkFee greater than zero
     }
@@ -449,7 +449,7 @@ export class SendConfirmation extends Component<Props, State> {
       // catch-all scenario if only existing fee is negative (shouldn't be possible)
       return {
         feeSyntax: '',
-        feeStyle: {}
+        feeStyle: {},
       }
     }
     const cryptoFeeSymbol = denomination.symbol ? denomination.symbol : ''
@@ -476,7 +476,7 @@ export class SendConfirmation extends Component<Props, State> {
     }
     return {
       feeSyntax: sprintf(s.strings.send_confirmation_fee_line, cryptoFeeString, fiatFeeString),
-      feeStyle
+      feeStyle,
     }
   }
 }

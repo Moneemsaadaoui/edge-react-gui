@@ -7,35 +7,35 @@ const ExpandableBoxStyle = {
   container: {
     flex: 1,
     width: '100%',
-    flexDirection: 'column'
+    flexDirection: 'column',
   },
   textIconButton: {
     ...TextAndIconButtonStyle,
     text: {
       ...TextAndIconButtonStyle.text,
       fontSize: 14,
-      color: THEME.COLORS.SECONDARY
+      color: THEME.COLORS.SECONDARY,
     },
     textPressed: {
       ...TextAndIconButtonStyle.text,
       fontSize: 14,
-      color: THEME.COLORS.SECONDARY
+      color: THEME.COLORS.SECONDARY,
     },
     icon: {
       ...TextAndIconButtonStyle.icon,
-      color: THEME.COLORS.SECONDARY
-    }
+      color: THEME.COLORS.SECONDARY,
+    },
   },
   top: {
     alignItems: 'center',
     justifyContent: 'space-around',
     backgroundColor: THEME.COLORS.GRAY_3,
-    height: THEME.BUTTONS.HEIGHT
+    height: THEME.BUTTONS.HEIGHT,
   },
   shim: { height: 5, backgroundColor: THEME.COLORS.TRANSPARENT },
   bottom: {
     width: '100%',
-    flexDirection: 'column'
+    flexDirection: 'column',
   },
   bottomInfo: {
     width: '100%',
@@ -44,13 +44,13 @@ const ExpandableBoxStyle = {
     borderRightWidth: 1,
     borderBottomWidth: 1,
     padding: 5,
-    borderColor: THEME.COLORS.GRAY_3
+    borderColor: THEME.COLORS.GRAY_3,
   },
   bottomInner: {
     width: '100%',
     flexDirection: 'column',
-    padding: 5
-  }
+    padding: 5,
+  },
 }
 
 export { ExpandableBoxStyle }

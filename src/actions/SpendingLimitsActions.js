@@ -13,7 +13,7 @@ export const setSpendingLimits = (spendingLimits: SpendingLimits, password: stri
   const state = getState()
   const { account } = state.core
 
-  account.checkPassword(password).then(isAuthorized => {
+  account.checkPassword(password).then((isAuthorized) => {
     if (!isAuthorized) return Alert.alert(s.strings.password_check_incorrect_password_title)
 
     return SETTINGS_API.setSpendingLimits(account, spendingLimits).then(() => {

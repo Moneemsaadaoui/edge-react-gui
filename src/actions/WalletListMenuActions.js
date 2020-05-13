@@ -23,7 +23,7 @@ import { refreshWallet } from './WalletActions.js'
 
 export type WalletListMenuKey = 'sort' | 'rename' | 'delete' | 'resync' | 'exportWalletTransactions' | 'getSeed' | 'split' | 'manageTokens' | 'viewXPub'
 
-export function walletListMenuAction (walletId: string, option: WalletListMenuKey) {
+export function walletListMenuAction(walletId: string, option: WalletListMenuKey) {
   switch (option) {
     case 'manageTokens': {
       return (dispatch: Dispatch, getState: GetState) => {
@@ -104,27 +104,27 @@ export function walletListMenuAction (walletId: string, option: WalletListMenuKe
             autoCorrect: false,
             returnKeyType: 'go',
             initialValue: '',
-            autoFocus: true
+            autoFocus: true,
           }
           const yesButton = {
-            title: s.strings.fragment_wallets_get_seed_wallet
+            title: s.strings.fragment_wallets_get_seed_wallet,
           }
           const noButton = {
-            title: s.strings.string_cancel_cap
+            title: s.strings.string_cancel_cap,
           }
 
-          const validateInput = async input => {
+          const validateInput = async (input) => {
             const isPassword = await account.checkPassword(input)
             if (isPassword) {
               dispatch({ type: 'PASSWORD_USED' })
               return {
                 success: true,
-                message: ''
+                message: '',
               }
             } else {
               return {
                 success: false,
-                message: s.strings.password_reminder_invalid
+                message: s.strings.password_reminder_invalid,
               }
             }
           }
@@ -149,7 +149,7 @@ export function walletListMenuAction (walletId: string, option: WalletListMenuKe
             input,
             yesButton,
             noButton,
-            validateInput
+            validateInput,
           })
           const resolveValue = await launchModal(getSeedModal)
           if (resolveValue) {
@@ -166,7 +166,7 @@ export function walletListMenuAction (walletId: string, option: WalletListMenuKe
                   color={THEME.COLORS.PRIMARY}
                   size={30}
                 />
-              )
+              ),
             })
             await launchModal(modal)
           }
@@ -188,20 +188,20 @@ export function walletListMenuAction (walletId: string, option: WalletListMenuKe
             autoCorrect: false,
             returnKeyType: 'go',
             initialValue: walletName,
-            autoFocus: true
+            autoFocus: true,
           }
           const yesButton = {
-            title: s.strings.string_done_cap
+            title: s.strings.string_done_cap,
           }
           const noButton = {
-            title: s.strings.string_cancel_cap
+            title: s.strings.string_cancel_cap,
           }
           const renameWalletModal = createInputModal({
             icon: <Icon type={Constants.FONT_AWESOME} name={Constants.RENAME} size={30} />,
             title: s.strings.fragment_wallets_rename_wallet,
             input,
             yesButton,
-            noButton
+            noButton,
           })
           const resolveValue = await launchModal(renameWalletModal)
           if (resolveValue) {

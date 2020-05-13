@@ -17,22 +17,22 @@ export type State = {}
 export type StateProps = {
   fioAddressName: string,
   expiration: Date,
-  registerSuccess?: boolean
+  registerSuccess?: boolean,
 }
 
 export type SceneProps = {
-  fioAddress: string
+  fioAddress: string,
 }
 
 type Props = StateProps & SceneProps
 
 export class FioAddressDetailsScene extends Component<Props, State> {
-  componentDidMount () {
+  componentDidMount() {
     const { fioAddress } = this.props
 
     if (!fioAddress) {
       Alert.alert(s.strings.fio_address_details_screen_alert_title, s.strings.fio_address_details_screen_alert_message, [
-        { text: s.strings.fio_address_details_screen_alert_button }
+        { text: s.strings.fio_address_details_screen_alert_button },
       ])
     }
   }
@@ -42,7 +42,7 @@ export class FioAddressDetailsScene extends Component<Props, State> {
     Actions[Constants.FIO_CONNECT_TO_WALLETS]({ fioAddressName })
   }
 
-  renderButton () {
+  renderButton() {
     if (this.props.registerSuccess) {
       return (
         <View style={styles.buttons}>
@@ -66,7 +66,7 @@ export class FioAddressDetailsScene extends Component<Props, State> {
     )
   }
 
-  render () {
+  render() {
     const { fioAddressName, expiration } = this.props
     return (
       <SceneWrapper>

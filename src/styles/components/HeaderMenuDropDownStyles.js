@@ -10,18 +10,18 @@ const MenuDropDownStyle = {
     flexDirection: 'column',
     width: scale(dropdownTriggerWidth),
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   menuButton: {
     width: scale(dropdownTriggerWidth),
     height: '100%',
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   menuOption: {
     borderBottomColor: THEME.COLORS.GRAY_3,
     borderBottomWidth: 1,
-    justifyContent: 'center'
+    justifyContent: 'center',
   },
   menuTrigger: {
     triggerTouchable: {
@@ -32,34 +32,34 @@ const MenuDropDownStyle = {
         justifyContent: 'center',
         alignSelf: 'center',
         height: '100%',
-        alignItems: 'center'
-      }
+        alignItems: 'center',
+      },
     },
-    menuTriggerUnderlay: {}
+    menuTriggerUnderlay: {},
   },
   menuIconWrap: {
     width: scale(46),
     height: '100%',
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
   },
   menuOptions: {},
   menuOptionItem: {
     flexDirection: 'row',
     paddingVertical: scale(4),
-    paddingHorizontal: scale(6)
+    paddingHorizontal: scale(6),
   },
   optionText: {
     color: THEME.COLORS.GRAY_1,
-    fontSize: scale(18)
+    fontSize: scale(18),
   },
   icon: {
     fontSize: scale(20),
-    color: THEME.COLORS.GRAY_1
+    color: THEME.COLORS.GRAY_1,
   },
   altIconText: {
-    fontSize: scale(20)
-  }
+    fontSize: scale(20),
+  },
 }
 
 export { MenuDropDownStyle }

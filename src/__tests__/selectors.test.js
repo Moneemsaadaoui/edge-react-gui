@@ -12,10 +12,10 @@ describe('getWalletAddressesCheckedPercent', function () {
             walletLoadingProgress: {
               fakeWalletId1: 0,
               fakeWalletId2: 0,
-              fakeWalletId3: 0
-            }
-          }
-        }
+              fakeWalletId3: 0,
+            },
+          },
+        },
       }
       const expected = 0
       const actual = UI_SELECTORS.getWalletLoadingPercent(state)
@@ -38,10 +38,10 @@ describe('getWalletAddressesCheckedPercent', function () {
             walletLoadingProgress: {
               fakeWalletId1: randomNumbers[0],
               fakeWalletId2: randomNumbers[1],
-              fakeWalletId3: randomNumbers[2]
-            }
-          }
-        }
+              fakeWalletId3: randomNumbers[2],
+            },
+          },
+        },
       }
       const lowerLimit = 0
       const upperLimit = 100
@@ -59,10 +59,10 @@ describe('getWalletAddressesCheckedPercent', function () {
             walletLoadingProgress: {
               fakeWalletId1: 1,
               fakeWalletId2: 1,
-              fakeWalletId3: 1
-            }
-          }
-        }
+              fakeWalletId3: 1,
+            },
+          },
+        },
       }
       const expected = 100
       const actual = UI_SELECTORS.getWalletLoadingPercent(state)

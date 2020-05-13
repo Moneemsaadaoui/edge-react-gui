@@ -10,7 +10,7 @@ const dummyAction = { type: 'DUMMY_ACTION_PLEASE_IGNORE' }
 test('initialState', () => {
   const expected = {
     controlPanel: {
-      usersView: false
+      usersView: false,
     },
     createWallet: {
       isCreatingWallet: false,
@@ -19,23 +19,23 @@ test('initialState', () => {
         amount: '',
         currencyCode: '',
         exchangeAmount: '',
-        expireTime: 0
+        expireTime: 0,
       },
       isCheckingHandleAvailability: false,
       handleAvailableStatus: '',
       handleActivationInfo: {
         supportedCurrencies: {},
-        activationCost: ''
+        activationCost: '',
       },
-      walletAccountActivationQuoteError: ''
+      walletAccountActivationQuoteError: '',
     },
     editToken: {
       deleteCustomTokenProcessing: false,
       deleteTokenModalVisible: false,
-      editCustomTokenProcessing: false
+      editCustomTokenProcessing: false,
     },
     exchangeRate: {
-      exchangeRates: {}
+      exchangeRates: {},
     },
     fioAddress: {
       expiration: new Date('2020-01-01T10:10:10Z'),
@@ -46,14 +46,14 @@ test('initialState', () => {
       selectedWallet: null,
       handleRegistrationInfo: {
         activationCost: 40,
-        supportedCurrencies: {}
+        supportedCurrencies: {},
       },
       addressRegistrationPaymentInfo: {},
-      regInfoLoading: false
+      regInfoLoading: false,
     },
     requestType: {
       useLegacyAddress: false,
-      uniqueLegacyAddress: false
+      uniqueLegacyAddress: false,
     },
     scan: {
       scanEnabled: false,
@@ -62,14 +62,14 @@ test('initialState', () => {
         error: null,
         isSweeping: false,
         secondaryModal: {
-          isActive: false
-        }
+          isActive: false,
+        },
       },
-      parsedUri: null
+      parsedUri: null,
     },
     sendConfirmation: SendConfirmationInitialState,
     transactionDetails: {
-      subcategories: []
+      subcategories: [],
     },
     transactionList: {
       transactions: [],
@@ -77,25 +77,25 @@ test('initialState', () => {
       currentCurrencyCode: '',
       currentEndIndex: 0,
       numTransactions: 0,
-      currentWalletId: ''
+      currentWalletId: '',
     },
     walletList: {
       viewXPubWalletModalVisible: false,
       xPubExplorer: '',
       xPubSyntax: '',
       walletArchivesVisible: false,
-      walletId: ''
+      walletId: '',
     },
     passwordReminderModal: {
-      status: null
+      status: null,
     },
     passwordRecoveryReminderModal: {
-      isVisible: false
+      isVisible: false,
     },
     uniqueIdentifierModal: {
       isActive: false,
-      uniqueIdentifier: undefined
-    }
+      uniqueIdentifier: undefined,
+    },
   }
   const actual = scenesReducer(undefined, dummyAction)
 

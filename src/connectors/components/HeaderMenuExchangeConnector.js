@@ -14,7 +14,7 @@ import type { Dispatch, State } from '../../types/reduxTypes.js'
 
 export const dropDownStyle = {
   ...MenuDropDownStyle,
-  icon: { ...MenuDropDownStyle.icon, color: THEME.COLORS.WHITE }
+  icon: { ...MenuDropDownStyle.icon, color: THEME.COLORS.WHITE },
 }
 export const mapStateToProps = (state: State): StateProps => {
   const data = [
@@ -22,20 +22,20 @@ export const mapStateToProps = (state: State): StateProps => {
       label: s.strings.dropdown_exchange_max_amount,
       key: s.strings.dropdown_exchange_max_amount,
       value: {
-        title: Constants.EXCHANGE_MAX_AMOUNT_VALUE
-      }
+        title: Constants.EXCHANGE_MAX_AMOUNT_VALUE,
+      },
     },
     {
       label: s.strings.string_help,
       key: s.strings.string_help,
       value: {
-        title: Constants.HELP_VALUE
-      }
-    }
+        title: Constants.HELP_VALUE,
+      },
+    },
   ]
   return {
     style: dropDownStyle,
-    data
+    data,
   }
 }
 
@@ -52,11 +52,8 @@ export const mapDispatchToProps = (dispatch: Dispatch): DispatchProps => ({
         Actions[Constants.CHANGE_MINING_FEE_EXCHANGE]({ sourceWallet: value.sourceWallet })
         break
     }
-  }
+  },
   // nextScreen: () => dispatch(actions.nextScreen())
 })
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(MenuDropDown)
+export default connect(mapStateToProps, mapDispatchToProps)(MenuDropDown)

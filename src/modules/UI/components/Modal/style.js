@@ -14,43 +14,43 @@ export const styles = {
     top: (PLATFORM.deviceHeight * 1) / 8,
     left: 0,
     right: 0,
-    backgroundColor: THEME.COLORS.TRANSPARENT
+    backgroundColor: THEME.COLORS.TRANSPARENT,
   },
   visibleModal: {
     zIndex: 1,
     paddingBottom: scale(14),
     borderRadius: 3,
     backgroundColor: THEME.COLORS.WHITE,
-    width: (PLATFORM.deviceWidth * 3) / 4
+    width: (PLATFORM.deviceWidth * 3) / 4,
   },
   modalBox: {
     alignItems: 'stretch',
     // height: (screenDimensions.height) / 3,
     paddingHorizontal: scale(15),
     flexDirection: 'column',
-    justifyContent: 'flex-start'
+    justifyContent: 'flex-start',
   },
 
   exitRow: {
     alignItems: 'flex-end',
     position: 'relative',
     justifyContent: 'center',
-    zIndex: 200
+    zIndex: 200,
   },
   exitRowEmpty: {
-    height: scale(30)
+    height: scale(30),
   },
   exitButton: {
     backgroundColor: THEME.COLORS.TRANSPARENT,
     width: scale(30),
     height: scale(30),
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
   },
   exitText: {
     fontSize: scale(18),
     backgroundColor: THEME.COLORS.TRANSPARENT,
-    color: THEME.COLORS.GRAY_1
+    color: THEME.COLORS.GRAY_1,
   },
   iconWrapper: {},
   modalHeaderIconWrapBottom: {
@@ -64,7 +64,7 @@ export const styles = {
     width: scale(54),
     zIndex: 2,
     alignItems: 'center',
-    justifyContent: 'space-around'
+    justifyContent: 'space-around',
   },
   modalHeaderIconWrapTop: {
     position: 'relative',
@@ -76,78 +76,78 @@ export const styles = {
     elevation: 100,
     height: scale(48),
     width: scale(48),
-    overflow: 'hidden'
+    overflow: 'hidden',
   },
 
   // beginning of rename wallet modal
   modalBody: {
     position: 'relative',
-    justifyContent: 'space-between'
+    justifyContent: 'space-between',
   },
   modalTopTextWrap: {
     padding: scale(10),
-    paddingBottom: scale(4)
+    paddingBottom: scale(4),
   },
   modalTopText: {
     textAlign: 'center',
     color: THEME.COLORS.PRIMARY,
-    fontSize: scale(16)
+    fontSize: scale(16),
   },
   modalTopSubtext: {
     fontSize: scale(14),
     color: THEME.COLORS.GRAY_1,
     textAlign: 'center',
-    paddingTop: scale(4)
+    paddingTop: scale(4),
   },
   modalMiddle: {
     flexDirection: 'column',
     alignItems: 'stretch',
     justifyContent: 'center',
-    paddingTop: scale(4)
+    paddingTop: scale(4),
   },
   modalBottom: {
     marginTop: scale(12),
     flexDirection: 'row',
     alignSelf: 'flex-end',
-    alignItems: 'flex-end'
+    alignItems: 'flex-end',
   },
 
   // buttons
   buttonsWrap: {
     flex: 1,
     flexDirection: 'row',
-    alignSelf: 'flex-end'
+    alignSelf: 'flex-end',
   },
   stylizedButton: {
     height: scale(44),
     alignItems: 'center',
     justifyContent: 'center',
     flex: 1,
-    borderRadius: 3
+    borderRadius: 3,
   },
   stylizedButtonText: {
     color: THEME.COLORS.WHITE,
-    fontSize: scale(16)
+    fontSize: scale(16),
   },
 
   cancelButtonWrap: {
     backgroundColor: THEME.COLORS.GRAY_2,
-    alignSelf: 'flex-start'
+    alignSelf: 'flex-start',
   },
 
   doneButtonWrap: {
     backgroundColor: THEME.COLORS.SECONDARY,
     alignSelf: 'flex-end',
-    marginLeft: scale(4)
+    marginLeft: scale(4),
   },
 
   cancelUnderlay: {
-    color: THEME.COLORS.GRAY_1
+    color: THEME.COLORS.GRAY_1,
   },
 
   doneUnderlay: {
-    color: THEME.COLORS.PRIMARY
-  }
+    color: THEME.COLORS.PRIMARY,
+  },
 }
 
 export const exitColor = THEME.COLORS.GRAY_1

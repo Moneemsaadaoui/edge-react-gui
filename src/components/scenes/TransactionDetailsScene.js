@@ -29,33 +29,33 @@ import { Airship } from '../services/AirshipInstance.js'
 const categories = {
   exchange: {
     syntax: s.strings.fragment_transaction_exchange,
-    key: 'exchange'
+    key: 'exchange',
   },
   expense: {
     syntax: s.strings.fragment_transaction_expense,
-    key: 'expense'
+    key: 'expense',
   },
   transfer: {
     syntax: s.strings.fragment_transaction_transfer,
-    key: 'transfer'
+    key: 'transfer',
   },
   income: {
     syntax: s.strings.fragment_transaction_income,
-    key: 'income'
-  }
+    key: 'income',
+  },
 }
 
 type fiatCryptoAmountUI = {
   amountString: string,
   symbolString: string,
   currencyName: string,
-  feeString: string
+  feeString: string,
 }
 
 type fiatCurrentAmountUI = {
   amount: string,
   difference: number,
-  percentage: string
+  percentage: string,
 }
 
 export type TransactionDetailsOwnProps = {
@@ -67,13 +67,13 @@ export type TransactionDetailsOwnProps = {
   currencyCode: string,
   guiWallet: GuiWallet,
   currentFiatAmount: string,
-  walletDefaultDenomProps: EdgeDenomination
+  walletDefaultDenomProps: EdgeDenomination,
 }
 
 export type TransactionDetailsDispatchProps = {
   setNewSubcategory: (string, Array<string>) => void,
   setTransactionDetails: (transaction: EdgeTransaction, edgeMetadata: EdgeMetadata) => void,
-  getSubcategories: () => void
+  getSubcategories: () => void,
 }
 
 type State = {
@@ -85,18 +85,18 @@ type State = {
   bizId: number,
   miscJson: any, // core receives this as a string
   category: string,
-  subCategory: string
+  subCategory: string,
 }
 
 type TransactionDetailsProps = TransactionDetailsOwnProps & TransactionDetailsDispatchProps
 
 export class TransactionDetails extends Component<TransactionDetailsProps, State> {
-  constructor (props: TransactionDetailsProps) {
+  constructor(props: TransactionDetailsProps) {
     super(props)
     const { thumbnailPath } = props
     const edgeTransaction = {
       ...props.edgeTransaction,
-      date: UTILS.autoCorrectDate(props.edgeTransaction.date)
+      date: UTILS.autoCorrectDate(props.edgeTransaction.date),
     }
     const direction = parseInt(edgeTransaction.nativeAmount) >= 0 ? 'receive' : 'send'
     const category = this.initializeFormattedCategories(edgeTransaction.metadata, direction)
@@ -110,7 +110,7 @@ export class TransactionDetails extends Component<TransactionDetailsProps, State
       thumbnailPath,
       direction,
       bizId: 0,
-      miscJson: edgeTransaction.metadata ? edgeTransaction.metadata.miscJson : ''
+      miscJson: edgeTransaction.metadata ? edgeTransaction.metadata.miscJson : '',
     }
     slowlog(this, /.*/, global.slowlogOptions)
   }
@@ -135,14 +135,14 @@ export class TransactionDetails extends Component<TransactionDetailsProps, State
         const category = splittedFullCategory.category.toLowerCase()
         return {
           category: categories[category] ? categories[category].key : defaultCategory,
-          subCategory
+          subCategory,
         }
       }
     }
     return { category: defaultCategory, subCategory: '' }
   }
 
-  componentDidMount () {
+  componentDidMount() {
     this.props.getSubcategories()
   }
 
@@ -150,9 +150,10 @@ export class TransactionDetails extends Component<TransactionDetailsProps, State
   onChangePayee = (payeeName: string, thumbnailPath: string) => {
     this.setState({ payeeName, thumbnailPath })
   }
+
   openPersonInput = () => {
     const personLabel = this.state.direction === 'receive' ? s.strings.transaction_details_payer : s.strings.transaction_details_payee
-    Airship.show(bridge => (
+    Airship.show((bridge) => (
       <TransactionDetailsPersonInput
         bridge={bridge}
         personStatus={personLabel}
@@ -160,24 +161,24 @@ export class TransactionDetails extends Component<TransactionDetailsProps, State
         onChangePerson={this.onChangePayee}
         contacts={this.props.contacts}
       />
-    )).then(_ => {})
+    )).then((_) => {})
   }
 
   onChangeFiat = (amountFiat: string) => this.setState({ amountFiat })
   openFiatInput = () => {
-    Airship.show(bridge => (
+    Airship.show((bridge) => (
       <TransactionDetailsFiatInput
         bridge={bridge}
         currency={this.props.guiWallet.fiatCurrencyCode}
         amount={this.state.amountFiat}
         onChange={this.onChangeFiat}
       />
-    )).then(_ => {})
+    )).then((_) => {})
   }
 
   onChangeCategory = (category: string, subCategory: string) => this.setState({ category, subCategory })
   openCategoryInput = () => {
-    Airship.show(bridge => (
+    Airship.show((bridge) => (
       <TransactionDetailsCategoryInput
         bridge={bridge}
         categories={categories}
@@ -187,12 +188,12 @@ export class TransactionDetails extends Component<TransactionDetailsProps, State
         setNewSubcategory={this.props.setNewSubcategory}
         onChange={this.onChangeCategory}
       />
-    )).then(_ => {})
+    )).then((_) => {})
   }
 
   onChangeNotes = (notes: string) => this.setState({ notes })
   openNotesInput = () => {
-    Airship.show(bridge => <TransactionDetailsNotesInput bridge={bridge} notes={this.state.notes} onChange={this.onChangeNotes} />).then(_ => {})
+    Airship.show((bridge) => <TransactionDetailsNotesInput bridge={bridge} notes={this.state.notes} onChange={this.onChangeNotes} />).then((_) => {})
   }
 
   openAdvancedDetails = async () => {
@@ -200,7 +201,7 @@ export class TransactionDetails extends Component<TransactionDetailsProps, State
     await launchModal(
       createAdvancedTransactionDetailsModal({
         txExplorerUrl: currencyInfo ? sprintf(currencyInfo.transactionExplorer, edgeTransaction.txid) : null,
-        ...edgeTransaction
+        ...edgeTransaction,
       })
     )
   }
@@ -236,7 +237,7 @@ export class TransactionDetails extends Component<TransactionDetailsProps, State
       amountString: convertedAmount,
       symbolString,
       currencyName,
-      feeString: ''
+      feeString: '',
     }
   }
 
@@ -261,14 +262,14 @@ export class TransactionDetails extends Component<TransactionDetailsProps, State
         amountString: amountMinusFee,
         symbolString,
         currencyName,
-        feeString
+        feeString,
       }
     } else {
       return {
         amountString: absoluteAmount,
         symbolString,
         currencyName,
-        feeString: ''
+        feeString: '',
       }
     }
   }
@@ -278,11 +279,7 @@ export class TransactionDetails extends Component<TransactionDetailsProps, State
     const { currentFiatAmount } = this.props
     const { amountFiat } = this.state
 
-    const amount = currentFiatAmount
-      ? parseFloat(currentFiatAmount)
-        .toFixed(2)
-        .toString()
-      : '0'
+    const amount = currentFiatAmount ? parseFloat(currentFiatAmount).toFixed(2).toString() : '0'
     const fiatAmount = amountFiat.replace(',', '.')
     const difference = amount ? parseFloat(amount) - parseFloat(fiatAmount) : 0
     const percentageFloat = amount && parseFloat(fiatAmount) > 0 ? (difference / parseFloat(fiatAmount)) * 100 : 0
@@ -291,12 +288,12 @@ export class TransactionDetails extends Component<TransactionDetailsProps, State
     return {
       amount,
       difference,
-      percentage: bns.abs(percentage)
+      percentage: bns.abs(percentage),
     }
   }
 
   // Render
-  render () {
+  render() {
     const { guiWallet } = this.props
     const { direction, amountFiat, payeeName, thumbnailPath, notes, category, subCategory } = this.state
     const { fiatCurrencyCode } = guiWallet
@@ -310,20 +307,20 @@ export class TransactionDetails extends Component<TransactionDetailsProps, State
     const personHeader = sprintf(s.strings.transaction_details_person_name, personLabel)
 
     return (
-      <Fragment>
+      <>
         <SceneWrapper bodySplit={scale(24)}>
           <View style={styles.container}>
             <ScrollView>
               <View style={styles.tilesContainer}>
                 <TouchableWithoutFeedback onPress={this.openPersonInput}>
                   <View style={styles.tileContainerBig}>
-                    <Image style={[styles.tileIcon]} source={editIcon} />
+                    <Image style={styles.tileIcon} source={editIcon} />
                     <FormattedText style={styles.tileTextTop}>{personHeader}</FormattedText>
                     <View style={styles.tileRow}>
                       {thumbnailPath ? (
-                        <Image style={[styles.tileThumbnail]} source={{ uri: thumbnailPath }} />
+                        <Image style={styles.tileThumbnail} source={{ uri: thumbnailPath }} />
                       ) : (
-                        <IonIcon style={styles.tileAvatarIcon} name={'ios-contact'} size={iconSize.avatar} />
+                        <IonIcon style={styles.tileAvatarIcon} name="ios-contact" size={iconSize.avatar} />
                       )}
                       <FormattedText style={styles.tileTextBottom}>{personName}</FormattedText>
                     </View>
@@ -339,7 +336,7 @@ export class TransactionDetails extends Component<TransactionDetailsProps, State
                 </View>
                 <TouchableWithoutFeedback onPress={this.openFiatInput}>
                   <View style={styles.tileContainer}>
-                    <Image style={[styles.tileIcon]} source={editIcon} />
+                    <Image style={styles.tileIcon} source={editIcon} />
                     <FormattedText style={styles.tileTextTop}>{sprintf(s.strings.transaction_details_amount_in_fiat, fiatCurrencyCode)}</FormattedText>
                     <View style={styles.tileRow}>
                       <FormattedText style={styles.tileTextBottom}>{`${fiatSymbol} `}</FormattedText>
@@ -359,7 +356,7 @@ export class TransactionDetails extends Component<TransactionDetailsProps, State
                 </View>
                 <TouchableWithoutFeedback onPress={this.openCategoryInput}>
                   <View style={styles.tileContainerBig}>
-                    <Image style={[styles.tileIcon]} source={editIcon} />
+                    <Image style={styles.tileIcon} source={editIcon} />
                     <FormattedText style={styles.tileTextTop}>{s.strings.transaction_details_category_title}</FormattedText>
                     <View style={styles.tileRow}>
                       <View style={styles.tileCategory}>
@@ -371,7 +368,7 @@ export class TransactionDetails extends Component<TransactionDetailsProps, State
                 </TouchableWithoutFeedback>
                 <TouchableWithoutFeedback onPress={this.openNotesInput}>
                   <View style={styles.tileContainerNotes}>
-                    <Image style={[styles.tileIcon]} source={editIcon} />
+                    <Image style={styles.tileIcon} source={editIcon} />
                     <FormattedText style={styles.tileTextTopNotes}>{s.strings.transaction_details_notes_title}</FormattedText>
                     <FormattedText style={styles.tileTextNotes}>{notes}</FormattedText>
                   </View>
@@ -389,7 +386,7 @@ export class TransactionDetails extends Component<TransactionDetailsProps, State
             </ScrollView>
           </View>
         </SceneWrapper>
-      </Fragment>
+      </>
     )
   }
 }

@@ -61,7 +61,7 @@ const getCurrencyAddress = async (currencyCode, getState) => {
   const { account } = state.core
   const wallets = state.ui.wallets.byId
   const walletIds = Object.keys(wallets)
-  const walletId = walletIds.find(id => {
+  const walletId = walletIds.find((id) => {
     const wallet = wallets[id]
     const walletCurrency = wallet.currencyCode.toUpperCase()
     return walletCurrency === currencyCode
@@ -83,7 +83,7 @@ const getCurrencyAddress = async (currencyCode, getState) => {
 
   const createWallet = account.createCurrencyWallet(guiWalletTypes.value, {
     name: guiWalletTypes.label,
-    fiatCurrencyCode: defaultIsoFiat
+    fiatCurrencyCode: defaultIsoFiat,
   })
   const wallet = await showFullScreenSpinner(s.strings.wallet_list_referral_link_currency_loading, createWallet)
   const receiveAddress = await wallet.getReceiveAddress()
@@ -91,7 +91,7 @@ const getCurrencyAddress = async (currencyCode, getState) => {
 }
 
 const createWalletCheckModal = async (currencyCode: string) => {
-  return Airship.show(bridge => (
+  return Airship.show((bridge) => (
     <TwoButtonSimpleConfirmationModal
       bridge={bridge}
       title={s.strings.fragment_create_wallet_create_wallet}

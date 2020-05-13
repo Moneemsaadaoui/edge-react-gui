@@ -28,7 +28,7 @@ const deviceWidth = PLATFORM.deviceWidth
 
 const logos = {
   eos: eosLogo,
-  steem: steemLogo
+  steem: steemLogo,
 }
 
 export type CreateWalletAccountSetupOwnProps = {
@@ -36,35 +36,35 @@ export type CreateWalletAccountSetupOwnProps = {
   selectedWalletType: GuiWalletType,
   accountHandle?: string,
   isReactivation?: boolean,
-  existingWalletId?: string
+  existingWalletId?: string,
 }
 
 export type CreateWalletAccountSetupStateProps = {
   handleAvailableStatus: HandleAvailableStatus,
-  isCheckingHandleAvailability: boolean
+  isCheckingHandleAvailability: boolean,
 }
 
 export type CreateWalletAccountSetupDispatchProps = {
-  checkHandleAvailability: string => void
+  checkHandleAvailability: (string) => void,
 }
 
 type Props = CreateWalletAccountSetupOwnProps & CreateWalletAccountSetupDispatchProps & CreateWalletAccountSetupStateProps
 type State = {
-  accountHandle: string
+  accountHandle: string,
 }
 
 export class CreateWalletAccountSetup extends Component<Props, State> {
-  constructor (props: Props) {
+  constructor(props: Props) {
     super(props)
     this.state = {
-      accountHandle: props.accountHandle || ''
+      accountHandle: props.accountHandle || '',
     }
     if (this.state.accountHandle) {
       props.checkHandleAvailability(this.state.accountHandle)
     }
   }
 
-  componentDidMount () {
+  componentDidMount() {
     logEvent('ActivateWalletStart')
   }
 
@@ -74,8 +74,8 @@ export class CreateWalletAccountSetup extends Component<Props, State> {
       ...MaterialInputOnWhite.container,
       marginTop: scale(16),
       marginBottom: scale(24),
-      width: deviceWidth - scale(25) - scale(40) // substract padding and validation icon
-    }
+      width: deviceWidth - scale(25) - scale(40), // substract padding and validation icon
+    },
   }
 
   onBack = () => {
@@ -92,22 +92,23 @@ export class CreateWalletAccountSetup extends Component<Props, State> {
     if (this.props.handleAvailableStatus === 'AVAILABLE') {
       Actions[Constants.CREATE_WALLET_ACCOUNT_SELECT]({
         ...this.props,
-        accountName: this.state.accountHandle
+        accountName: this.state.accountHandle,
       })
     }
   }
+
   renderButton = () => {
     const { isCheckingHandleAvailability, handleAvailableStatus } = this.props
     return (
       <View style={styles.buttons}>
-        <PrimaryButton style={[styles.next]} onPress={this.onSetup} disabled={isCheckingHandleAvailability || handleAvailableStatus !== 'AVAILABLE'}>
+        <PrimaryButton style={styles.next} onPress={this.onSetup} disabled={isCheckingHandleAvailability || handleAvailableStatus !== 'AVAILABLE'}>
           <PrimaryButton.Text>{s.strings.string_next_capitalized}</PrimaryButton.Text>
         </PrimaryButton>
       </View>
     )
   }
 
-  render () {
+  render() {
     const { isCheckingHandleAvailability, handleAvailableStatus } = this.props
     const isHandleAvailable: boolean = handleAvailableStatus === 'AVAILABLE'
     const validityIcon = isHandleAvailable ? validIcon : invalidIcon
@@ -125,8 +126,8 @@ export class CreateWalletAccountSetup extends Component<Props, State> {
       <SafeAreaView>
         <Gradient style={styles.scrollableGradient} />
         <ScrollView>
-          <View style={[styles.scrollableView]}>
-            <Image source={logos['eos']} style={styles.currencyLogo} resizeMode={'cover'} />
+          <View style={styles.scrollableView}>
+            <Image source={logos.eos} style={styles.currencyLogo} resizeMode="cover" />
             <View style={[styles.createWalletPromptArea, { paddingTop: 24, paddingBottom: 8 }]}>
               <Text style={styles.instructionalText}>{sprintf(s.strings.create_wallet_account_review_instructions, 'EOS')}</Text>
             </View>
@@ -138,12 +139,12 @@ export class CreateWalletAccountSetup extends Component<Props, State> {
               <FormField
                 style={this.modifiedStyle}
                 autoFocus
-                clearButtonMode={'while-editing'}
+                clearButtonMode="while-editing"
                 autoCorrect={false}
                 onChangeText={this.handleChangeHandle}
                 label={s.strings.create_wallet_account_handle}
                 value={this.state.accountHandle}
-                returnKeyType={'next'}
+                returnKeyType="next"
                 onSubmitEditing={this.onSetup}
                 error={chooseHandleErrorMessage}
               />

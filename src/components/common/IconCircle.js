@@ -7,7 +7,7 @@ import { THEME } from '../../theme/variables/airbitz.js'
 import { scale } from '../../util/scaling.js'
 
 type Props = {
-  children: ChildrenArray<Node>
+  children: ChildrenArray<Node>,
 }
 
 export const iconSize = scale(64)
@@ -16,7 +16,7 @@ export const iconSize = scale(64)
  * Place this inside a modal (before the content box) to get an
  * offset circle for holding an icon.
  */
-export function IconCircle (props: Props) {
+export function IconCircle(props: Props) {
   return <View style={styles.iconCircle}>{props.children}</View>
 }
 
@@ -37,6 +37,6 @@ const styles = StyleSheet.create({
     // Children:
     alignItems: 'center',
     justifyContent: 'center',
-    overflow: 'hidden'
-  }
+    overflow: 'hidden',
+  },
 })

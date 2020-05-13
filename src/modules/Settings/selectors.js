@@ -9,7 +9,7 @@ import isoFiatDenominations from './ISOFiatDenominations'
 const emptyEdgeDenomination: EdgeDenomination = {
   name: '',
   multiplier: '1',
-  symbol: ''
+  symbol: '',
 }
 
 export const getSettings = (state: State) => {

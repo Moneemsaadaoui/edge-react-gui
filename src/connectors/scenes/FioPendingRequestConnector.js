@@ -5,7 +5,7 @@ import { connect } from 'react-redux'
 import type {
   FioPendingRequestDetailsDispatchProps as DispatchProps,
   FioPendingRequestDetailsStateProps as StateProps,
-  NavigationProps
+  NavigationProps,
 } from '../../components/scenes/FioPendingRequestDetailsScene'
 import { FioPendingRequestDetailsComponent } from '../../components/scenes/FioPendingRequestDetailsScene'
 import { FIAT_CODES_SYMBOLS } from '../../constants/indexConstants'
@@ -18,7 +18,7 @@ const mapStateToProps = (state: State, ownProps: NavigationProps) => {
   const { selectedFioPendingRequest } = ownProps
   const wallet = UI_SELECTORS.getSelectedWallet(state)
   const fioWallets = UI_SELECTORS.getFioWallets(state)
-  const fioWalletByAddress = fioWallets.find(wallet => wallet.id === selectedFioPendingRequest.fioWalletId) || null
+  const fioWalletByAddress = fioWallets.find((wallet) => wallet.id === selectedFioPendingRequest.fioWalletId) || null
   if (!wallet && !fioWalletByAddress) {
     const out: StateProps = {
       exchangeDenomination: emptyGuiDenomination,
@@ -28,7 +28,7 @@ const mapStateToProps = (state: State, ownProps: NavigationProps) => {
       fiatSymbol: '',
       exchangeRates: {},
       selectedWallet: wallet,
-      fioWalletByAddress
+      fioWalletByAddress,
     }
     return out
   }
@@ -48,7 +48,7 @@ const mapStateToProps = (state: State, ownProps: NavigationProps) => {
     fiatSymbol,
     exchangeRates,
     selectedWallet: wallet,
-    fioWalletByAddress
+    fioWalletByAddress,
   }
   return out
 }
@@ -57,10 +57,7 @@ const mapDispatchToProps = (dispatch: Dispatch): DispatchProps => ({
   openModal: (data: 'from' | 'to') => dispatch({ type: 'OPEN_WALLET_SELECTOR_MODAL', data }),
   onSelectWallet: (walletId: string, currencyCode: string) => {
     dispatch({ type: 'UI/WALLETS/SELECT_WALLET', data: { currencyCode: currencyCode, walletId: walletId } })
-  }
+  },
 })
 
-export const FioPendingRequestConnector = connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(FioPendingRequestDetailsComponent)
+export const FioPendingRequestConnector = connect(mapStateToProps, mapDispatchToProps)(FioPendingRequestDetailsComponent)

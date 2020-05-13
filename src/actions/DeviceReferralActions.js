@@ -48,13 +48,13 @@ export const loadDeviceReferral = () => async (dispatch: Dispatch, getState: Get
 /**
  * Turns the on-disk data into an DeviceReferral structure.
  */
-function unpackDeviceReferral (raw: any): DeviceReferral {
+function unpackDeviceReferral(raw: any): DeviceReferral {
   const clean = asDiskDeviceReferral(raw)
   const out: DeviceReferral = {
     installerId: clean.installerId,
     currencyCodes: clean.currencyCodes,
     messages: clean.messages,
-    plugins: clean.plugins
+    plugins: clean.plugins,
   }
 
   // Upgrade legacy fields:
@@ -75,5 +75,5 @@ const asDiskDeviceReferral = asObject({
   plugins: asOptional(asArray(asPluginTweak), []),
 
   // Legacy fields:
-  currencyCode: asOptional(asString)
+  currencyCode: asOptional(asString),
 })

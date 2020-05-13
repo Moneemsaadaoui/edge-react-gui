@@ -11,14 +11,14 @@ type Props = {
   icon?: Node,
   text: string,
   right?: Node,
-  onPress?: () => void
+  onPress?: () => void,
 }
 
 /**
  * A settings row features tappable text, as well as an optional icon
  * on the left and another optional component on the right.
  */
-export function SettingsRow (props: Props): Node {
+export function SettingsRow(props: Props): Node {
   const { disabled = false, icon, text, right, onPress } = props
 
   return (
@@ -36,7 +36,7 @@ const commonText = {
   ...dayText('row-left'),
   color: THEME.COLORS.GRAY_1,
   flexGrow: 1,
-  padding: THEME.rem(0.5)
+  padding: THEME.rem(0.5),
 }
 
 const rawStyles = {
@@ -54,14 +54,14 @@ const rawStyles = {
     // Children:
     alignItems: 'center',
     flexDirection: 'row',
-    justifyContent: 'flex-start'
+    justifyContent: 'flex-start',
   },
 
   text: commonText,
   disabledText: { ...commonText, color: THEME.COLORS.GRAY_2 },
 
   padding: {
-    padding: THEME.rem(0.5)
-  }
+    padding: THEME.rem(0.5),
+  },
 }
 const styles: typeof rawStyles = StyleSheet.create(rawStyles)

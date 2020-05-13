@@ -7,11 +7,11 @@ import Checkmark from '../../../../assets/images/manageTokens/check_mark.png'
 import styles from './style'
 
 export type Props = {
-  enabled: boolean
+  enabled: boolean,
 }
 
 class CheckBox extends Component<Props> {
-  render () {
+  render() {
     const { enabled } = this.props
 
     return <View style={styles.checkBoxOutline}>{enabled && <Image source={Checkmark} style={styles.checkmark} />}</View>

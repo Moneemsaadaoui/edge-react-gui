@@ -9,10 +9,10 @@ type Props = {
   account: Object,
   context: Object,
   showHeader: boolean,
-  onComplete(): void
+  onComplete(): void,
 }
 export default class PasswordRecovery extends Component<Props> {
-  render () {
+  render() {
     return (
       <SceneWrapper hasTabs={false} background="body">
         <PasswordRecoveryScreen

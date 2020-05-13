@@ -746,7 +746,7 @@ const strings = {
   update_header: 'Update Available',
   update_fresh: 'A fresh new version of Edge is now available. Please update to get our hot new features and fixes.',
   update_now: 'Update Now',
-  update_later: "I'll do it later"
+  update_later: "I'll do it later",
 }
 
 // export default strings

@@ -6,7 +6,7 @@ import { requestType as requestTypeReducer } from '../reducers/RequestTypeReduce
 test('initialState', () => {
   const expected = {
     useLegacyAddress: false,
-    uniqueLegacyAddress: false
+    uniqueLegacyAddress: false,
   }
   const actual = requestTypeReducer(undefined, {})
 

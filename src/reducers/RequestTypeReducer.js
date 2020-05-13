@@ -6,12 +6,12 @@ import type { Action } from '../types/reduxTypes.js'
 
 export type RequestTypeState = {
   useLegacyAddress: boolean,
-  uniqueLegacyAddress: boolean
+  uniqueLegacyAddress: boolean,
 }
 
 const initialState: RequestTypeState = {
   useLegacyAddress: false,
-  uniqueLegacyAddress: false
+  uniqueLegacyAddress: false,
 }
 
 export const requestType: Reducer<RequestTypeState, Action> = (state = initialState, action: Action) => {
@@ -25,21 +25,21 @@ export const requestType: Reducer<RequestTypeState, Action> = (state = initialSt
       return {
         ...state,
         useLegacyAddress: false,
-        uniqueLegacyAddress: !uniqueLegacy
+        uniqueLegacyAddress: !uniqueLegacy,
       }
     }
 
     case 'USE_REGULAR_REQUEST_ADDRESS': {
       return {
         ...state,
-        useLegacyAddress: false
+        useLegacyAddress: false,
       }
     }
 
     case 'USE_LEGACY_REQUEST_ADDRESS': {
       return {
         ...state,
-        useLegacyAddress: true
+        useLegacyAddress: true,
       }
     }
 

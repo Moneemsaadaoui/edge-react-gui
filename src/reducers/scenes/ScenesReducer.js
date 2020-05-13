@@ -7,7 +7,7 @@ import { type ControlPanelState, controlPanel } from '../../modules/UI/component
 import { type ExchangeRateState, exchangeRate } from '../../modules/UI/components/ExchangeRate/reducer.js'
 import {
   type PasswordRecoveryReminderModalState,
-  passwordRecoveryReminderModal
+  passwordRecoveryReminderModal,
 } from '../../modules/UI/components/PasswordRecoveryReminderModal/PasswordRecoveryReminderModalReducer.js'
 import { type PasswordReminderModalState, passwordReminderModal } from '../../modules/UI/components/PasswordReminderModal/indexPasswordReminderModal.js'
 import type { Action } from '../../types/reduxTypes.js'
@@ -35,7 +35,7 @@ export type ScenesState = {
   +transactionDetails: TransactionDetailsState,
   +transactionList: TransactionListState,
   +uniqueIdentifierModal: UniqueIdentifierModalState,
-  +walletList: WalletListState
+  +walletList: WalletListState,
 }
 
 export const scenes: Reducer<ScenesState, Action> = combineReducers({
@@ -52,5 +52,5 @@ export const scenes: Reducer<ScenesState, Action> = combineReducers({
   transactionDetails,
   transactionList,
   uniqueIdentifierModal,
-  walletList
+  walletList,
 })

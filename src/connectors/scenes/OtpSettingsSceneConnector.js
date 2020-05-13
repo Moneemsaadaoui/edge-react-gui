@@ -14,16 +14,13 @@ export const mapStateToProps = (state: State) => {
   return {
     isOtpEnabled,
     otpKey,
-    otpResetDate
+    otpResetDate,
   }
 }
 
 export const mapDispatchToProps = (dispatch: Dispatch) => ({
   enableOtp: () => dispatch(enableOtp()),
-  disableOtp: () => dispatch(disableOtp())
+  disableOtp: () => dispatch(disableOtp()),
 })
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(OtpSettingsSceneComponent)
+export default connect(mapStateToProps, mapDispatchToProps)(OtpSettingsSceneComponent)

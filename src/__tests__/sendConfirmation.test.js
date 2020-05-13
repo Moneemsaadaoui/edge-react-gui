@@ -23,22 +23,22 @@ describe('SendConfirmation', () => {
       parentDisplayDenomination: {
         name: 'BTC',
         multiplier: '100000000',
-        symbol: '₿'
+        symbol: '₿',
       },
       parentExchangeDenomination: {
         name: 'BTC',
         multiplier: '100000000',
-        symbol: '₿'
+        symbol: '₿',
       },
       primaryDisplayDenomination: {
         name: 'BTC',
         multiplier: '100000000',
-        symbol: '₿'
+        symbol: '₿',
       },
       primaryExchangeDenomination: {
         name: 'BTC',
         multiplier: '100000000',
-        symbol: '₿'
+        symbol: '₿',
       },
       secondaryExchangeCurrencyCode: 'iso:USD',
       errorMsg: null,
@@ -52,7 +52,7 @@ describe('SendConfirmation', () => {
       authRequired: 'none',
       pin: '',
       address: '123123123',
-      guiWallet: {}
+      guiWallet: {},
     }
     const actual = renderer.render(<SendConfirmation {...props} />)
 
@@ -75,22 +75,22 @@ describe('SendConfirmation', () => {
       parentDisplayDenomination: {
         name: 'BTC',
         multiplier: '100000000',
-        symbol: '₿'
+        symbol: '₿',
       },
       parentExchangeDenomination: {
         name: 'BTC',
         multiplier: '100000000',
-        symbol: '₿'
+        symbol: '₿',
       },
       primaryDisplayDenomination: {
         name: 'BTC',
         multiplier: '100000000',
-        symbol: '₿'
+        symbol: '₿',
       },
       primaryExchangeDenomination: {
         name: 'BTC',
         multiplier: '100000000',
-        symbol: '₿'
+        symbol: '₿',
       },
       secondaryExchangeCurrencyCode: 'iso:USD',
       errorMsg: null,
@@ -104,7 +104,7 @@ describe('SendConfirmation', () => {
       authRequired: 'none',
       pin: '',
       address: '123123123',
-      guiWallet: {}
+      guiWallet: {},
     }
     const actual = renderer.render(<SendConfirmation {...props} />)
 
@@ -127,22 +127,22 @@ describe('SendConfirmation', () => {
       parentDisplayDenomination: {
         name: 'XRP',
         multiplier: '1000000',
-        symbol: 'X'
+        symbol: 'X',
       },
       parentExchangeDenomination: {
         name: 'XRP',
         multiplier: '1000000',
-        symbol: 'X'
+        symbol: 'X',
       },
       primaryDisplayDenomination: {
         name: 'XRP',
         multiplier: '1000000',
-        symbol: 'X'
+        symbol: 'X',
       },
       primaryExchangeDenomination: {
         name: 'XRP',
         multiplier: '1000000',
-        symbol: 'X'
+        symbol: 'X',
       },
       secondaryExchangeCurrencyCode: 'iso:USD',
       errorMsg: null,
@@ -155,7 +155,7 @@ describe('SendConfirmation', () => {
       isEditable: true,
       authRequired: 'none',
       pin: '',
-      guiWallet: {}
+      guiWallet: {},
     }
     const actual = renderer.render(<SendConfirmation {...props} />)
 
@@ -178,22 +178,22 @@ describe('SendConfirmation', () => {
       parentDisplayDenomination: {
         name: 'XMR',
         multiplier: '1000000000000',
-        symbol: 'ɱ'
+        symbol: 'ɱ',
       },
       parentExchangeDenomination: {
         name: 'XMR',
         multiplier: '1000000000000',
-        symbol: 'ɱ'
+        symbol: 'ɱ',
       },
       primaryDisplayDenomination: {
         name: 'XMR',
         multiplier: '1000000000000',
-        symbol: 'ɱ'
+        symbol: 'ɱ',
       },
       primaryExchangeDenomination: {
         name: 'XMR',
         multiplier: '1000000000000',
-        symbol: 'ɱ'
+        symbol: 'ɱ',
       },
       secondaryExchangeCurrencyCode: 'iso:USD',
       errorMsg: null,
@@ -206,7 +206,7 @@ describe('SendConfirmation', () => {
       isEditable: true,
       authRequired: 'none',
       pin: '',
-      guiWallet: {}
+      guiWallet: {},
     }
     const actual = renderer.render(<SendConfirmation {...props} />)
 

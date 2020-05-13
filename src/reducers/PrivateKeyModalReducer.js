@@ -7,10 +7,10 @@ import { secondaryModal } from './SecondaryModalReducer.js'
 
 export type PrivateKeyModalState = {
   secondaryModal: {
-    isActive: boolean
+    isActive: boolean,
   },
   error: Error | null,
-  isSweeping: boolean
+  isSweeping: boolean,
 }
 
 const isSweeping = (state = false, action: Action): boolean => {
@@ -43,5 +43,5 @@ const error = (state = null, action: Action): Error | null => {
 export const privateKeyModal: Reducer<PrivateKeyModalState, Action> = combineReducers({
   secondaryModal,
   error,
-  isSweeping
+  isSweeping,
 })

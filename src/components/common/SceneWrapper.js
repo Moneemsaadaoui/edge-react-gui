@@ -37,7 +37,7 @@ type Props = {
   hasTabs?: boolean,
 
   // Padding to add inside the scene border:
-  padding?: number
+  padding?: number,
 }
 
 /**
@@ -47,20 +47,20 @@ type Props = {
  * Also draws a common gradient background under the scene.
  */
 export class SceneWrapper extends Component<Props> {
-  render () {
+  render() {
     const { avoidKeyboard = false, hasHeader = true, hasTabs = true } = this.props
 
     return (
       <LayoutContext>
-        {metrics => {
+        {(metrics) => {
           const { safeAreaInsets } = metrics
           const gap = {
             ...safeAreaInsets,
             bottom: hasTabs ? 0 : safeAreaInsets.bottom,
-            top: safeAreaInsets.top + (hasHeader ? getHeaderHeight() : 0)
+            top: safeAreaInsets.top + (hasHeader ? getHeaderHeight() : 0),
           }
           const downValue = metrics.layout.height - gap.top
-          const upValue = keyboardHeight => downValue - keyboardHeight
+          const upValue = (keyboardHeight) => downValue - keyboardHeight
 
           return avoidKeyboard ? (
             <KeyboardTracker downValue={downValue} upValue={upValue}>
@@ -77,7 +77,7 @@ export class SceneWrapper extends Component<Props> {
   /**
    * Render the scene wrapper component, given various items from the context.
    */
-  renderScene (gap: SafeAreaGap, keyboardAnimation: Animated.Value | null, keyboardHeight: number) {
+  renderScene(gap: SafeAreaGap, keyboardAnimation: Animated.Value | null, keyboardHeight: number) {
     const { children, background = 'header', bodySplit = 0, padding = 0 } = this.props
 
     // Render the scene container:
@@ -109,7 +109,7 @@ const styles = StyleSheet.create({
     right: 0,
 
     // Visuals:
-    backgroundColor: THEME.COLORS.GRAY_4
+    backgroundColor: THEME.COLORS.GRAY_4,
   },
 
   gradient: {
@@ -118,7 +118,7 @@ const styles = StyleSheet.create({
     bottom: 0,
     left: 0,
     right: 0,
-    top: 0
+    top: 0,
   },
 
   scene: {
@@ -128,6 +128,6 @@ const styles = StyleSheet.create({
     // Children:
     alignItems: 'stretch',
     flexDirection: 'column',
-    justifyContent: 'flex-start'
-  }
+    justifyContent: 'flex-start',
+  },
 })

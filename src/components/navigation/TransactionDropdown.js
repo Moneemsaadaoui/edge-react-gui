@@ -21,11 +21,11 @@ import { Airship } from '../services/AirshipInstance.js'
 
 let showing = false
 
-export function showTransactionDropdown (tx: EdgeTransaction) {
+export function showTransactionDropdown(tx: EdgeTransaction) {
   if (!showing) {
     showing = true
-    playReceiveSound().catch(error => console.log(error)) // Fail quietly
-    Airship.show(bridge => <ConnectedTransactionDropdown bridge={bridge} tx={tx} />).then(() => {
+    playReceiveSound().catch((error) => console.log(error)) // Fail quietly
+    Airship.show((bridge) => <ConnectedTransactionDropdown bridge={bridge} tx={tx} />).then(() => {
       showing = false
     })
   }
@@ -34,10 +34,10 @@ export function showTransactionDropdown (tx: EdgeTransaction) {
 type Props = {
   bridge: AirshipBridge<void>,
   message: string,
-  tx: EdgeTransaction
+  tx: EdgeTransaction,
 }
 
-export function TransactionDropdown (props: Props) {
+export function TransactionDropdown(props: Props) {
   const { bridge, message, tx } = props
 
   return (
@@ -61,13 +61,13 @@ const styles = StyleSheet.create({
   icon: {
     alignSelf: 'center',
     color: THEME.COLORS.ACCENT_MINT,
-    paddingTop: padding
+    paddingTop: padding,
   },
 
   text: {
     ...nightText('row-center'),
-    padding
-  }
+    padding,
+  },
 })
 
 const ConnectedTransactionDropdown = connect(
@@ -84,7 +84,7 @@ const ConnectedTransactionDropdown = connect(
     const displayAmount = convertNativeToDisplay(multiplier)(nativeAmount)
 
     return {
-      message: sprintf(s.strings.bitcoin_received, `${symbol || name} ${displayAmount}`)
+      message: sprintf(s.strings.bitcoin_received, `${symbol || name} ${displayAmount}`),
     }
   },
   (dispatch: Dispatch) => ({})

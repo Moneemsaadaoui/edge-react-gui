@@ -10,9 +10,9 @@ import { scale } from '../../../../util/scaling.js'
 
 export type Props = {
   thumbnailPath: string,
-  direction: string
+  direction: string,
 }
-export function PayeeIcon (props: Props) {
+export function PayeeIcon(props: Props) {
   if (props.thumbnailPath) {
     return <Image source={{ uri: props.thumbnailPath }} style={styles.payeeIcon} />
   }
@@ -29,6 +29,6 @@ const styles = StyleSheet.create({
     backgroundColor: THEME.COLORS.WHITE,
     borderRadius: scale(24),
     height: scale(48),
-    width: scale(48)
-  }
+    width: scale(48),
+  },
 })

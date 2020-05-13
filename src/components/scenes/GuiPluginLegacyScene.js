@@ -38,14 +38,14 @@ type Props = {
   currentState: any,
   thisDispatch: Function,
   selectWallet(string, string): void,
-  sendConfirmationUpdateTx(GuiMakeSpendInfo): void
+  sendConfirmationUpdateTx(GuiMakeSpendInfo): void,
 }
 
 type State = {
-  showWalletList: any
+  showWalletList: any,
 }
 
-export function renderLegacyPluginBackButton (label: string = BACK) {
+export function renderLegacyPluginBackButton(label: string = BACK) {
   return <BackButton withArrow onPress={pluginPop} label={label} />
 }
 
@@ -62,11 +62,11 @@ class GuiPluginLegacy extends React.Component<Props, State> {
   successUrl: ?string
   openingSendConfirmation: boolean
 
-  constructor (props: Props) {
+  constructor(props: Props) {
     super(props)
     console.log('pvs: Legacy')
     this.state = {
-      showWalletList: false
+      showWalletList: false,
     }
     this.webview = null
 
@@ -76,7 +76,7 @@ class GuiPluginLegacy extends React.Component<Props, State> {
     this.bridge = new PluginBridge({
       plugin: {
         ...props.plugin,
-        environment: { apiKey }
+        environment: { apiKey },
       },
       account: props.account,
       coreWallets: props.coreWallets,
@@ -88,13 +88,14 @@ class GuiPluginLegacy extends React.Component<Props, State> {
       chooseWallet: this.chooseWallet,
       back: this._webviewBack,
       renderTitle: this._renderTitle,
-      edgeCallBack: this.edgeCallBack
+      edgeCallBack: this.edgeCallBack,
     })
   }
 
   chooseWallet = (walletId: string, currencyCode: string) => {
     this.props.selectWallet(walletId, currencyCode)
   }
+
   toggleWalletList = () => {
     this.setState({ showWalletList: !this.state.showWalletList })
   }
@@ -104,7 +105,7 @@ class GuiPluginLegacy extends React.Component<Props, State> {
     return true
   }
 
-  componentDidUpdate () {
+  componentDidUpdate() {
     this.bridge.context.coreWallets = this.props.coreWallets
     this.bridge.context.wallets = this.props.wallets
     this.bridge.context.walletName = this.props.walletName
@@ -112,12 +113,12 @@ class GuiPluginLegacy extends React.Component<Props, State> {
     this.bridge.context.wallet = this.props.coreWallet
   }
 
-  componentDidMount () {
+  componentDidMount() {
     this.bridge.componentDidMount()
     BackHandler.addEventListener('hardwareBackPress', this.handleBack)
   }
 
-  componentWillUnmount () {
+  componentWillUnmount() {
     BackHandler.removeEventListener('hardwareBackPress', this.handleBack)
   }
 
@@ -125,32 +126,33 @@ class GuiPluginLegacy extends React.Component<Props, State> {
     if (!this.webview) return
     this.webview.injectJavaScript('window.history.back()')
   }
+
   _webviewOpenUrl = (url: string) => {
     if (!this.webview) return
     this.webview.injectJavaScript("window.open('" + url + "', '_self')")
   }
 
-  _renderTitle = title => {
+  _renderTitle = (title) => {
     Actions.refresh({
       renderTitle: (
         <View style={styles.titleWrapper}>
           <T style={styles.titleStyle}>{title}</T>
         </View>
-      )
+      ),
     })
   }
 
-  _pluginReturn = data => {
+  _pluginReturn = (data) => {
     if (!this.webview) return
     this.webview.injectJavaScript(`window.PLUGIN_RETURN('${JSON.stringify(data)}')`)
   }
 
-  _nextMessage = datastr => {
+  _nextMessage = (datastr) => {
     if (!this.webview) return
     this.webview.injectJavaScript(`window.PLUGIN_NEXT('${datastr}')`)
   }
 
-  _onMessage = event => {
+  _onMessage = (event) => {
     if (!this.webview) {
       return
     }
@@ -169,10 +171,10 @@ class GuiPluginLegacy extends React.Component<Props, State> {
     this._nextMessage(cbid)
     if (this.bridge[func]) {
       this.bridge[func](data)
-        .then(res => {
+        .then((res) => {
           this._pluginReturn({ cbid, func, err: null, res })
         })
-        .catch(err => {
+        .catch((err) => {
           this._pluginReturn({ cbid, func, err, res: null })
         })
     } else if (func === 'edgeCallBack') {
@@ -183,23 +185,24 @@ class GuiPluginLegacy extends React.Component<Props, State> {
     }
   }
 
-  _setWebview = webview => {
+  _setWebview = (webview) => {
     this.webview = webview
   }
+
   // This is the preferred method for calling back . it does not return any promise like other bridge calls.
-  edgeCallBack = data => {
+  edgeCallBack = (data) => {
     switch (data['edge-callback']) {
       case 'paymentUri':
         if (this.openingSendConfirmation) {
           return
         }
         this.openingSendConfirmation = true
-        this.props.coreWallet.parseUri(data['edge-uri']).then(result => {
+        this.props.coreWallet.parseUri(data['edge-uri']).then((result) => {
           if (typeof result.currencyCode === 'string' && typeof result.nativeAmount === 'string' && typeof result.publicAddress === 'string') {
             let metadata: ?EdgeMetadata = {
               name: data['edge-source'] || (result.metadata ? result.metadata.name : undefined),
               category: result.metadata ? result.metadata.category : undefined,
-              notes: result.metadata ? result.metadata.notes : undefined
+              notes: result.metadata ? result.metadata.notes : undefined,
             }
             if (metadata && !metadata.name && !metadata.category && !metadata.notes) {
               metadata = undefined
@@ -211,12 +214,12 @@ class GuiPluginLegacy extends React.Component<Props, State> {
               metadata,
               onBack: () => {
                 this.openingSendConfirmation = false
-              }
+              },
             }
             this.successUrl = data['x-success']
             this.bridge
               .makeSpendRequest(info)
-              .then(tr => {
+              .then((tr) => {
                 this.openingSendConfirmation = false
                 Actions.pop()
                 if (this.successUrl) {
@@ -230,7 +233,7 @@ class GuiPluginLegacy extends React.Component<Props, State> {
     }
   }
 
-  _onNavigationStateChange = navState => {
+  _onNavigationStateChange = (navState) => {
     if (navState.loading) {
       return
     }
@@ -245,16 +248,16 @@ class GuiPluginLegacy extends React.Component<Props, State> {
           }
 
           this.openingSendConfirmation = true
-          this.props.coreWallet.parseUri(parsedUrl.query.uri).then(result => {
+          this.props.coreWallet.parseUri(parsedUrl.query.uri).then((result) => {
             const info: GuiMakeSpendInfo = {
               currencyCode: result.currencyCode,
               nativeAmount: result.nativeAmount,
-              publicAddress: result.publicAddress
+              publicAddress: result.publicAddress,
             }
             this.successUrl = parsedUrl.query['x-success'] ? parsedUrl.query['x-success'] : null
             this.bridge
               .makeSpendRequest(info)
-              .then(tr => {
+              .then((tr) => {
                 this.openingSendConfirmation = false
                 Actions.pop()
                 if (this.successUrl) {
@@ -286,7 +289,7 @@ class GuiPluginLegacy extends React.Component<Props, State> {
     }
   }
 
-  render () {
+  render() {
     const { baseUri } = this.props.plugin
 
     // We don't support deep linking or custom query parameters,
@@ -303,12 +306,10 @@ class GuiPluginLegacy extends React.Component<Props, State> {
           originWhitelist={['file://*', 'https://*', 'http://*', 'edge://*']}
           ref={this._setWebview}
           injectedJavaScript={legacyJavascript}
-          javaScriptEnabled={true}
+          javaScriptEnabled
           source={{ uri }}
-          userAgent={
-            'Mozilla/5.0 (Linux; Android 6.0.1; SM-G532G Build/MMB29T) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.83 Mobile Safari/537.36'
-          }
-          setWebContentsDebuggingEnabled={true}
+          userAgent="Mozilla/5.0 (Linux; Android 6.0.1; SM-G532G Build/MMB29T) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.83 Mobile Safari/537.36"
+          setWebContentsDebuggingEnabled
           useWebKit
         />
       </SceneWrapper>
@@ -316,7 +317,7 @@ class GuiPluginLegacy extends React.Component<Props, State> {
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   const { account } = state.core
   const { currencyWallets = {} } = account
   const guiWallet = UI_SELECTORS.getSelectedWallet(state)
@@ -333,17 +334,14 @@ const mapStateToProps = state => {
     wallets,
     walletName,
     walletId,
-    currentState
+    currentState,
   }
 }
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
   selectWallet: (walletId: string, currencyCode: string) => dispatch(selectWallet(walletId, currencyCode)),
   sendConfirmationUpdateTx: (info: GuiMakeSpendInfo) => dispatch(sendConfirmationUpdateTx(info)),
-  thisDispatch: dispatch
+  thisDispatch: dispatch,
 })
 
-export const GuiPluginLegacyScene = connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(GuiPluginLegacy)
+export const GuiPluginLegacyScene = connect(mapStateToProps, mapDispatchToProps)(GuiPluginLegacy)

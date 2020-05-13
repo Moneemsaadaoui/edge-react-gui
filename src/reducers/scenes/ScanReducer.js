@@ -13,12 +13,12 @@ export type ScanState = {
   +parsedUri: EdgeParsedUri | null,
   +torchEnabled: boolean,
   +scanEnabled: boolean,
-  +privateKeyModal: PrivateKeyModalState
+  +privateKeyModal: PrivateKeyModalState,
 }
 
 export const scan: Reducer<ScanState, Action> = combineReducers({
   parsedUri,
   privateKeyModal,
   scanEnabled,
-  torchEnabled
+  torchEnabled,
 })

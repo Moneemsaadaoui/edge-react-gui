@@ -7,7 +7,7 @@ import {
   type EdgeReceiveAddress,
   type EdgeSwapQuote,
   type EdgeSwapRequest,
-  type EdgeTransaction
+  type EdgeTransaction,
 } from 'edge-core-js/types'
 
 import { type State } from './reduxTypes.js'
@@ -30,7 +30,7 @@ export type GuiWallet = {
   enabledTokens: Array<string>,
   receiveAddress: EdgeReceiveAddress,
   addressLoadingProgress?: number,
-  blockHeight: number | null
+  blockHeight: number | null,
 }
 
 export type GuiDenomination = EdgeDenomination
@@ -38,7 +38,7 @@ export type GuiCurrencyInfo = {
   displayCurrencyCode: string,
   exchangeCurrencyCode: string,
   displayDenomination: GuiDenomination,
-  exchangeDenomination: GuiDenomination
+  exchangeDenomination: GuiDenomination,
 }
 
 export type GuiContact = {
@@ -51,7 +51,7 @@ export type GuiContact = {
   familyName: string,
   thumbnailPath: string,
   recordID: string,
-  givenName: string
+  givenName: string,
 }
 
 /**
@@ -66,7 +66,7 @@ export type GuiSwapInfo = {
   fromDisplayAmount: string,
   fromFiat: string,
   toDisplayAmount: string,
-  toFiat: string
+  toFiat: string,
 }
 
 export type ExchangeData = {
@@ -74,7 +74,7 @@ export type ExchangeData = {
   primaryDisplayName: string,
   secondaryDisplayAmount: string,
   secondaryDisplaySymbol: string,
-  secondaryCurrencyCode: string
+  secondaryCurrencyCode: string,
 }
 
 export type CustomTokenInfo = {
@@ -85,7 +85,7 @@ export type CustomTokenInfo = {
   denomination: string, // eventually change to mandatory
   isVisible?: boolean, // eventually change to mandatory,
   denominations: Array<EdgeDenomination>,
-  walletType?: string
+  walletType?: string,
 }
 
 export type GuiWalletType = {
@@ -93,19 +93,19 @@ export type GuiWalletType = {
   value: string,
   symbolImage?: string,
   symbolImageDarkMono?: string,
-  currencyCode: string
+  currencyCode: string,
 }
 export type CustomNodeSetting = {
   isEnabled: boolean,
-  nodesList: Array<string>
+  nodesList: Array<string>,
 }
 export type CurrencySetting = {
-  denomination: string
+  denomination: string,
 }
 
 export type GuiFiatType = {
   label: string,
-  value: string
+  value: string,
 }
 
 export type TransactionListTx = {
@@ -113,21 +113,21 @@ export type TransactionListTx = {
   dateString?: string,
   key: number,
   time: string,
-  unfilteredIndex: number
+  unfilteredIndex: number,
 }
 
 export type FlatListItem<T> = {
   index: number,
-  item: T
+  item: T,
 }
 
 export type DeviceDimensions = {
-  keyboardHeight: number
+  keyboardHeight: number,
 }
 
 export type GuiTouchIdInfo = {
   isTouchEnabled: boolean,
-  isTouchSupported: boolean
+  isTouchSupported: boolean,
 }
 
 export type GuiReceiveAddress = {
@@ -135,22 +135,22 @@ export type GuiReceiveAddress = {
   publicAddress: string,
   legacyAddress?: string,
   segwitAddress?: string,
-  nativeAmount: string
+  nativeAmount: string,
 }
 
 export type FlipInputFieldInfo = GuiCurrencyInfo & {
   nativeAmount?: string,
-  displayAmount?: string
+  displayAmount?: string,
 }
 
 export type SubcategorySearchResultData = {
   index: number,
   item: string,
-  separators: Object
+  separators: Object,
 }
 
 export type CurrencyConverter = {
-  convertCurrency: (state: State, currencyCode: string, isoFiatCurrencyCode: string, balanceInCryptoDisplay: string) => number
+  convertCurrency: (state: State, currencyCode: string, isoFiatCurrencyCode: string, balanceInCryptoDisplay: string) => number,
 }
 
 export const emptyGuiWallet: GuiWallet = {
@@ -173,10 +173,10 @@ export const emptyGuiWallet: GuiWallet = {
     nativeAmount: '',
     metadata: {},
     publicAddress: '',
-    legacyAddress: ''
+    legacyAddress: '',
   },
   addressLoadingProgress: 0,
-  blockHeight: null
+  blockHeight: null,
 }
 
 export const emptyGuiDenomination: GuiDenomination = {
@@ -184,13 +184,13 @@ export const emptyGuiDenomination: GuiDenomination = {
   symbol: '',
   multiplier: '',
   precision: 0,
-  currencyCode: ''
+  currencyCode: '',
 }
 export const emptyCurrencyInfo: GuiCurrencyInfo = {
   displayCurrencyCode: '',
   exchangeCurrencyCode: '',
   displayDenomination: emptyGuiDenomination,
-  exchangeDenomination: emptyGuiDenomination
+  exchangeDenomination: emptyGuiDenomination,
 }
 
 export type PasswordReminder = {
@@ -199,30 +199,30 @@ export type PasswordReminder = {
   passwordUseCount: number,
   nonPasswordLoginsCount: number,
   nonPasswordDaysLimit: number,
-  nonPasswordLoginsLimit: number
+  nonPasswordLoginsLimit: number,
 }
 
 export type SpendingLimits = {
   transaction: {
     isEnabled: boolean,
-    amount: number
-  }
+    amount: number,
+  },
 }
 
 export type CountryData = {
   name: string,
   'alpha-2': string,
-  filename?: string
+  filename?: string,
 }
 
 export type MostRecentWallet = {
   id: string,
-  currencyCode: string
+  currencyCode: string,
 }
 
 export type FioAddress = {
   name: string,
-  expiration: string
+  expiration: string,
 }
 
 export type FioRequest = {
@@ -232,14 +232,14 @@ export type FioRequest = {
     amount: string,
     token_code: string,
     chain_code: string,
-    memo: string
+    memo: string,
   },
   payee_fio_address: string,
   payer_fio_address: string,
   payer_fio_public_key: string,
   status: string,
   time_stamp: string,
-  fioWalletId?: string
+  fioWalletId?: string,
 }
 
 export type FioConnectionWalletItem = {
@@ -250,5 +250,5 @@ export type FioConnectionWalletItem = {
   name: string,
   currencyCode: string,
   chainCode: string,
-  fullCurrencyCode: string
+  fullCurrencyCode: string,
 }

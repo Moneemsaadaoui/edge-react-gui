@@ -9,24 +9,24 @@ export const rawStyles = {
   button: {
     height: scale(50),
     backgroundColor: THEME.COLORS.TRANSPARENT,
-    paddingHorizontal: scale(6)
+    paddingHorizontal: scale(6),
   },
   row: {
     flexDirection: 'row',
     flex: 1,
-    backgroundColor: THEME.COLORS.TRANSPARENT
+    backgroundColor: THEME.COLORS.TRANSPARENT,
   },
   item: {
     backgroundColor: THEME.COLORS.TRANSPARENT,
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
   },
   left: {
     height: '100%',
     backgroundColor: THEME.COLORS.TRANSPARENT,
     alignItems: 'center',
     justifyContent: 'center',
-    paddingHorizontal: scale(6)
+    paddingHorizontal: scale(6),
   },
   center: {
     flex: 1,
@@ -34,14 +34,14 @@ export const rawStyles = {
     backgroundColor: THEME.COLORS.TRANSPARENT,
     alignItems: 'flex-start',
     justifyContent: 'center',
-    paddingHorizontal: scale(6)
+    paddingHorizontal: scale(6),
   },
   right: {
     height: '100%',
     backgroundColor: THEME.COLORS.TRANSPARENT,
     alignItems: 'center',
     justifyContent: 'center',
-    paddingHorizontal: scale(6)
+    paddingHorizontal: scale(6),
   },
   text: {
     fontSize: scale(16),
@@ -49,11 +49,11 @@ export const rawStyles = {
     color: THEME.COLORS.WHITE,
     backgroundColor: THEME.COLORS.TRANSPARENT,
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
   },
   underlay: {
-    color: `${THEME.COLORS.WHITE}${THEME.ALPHA.LOW}`
-  }
+    color: `${THEME.COLORS.WHITE}${THEME.ALPHA.LOW}`,
+  },
 }
 
 export default StyleSheet.create(rawStyles)

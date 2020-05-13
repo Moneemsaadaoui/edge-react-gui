@@ -21,16 +21,16 @@ import { isRejectedFioRequest, isSentFioRequest } from '../util'
 
 type OwnProps = {
   fioRequest: FioRequest,
-  onSelect: FioRequest => void,
+  onSelect: (FioRequest) => void,
   isHeaderRow?: boolean,
   isLastOfDate?: boolean,
-  isSent?: boolean
+  isSent?: boolean,
 }
 
 type StateProps = {
   fiatSymbol: string,
   fiatAmount: string,
-  displayDenomination: EdgeDenomination
+  displayDenomination: EdgeDenomination,
 }
 
 type Props = OwnProps & StateProps
@@ -47,18 +47,18 @@ class FioRequestRow extends Component<Props> {
         amount: '',
         token_code: '',
         chain_code: '',
-        memo: ''
+        memo: '',
       },
       payee_fio_address: '',
       payer_fio_address: '',
       payer_fio_public_key: '',
       status: '',
-      time_stamp: ''
+      time_stamp: '',
     },
     onSelect: () => {},
     isHeaderRow: false,
     isLastOfDate: false,
-    isSent: false
+    isSent: false,
   }
 
   onSelect = () => {
@@ -112,12 +112,12 @@ class FioRequestRow extends Component<Props> {
     return <T style={[styles.transactionPendingTime, statusStyle]}>{label}</T>
   }
 
-  render () {
+  render() {
     const { fioRequest, isSent, isHeaderRow, isLastOfDate, displayDenomination } = this.props
     if (!displayDenomination) return null
 
     return (
-      <View key={fioRequest.fio_request_id.toString()} style={[styles.singleTransactionWrap]}>
+      <View key={fioRequest.fio_request_id.toString()} style={styles.singleTransactionWrap}>
         {isHeaderRow && (
           <View style={styles.singleDateArea}>
             <View style={styles.leftDateArea}>
@@ -130,23 +130,23 @@ class FioRequestRow extends Component<Props> {
           underlayColor={this.underlayColor}
           style={[styles.singleTransaction, { borderBottomWidth: isLastOfDate ? 0 : 1 }]}
         >
-          <View style={[styles.transactionInfoWrap]}>
+          <View style={styles.transactionInfoWrap}>
             <View style={styles.transactionLeft}>
-              <View style={[styles.transactionLeftLogoWrap]}>
+              <View style={styles.transactionLeftLogoWrap}>
                 <Image style={[styles.transactionLogo, requestListStyles.transactionLogo]} source={fioRequestsIcon} />
               </View>
             </View>
 
-            <View style={[styles.transactionRight]}>
+            <View style={styles.transactionRight}>
               <View style={[styles.transactionDetailsRow, fioRequest.content.memo ? styles.transactionDetailsRowMargin : null]}>
-                <T style={[styles.transactionPartner]} adjustsFontSizeToFit={true} minimumFontScale={this.minimumFontScale}>
+                <T style={styles.transactionPartner} adjustsFontSizeToFit minimumFontScale={this.minimumFontScale}>
                   {isSent ? fioRequest.payer_fio_address : this.requestedField()}
                 </T>
                 {this.currencyField(fioRequest.content.amount, isSent ? fioRequest.status : '')}
               </View>
-              <View style={[styles.transactionDetailsRow]}>
+              <View style={styles.transactionDetailsRow}>
                 {this.requestedTimeAndMemo(new Date(fioRequest.time_stamp), fioRequest.content.memo)}
-                <T style={[styles.transactionFiat]}>
+                <T style={styles.transactionFiat}>
                   {this.props.fiatSymbol} {this.props.fiatAmount}
                 </T>
               </View>
@@ -167,7 +167,7 @@ const mapStateToProps = (state: State, ownProps: OwnProps) => {
     return {
       displayDenomination: {},
       fiatSymbol: '',
-      fiatAmount: ''
+      fiatAmount: '',
     }
   }
   let displayDenomination = emptyDisplayDenomination
@@ -188,12 +188,9 @@ const mapStateToProps = (state: State, ownProps: OwnProps) => {
   const out: StateProps = {
     displayDenomination,
     fiatSymbol,
-    fiatAmount
+    fiatAmount,
   }
   return out
 }
 
-export const FioRequestRowConnector = connect(
-  mapStateToProps,
-  {}
-)(FioRequestRow)
+export const FioRequestRowConnector = connect(mapStateToProps, {})(FioRequestRow)

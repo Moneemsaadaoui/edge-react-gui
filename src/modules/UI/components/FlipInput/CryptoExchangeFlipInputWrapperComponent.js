@@ -25,8 +25,8 @@ export type Props = {
   isThinking?: boolean,
   focusMe(): void,
   launchWalletSelector: () => void,
-  onCryptoExchangeAmountChanged: ExchangedFlipInputAmounts => void,
-  onNext: () => void
+  onCryptoExchangeAmountChanged: (ExchangedFlipInputAmounts) => void,
+  onNext: () => void,
 }
 export class CryptoExchangeFlipInputWrapperComponent extends Component<Props> {
   launchSelector = () => {
@@ -45,7 +45,7 @@ export class CryptoExchangeFlipInputWrapperComponent extends Component<Props> {
     )
   }
 
-  render () {
+  render() {
     const style: StyleSheet.Styles = this.props.style
     const { onNext, primaryCurrencyInfo, secondaryCurrencyInfo, fiatPerCrypto, forceUpdateGuiCounter, overridePrimaryExchangeAmount } = this.props
 
@@ -81,7 +81,7 @@ export class CryptoExchangeFlipInputWrapperComponent extends Component<Props> {
 
     if (!this.props.isFocused) {
       return (
-        <View style={[style.containerSelectedWalletNotFocus]}>
+        <View style={style.containerSelectedWalletNotFocus}>
           {this.renderLogo(style, this.props.currencyLogo)}
           <View style={style.topRow}>
             <TextAndIconButton style={style.walletSelector} onPress={this.props.focusMe} icon={Constants.KEYBOARD_ARROW_DOWN} title={titleComp} />
@@ -103,7 +103,7 @@ export class CryptoExchangeFlipInputWrapperComponent extends Component<Props> {
         forceUpdateGuiCounter={forceUpdateGuiCounter}
         onExchangeAmountChanged={this.onExchangeAmountChanged}
         keyboardVisible={false}
-        isFiatOnTop={true}
+        isFiatOnTop
         isFocus={false}
       />
     )

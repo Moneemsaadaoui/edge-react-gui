@@ -10,12 +10,12 @@ test('initialState', () => {
     torchEnabled: false,
     privateKeyModal: {
       secondaryModal: {
-        isActive: false
+        isActive: false,
       },
       error: null,
-      isSweeping: false
+      isSweeping: false,
     },
-    parsedUri: null
+    parsedUri: null,
   }
   const actual = scanReducer(undefined, {})
 

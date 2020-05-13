@@ -29,7 +29,7 @@ const mapStateToProps = (state: State) => {
     activationCost,
     wallets,
     loading,
-    isConnected: state.network.isConnected
+    isConnected: state.network.isConnected,
   }
   return out
 }
@@ -38,10 +38,7 @@ const mapDispatchToProps = (dispatch: Dispatch): DispatchProps => ({
   getRegInfo: (fioAddress: string, selectedWallet: EdgeCurrencyWallet) => dispatch(getRegInfo(fioAddress, selectedWallet)),
   onSelectWallet: (walletId: string, currencyCode: string) => {
     dispatch({ type: 'UI/WALLETS/SELECT_WALLET', data: { currencyCode: currencyCode, walletId: walletId } })
-  }
+  },
 })
 
-export const FioAddressRegisterSelectWalletConnector = connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(FioAddressRegisterSelectWalletScene)
+export const FioAddressRegisterSelectWalletConnector = connect(mapStateToProps, mapDispatchToProps)(FioAddressRegisterSelectWalletScene)

@@ -10,12 +10,12 @@ import { Icon } from '../Icon/Icon.ui.js'
 import { InteractiveModal } from './InteractiveModal/InteractiveModal.ui.js'
 
 type Props = {
-  onDone(): mixed
+  onDone(): mixed,
 }
 
 export const errorModal = (title: string, error: Error) =>
   class ErrorModal extends React.Component<Props> {
-    render () {
+    render() {
       return (
         <InteractiveModal>
           <InteractiveModal.Icon>

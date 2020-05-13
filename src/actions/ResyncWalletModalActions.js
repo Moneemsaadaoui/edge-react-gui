@@ -28,7 +28,7 @@ export const showResyncWalletModal = (walletId: string) => async (dispatch: Disp
     ),
     icon: <OptionIcon iconName={RESYNC} />,
     noButtonText: s.strings.string_cancel_cap,
-    yesButtonText: s.strings.string_resync
+    yesButtonText: s.strings.string_resync,
   })
 
   const resolveValue = await launchModal(modal)

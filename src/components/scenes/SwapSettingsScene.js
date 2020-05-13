@@ -32,28 +32,28 @@ type DispatchProps = {
   changePreferredSwapPlugin(pluginId: string | void): void,
   ignoreAccountSwap(): void,
   removePromotion(installerId: string): void,
-  shapeShiftLogOut(): void
+  shapeShiftLogOut(): void,
 }
 
 type StateProps = {
   accountPlugins: PluginTweak[],
   accountReferral: AccountReferral,
   exchanges: EdgePluginMap<EdgeSwapConfig>,
-  settingsPreferredSwap: string | void
+  settingsPreferredSwap: string | void,
 }
 
 type Props = StateProps & DispatchProps
 
 type State = {
   enabled: { [pluginId: string]: boolean },
-  needsActivation: { [pluginId: string]: boolean }
+  needsActivation: { [pluginId: string]: boolean },
 }
 
 export class SwapSettings extends Component<Props, State> {
   cleanups: Array<() => mixed> = []
   sortedIds: Array<string>
 
-  constructor (props: Props) {
+  constructor(props: Props) {
     super(props)
     const { exchanges } = props
 
@@ -64,16 +64,16 @@ export class SwapSettings extends Component<Props, State> {
       this.state.needsActivation[pluginId] = exchange.needsActivation
 
       this.cleanups.push(
-        exchange.watch('enabled', enabled =>
-          this.setState(state => ({
-            enabled: { ...state.enabled, [pluginId]: enabled }
+        exchange.watch('enabled', (enabled) =>
+          this.setState((state) => ({
+            enabled: { ...state.enabled, [pluginId]: enabled },
           }))
         )
       )
       this.cleanups.push(
-        exchange.watch('needsActivation', needsActivation =>
-          this.setState(state => ({
-            needsActivation: { ...state.needsActivation, [pluginId]: needsActivation }
+        exchange.watch('needsActivation', (needsActivation) =>
+          this.setState((state) => ({
+            needsActivation: { ...state.needsActivation, [pluginId]: needsActivation },
           }))
         )
       )
@@ -82,7 +82,7 @@ export class SwapSettings extends Component<Props, State> {
     this.sortedIds = Object.keys(exchanges).sort((a, b) => exchanges[a].swapInfo.displayName.localeCompare(exchanges[b].swapInfo.displayName))
   }
 
-  componentWillUnmount () {
+  componentWillUnmount() {
     for (const cleanup of this.cleanups) cleanup()
   }
 
@@ -103,21 +103,21 @@ export class SwapSettings extends Component<Props, State> {
     const activePlugins = bestOfPlugins(accountPlugins, accountReferral, settingsPreferredSwap)
     const pluginId = activePlugins.preferredSwapPluginId
 
-    Airship.show(bridge => <SwapPreferredModal bridge={bridge} exchanges={exchanges} selected={pluginId} />).then(result => {
+    Airship.show((bridge) => <SwapPreferredModal bridge={bridge} exchanges={exchanges} selected={pluginId} />).then((result) => {
       if (result.type === 'cancel') return
       if (activePlugins.swapSource.type === 'account') ignoreAccountSwap()
       changePreferredSwapPlugin(result.pluginId)
     })
   }
 
-  render () {
+  render() {
     return (
       <SceneWrapper hasTabs={false} background="body">
         <ScrollView contentContainerStyle={{ paddingBottom: THEME.rem(4) }}>
           <View style={styles.instructionArea}>
             <Text style={styles.instructionText}>{s.strings.settings_exchange_instruction}</Text>
           </View>
-          {this.sortedIds.map(pluginId => this.renderPlugin(pluginId))}
+          {this.sortedIds.map((pluginId) => this.renderPlugin(pluginId))}
           <SettingsHeaderRow text={s.strings.swap_preferred_header} />
           {this.renderPreferredArea()}
         </ScrollView>
@@ -125,12 +125,12 @@ export class SwapSettings extends Component<Props, State> {
     )
   }
 
-  renderPlugin (pluginId: string) {
+  renderPlugin(pluginId: string) {
     const { exchanges } = this.props
     const { displayName } = exchanges[pluginId].swapInfo
     const logo = this.renderPluginIcon(pluginId)
 
-    function handlePress () {
+    function handlePress() {
       const newValue = !exchanges[pluginId].enabled
       exchanges[pluginId].changeEnabled(newValue)
     }
@@ -142,22 +142,22 @@ export class SwapSettings extends Component<Props, State> {
       const actionText = this.state.needsActivation.shapeshift ? s.strings.ss_login : s.strings.ss_logout
 
       return (
-        <Fragment>
+        <>
           {toggle}
           <SettingsLabelRow key="activate" icon={logo} text={leftText} right={actionText} onPress={this.shapeShiftSignInToggle} />
-        </Fragment>
+        </>
       )
     }
 
     return toggle
   }
 
-  renderPluginIcon (pluginId: string): Node {
+  renderPluginIcon(pluginId: string): Node {
     const logoSource = getSwapPluginIcon(pluginId)
     return <Image resizeMode="contain" style={styles.swapIcon} source={logoSource} />
   }
 
-  renderPreferredArea () {
+  renderPreferredArea() {
     const { accountPlugins, exchanges, accountReferral, settingsPreferredSwap } = this.props
 
     // Pick plugin:
@@ -169,36 +169,36 @@ export class SwapSettings extends Component<Props, State> {
     const { instructions, handlePress, right } =
       swapSource.type === 'promotion'
         ? {
-          instructions: s.strings.swap_preferred_promo_instructions,
-          handlePress: () => this.props.removePromotion(swapSource.installerId),
-          right: <AntDesignIcon name="close" color={THEME.COLORS.GRAY_1} size={iconSize} style={styles.swapIcon} />
-        }
+            instructions: s.strings.swap_preferred_promo_instructions,
+            handlePress: () => this.props.removePromotion(swapSource.installerId),
+            right: <AntDesignIcon name="close" color={THEME.COLORS.GRAY_1} size={iconSize} style={styles.swapIcon} />,
+          }
         : {
-          instructions: s.strings.swap_preferred_instructions,
-          handlePress: this.handlePreferredModal,
-          right: null
-        }
+            instructions: s.strings.swap_preferred_instructions,
+            handlePress: this.handlePreferredModal,
+            right: null,
+          }
 
     // Pick the selection row:
     const { text, icon } =
       pluginId != null && exchanges[pluginId] != null
         ? {
-          text: exchanges[pluginId].swapInfo.displayName,
-          icon: this.renderPluginIcon(pluginId)
-        }
+            text: exchanges[pluginId].swapInfo.displayName,
+            icon: this.renderPluginIcon(pluginId),
+          }
         : {
-          text: s.strings.swap_preferred_cheapest,
-          icon: <AntDesignIcon name="barschart" color={THEME.COLORS.GRAY_1} size={iconSize} style={styles.swapIcon} />
-        }
+            text: s.strings.swap_preferred_cheapest,
+            icon: <AntDesignIcon name="barschart" color={THEME.COLORS.GRAY_1} size={iconSize} style={styles.swapIcon} />,
+          }
 
     return (
-      <Fragment>
+      <>
         <View style={styles.instructionArea}>
           <Text style={styles.instructionText}>{instructions}</Text>
         </View>
 
         <SettingsRow icon={icon} text={text} onPress={handlePress} right={right} />
-      </Fragment>
+      </>
     )
   }
 }
@@ -208,16 +208,16 @@ const iconSize = THEME.rem(1.375)
 const rawStyles = {
   instructionArea: {
     backgroundColor: THEME.COLORS.GRAY_4,
-    padding: THEME.rem(1)
+    padding: THEME.rem(1),
   },
   instructionText: {
     ...dayText('center'),
-    color: THEME.COLORS.GRAY_1
+    color: THEME.COLORS.GRAY_1,
   },
   swapIcon: {
     height: iconSize,
-    width: iconSize
-  }
+    width: iconSize,
+  },
 }
 const styles: typeof rawStyles = StyleSheet.create(rawStyles)
 
@@ -226,20 +226,20 @@ export const SwapSettingsScene = connect(
     accountPlugins: state.account.referralCache.accountPlugins,
     accountReferral: state.account.accountReferral,
     exchanges: state.core.account.swapConfig,
-    settingsPreferredSwap: state.ui.settings.preferredSwapPluginId
+    settingsPreferredSwap: state.ui.settings.preferredSwapPluginId,
   }),
   (dispatch: Dispatch): DispatchProps => ({
-    changePreferredSwapPlugin (pluginId) {
+    changePreferredSwapPlugin(pluginId) {
       dispatch(setPreferredSwapPluginId(pluginId))
     },
-    ignoreAccountSwap () {
+    ignoreAccountSwap() {
       dispatch(ignoreAccountSwap())
     },
-    removePromotion (installerId: string) {
+    removePromotion(installerId: string) {
       dispatch(removePromotion(installerId))
     },
-    shapeShiftLogOut () {
+    shapeShiftLogOut() {
       dispatch(deactivateShapeShift())
-    }
+    },
   })
 )(SwapSettings)
