@@ -18,7 +18,7 @@ import { ExchangedFlipInput } from '../../modules/UI/components/FlipInput/Exchan
 import Text from '../../modules/UI/components/FormattedText/index'
 import { PinInput } from '../../modules/UI/components/PinInput/PinInput.ui.js'
 import Recipient from '../../modules/UI/components/Recipient/index.js'
-import ABSlider from '../../modules/UI/components/Slider/index.js'
+import { Slider } from '../../modules/UI/components/Slider/Slider.ui.js'
 import { type AuthType, getSpendInfoWithoutState } from '../../modules/UI/scenes/SendConfirmation/selectors'
 import { convertCurrencyFromExchangeRates } from '../../modules/UI/selectors.js'
 import { type GuiMakeSpendInfo, type SendConfirmationState } from '../../reducers/scenes/SendConfirmationReducer.js'
@@ -334,7 +334,7 @@ export class SendConfirmation extends Component<Props, State> {
               </Scene.Padding>
             </View>
             <Scene.Footer style={[styles.footer, isTaggableCurrency && styles.footerWithPaymentId]}>
-              <ABSlider
+              <Slider
                 forceUpdateGuiCounter={this.state.forceUpdateGuiCounter}
                 resetSlider={this.props.resetSlider}
                 parentStyle={styles.sliderStyle}
