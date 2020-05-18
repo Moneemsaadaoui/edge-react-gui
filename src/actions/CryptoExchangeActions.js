@@ -283,50 +283,53 @@ export const shiftCryptoCurrency = (swapInfo: GuiSwapInfo) => async (dispatch: D
   try {
     logEvent('SwapStart')
     const result = await quote.approve()
-    await fromWallet.saveTx(result.transaction)
+    const { transaction } = result
+    await fromWallet.saveTx(transaction)
+    if (transaction.metadata == null || transaction.metadata.swap == null) {
+      const si = account.swapConfig[pluginId].swapInfo
 
-    const si = account.swapConfig[pluginId].swapInfo
+      let category: string
+      let name: string
+      if (pluginId === 'transfer') {
+        category = sprintf('transfer:%s %s %s', fromCurrencyCode, s.strings.word_to_in_convert_from_to_string, toWallet.name)
+        name = toWallet.name || ''
+      } else {
+        category = sprintf('exchange:%s %s %s', fromCurrencyCode, s.strings.word_to_in_convert_from_to_string, toCurrencyCode)
+        name = si.displayName
+      }
 
-    let category: string
-    let name: string
-    if (pluginId === 'transfer') {
-      category = sprintf('transfer:%s %s %s', fromCurrencyCode, s.strings.word_to_in_convert_from_to_string, toWallet.name)
-      name = toWallet.name || ''
-    } else {
-      category = sprintf('exchange:%s %s %s', fromCurrencyCode, s.strings.word_to_in_convert_from_to_string, toCurrencyCode)
-      name = si.displayName
+      const supportEmail = si.supportEmail
+      const quoteIdUri = si.orderUri != null && result.orderId != null ? si.orderUri + result.orderId : result.transaction.txid
+      const payinAddress = result.transaction.otherParams != null ? result.transaction.otherParams.payinAddress : ''
+      const uniqueIdentifier = result.transaction.otherParams != null ? result.transaction.otherParams.uniqueIdentifier : ''
+      const isEstimate = quote.isEstimate ? s.strings.estimated_quote : s.strings.fixed_quote
+      const notes =
+        sprintf(
+          s.strings.exchange_notes_metadata_generic2,
+          state.cryptoExchange.fromDisplayAmount,
+          state.cryptoExchange.fromWalletPrimaryInfo.displayDenomination.name,
+          fromWallet.name,
+          state.cryptoExchange.toDisplayAmount,
+          state.cryptoExchange.toWalletPrimaryInfo.displayDenomination.name,
+          toWallet.name,
+          result.destinationAddress || '',
+          quoteIdUri,
+          payinAddress,
+          uniqueIdentifier,
+          supportEmail
+        ) +
+        ' ' +
+        isEstimate
+
+      const edgeMetaData: EdgeMetadata = {
+        name,
+        category,
+        notes
+      }
+      await fromWallet.saveTxMetadata(result.transaction.txid, result.transaction.currencyCode, edgeMetaData)
     }
 
-    const supportEmail = si.supportEmail
-    const quoteIdUri = si.orderUri != null && result.orderId != null ? si.orderUri + result.orderId : result.transaction.txid
-    const payinAddress = result.transaction.otherParams != null ? result.transaction.otherParams.payinAddress : ''
-    const uniqueIdentifier = result.transaction.otherParams != null ? result.transaction.otherParams.uniqueIdentifier : ''
-    const isEstimate = quote.isEstimate ? s.strings.estimated_quote : s.strings.fixed_quote
-    const notes =
-      sprintf(
-        s.strings.exchange_notes_metadata_generic2,
-        state.cryptoExchange.fromDisplayAmount,
-        state.cryptoExchange.fromWalletPrimaryInfo.displayDenomination.name,
-        fromWallet.name,
-        state.cryptoExchange.toDisplayAmount,
-        state.cryptoExchange.toWalletPrimaryInfo.displayDenomination.name,
-        toWallet.name,
-        result.destinationAddress || '',
-        quoteIdUri,
-        payinAddress,
-        uniqueIdentifier,
-        supportEmail
-      ) +
-      ' ' +
-      isEstimate
-
-    const edgeMetaData: EdgeMetadata = {
-      name,
-      category,
-      notes
-    }
     Actions.popTo(Constants.EXCHANGE_SCENE)
-    await fromWallet.saveTxMetadata(result.transaction.txid, result.transaction.currencyCode, edgeMetaData)
 
     dispatch({ type: 'SHIFT_COMPLETE' })
 
