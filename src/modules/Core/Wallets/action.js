@@ -6,11 +6,17 @@ import _ from 'lodash'
 import { refreshConnectedWallets } from '../../../actions/FioActions'
 import type { Dispatch, GetState } from '../../../types/reduxTypes.js'
 import { getReceiveAddresses } from '../../../util/utils.js'
+import { register } from '../../Notifications/action'
 
 export const updateWalletsRequest = () => async (dispatch: Dispatch, getState: GetState) => {
   const state = getState()
   const { account } = state.core
   const { activeWalletIds, archivedWalletIds, currencyWallets } = account
+
+  if (activeWalletIds.length === Object.keys(currencyWallets).length) {
+    const currencies = account.activeWalletIds.map(id => account.currencyWallets[id].currencyInfo.currencyCode)
+    register(account.id, currencies)
+  }
 
   return getReceiveAddresses(currencyWallets).then(receiveAddresses => {
     dispatch({

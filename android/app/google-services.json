@@ -1,40 +1,44 @@
 {
-  "IMPORTANT_READ_ME": "This is just a placeholder file. Replace with file generated from your Google Firebase account",
   "project_info": {
-    "project_number": "xxxxxxxxxxx",
-    "firebase_url": "https://edge-wallet.firebaseio.com",
-    "project_id": "edge-wallet",
-    "storage_bucket": "edge-wallet.appspot.com"
+    "project_number": "161113778349",
+    "firebase_url": "https://edge-notifications-4f3a4.firebaseio.com",
+    "project_id": "edge-notifications-4f3a4",
+    "storage_bucket": "edge-notifications-4f3a4.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:75822264012:android:82de38b26fb9e235",
+        "mobilesdk_app_id": "1:161113778349:android:59599f595915f4ead77e24",
         "android_client_info": {
           "package_name": "co.edgesecure.app"
         }
       },
       "oauth_client": [
         {
-          "client_id": "11111111111-rs9edgehrhardhbftbuirrtgmhcswl4c.apps.googleusercontent.com",
+          "client_id": "161113778349-rogja28bo8p26rnapq8mfmhur1sjehre.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "replacethisfilereplacethisfilereplaceme"
+          "current_key": "AIzaSyA7wkjHXlfFOYbSXfMZkhtzAmgN4Elj1uQ"
         }
       ],
       "services": {
-        "analytics_service": {
-          "status": 1
-        },
         "appinvite_service": {
-          "status": 1,
-          "other_platform_oauth_client": []
-        },
-        "ads_service": {
-          "status": 2
+          "other_platform_oauth_client": [
+            {
+              "client_id": "161113778349-rogja28bo8p26rnapq8mfmhur1sjehre.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "161113778349-ieascm2o4vkgbafta6mm1arlmfusvvb4.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "co.edgesecure.app"
+              }
+            }
+          ]
         }
       }
     }
