@@ -310,7 +310,7 @@ class AddressModalConnected extends Component<Props, State> {
     const { uri, statusLabel, fieldError, filteredFioAddresses } = this.state
     const { title, subtitle, showPasteButton, userFioAddressesLoading } = this.props
     return (
-      <AirshipModal bridge={this.props.bridge} onCancel={this.handleClose}>
+      <AirshipModal bridge={this.props.bridge} onCancel={this.handleClose} icon>
         {gap => (
           <Fragment>
             <IconCircle>
@@ -403,7 +403,7 @@ const addressInputStyles = {
 }
 
 const iconStyles = {
-  size: rem(2),
+  size: rem(1.5),
   color: THEME.COLORS.SECONDARY
 }
 
@@ -412,7 +412,7 @@ const tileStyles = {
   backgroundColor: THEME.COLORS.WHITE,
   borderBottomWidth: 1,
   borderBottomColor: THEME.COLORS.GRAY_3,
-  padding: rem(1)
+  padding: rem(0.75)
 }
 
 const styles = StyleSheet.create({
@@ -424,11 +424,11 @@ const styles = StyleSheet.create({
   tileContainerHeader: {
     ...tileStyles,
     borderBottomWidth: 0,
-    paddingVertical: rem(0.5)
+    paddingVertical: rem(0.4)
   },
   tileContainerButtons: {
     ...tileStyles,
-    paddingVertical: rem(0.5),
+    paddingVertical: rem(0.4),
     borderBottomWidth: 0,
     flexDirection: 'row',
     justifyContent: 'center',
@@ -437,7 +437,7 @@ const styles = StyleSheet.create({
   tileContainerInput: {
     ...tileStyles,
     paddingTop: 0,
-    paddingBottom: rem(0.5),
+    paddingBottom: rem(0.4),
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center'
@@ -455,8 +455,8 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   fioAddressText: {
-    fontSize: rem(1.2),
-    paddingLeft: rem(0.8)
+    fontSize: rem(1),
+    paddingLeft: rem(0.75)
   },
   addressModalButton: {
     width: '100%'

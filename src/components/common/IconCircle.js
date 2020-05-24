@@ -10,7 +10,7 @@ type Props = {
   children: ChildrenArray<Node>
 }
 
-export const iconSize = scale(64)
+export const iconSize = scale(45)
 
 /**
  * Place this inside a modal (before the content box) to get an
